@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>标签: es | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Uncategory/">Uncategory</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/css/">css</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/html/">html</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/js/">js</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a></li></ul>
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          
+
+  
+  
+    
+    
+    <section class="archives-wrap">
+      <div class="archives">
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-05-25T07:30:00.000Z" itemprop="datePublished">2017-05-25</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/05/iteritor-and-for-of/">ES6 - Iterator 与 for...of</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            概述Iterator 接口允许为所有数据结构，提供了一种统一的遍历机制，被 for...of 使用这种机制遍历这些数据结构， 一些内置类型都是内置的可遍历对象并且有默认的迭代行为, 比如 Array , 另一些类型则不是， 比如 Object 。
+为了变成可遍历解构，对象或其原型链上某个对象必须实现 @@iterator 方法，即属性名为 Symbol.iterator 。
+当该对象需要被遍历的时候（比如用于一个 for..of 循环中），它的 @@iterator 方法被调用并且无参数，然后返回一个用于在遍历中获得值的迭代器，具体过程如下：
+
+创建一个指针对象，指向当前数据结构的起始位置；
+…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/05/iteritor-and-for-of/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-05-25
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.7k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 10mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es/" rel="tag">es</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-05-18T06:33:00.000Z" itemprop="datePublished">2017-05-18</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/05/decorator/">ES6 - 装饰器：Decorator</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            装饰器是 ES7 的一个新提案，本质上是 Object.defineProperty(obj, prop, descriptor) 的语法糖，用于动态的修改类的行为，相比较集成的方式而言，这种方式无疑更加的灵活。
+装饰器的使用装饰器用于类和类的成员上，但是不能用于函数，因为存在着函数提升。
+作用于类的装饰器装饰器作用于类上的时候，它的第一个参数 target 则是被装饰的类的本身，签名如下：
+
+function(target)
+
+const sayHello = target =&gt; &#123;  target.sayHello = () =&gt; console.log("hello…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/05/decorator/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-05-18
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 963
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 6mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Decorator/" rel="tag">Decorator</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es/" rel="tag">es</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-04-27T03:09:00.000Z" itemprop="datePublished">2017-04-27</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/04/symbol-base-type/">ES6 - Symbol 类型</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            概述Symbol 类型是一种特殊的、不可变的数据类型，主要用于解决名称冲突的问题，是 es6 引入的第七种原始数据类型，其他六种分别是：null 、 undefined 、 boolean 、 string 、 number 、 object 。
+创建 Symbol
+Symbol([description])创建一个全新的 Symbol ，description 是对 Symbol 实例的描述，先来看几个示例：
+
+var s0 = Symbol();var s1 = Symbol("desc");var s2 = Symbol("desc");console.log(s0) // Symbol…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/04/symbol-base-type/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-04-27
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.4k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 15mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es/" rel="tag">es</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-04-11T07:06:00.000Z" itemprop="datePublished">2017-04-11</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/04/generator-and-async-function/">ES6 - Generator 函数和 Async 函数</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Generator 函数Generator （生成器）函数是 ES6 提供的新的解决异步回调嵌套的特性，先看个实例：
+function* test()&#123;  yield 1; //执行顺序：3  yield 2; //执行顺序：6  return 3; //执行顺序：9&#125;var g = test(); //执行顺序：1var rt;rt = g.next(); //执行顺序：2console.log(rt); // 执行顺序：4 输出：Object &#123;value: 1, done: false&#125;rt = g.next(); //执行顺序：5console.…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/04/generator-and-async-function/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-04-11
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.8k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 18mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es/" rel="tag">es</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/function/" rel="tag">function</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E6%AD%A5/" rel="tag">异步</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-03-21T09:38:00.000Z" itemprop="datePublished">2017-03-21</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/03/proxy-object/">ES6 - Proxy 对象</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            概述Proxy 对象是定义在全局对象上的一个对象的构造函数，通过对目标对象的一些基本操作进行重定义并生成新的代理对象。说起来比较绕，看如下示例：
+var obj = new Proxy(&#123;&#125;, &#123;  set(target, key, val) &#123;    console.log('call setter');    return Reflect.set(target, key, val);  &#125;&#125;);obj.val = 3;// call setter// 3
+
+Proxy 对象生成的新对象修改了 {} 对象的赋值方式，使用 obj.v…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/03/proxy-object/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-03-21
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.6k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 10mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es/" rel="tag">es</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-03-16T07:24:00.000Z" itemprop="datePublished">2017-03-16</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/03/reflect-object/">ES6 - Reflect 对象</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Reflect 对象是 ES6 提供的一个内置的用于操作对象的的全局对象。但和其他的全局对象不同，Reflect 对象没有构造函数，不能使用 new关键字 创建对象。
+Reflect 静态方法Reflect 对象提供以下静态函数，大部分与 Object 对象上同名方法的作用一样，同时将一些命令式的语法函数化。
+Reflect.apply静态方法 Reflect.apply() 通过指定的参数列表发起对目标函数的调用，类似于 Function.prototype.apply.call(target, thisArgument, argumentsList)
+
+Reflect.apply(targ…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/03/reflect-object/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-03-16
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.5k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 15mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es/" rel="tag">es</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+    
+      </div></section>
+    
+    
+    <section class="archives-wrap">
+      <div class="archives">
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2016-09-01T07:17:09.000Z" itemprop="datePublished">2016-09-01</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2016/09/promise-object/">Promise特性总结</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+Promise 对象代表着一个还未完成，但预期将来会完成的操作，该新特性属于 ECMAScript 2015（ES6）规范。使用 Promise 对象，可以十分方便的摆脱层层嵌套的异步操作回调函数，而以同步操作的流程书写代码。Promise 对象主要具有以下两个特点：
+
+Promise 对象的状态只受构造函数内的同步或者一步操作影响，其他外部操作无法改变 Promise 对象的状态。
+Promise 对象的状态改变，只会从 pending 变为 resolved 或者从 pending 变为rejected，状态改变后不再会发生改变。
+
+浏览器兼容性
+
+
+Chrome
+Edge
+Firefo…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2016/09/promise-object/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2016-09-01
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.9k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 11mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es/" rel="tag">es</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/function/" rel="tag">function</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E6%AD%A5/" rel="tag">异步</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+  </div></section>
+
+
+  <nav id="page-nav">
+  没有更多的内容了
+  </nav>
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  href="https://pages.github.com/" target="_blank" rel="noopener">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa fa-search ins-search-icon" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="fa fa-arrow-up goto-top" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>
