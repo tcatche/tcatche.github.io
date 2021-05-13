@@ -122,6 +122,63 @@ var _hmt = _hmt || [];
         
         <span class="meta-block">
             <i class="icon fa fa-calendar"></i>
+            <time datetime="2018-09-04T12:04:00.000Z" itemprop="datePublished">2018-09-04</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2018/09/defer-and-async-in-script-tag/">script 标签上的 async 与 defer</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            我们知道，html 在解析过程中，如果遇到外部的脚本，会暂停当前页面的解析过程，而是去下载这个引入的外部脚本，然后执行这个外部脚本，这样无疑会导致当前的页面的渲染被阻塞，这也是为什么建议将脚本文件的加载放在文档的最后。
+script 标签新增加了两个布尔属性 defer 和 async 用于控制脚本的加载和解析，这两个属性的目的都是为了保证引入的外部的脚本不会阻塞当前页面的渲染过程。
+&lt;script async src="script.js"&gt;&lt;/script&gt;&lt;script defer src="script.js"&gt;&lt;/script&gt;
+
+其中…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2018/09/defer-and-async-in-script-tag/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2018-09-04
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 862
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 4mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/async/" rel="tag">async</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/defer/" rel="tag">defer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/" rel="tag">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%80%A7%E8%83%BD/" rel="tag">性能</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
             <time datetime="2018-08-22T03:28:00.000Z" itemprop="datePublished">2018-08-22</time>
         </span>
         
@@ -630,60 +687,6 @@ Prevent usage of unsafe target='_blank' (react/jsx-no-target-blank)
 
                 
     <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/" rel="tag">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2018-01-10T06:35:00.000Z" itemprop="datePublished">2018-01-10</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/01/react-fragments/">React - Fragment</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            问题描述在 React16 以前的版本，组件渲染的返回值必须为一个子元素，而不允许是一个子元素的列表，我们经常需要为其包括一层 div 或者 span 等：
-// 对于：Some text.&lt;h2&gt;A heading&lt;/h2&gt;More text.&lt;h2&gt;Another heading&lt;/h2&gt;Even more text.// React 16 以前需要包裹一层额外的 divrender() &#123;  return (    &lt;div&gt;      Some text.      &lt;h2&gt;A heading&lt;/h…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2018/01/react-fragments/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2018-01-10
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 745
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 4mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/js/">js</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li></ul>
 
             </div>
         </div>

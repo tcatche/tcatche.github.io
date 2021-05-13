@@ -122,6 +122,64 @@ var _hmt = _hmt || [];
         
         <span class="meta-block">
             <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-05-11T07:42:00.000Z" itemprop="datePublished">2021-05-11</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/05/git_cherry_pick/">Git cherry-pick 操作</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发过程中，切换分支和合并代码是常用的操作，想想一种场景，在一个分支上进行了新版本开发，开发了若干新特性 featureD、featureE 等等，但是需要变更，这个开发被搁置了，但是又想引入新的 featureD 特性，这个时候 cherry-pick 就是一个很有用的操作了。
+介绍git cherry-pick 命令用来将指定的 commit 应用到其它的分支。
+下面以上面的例子介绍 cherry-pick 的使用，假设当前的分支状态如下图所示：
+a - b   #Main      \        D - E #Feature
+
+想要在主分支应用 featureD 特性，可以进行如下…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/05/git_cherry_pick/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-05-11
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 633
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 3mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
             <time datetime="2021-05-11T07:04:00.000Z" itemprop="datePublished">2021-05-11</time>
         </span>
         
@@ -606,71 +664,14 @@ elementsFromPoint(…
 
         <p class="article-excerpt">
             修改全局的 commit 的用户名和邮箱如果需要以后 commit 默认的用户名和邮箱为指定的内容，可以通过 git config --global命令:
-git config --global user.email "global@example.com"git config --global user.name "example"
+$ git config --global user.email "global@example.com"$ git config --global user.name "example"
 
 然后编辑提交后可以看到修改已生效：
-git log# 输出commit d4a341f8aab5acd0468cbe3d029fc1801f62678d (HEAD -&gt; master)Author: example &lt;global@example…
+$ git log# 输出commit d4a341f8aab5acd0468cbe3d029fc1801f62678d (HEAD -&gt; master)Author: example &lt;global@e…
         </p>
         <div class="article-meta">
             <div class="article-count">
                 <a href="/2021/01/git-filter-branch/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2021-01-26
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 1.2k
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 8mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2021-01-26T06:28:00.000Z" itemprop="datePublished">2021-01-26</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2021/01/git_modify_history_commit_author/">Git 修改提交的邮箱或用户名</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            修改全局的 commit 的用户名和邮箱如果需要以后 commit 默认的用户名和邮箱为指定的内容，可以通过 git config --global命令:
-git config --global user.email "global@example.com"git config --global user.name "example"
-
-然后编辑提交后可以看到修改已生效：
-git log# 输出commit d4a341f8aab5acd0468cbe3d029fc1801f62678d (HEAD -&gt; master)Author: example &lt;global@example…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2021/01/git_modify_history_commit_author/" class="article-date hide">
     <i class="icon fa fa-calendar"></i>
     2021-01-26
 </a>
