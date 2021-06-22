@@ -122,6 +122,295 @@ var _hmt = _hmt || [];
         
         <span class="meta-block">
             <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-07-24T07:25:00.000Z" itemprop="datePublished">2017-07-24</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/07/react-mixins-considered-harmful/">React - Mixins 是“有害”的（Mixins Considered Harmful）</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+原文：Mixins Considered Harmful
+
+“How do I share the code between several components?” is one of the first questions that people ask when they learn React. Our answer has always been to use component composition for code reuse. You can define a component and use it in several other components.
+“我如何在几个…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/07/react-mixins-considered-harmful/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-07-24
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 8.7k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 57mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-07-21T07:15:00.000Z" itemprop="datePublished">2017-07-21</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/07/react-higher-order-components/">React - 高阶组件（Higher-Order Components）</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+原文：Higher-Order Components
+
+高阶组件（HOC）是 React 中用于重用组件逻辑的高级技术。 HOC 本身不是 React API的一部分。它们是从 React 的组合特性产生的一种模式。
+具体来说，高阶组件就是一个接受一个组件作为参数，并返回一个新组件的函数。
+const EnhancedComponent = higherOrderComponent(WrappedComponent);
+
+就如组件将 props 转换为 UI ，高阶组件将一个组件转换为另一个组件。
+HOC 在第三方 React 库中很常见，例如 Redux 的 connect 和Relay的…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/07/react-higher-order-components/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-07-21
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 3.4k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 20mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-07-14T07:46:00.000Z" itemprop="datePublished">2017-07-14</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/07/dom_load_status_events/">关于文档加载状态相关的事件探讨</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发的时候，经常有些操作需要等 DOM 完成后才执行，比如为某个按钮绑定事件、为防止抖动，在页面内容加载完成后才展示页面。这里我们看一下和页面加载有关的一些事件。
+window.onload在文档装载完成后会触发 onload 事件。此时，在文档中的所有对象都在 DOM 中，所有图片，脚本，链接以及子框都完成了装载。 
+如果在 onload 的事件函数里面，再次监听 onload 事件，那么，是不会再次触发函数的。 
+function addOnload(callback) &#123;  if (window.addEventListener )&#123;    return windo…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/07/dom_load_status_events/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-07-14
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.2k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 7mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DOM/" rel="tag">DOM</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-07-13T07:54:00.000Z" itemprop="datePublished">2017-07-13</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/07/form-validator-design/">前端表单校验的设计思考</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在 Web 开发中经常需要面临表单校验的问题，通常需要前后端结合设计，本文就前端表单校验的模式进行简单的探讨。
+常规的 if…else最常见的关于表单校验的方式就是 if...else 的嵌套了吧，比如我们有个表单有三个文本域：姓名、年龄和邮箱：
+&lt;div class='form'&gt;  &lt;div class="form-item"&gt;    &lt;div class='label'&gt;      &lt;span&gt;用户名：&lt;/span&gt;      &lt;input id='name' name='用户名' type="text" /&gt;   …
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/07/form-validator-design/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-07-13
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 13mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-07-06T08:09:00.000Z" itemprop="datePublished">2017-07-06</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/07/avoiding-race-conditions-in-sharedarraybuffers-with-atomics/">使用 Atom 避免 ArrayBuffers 中的竞态条件 - Avoiding race conditions in SharedArrayBuffers with Atomics</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            原文：Avoiding race conditions in SharedArrayBuffers with Atomics
+本文译自Lin Clark 内存管理的卡通介绍系列，渣翻译，因此附上英文原文。
+
+内存管理
+ArrayBuffers 和 SharedArrayBuffers 的卡通介绍
+使用 Atom 避免 ArrayBuffers 中的竞态条件
+
+In the last article, I talked about how using SharedArrayBuffers could result in race conditions. This makes working wi…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/07/avoiding-race-conditions-in-sharedarraybuffers-with-atomics/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-07-06
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 5.1k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 32mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebAssembly/" rel="tag">WebAssembly</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="tag">内存管理</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
             <time datetime="2017-07-05T07:24:00.000Z" itemprop="datePublished">2017-07-05</time>
         </span>
         
@@ -463,358 +752,12 @@ WebAssembly is a way to run programming lang…
 </article>
 
 
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2017-06-30T02:56:00.000Z" itemprop="datePublished">2017-06-30</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/06/a-crash-course-in-assembly/">碰撞课程：汇编 - A crash course in assembly</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            原文：A crash course in just-in-time (JIT) compilers
-本文译自Lin Clark 关于 WebAssembly 的卡通介绍系列，渣翻译，因此附上英文原文
-
-概述：
-WebAssembly 的漫画介绍
-
-
-背景：
-碰撞课程：即时（JIT）编译器 
-碰撞课程：汇编
-
-
-现在的 WebAssembly：
-创建和使用 WebAssembly 模块
-是什么使 WebAssembly 很快？
-
-
-未来的 WebAssembly：
-WebAssembly 的现状和未来？
-
-
-
-To understand how WebAssembly works, it hel…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2017/06/a-crash-course-in-assembly/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2017-06-30
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 1.7k
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 11mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebAssembly/" rel="tag">WebAssembly</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2017-06-29T07:12:00.000Z" itemprop="datePublished">2017-06-29</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/06/a-crash-course-in-just-in-time-jit-compilers/">碰撞课程：即时（JIT）编译器 - A crash course in just-in-time (JIT) compilers</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            原文：A crash course in just-in-time (JIT) compilers
-本文译自Lin Clark 关于 WebAssembly 的卡通介绍系列，渣翻译，因此附上英文原文
-
-概述：
-WebAssembly 的漫画介绍
-
-
-背景：
-碰撞课程：即时（JIT）编译器
-碰撞课程：汇编
-
-
-现在的 WebAssembly：
-创建和使用 WebAssembly 模块
-是什么使 WebAssembly 很快？
-
-
-未来的 WebAssembly：
-WebAssembly 的现状和未来？
-
-
-
-JavaScript started out slow, but then got fa…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2017/06/a-crash-course-in-just-in-time-jit-compilers/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2017-06-29
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 4.1k
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 26mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JIT/" rel="tag">JIT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebAssembly/" rel="tag">WebAssembly</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2017-06-29T02:39:00.000Z" itemprop="datePublished">2017-06-29</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/06/a-cartoon-intro-to-webassembly/">WebAssembly 的漫画介绍 - A cartoon intro to WebAssembly</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            原文：A cartoon intro to WebAssembly
-本文译自Lin Clark 关于 WebAssembly 的卡通介绍系列，渣翻译，因此附上英文原文
-
-概述：
-WebAssembly 的漫画介绍
-
-
-背景：
-碰撞课程：即时（JIT）编译器
-碰撞课程：汇编
-
-
-现在的 WebAssembly：
-创建和使用 WebAssembly 模块
-是什么使 WebAssembly 很快？
-
-
-未来的 WebAssembly：
-WebAssembly 的现状和未来？
-
-
-
-WebAssembly is fast. You’ve probably heard this. But what is…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2017/06/a-cartoon-intro-to-webassembly/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2017-06-29
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 761
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 4mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JIT/" rel="tag">JIT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebAssembly/" rel="tag">WebAssembly</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2017-06-28T09:01:00.000Z" itemprop="datePublished">2017-06-28</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/06/a-cartoon-intro-to-arraybuffers-and-sharedarraybuffers/">碰撞课程：ArrayBuffers 和 SharedArrayBuffers - A cartoon intro to ArrayBuffers and SharedArrayBuffers</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            原文：A cartoon intro to ArrayBuffers and SharedArrayBuffers
-这是系列内三篇文章的第二篇：
-
-内存管理
-ArrayBuffers 和 SharedArrayBuffers 的卡通介绍
-使用 Atom 避免 ArrayBuffers 中的竞态条件 
-
-概述In the last article, I explained how memory-managed languages like JavaScript work with memory. I also explained how manual memory management work…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2017/06/a-cartoon-intro-to-arraybuffers-and-sharedarraybuffers/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2017-06-28
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 3k
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 19mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebAssembly/" rel="tag">WebAssembly</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="tag">内存管理</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2017-06-28T07:26:00.000Z" itemprop="datePublished">2017-06-28</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/06/a-crash-course-in-memory-management/">碰撞课程：内存管理 - A crash course in memory management</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            原文：A crash course in memory management
-本文译自Lin Clark 内存管理的卡通介绍系列，渣翻译，因此附上英文原文。
-
-内存管理
-ArrayBuffers 和 SharedArrayBuffers 的卡通介绍
-使用 Atom 避免 ArrayBuffers 中的竞态条件 
-
-概述To understand why ArrayBuffer and SharedArrayBuffer were added to JavaScript, you need to understand a bit about memory management.
-想要了解为什么将…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2017/06/a-crash-course-in-memory-management/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2017-06-28
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 2.1k
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 13mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebAssembly/" rel="tag">WebAssembly</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="tag">内存管理</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
 
   </div></section>
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/archives/page/6/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/archives/page/8/">8</a><a class="page-number" href="/archives/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/11/">11</a><a class="extend next" rel="next" href="/archives/page/8/">&gt;</a>
+    <a class="extend prev" rel="prev" href="/archives/page/6/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/archives/page/8/">8</a><a class="page-number" href="/archives/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/12/">12</a><a class="extend next" rel="next" href="/archives/page/8/">&gt;</a>
   </nav>
 
         </div>

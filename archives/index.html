@@ -122,6 +122,304 @@ var _hmt = _hmt || [];
         
         <span class="meta-block">
             <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-06-22T08:06:00.000Z" itemprop="datePublished">2021-06-22</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/06/git_switch/">Git switch - 切换分支</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发中，通常会使用 git checkout 进行分支切换和变更撤销，checkout 是一个比较复杂的命令，承载了很多功能有点臃肿，因此引入了两个新的命令 git switch 和 git restore 用来拆分 git checkout 命令，本文介绍如何使用 git switch 进行分支切换。
+使用这个命令比较简单，下面简单列一下各种使用方式，就不详细介绍了
+切换分支
+git switch 
+
+创建并切换分支
+git switch -c 
+
+从指定的位置创建分支
+git switch -c  
+
+切换回前一个分支
+git switch -
+
+和 git checkout 对比git…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/06/git_switch/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-06-22
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 247
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 1mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-06-02T06:54:00.000Z" itemprop="datePublished">2021-06-02</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/06/git_restore/">Git restore - 撤销操作</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发中，通常会使用 git checkout 进行分支切换和变更撤销，checkout 是一个比较复杂的命令，承载了很多功能有点臃肿，因此引入了两个新的命令 git switch 和 git restore 用来拆分 git checkout 命令，本文介绍如何使用 git restore 进行变更撤销。
+介绍git restore 命令会将指定文件的变更给撤销，先来看下面的示例：
+在 git 仓库里有三个文件变更 restore.md、restore2.md、restore3.md，restore.md 的变更已经通过 git add 加入暂存区，restore2.md 变更未加入暂存区，…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/06/git_restore/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-06-02
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 752
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 4mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-05-27T02:05:00.000Z" itemprop="datePublished">2021-05-27</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/05/git_reflog/">Git reflog - 介绍</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发中，有时候需要紧急退回某个线上版本修复问题，特别是 reset 操作回滚之前的版本，如果操作不注意会发现新的一些工作的提交历史丢失了，这个时候 git reflog 会很有帮助。
+git reflog 和 git log 功能很相近，都是记录日志的，和 git log 不同在于 git reflog 记录了 HEAD 指针的变更历史。
+介绍首先使用准备好的分支来看一下：
+$ git log --oneline  aea03a0 (HEAD -&gt; reflog) version5  1abb498 version4  97697e6 version3  d421d76 version…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/05/git_reflog/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-05-27
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 723
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 4mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-05-26T06:09:00.000Z" itemprop="datePublished">2021-05-26</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/05/git_revert/">Git revert - 回滚操作</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发过程中，有些时候会出现一些错误的提交，这个时候可以用 git revert 命令把这些错误的提交给回滚了。
+介绍git revert 命令用来将指定的 commit 回滚。
+回滚原理是通过新建一个指定的提交的反操作的提交。
+下面以上面的例子介绍 revert 的使用，假设当前的分支状态如下图所示：
+featureA - featureB - featureC - featureD
+
+想要在主分支应用 featureC 特性，可以进行如下的操作：
+$ git revert featureC
+
+现在的分支状态变成了下面的结构：
+featureA - featureB - featureC -…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/05/git_revert/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-05-26
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 700
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 4mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-05-14T07:00:00.000Z" itemprop="datePublished">2021-05-14</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/05/cancel_request/">如何取消 Web 请求</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在有些场景下可能需要用到取消请求的操作，比如在同一时刻触发多次请求，只保留最新的请求；比如表单提交中关闭页面等行为，本文加少一些常用的触发 Web 请求的方式如何取消。
+AbortControllorAbortController 接口表示一个控制器对象，该对象允许您在需要时中止一个或多个 Web 请求。
+AbortController 分别有一个属性 AbortController.signal 和一个方法 AbortController.abort，他们结合起来可以用来终止 Web 请求。
+它的使用过程如下：
+首先创建一个 AbortController 对象 controller，然后在…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/05/cancel_request/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-05-14
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 964
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 6mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/promise/" rel="tag">promise</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
             <time datetime="2021-05-11T07:42:00.000Z" itemprop="datePublished">2021-05-11</time>
         </span>
         
@@ -185,7 +483,7 @@ a - b   #Main      \        D - E #Feature
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2021/05/git_stash/">Git 暂存操作</a>
+        <a href="/2021/05/git_stash/">Git stash - 暂存操作</a>
         </h1>
     
 
@@ -204,11 +502,11 @@ git stashgit stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]2     [
                 
     <span class="word-count">
       <i class="icon fa fa-file-text"></i>
-      字数: 1.7k
+      字数: 1.8k
     </span>
     <span class="word-count">
       <i class="icon fa fa-clock-o"></i>
-      阅读时长: 11mins
+      阅读时长: 12mins
     </span>
 
             </div>
@@ -241,7 +539,7 @@ git stashgit stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]2     [
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2021/05/git_tag/">Git 打标签操作</a>
+        <a href="/2021/05/git_tag/">Git tag - 打标签操作</a>
         </h1>
     
 
@@ -407,307 +705,12 @@ class Switch &#123;  private state:boolean  constructor(initState: boolean) &#12
 </article>
 
 
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2021-03-09T08:58:00.000Z" itemprop="datePublished">2021-03-09</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2021/03/node_npm_link/">使用 npm link 开发 npm 模块</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            npm link 命令主要用于本地开发 npm 模块。
-使用 npm link 命令，可以将当前开发的 npm 模块链接到对应的测试项目中，可以很方便地对开发中的模块进行调试和测试。
-语法
-npm link (in npm package dir)npm link [&lt;@scope&gt;/][@]
-别名: npm ln
-
-使用步骤npm link 的过程有两个步骤：
-1.在指定的文件夹里执行 npm link 命令 将在全局文件夹 {prefix}/lib/node_modules/&lt;package&gt; 中创建一个符号链接，该链接到执行 npm 链接命令的包。
-如下：
-λ n…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2021/03/node_npm_link/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2021-03-09
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 329
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 2mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/js/">js</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/" rel="tag">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/" rel="tag">npm</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2021-02-04T05:49:00.000Z" itemprop="datePublished">2021-02-04</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2021/02/css_current_color/">CSS currentColor 属性值</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            currentColor 关键字表示当前元素设置的或者继承来的 color 属性的颜色值，可以用到任意属性值为颜色的地方。
-这样说有点抽象，下面直接看几个例子，本文所有示例都在文章末尾：
-currentColor 可以设置为颜色的属性值下面是一个设置边框，阴影颜色和文字颜色一样的例子：
-.example1 &#123;  color: red;  border: 1px solid currentColor;&#125;.example2 &#123;  color: red;  box-shadow: 0 0 2px currentColor;&#125;
-
-currentColor 也可以…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2021/02/css_current_color/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2021-02-04
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 332
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 1mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/css/">css</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/color/" rel="tag">color</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/" rel="tag">css</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2021-02-03T07:41:00.000Z" itemprop="datePublished">2021-02-03</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2021/02/css_min_max_clamp/">CSS min()，max() 和 clamp() 函数</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            min()，max() 和 clamp() 是css 的三个函数，它们的作用都是从其参数中选择一个值作为实际的属性值。
-这三个函数可以被用在任何允许&lt;长度&gt;、&lt;频率&gt;、&lt;角度&gt;、&lt;时间&gt;、&lt;百分比&gt;、&lt;数字&gt;或&lt;整数&gt;的地方使用。
-min()min() 函数接受一个或多个以逗号分隔的表达式作为参数，并从参数中选择最小的值作为实际的 CSS 属性值。
-签名为：
-
-property: min(expression [, expression]);
-
-/* min() 示例 */min(100px, 200px); …
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2021/02/css_min_max_clamp/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2021-02-03
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 456
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 2mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/css/">css</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/" rel="tag">css</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2021-01-28T06:39:00.000Z" itemprop="datePublished">2021-01-28</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2021/01/dom_get_elements_from_point/">使用 elementFromPoint 和 elementsFromPoint 根据坐标获取元素</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            简介elementFromPoint 系列有两个方法：document.elementFromPoint 和 document.elementsFromPoint (注意是 elements,多个“s”）。
-document.elementFromPoint 获取指定坐标点最上面的元素，而 document.elementsFromPoint 获取指定坐标点下面的所有元素，包括 html 元素，body 元素取决于其是否在指定的坐标上。
-签名它们的签名分别为：
-
-elementFromPoint(x: number, y: number): Element
-elementsFromPoint(…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2021/01/dom_get_elements_from_point/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2021-01-28
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 286
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 1mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/js/">js</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom/" rel="tag">dom</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2021-01-26T06:28:00.000Z" itemprop="datePublished">2021-01-26</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2021/01/git-filter-branch/">Git 修改提交的邮箱或用户名</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            修改全局的 commit 的用户名和邮箱如果需要以后 commit 默认的用户名和邮箱为指定的内容，可以通过 git config --global命令:
-$ git config --global user.email "global@example.com"$ git config --global user.name "example"
-
-然后编辑提交后可以看到修改已生效：
-$ git log# 输出commit d4a341f8aab5acd0468cbe3d029fc1801f62678d (HEAD -&gt; master)Author: example &lt;global@e…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2021/01/git-filter-branch/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2021-01-26
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 1.2k
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 8mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
 
   </div></section>
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/11/">11</a><a class="extend next" rel="next" href="/archives/page/2/">&gt;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/12/">12</a><a class="extend next" rel="next" href="/archives/page/2/">&gt;</a>
   </nav>
 
         </div>

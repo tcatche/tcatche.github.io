@@ -122,6 +122,315 @@ var _hmt = _hmt || [];
         
         <span class="meta-block">
             <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-03-01T06:32:00.000Z" itemprop="datePublished">2017-03-01</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/03/bindActionCreators/">bindActionCreators.js 源码阅读笔记</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+Turns an object whose values are action creators, into an object with the same keys, but with every action creator wrapped into a dispatch call so they may be invoked directly.
+
+接口
+bindActionCreators(actionCreators, dispatch)
+
+
+actionCreators (Function | Object): action creator 函数，或者键值是 action crea…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/03/bindActionCreators/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-03-01
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 924
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 5mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redux/" rel="tag">redux</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-03-01T06:32:00.000Z" itemprop="datePublished">2017-03-01</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/03/compose/">compose.js 源码阅读笔记</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+Composes functions from right to left..
+
+接口
+compose(…arguments)
+
+
+arguments (Function): 需要进行函数合成的多个函数，每个函数接收单一的参数，它的返回值将作为一个参数提供给它左边的函数调用，而最右边的函数可以接收多个参数，而它的签名将会作为组合后返回函数的签名。
+return (Function): 返回把所有的参数从右向左合成的结果
+
+函数组合组合是函数式编程的常用工具，我们在学习数学的时候会学到复合函数：
+f(x) = 2 * x;g(x) = x + 1;(f ∘ g)(x) = f(g(x)) = …
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/03/compose/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-03-01
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 570
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 3mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redux/" rel="tag">redux</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-02-28T08:16:00.000Z" itemprop="datePublished">2017-02-28</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/02/applyMiddleware/">applyMiddleware.js 源码阅读笔记</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            applyMiddleware 允许使用中间件middleware增强Redex的store的 dispatch 方法，这些中间件通过组合的方式构成一条中间件的链，通过这种方式，每个中间件无需关注其他中间件的操作。
+接口
+applyMiddleware(…middlewares)
+
+每个中间件 middleware  的方法签名要求为 ({ getState, dispatch }) =&gt; next =&gt; action。
+applyMiddleware 的整体结构函数的源代码非常简洁只有不到20行的代码，函数的整体结构如下：
+function applyMiddleware(...…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/02/applyMiddleware/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-02-28
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.6k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 15mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redux/" rel="tag">redux</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-02-27T09:21:00.000Z" itemprop="datePublished">2017-02-27</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/02/text-overflow-ellipsis/">文本省略显示</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发中有一些情景下需要隐藏过多的文本，比如文章列表中文章的描述或者摘要，并加以省略号给用户提醒，在这里对常用的方法进行简单的总结：
+单行文本省略单行文本省略很简单，只需三行css属性即可：
+&lt;p&gt;这里是一段用脸滚出来的文字：卡技术的恢复了开始发说说的反馈啦活动福利很好的数量咖啡还&lt;/p&gt;
+
+p &#123;  width: 200px;   white-space: nowrap; //强制文本单行显示  overflow: hidden; //溢出内容隐藏  text-overflow: ellipsis; //文本溢出内容添加省略号提醒  border: 3px …
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/02/text-overflow-ellipsis/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-02-27
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 659
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 3mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/css/">css</a>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+    
+      </div></section>
+    
+    
+    <section class="archives-wrap">
+      <div class="archives">
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2016-09-01T07:17:09.000Z" itemprop="datePublished">2016-09-01</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2016/09/promise-object/">Promise特性总结</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+Promise 对象代表着一个还未完成，但预期将来会完成的操作，该新特性属于 ECMAScript 2015（ES6）规范。使用 Promise 对象，可以十分方便的摆脱层层嵌套的异步操作回调函数，而以同步操作的流程书写代码。Promise 对象主要具有以下两个特点：
+
+Promise 对象的状态只受构造函数内的同步或者一步操作影响，其他外部操作无法改变 Promise 对象的状态。
+Promise 对象的状态改变，只会从 pending 变为 resolved 或者从 pending 变为rejected，状态改变后不再会发生改变。
+
+浏览器兼容性
+
+
+Chrome
+Edge
+Firefo…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2016/09/promise-object/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2016-09-01
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.9k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 11mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es/" rel="tag">es</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/function/" rel="tag">function</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E6%AD%A5/" rel="tag">异步</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
             <time datetime="2016-05-20T05:14:00.000Z" itemprop="datePublished">2016-05-20</time>
         </span>
         
@@ -396,70 +705,12 @@ width = device-w…
 </article>
 
 
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2016-03-31T03:55:09.000Z" itemprop="datePublished">2016-03-31</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2016/03/css3-transition-transform-animation/">css3特效</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Transform 转换Transform 属性向元素应用 2D 或 3D 转换，该属性允许我们对元素进行旋转、缩放、移动或倾斜，主要有以下几个方法：translate()、rotate()、scale()、skew()、matrix()。
-JavaScript 语法: object.style.transform&#x3D;&quot;rotate(xdeg)&quot;Css语法：transform: none|transform-functions;
-Transform 属性:
-
-transform 向元素应用 2D 或 3D 转换。
-transform-origin 允许你改变被转换元…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2016/03/css3-transition-transform-animation/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2016-03-31
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 1.9k
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 11mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/css/">css</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/" rel="tag">css</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
 
   </div></section>
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/archives/page/10/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/9/">9</a><a class="page-number" href="/archives/page/10/">10</a><span class="page-number current">11</span>
+    <a class="extend prev" rel="prev" href="/archives/page/10/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/9/">9</a><a class="page-number" href="/archives/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/archives/page/12/">12</a><a class="extend next" rel="next" href="/archives/page/12/">&gt;</a>
   </nav>
 
         </div>

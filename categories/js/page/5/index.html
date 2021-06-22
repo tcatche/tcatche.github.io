@@ -122,6 +122,65 @@ var _hmt = _hmt || [];
         
         <span class="meta-block">
             <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-05-18T06:33:00.000Z" itemprop="datePublished">2017-05-18</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/05/decorator/">ES6 - 装饰器：Decorator</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            装饰器是 ES7 的一个新提案，本质上是 Object.defineProperty(obj, prop, descriptor) 的语法糖，用于动态的修改类的行为，相比较集成的方式而言，这种方式无疑更加的灵活。
+装饰器的使用装饰器用于类和类的成员上，但是不能用于函数，因为存在着函数提升。
+作用于类的装饰器装饰器作用于类上的时候，它的第一个参数 target 则是被装饰的类的本身，签名如下：
+
+function(target)
+
+const sayHello = target =&gt; &#123;  target.sayHello = () =&gt; console.log("hello…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/05/decorator/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-05-18
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 963
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 6mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Decorator/" rel="tag">Decorator</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es/" rel="tag">es</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
             <time datetime="2017-04-27T03:09:00.000Z" itemprop="datePublished">2017-04-27</time>
         </span>
         
@@ -618,66 +677,6 @@ return (Function): 多个独立的 reducer 合并后的最终的 finalReduce…
     <span class="word-count">
       <i class="icon fa fa-clock-o"></i>
       阅读时长: 12mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/js/">js</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redux/" rel="tag">redux</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2017-03-01T06:32:00.000Z" itemprop="datePublished">2017-03-01</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/03/bindActionCreators/">bindActionCreators.js 源码阅读笔记</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            
-Turns an object whose values are action creators, into an object with the same keys, but with every action creator wrapped into a dispatch call so they may be invoked directly.
-
-接口
-bindActionCreators(actionCreators, dispatch)
-
-
-actionCreators (Function | Object): action creator 函数，或者键值是 action crea…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2017/03/bindActionCreators/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2017-03-01
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 924
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 5mins
     </span>
 
             </div>

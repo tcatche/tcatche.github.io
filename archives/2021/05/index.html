@@ -122,6 +122,182 @@ var _hmt = _hmt || [];
         
         <span class="meta-block">
             <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-05-27T02:05:00.000Z" itemprop="datePublished">2021-05-27</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/05/git_reflog/">Git reflog - 介绍</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发中，有时候需要紧急退回某个线上版本修复问题，特别是 reset 操作回滚之前的版本，如果操作不注意会发现新的一些工作的提交历史丢失了，这个时候 git reflog 会很有帮助。
+git reflog 和 git log 功能很相近，都是记录日志的，和 git log 不同在于 git reflog 记录了 HEAD 指针的变更历史。
+介绍首先使用准备好的分支来看一下：
+$ git log --oneline  aea03a0 (HEAD -&gt; reflog) version5  1abb498 version4  97697e6 version3  d421d76 version…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/05/git_reflog/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-05-27
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 723
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 4mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-05-26T06:09:00.000Z" itemprop="datePublished">2021-05-26</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/05/git_revert/">Git revert - 回滚操作</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发过程中，有些时候会出现一些错误的提交，这个时候可以用 git revert 命令把这些错误的提交给回滚了。
+介绍git revert 命令用来将指定的 commit 回滚。
+回滚原理是通过新建一个指定的提交的反操作的提交。
+下面以上面的例子介绍 revert 的使用，假设当前的分支状态如下图所示：
+featureA - featureB - featureC - featureD
+
+想要在主分支应用 featureC 特性，可以进行如下的操作：
+$ git revert featureC
+
+现在的分支状态变成了下面的结构：
+featureA - featureB - featureC -…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/05/git_revert/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-05-26
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 700
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 4mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-05-14T07:00:00.000Z" itemprop="datePublished">2021-05-14</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/05/cancel_request/">如何取消 Web 请求</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在有些场景下可能需要用到取消请求的操作，比如在同一时刻触发多次请求，只保留最新的请求；比如表单提交中关闭页面等行为，本文加少一些常用的触发 Web 请求的方式如何取消。
+AbortControllorAbortController 接口表示一个控制器对象，该对象允许您在需要时中止一个或多个 Web 请求。
+AbortController 分别有一个属性 AbortController.signal 和一个方法 AbortController.abort，他们结合起来可以用来终止 Web 请求。
+它的使用过程如下：
+首先创建一个 AbortController 对象 controller，然后在…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/05/cancel_request/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-05-14
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 964
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 6mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/promise/" rel="tag">promise</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
             <time datetime="2021-05-11T07:42:00.000Z" itemprop="datePublished">2021-05-11</time>
         </span>
         
@@ -185,7 +361,7 @@ a - b   #Main      \        D - E #Feature
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2021/05/git_stash/">Git 暂存操作</a>
+        <a href="/2021/05/git_stash/">Git stash - 暂存操作</a>
         </h1>
     
 
@@ -204,11 +380,11 @@ git stashgit stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]2     [
                 
     <span class="word-count">
       <i class="icon fa fa-file-text"></i>
-      字数: 1.7k
+      字数: 1.8k
     </span>
     <span class="word-count">
       <i class="icon fa fa-clock-o"></i>
-      阅读时长: 11mins
+      阅读时长: 12mins
     </span>
 
             </div>
@@ -241,7 +417,7 @@ git stashgit stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]2     [
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2021/05/git_tag/">Git 打标签操作</a>
+        <a href="/2021/05/git_tag/">Git tag - 打标签操作</a>
         </h1>
     
 

@@ -122,6 +122,63 @@ var _hmt = _hmt || [];
         
         <span class="meta-block">
             <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-06-20T07:13:00.000Z" itemprop="datePublished">2017-06-20</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/06/object-freeze/">对象“冻结”，防止被修改</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在有些应用场合下，我们希望我们的对象是不可以被修改的，比如我们提供给外一个服务，但是不想这个服务被修改，这就需要对象能够防止被修改。
+在另外一些应用场合，比如 React 通常搭配使用的 immutable.js 采用不可变的数据结构，可以保证最大限度的降低副作用。
+对象防止被修改有三个级别：阻止扩展、密封对象、冻结对象，本章内容，针对这些，总结如何使对象数据不可变。
+阻止扩展如果一个对象可以添加新的属性，那么这个对象是可以扩展的，阻止扩展就是让这个对象不能被扩展，也就是说不能添加新的属性。
+阻止扩展主要涉及这两组函数：Object.isExtensible(obj)/Reflect.isEx…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/06/object-freeze/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-06-20
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.7k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 15mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%89%A9%E5%B1%95/" rel="tag">扩展</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
             <time datetime="2017-06-19T07:19:00.000Z" itemprop="datePublished">2017-06-19</time>
         </span>
         
@@ -622,65 +679,6 @@ const ParentComponent = () =&gt; &#123;  const colorTheme = "green";  return (  
 
                 
     <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2017-05-18T06:33:00.000Z" itemprop="datePublished">2017-05-18</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/05/decorator/">ES6 - 装饰器：Decorator</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            装饰器是 ES7 的一个新提案，本质上是 Object.defineProperty(obj, prop, descriptor) 的语法糖，用于动态的修改类的行为，相比较集成的方式而言，这种方式无疑更加的灵活。
-装饰器的使用装饰器用于类和类的成员上，但是不能用于函数，因为存在着函数提升。
-作用于类的装饰器装饰器作用于类上的时候，它的第一个参数 target 则是被装饰的类的本身，签名如下：
-
-function(target)
-
-const sayHello = target =&gt; &#123;  target.sayHello = () =&gt; console.log("hello…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2017/05/decorator/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2017-05-18
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 963
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 6mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/js/">js</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Decorator/" rel="tag">Decorator</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es/" rel="tag">es</a></li></ul>
 
             </div>
         </div>

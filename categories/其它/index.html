@@ -122,6 +122,247 @@ var _hmt = _hmt || [];
         
         <span class="meta-block">
             <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-06-22T08:06:00.000Z" itemprop="datePublished">2021-06-22</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/06/git_switch/">Git switch - 切换分支</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发中，通常会使用 git checkout 进行分支切换和变更撤销，checkout 是一个比较复杂的命令，承载了很多功能有点臃肿，因此引入了两个新的命令 git switch 和 git restore 用来拆分 git checkout 命令，本文介绍如何使用 git switch 进行分支切换。
+使用这个命令比较简单，下面简单列一下各种使用方式，就不详细介绍了
+切换分支
+git switch 
+
+创建并切换分支
+git switch -c 
+
+从指定的位置创建分支
+git switch -c  
+
+切换回前一个分支
+git switch -
+
+和 git checkout 对比git…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/06/git_switch/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-06-22
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 247
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 1mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-06-02T06:54:00.000Z" itemprop="datePublished">2021-06-02</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/06/git_restore/">Git restore - 撤销操作</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发中，通常会使用 git checkout 进行分支切换和变更撤销，checkout 是一个比较复杂的命令，承载了很多功能有点臃肿，因此引入了两个新的命令 git switch 和 git restore 用来拆分 git checkout 命令，本文介绍如何使用 git restore 进行变更撤销。
+介绍git restore 命令会将指定文件的变更给撤销，先来看下面的示例：
+在 git 仓库里有三个文件变更 restore.md、restore2.md、restore3.md，restore.md 的变更已经通过 git add 加入暂存区，restore2.md 变更未加入暂存区，…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/06/git_restore/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-06-02
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 752
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 4mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-05-27T02:05:00.000Z" itemprop="datePublished">2021-05-27</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/05/git_reflog/">Git reflog - 介绍</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发中，有时候需要紧急退回某个线上版本修复问题，特别是 reset 操作回滚之前的版本，如果操作不注意会发现新的一些工作的提交历史丢失了，这个时候 git reflog 会很有帮助。
+git reflog 和 git log 功能很相近，都是记录日志的，和 git log 不同在于 git reflog 记录了 HEAD 指针的变更历史。
+介绍首先使用准备好的分支来看一下：
+$ git log --oneline  aea03a0 (HEAD -&gt; reflog) version5  1abb498 version4  97697e6 version3  d421d76 version…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/05/git_reflog/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-05-27
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 723
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 4mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-05-26T06:09:00.000Z" itemprop="datePublished">2021-05-26</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/05/git_revert/">Git revert - 回滚操作</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发过程中，有些时候会出现一些错误的提交，这个时候可以用 git revert 命令把这些错误的提交给回滚了。
+介绍git revert 命令用来将指定的 commit 回滚。
+回滚原理是通过新建一个指定的提交的反操作的提交。
+下面以上面的例子介绍 revert 的使用，假设当前的分支状态如下图所示：
+featureA - featureB - featureC - featureD
+
+想要在主分支应用 featureC 特性，可以进行如下的操作：
+$ git revert featureC
+
+现在的分支状态变成了下面的结构：
+featureA - featureB - featureC -…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/05/git_revert/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-05-26
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 700
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 4mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
             <time datetime="2021-05-11T07:42:00.000Z" itemprop="datePublished">2021-05-11</time>
         </span>
         
@@ -185,7 +426,7 @@ a - b   #Main      \        D - E #Feature
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2021/05/git_stash/">Git 暂存操作</a>
+        <a href="/2021/05/git_stash/">Git stash - 暂存操作</a>
         </h1>
     
 
@@ -204,11 +445,11 @@ git stashgit stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]2     [
                 
     <span class="word-count">
       <i class="icon fa fa-file-text"></i>
-      字数: 1.7k
+      字数: 1.8k
     </span>
     <span class="word-count">
       <i class="icon fa fa-clock-o"></i>
-      阅读时长: 11mins
+      阅读时长: 12mins
     </span>
 
             </div>
@@ -241,7 +482,7 @@ git stashgit stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]2     [
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2021/05/git_tag/">Git 打标签操作</a>
+        <a href="/2021/05/git_tag/">Git tag - 打标签操作</a>
         </h1>
     
 

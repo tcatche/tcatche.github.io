@@ -122,6 +122,300 @@ var _hmt = _hmt || [];
         
         <span class="meta-block">
             <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-04-27T03:09:00.000Z" itemprop="datePublished">2017-04-27</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/04/symbol-base-type/">ES6 - Symbol 类型</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            概述Symbol 类型是一种特殊的、不可变的数据类型，主要用于解决名称冲突的问题，是 es6 引入的第七种原始数据类型，其他六种分别是：null 、 undefined 、 boolean 、 string 、 number 、 object 。
+创建 Symbol
+Symbol([description])创建一个全新的 Symbol ，description 是对 Symbol 实例的描述，先来看几个示例：
+
+var s0 = Symbol();var s1 = Symbol("desc");var s2 = Symbol("desc");console.log(s0) // Symbol…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/04/symbol-base-type/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-04-27
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.4k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 15mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es/" rel="tag">es</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-04-21T06:51:00.000Z" itemprop="datePublished">2017-04-21</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/04/function-program-curry-function/">函数式编程-柯里化和反柯里化</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            柯里化 curry柯里化，是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术。
+var add = (x, y) =&gt; x + y;var curriedAdd = x =&gt; y =&gt; x + y;var addOne = curriedAdd(1);var addTen = curriedAdd(10);addOne(5);// 6addTen(5);// 15
+
+上述示例，将原本接收两个参数的 add 改造成了接收一个参数的 addOne 和 addTen 函数，每个函数都具有独立的语义。
+这种方式…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/04/function-program-curry-function/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-04-21
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.4k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 8mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/function/" rel="tag">function</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F/" rel="tag">函数式</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-04-13T10:31:00.000Z" itemprop="datePublished">2017-04-13</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/04/function-program-pure-function/">函数式编程-纯函数</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            定义实际上纯函数的定义更近似于数学上的函数的定义，数学上的函数定义如下：
+
+设A，B是非空的数集，如果按照某种确定的对应关系f，使对于集合 A 中的任意一个数 x，在集合B中都有唯一确定的数 y 和它对应，那么就称 f:A-&gt;B 为从集合A 到集合B 的一个函数。
+
+而纯函数的定义为：
+
+纯函数定义为这样一种函数：对于相同的输入，其输出的结果永远是相同的，而且没有可见的副作用。
+
+从定义上可以看出，纯函数和数学上的函数都有要求：对于任意相同输入，其输出结果都是 唯一确定 的，不存在一个输入对应于多个输出结果的情况。
+纯函数和非纯函数很经常看到，比如数组的 slice 和 splice 函…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/04/function-program-pure-function/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-04-13
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.1k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 6mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/function/" rel="tag">function</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F/" rel="tag">函数式</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-04-12T07:38:00.000Z" itemprop="datePublished">2017-04-12</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/04/some-awasome-site/">一些有趣的网站</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            这里收集了一些有趣的好玩的网站
+Unsplash
+Unsplash 是一个真免费提供高质量照片的网站，照片都是真实的摄影，照片分辨率也很大，该照片网站每10天更新10张照片。
+但是我要介绍的是它的一个获取随机图片的api [https://source.unsplash.com/](https://source.unsplash.com/) 支持多种方式的随机图片获取：
+
+从指定分类中随机获取图片
+从指定用户随机获取图片
+从指定用户喜欢的图片
+从指定图片集随机获取图片
+从一个分类中随机获取图片
+从一个关键字随机获取图片
+
+还支持js、php等api，详细可以查看其页面，不再多言。
+WebGra…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/04/some-awasome-site/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-04-12
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 396
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 2mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/Uncategory/">Uncategory</a>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-04-11T07:06:00.000Z" itemprop="datePublished">2017-04-11</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/04/generator-and-async-function/">ES6 - Generator 函数和 Async 函数</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Generator 函数Generator （生成器）函数是 ES6 提供的新的解决异步回调嵌套的特性，先看个实例：
+function* test()&#123;  yield 1; //执行顺序：3  yield 2; //执行顺序：6  return 3; //执行顺序：9&#125;var g = test(); //执行顺序：1var rt;rt = g.next(); //执行顺序：2console.log(rt); // 执行顺序：4 输出：Object &#123;value: 1, done: false&#125;rt = g.next(); //执行顺序：5console.…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/04/generator-and-async-function/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-04-11
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.8k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 18mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es/" rel="tag">es</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/function/" rel="tag">function</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E6%AD%A5/" rel="tag">异步</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
             <time datetime="2017-03-24T03:39:00.000Z" itemprop="datePublished">2017-03-24</time>
         </span>
         
@@ -407,321 +701,12 @@ return (Function): 多个独立的 reducer 合并后的最终的 finalReduce…
 </article>
 
 
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2017-03-01T06:32:00.000Z" itemprop="datePublished">2017-03-01</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/03/bindActionCreators/">bindActionCreators.js 源码阅读笔记</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            
-Turns an object whose values are action creators, into an object with the same keys, but with every action creator wrapped into a dispatch call so they may be invoked directly.
-
-接口
-bindActionCreators(actionCreators, dispatch)
-
-
-actionCreators (Function | Object): action creator 函数，或者键值是 action crea…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2017/03/bindActionCreators/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2017-03-01
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 924
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 5mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/js/">js</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redux/" rel="tag">redux</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2017-03-01T06:32:00.000Z" itemprop="datePublished">2017-03-01</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/03/compose/">compose.js 源码阅读笔记</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            
-Composes functions from right to left..
-
-接口
-compose(…arguments)
-
-
-arguments (Function): 需要进行函数合成的多个函数，每个函数接收单一的参数，它的返回值将作为一个参数提供给它左边的函数调用，而最右边的函数可以接收多个参数，而它的签名将会作为组合后返回函数的签名。
-return (Function): 返回把所有的参数从右向左合成的结果
-
-函数组合组合是函数式编程的常用工具，我们在学习数学的时候会学到复合函数：
-f(x) = 2 * x;g(x) = x + 1;(f ∘ g)(x) = f(g(x)) = …
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2017/03/compose/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2017-03-01
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 570
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 3mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/js/">js</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redux/" rel="tag">redux</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2017-02-28T08:16:00.000Z" itemprop="datePublished">2017-02-28</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/02/applyMiddleware/">applyMiddleware.js 源码阅读笔记</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            applyMiddleware 允许使用中间件middleware增强Redex的store的 dispatch 方法，这些中间件通过组合的方式构成一条中间件的链，通过这种方式，每个中间件无需关注其他中间件的操作。
-接口
-applyMiddleware(…middlewares)
-
-每个中间件 middleware  的方法签名要求为 ({ getState, dispatch }) =&gt; next =&gt; action。
-applyMiddleware 的整体结构函数的源代码非常简洁只有不到20行的代码，函数的整体结构如下：
-function applyMiddleware(...…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2017/02/applyMiddleware/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2017-02-28
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 2.6k
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 15mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/js/">js</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redux/" rel="tag">redux</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2017-02-27T09:21:00.000Z" itemprop="datePublished">2017-02-27</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/02/text-overflow-ellipsis/">文本省略显示</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            在开发中有一些情景下需要隐藏过多的文本，比如文章列表中文章的描述或者摘要，并加以省略号给用户提醒，在这里对常用的方法进行简单的总结：
-单行文本省略单行文本省略很简单，只需三行css属性即可：
-&lt;p&gt;这里是一段用脸滚出来的文字：卡技术的恢复了开始发说说的反馈啦活动福利很好的数量咖啡还&lt;/p&gt;
-
-p &#123;  width: 200px;   white-space: nowrap; //强制文本单行显示  overflow: hidden; //溢出内容隐藏  text-overflow: ellipsis; //文本溢出内容添加省略号提醒  border: 3px …
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2017/02/text-overflow-ellipsis/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2017-02-27
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 659
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 3mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/css/">css</a>
-    </div>
-
-                
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-    
-      </div></section>
-    
-    
-    <section class="archives-wrap">
-      <div class="archives">
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2016-09-01T07:17:09.000Z" itemprop="datePublished">2016-09-01</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2016/09/promise-object/">Promise特性总结</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            
-Promise 对象代表着一个还未完成，但预期将来会完成的操作，该新特性属于 ECMAScript 2015（ES6）规范。使用 Promise 对象，可以十分方便的摆脱层层嵌套的异步操作回调函数，而以同步操作的流程书写代码。Promise 对象主要具有以下两个特点：
-
-Promise 对象的状态只受构造函数内的同步或者一步操作影响，其他外部操作无法改变 Promise 对象的状态。
-Promise 对象的状态改变，只会从 pending 变为 resolved 或者从 pending 变为rejected，状态改变后不再会发生改变。
-
-浏览器兼容性
-
-
-Chrome
-Edge
-Firefo…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2016/09/promise-object/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2016-09-01
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 1.9k
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 11mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/js/">js</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es/" rel="tag">es</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/function/" rel="tag">function</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E6%AD%A5/" rel="tag">异步</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
 
   </div></section>
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/page/9/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/11/">&gt;</a>
+    <a class="extend prev" rel="prev" href="/page/9/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/11/">&gt;</a>
   </nav>
 
         </div>

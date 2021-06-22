@@ -2,6 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://tcatche.site/2021/06/git_switch/</loc>
+    
+    <lastmod>2021-06-22T08:07:10.376Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://tcatche.site/2021/06/git_restore/</loc>
+    
+    <lastmod>2021-06-22T08:02:51.369Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://tcatche.site/2021/05/git_reflog/</loc>
+    
+    <lastmod>2021-06-22T07:22:31.630Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://tcatche.site/2021/05/git_revert/</loc>
+    
+    <lastmod>2021-05-26T06:10:01.672Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://tcatche.site/2021/05/git_stash/</loc>
+    
+    <lastmod>2021-05-26T05:49:31.967Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://tcatche.site/2021/05/git_tag/</loc>
+    
+    <lastmod>2021-05-26T05:22:10.891Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://tcatche.site/2021/01/git_modify_history_commit_author/</loc>
+    
+    <lastmod>2021-05-26T05:21:15.734Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://tcatche.site/2021/05/cancel_request/</loc>
+    
+    <lastmod>2021-05-14T07:29:41.247Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://tcatche.site/2018/01/broswer_common_mouse_event/</loc>
     
     <lastmod>2021-05-13T06:41:21.085Z</lastmod>
@@ -19,20 +75,6 @@
     <loc>http://tcatche.site/2021/01/git-filter-branch/</loc>
     
     <lastmod>2021-05-12T07:23:48.230Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://tcatche.site/2021/05/git_tag/</loc>
-    
-    <lastmod>2021-05-12T07:22:02.402Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://tcatche.site/2021/05/git_stash/</loc>
-    
-    <lastmod>2021-05-12T07:21:46.616Z</lastmod>
     
   </url>
   
@@ -68,13 +110,6 @@
     <loc>http://tcatche.site/2017/08/stacking-context-and-z-index/</loc>
     
     <lastmod>2021-05-12T01:38:58.236Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://tcatche.site/2021/01/git_modify_history_commit_author/</loc>
-    
-    <lastmod>2021-03-10T02:00:06.384Z</lastmod>
     
   </url>
   

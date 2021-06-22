@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://tcatche.site/2021/06/git_switch/</loc>
+    <lastmod>2021-06-22</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2021/06/git_restore/</loc>
+    <lastmod>2021-06-22</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2021/05/git_reflog/</loc>
+    <lastmod>2021-06-22</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2021/05/git_revert/</loc>
+    <lastmod>2021-05-26</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2021/05/git_stash/</loc>
+    <lastmod>2021-05-26</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2021/05/git_tag/</loc>
+    <lastmod>2021-05-26</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2021/01/git_modify_history_commit_author/</loc>
+    <lastmod>2021-05-26</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2021/05/cancel_request/</loc>
+    <lastmod>2021-05-14</lastmod>
+  </url>
+  <url>
     <loc>http://tcatche.site/2018/01/broswer_common_mouse_event/</loc>
     <lastmod>2021-05-13</lastmod>
   </url>
@@ -10,14 +42,6 @@
   </url>
   <url>
     <loc>http://tcatche.site/2021/01/git-filter-branch/</loc>
-    <lastmod>2021-05-12</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2021/05/git_tag/</loc>
-    <lastmod>2021-05-12</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2021/05/git_stash/</loc>
     <lastmod>2021-05-12</lastmod>
   </url>
   <url>
@@ -39,10 +63,6 @@
   <url>
     <loc>http://tcatche.site/2017/08/stacking-context-and-z-index/</loc>
     <lastmod>2021-05-12</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2021/01/git_modify_history_commit_author/</loc>
-    <lastmod>2021-03-10</lastmod>
   </url>
   <url>
     <loc>http://tcatche.site/2021/01/dom_get_elements_from_point/</loc>

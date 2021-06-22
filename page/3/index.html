@@ -122,6 +122,289 @@ var _hmt = _hmt || [];
         
         <span class="meta-block">
             <i class="icon fa fa-calendar"></i>
+            <time datetime="2019-04-28T07:54:00.000Z" itemprop="datePublished">2019-04-28</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/04/react-hooks-reference/">React Hooks 文档翻译 - 7 - Hooks API Reference（Hooks API 参考）</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            翻译自：https://reactjs.org/docs/hooks-reference.html
+Hooks 是 React 16.8 新增的功能。它允许你在不编写类的情况下使用状态和其他 React 特性。
+If you’re new to Hooks, you might want to check out the overview first. You may also find useful information in the frequently asked questions section.
+如果你是 Hooks 的新手，可能需要先查看概述。你还可以在常见问题部分找到有用的信…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2019/04/react-hooks-reference/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2019-04-28
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 4.6k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 26mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hooks/" rel="tag">hooks</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2019-04-08T04:02:00.000Z" itemprop="datePublished">2019-04-08</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/04/react-hooks-custom/">React Hooks 文档翻译 - 6 - Building Your Own Hooks（建立你自己的 Hooks）</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            翻译自：https://reactjs.org/docs/hooks-custom.html
+Hooks 是 React 16.8 新增的功能。它允许你在不编写类的情况下使用状态和其他 React 特性。
+构建你自己的 Hooks 可以将组件逻辑提取到可重用的函数中。
+我们在学习 Effect Hook 时，在聊天应用程序中看到过这个组件，该组件显示一条指示朋友是在线还是离线消息：
+import &#123; useState, useEffect &#125; from 'react';function FriendStatus(props) &#123;  const [isOnline,…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2019/04/react-hooks-custom/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2019-04-08
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.1k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 12mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hooks/" rel="tag">hooks</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2019-04-08T03:28:00.000Z" itemprop="datePublished">2019-04-08</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/04/react-hooks-rules/">React Hooks 文档翻译 - 5 - Rules of Hooks（Hooks 的使用规则）</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            翻译自：https://reactjs.org/docs/hooks-rules.html
+Hooks 是 React 16.8 新增的功能。它允许你在不编写类的情况下使用状态和其他 React 特性。
+Hooks 是 JavaScript 函数，但在使用时需要遵循两个规则。我们提供了一个linter 插件 来自动检查这些规则：
+Only Call Hooks at the Top Level只在顶层调用 Hooks
+不要在循环语句，条件语句或嵌套函数中调用 Hook。而是在 React 函数的顶层使用 Hooks。遵循此规则，可以确保组件每次渲染时都以相同的顺序调用 Hook。这是 Reac…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2019/04/react-hooks-rules/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2019-04-08
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.1k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 6mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hooks/" rel="tag">hooks</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2019-04-04T09:02:00.000Z" itemprop="datePublished">2019-04-04</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/04/react-hooks-effect/">React Hooks 文档翻译 - 4 - Using the Effect Hook（使用 Effect Hook）</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            翻译自：https://reactjs.org/docs/hooks-effects.html
+Hooks 是 React 16.8 新增的功能。它允许你在不编写类的情况下使用状态和其他 React 特性。
+The Effect Hook lets you perform side effects in function components:
+Effect Hook 用来在函数组件中处理副作用：
+import &#123; useState, useEffect &#125; from 'react';function Example() &#123;  const [count, setC…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2019/04/react-hooks-effect/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2019-04-04
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 4.6k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 26mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hooks/" rel="tag">hooks</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2019-04-03T09:52:00.000Z" itemprop="datePublished">2019-04-03</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/04/react-hooks-state/">React Hooks 文档翻译 - 3 - Using the State Hook（使用状态 Hook）</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            翻译自：https://reactjs.org/docs/hooks-state.html
+Hooks 是 React 16.8 新增的功能。它允许你在不编写类的情况下使用状态和其他 React 特性。
+上一篇文章使用了下面的示例介绍了 Hooks：
+import &#123; useState &#125; from 'react';function Example() &#123;  // Declare a new state variable, which we'll call "count"  const [count, setCount] = useState(0);  retur…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2019/04/react-hooks-state/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2019-04-03
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.6k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 15mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    <a class="article-category-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a>
+    </div>
+
+                
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hooks/" rel="tag">hooks</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
             <time datetime="2019-04-03T07:45:00.000Z" itemprop="datePublished">2019-04-03</time>
         </span>
         
@@ -402,291 +685,12 @@ const MyComponent = React.memo(function MyComponent(props) &#123; …
 </article>
 
 
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2018-11-14T07:14:00.000Z" itemprop="datePublished">2018-11-14</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/11/css-counter/">CSS 计数器：counter</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            之前在实现代码行号的时候发现 CSS 有个很方便的功能“计数器”，可以很方便的生成代码行号以及章节号，本文介绍一些这些功能。
-css 计数器有三部分组成： counter-reset、counter-increment 两个属性和函数 counter()/counters()。下面介绍一下它们的使用。
-counter-reset使用计数器前需要使用 counter-reset 声明一个或多个计数器：
-
-counter-reset: counter-name [initValue] [counter-name2 [initValue2]] …[counter-nameN [initValueN]…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2018/11/css-counter/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2018-11-14
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 611
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 3mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/css/">css</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/content/" rel="tag">content</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/counter/" rel="tag">counter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/list-style/" rel="tag">list-style</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E6%95%B0%E5%99%A8/" rel="tag">计数器</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2018-10-19T06:22:00.000Z" itemprop="datePublished">2018-10-19</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/10/react-use-render-props-for-cross-cutting-concerns/">React - Render Props(使用 props 渲染内容)</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            翻译自 React Docs: Render Props
-The term “render prop” refers to a technique for sharing code between React components using a prop whose value is a function.
-术语  “render prop” 指的是使用其值为函数的 prop 在 React 组件之间共享代码的技术。
-A component with a render prop takes a function that returns a React element and calls i…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2018/10/react-use-render-props-for-cross-cutting-concerns/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2018-10-19
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 3.3k
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 23mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2018-10-18T12:14:00.000Z" itemprop="datePublished">2018-10-18</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/10/react-you-probably-dont-need-derived-state/">You Probably Don&#39;t Need Derived State(也许，你并不需要派生 state)</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            翻译自： React Docs: You Probably Don’t Need Derived State
-
-React 16.4 included a bugfix for getDerivedStateFromProps which caused some existing bugs in React components to reproduce more consistently. If this release exposed a case where your application was using an anti-pattern and didn’t work proper…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2018/10/react-you-probably-dont-need-derived-state/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2018-10-18
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 6.6k
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 43mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2018-10-18T07:56:00.000Z" itemprop="datePublished">2018-10-18</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/10/react-error-boundaries/">React Error Boundaries(错误边界)</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            过去，组件内部的 JavaScript 错误经常会破坏 React 的内部状态，并导致它在下一次渲染时发生奇奇怪怪的错误。这些错误通常总是由应用程序代码中的早期错误引起，但在之前版本的 React 没有提供在组件中优雅地处理它们的方法。
-针对“部分 UI 的错误不应当导致整个应用的崩溃” 这个理念，React16 引入了一个新的概念 “Error Boundaries（ 错误边界）”。Error Boundaries 是一个特殊的 React 组件， 它用来捕获发生在子组件树的 js 错误，并输出这些错误，显示一个回调的 UI，避免一个组件的一个错误导致整个组件树的崩溃。
-在学习它之前，我们先…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2018/10/react-error-boundaries/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2018-10-18
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 788
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 4mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/js/">js</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/error/" rel="tag">error</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/" rel="tag">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
-  
-  
-  
-  <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <span class="meta-block">
-            <i class="icon fa fa-calendar"></i>
-            <time datetime="2018-09-10T12:31:00.000Z" itemprop="datePublished">2018-09-10</time>
-        </span>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/09/brief_introduction_to_resource-preload/">link 标签的预加载相关属性的简单介绍</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            我们知道，浏览器在解析文档的时候如果遇到引入的外部资源，需要下载外部资源，如果有些外部资源比较大，可能会需要一个较长的下载时间，而资源预加载技术就是为了部分解决这样的问题的。
-资源预加载顾名思义，就是预测将来可能需要的一些资源，并在当前对这些资源进行预先加载的技术。
-很明显，资源预加载对优化当前页面的加载速度并没有什么用处，但是却可以优化用户进行下一次跳转的加载速度。资源预加载主要是通过 link 标签提供的几个不同的 rel 的属性值，进行不同程度的预加载，主要由以下几种不同的策略：dns-prefetch、preconnect、prefetch、preload、prerender。
-DNS…
-        </p>
-        <div class="article-meta">
-            <div class="article-count">
-                <a href="/2018/09/brief_introduction_to_resource-preload/" class="article-date hide">
-    <i class="icon fa fa-calendar"></i>
-    2018-09-10
-</a>
-                
-    <span class="word-count">
-      <i class="icon fa fa-file-text"></i>
-      字数: 998
-    </span>
-    <span class="word-count">
-      <i class="icon fa fa-clock-o"></i>
-      阅读时长: 5mins
-    </span>
-
-            </div>
-            <div class="article-dir hide">
-                
-    <div class="article-category">
-    <i class="icon fa fa-list-ul"></i>
-    <a class="article-category-link" href="/categories/js/">js</a>
-    </div>
-
-                
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/" rel="tag">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rel/" rel="tag">rel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li></ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-
 
   </div></section>
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/page/2/">&lt;</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/">&gt;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&lt;</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/4/">&gt;</a>
   </nav>
 
         </div>
