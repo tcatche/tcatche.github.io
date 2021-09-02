@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Jquery整体架构 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-Jquery-source-code-study" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        Jquery整体架构
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2016" data-type="ARCHIVES">
+        2016-03-31
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 6.6k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 39mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>[TOC]</p>
+<p>##1.理解架构</p>
+<p>###1.1 最新jQuery2.1.1版本的结构：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span>(<span class="params"><span class="built_in">global</span>, factory</span>) </span>&#123;</span><br><span class="line">    factory(<span class="built_in">global</span>);</span><br><span class="line">&#125;(<span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">&quot;undefined&quot;</span> ? <span class="built_in">window</span> : <span class="built_in">this</span>, <span class="function"><span class="keyword">function</span>(<span class="params"><span class="built_in">window</span>, noGlobal</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> jQuery = <span class="function"><span class="keyword">function</span>(<span class="params"> selector, context </span>) </span>&#123;</span><br><span class="line">222<span class="keyword">return</span> <span class="keyword">new</span> jQuery.fn.init( selector, context );</span><br><span class="line">22&#125;;</span><br><span class="line">22jQuery.fn = jQuery.prototype = &#123;&#125;;</span><br><span class="line">22<span class="comment">// 核心方法</span></span><br><span class="line">22<span class="comment">// 回调系统</span></span><br><span class="line">22<span class="comment">// 异步队列</span></span><br><span class="line">22<span class="comment">// 数据缓存</span></span><br><span class="line">22<span class="comment">// 队列操作</span></span><br><span class="line">22<span class="comment">// 选择器引</span></span><br><span class="line">22<span class="comment">// 属性操作</span></span><br><span class="line">22<span class="comment">// 节点遍历</span></span><br><span class="line">22<span class="comment">// 文档处理</span></span><br><span class="line">22<span class="comment">// 样式操作</span></span><br><span class="line">22<span class="comment">// 属性操作</span></span><br><span class="line">22<span class="comment">// 事件体系</span></span><br><span class="line">22<span class="comment">// AJAX交互</span></span><br><span class="line">22<span class="comment">// 动画引擎</span></span><br><span class="line">22<span class="keyword">return</span> jQuery;</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+<p>###1.2 jQuery模块依赖<br><img src="/public/img/webfront/1.jpg" alt="jQuery模块依赖"></p>
+<p>###1.3 jQuery的类数组对象结构<br>通过 <code>$(&quot;.Class&quot;)</code> 构建的对象结构如下所示：<br><img src="/public/img/webfront/3.jpg" alt="jQuery模块依赖"><br>整个结构很明了，通过对象键值对的关系保存着属性，原型保存着方法。我们来简单的模拟一个这样的数据结构：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> aQuery = <span class="function"><span class="keyword">function</span>(<span class="params">selector</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//强制为对象</span></span><br><span class="line">2<span class="keyword">if</span> (!(<span class="built_in">this</span> <span class="keyword">instanceof</span> aQuery)) &#123;</span><br><span class="line">22<span class="keyword">return</span> <span class="keyword">new</span> aQuery(selector);</span><br><span class="line">2&#125;</span><br><span class="line">2<span class="keyword">var</span> elem = <span class="built_in">document</span>.getElementById(<span class="regexp">/[^#].*/</span>.exec(selector)[<span class="number">0</span>]);</span><br><span class="line">2<span class="built_in">this</span>.length = <span class="number">1</span>;</span><br><span class="line">2<span class="built_in">this</span>[<span class="number">0</span>] = elem;</span><br><span class="line">2<span class="built_in">this</span>.context = <span class="built_in">document</span>;</span><br><span class="line">2<span class="built_in">this</span>.selector = selector;</span><br><span class="line">2<span class="built_in">this</span>.get = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">22<span class="keyword">return</span> <span class="built_in">this</span>[num];</span><br><span class="line">2&#125;</span><br><span class="line">2<span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数 aQuery() 内部首先保证了必须是通过 <code>new</code> 操作符构建。这样就能保证当前构建的是一个带有 <code>this</code> 的实例对象，既然是对象我们可以把所有的属性与方法作为对象的key与value的方式给映射到this上，所以如上结构就可以模拟出jQuery的这样的操作了，即可通过索引取值，也可以链式方法取值，但是这样的结构是有很大的缺陷的，每次调用ajQuery方法等于是创建了一个新的实例，那么类似get方法就要在每一个实例上重新创建一遍，性能就大打折扣，所以jQuery在结构上的优化不仅仅只是我们看到的，除了实现类数组结构、方法的原型共享，而且还实现方法的静态与实例的共存。</p>
+<p>###1.4 jQuery中ready与load事件<br>jQuery有3种针对文档加载的方法：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// ...代码...</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//document ready 简写</span></span><br><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// ...代码...</span></span><br><span class="line">&#125;)</span><br><span class="line">$(<span class="built_in">document</span>).load(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// ...代码...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>DOM文档加载的步骤：</p>
+<ol>
+<li>解析HTML结构。</li>
+<li>加载外部脚本和样式表文件。</li>
+<li>解析并执行脚本代码。</li>
+<li>构造HTML DOM模型。//ready</li>
+<li>加载图片等外部文件。</li>
+<li>页面加载完毕。//load</li>
+</ol>
+<p>ready与load的区别就在于资源文件的加载，ready构建了基本的DOM结构，所以对于代码来说应该越快加载越好。ready在第 4 步完成之后就执行了，但是load要在第 6 步完成之后才执行。</p>
+<p>###1.5 jQuery多库共存处理<br>引入jQuery运行这个 <code>noConflict</code> 函数将变量 <code>$</code> 的控制权让给第一个实现它的那个库，确保jQuery不会与其他库的$对象发生冲突。<br>在运行这个函数后，就只能使用jQuery变量访问jQuery对象。</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//让出控制权</span></span><br><span class="line">$.noConflict();</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用noConflict后，$不存在</span></span><br><span class="line"><span class="keyword">if</span> (!$) &#123;</span><br><span class="line">2<span class="built_in">console</span>.log(<span class="string">&quot;使用noConflict后，$不存在&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用noConflict后，jQuery存在</span></span><br><span class="line"><span class="keyword">if</span> (jQuery) &#123;</span><br><span class="line">2<span class="built_in">console</span>.log(<span class="string">&quot;使用noConflict后，jQuery存在&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过闭包隔离出$,通过闭包隔离后，转为局部变量$存在</span></span><br><span class="line">;(<span class="function"><span class="keyword">function</span>(<span class="params">$</span>) </span>&#123;</span><br><span class="line">2<span class="keyword">if</span> ($) &#123;</span><br><span class="line">22<span class="built_in">console</span>.log(<span class="string">&quot;通过闭包隔离后，转为局部变量$存在&quot;</span>)</span><br><span class="line">2&#125;</span><br><span class="line">&#125;)(jQuery);</span><br></pre></td></tr></table></figure>
+<p>实现原理：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Var _jQuery = <span class="built_in">window</span>.jQuery,</span><br><span class="line">    _$ = <span class="built_in">window</span>.$;</span><br><span class="line"></span><br><span class="line">jQuery.noConflict = <span class="function"><span class="keyword">function</span>(<span class="params"> deep </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ( <span class="built_in">window</span>.$ === jQuery ) &#123;</span><br><span class="line">        <span class="built_in">window</span>.$ = _$;</span><br><span class="line">    &#125;</span><br><span class="line">2<span class="keyword">if</span> ( deep &amp;&amp; <span class="built_in">window</span>.jQuery === jQuery ) &#123;</span><br><span class="line">        <span class="built_in">window</span>.jQuery = _jQuery;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> jQuery;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>jQuery在占用 <code>$</code> 时，已经把之前的存在的命名空间给缓存起来， <code>noConflict</code> 通过对比当前的命名空间达到交换的目的: 首先，先判断下当前的 <code>$</code> 空间是不是被jQuery接管了，如果是则让出控制权给之前的 <code>_$</code> 引用的库，如果传入 <code>deep</code> 为 <code>true</code> 的话等于是把 jQuery 的控制权也让出去了。</p>
+<p>##2.核心模块</p>
+<p>###2.1 分离构造器<br>通过new操作符构建一个对象，一般经过四步：</p>
+<p>1.创建一个新对象<br>2.将构造函数的作用域赋给新对象（所以this就指向了这个新对象）<br>3.执行构造函数中的代码<br>4.返回这个新对象</p>
+<p>最后一点就说明了，我们只要返回一个新对象即可。其实new操作符主要是把原型链跟实例的this关联起来，这才是最关键的一点，所以我们如果需要原型链就必须要new操作符来进行处理。否则this则变成window对象了。</p>
+<p>我们来剖析下jQuery的这个结构,以下是我们常见的类式写法:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> $$ = ajQuery = <span class="function"><span class="keyword">function</span>(<span class="params">selector</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.selector = selector;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">&#125;</span><br><span class="line">ajQuery.fn = ajQuery.prototype = &#123;</span><br><span class="line">    <span class="attr">selectorName</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.selector;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">constructor</span>: ajQuery</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> $$(<span class="string">&#x27;aaa&#x27;</span>);  <span class="comment">//实例化</span></span><br><span class="line">a.selectorName() <span class="comment">//aaa //得到选择器名字</span></span><br></pre></td></tr></table></figure>
+
+<p>首先改造jQuery无new的格式，我们可以通过instanceof判断this是否为当前实例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> $$ = ajQuery = <span class="function"><span class="keyword">function</span>(<span class="params">selector</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!(<span class="built_in">this</span> <span class="keyword">instanceof</span> ajQuery))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ajQuery(selector);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.selector = selector;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是注意千万不要像下面这样写：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//错误 这样会无限递归自己，从而造成死循环并且溢出。</span></span><br><span class="line"><span class="keyword">var</span> $$ = ajQuery = <span class="function"><span class="keyword">function</span>(<span class="params">selector</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.selector = selector;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ajQuery(selector);</span><br><span class="line">&#125;</span><br><span class="line">Uncaught <span class="built_in">RangeError</span>: Maximum call stack size exceeded</span><br></pre></td></tr></table></figure>
+
+<p>jQuery为了避免出现这种死循环的问题，采取的手段是把原型上的一个init方法作为构造器</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> $$ = ajQuery = <span class="function"><span class="keyword">function</span>(<span class="params">selector</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//把原型上的init作为构造器</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ajQuery.fn.init( selector );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ajQuery.fn = ajQuery.prototype = &#123;</span><br><span class="line">    <span class="attr">init</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// init ajQuery;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">constructor</span>: jQuery</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样确实解决了循环递归的问题，但是又问题来了，init是ajQuery原型上作为构造器的一个方法，那么其this就不是ajQuery了，所以this就完全引用不到ajQuery的原型了,也就无法引用到ajQuery原型上定义的一系列方法。</p>
+<p>###2.2 静态与实例方法共享设计<br>上一节提到分离后的构造器无法访问ajQuery原型上定义的一系列方法，jQuery给出如下方案：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">ajQuery.fn = ajQuery.prototype = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;ajQuery&#x27;</span>,</span><br><span class="line">    <span class="attr">init</span>: <span class="function"><span class="keyword">function</span>(<span class="params">selector</span>) </span>&#123;</span><br><span class="line">           <span class="built_in">this</span>.selector = selector;</span><br><span class="line">           <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">constructor</span>: ajQuery</span><br><span class="line">&#125;</span><br><span class="line">ajQuery.fn.init.prototype = ajQuery.fn;</span><br></pre></td></tr></table></figure>
+<p>这段代码就是整个结构设计的最核心的东西了，<br>把jQuery.prototype原型的引用赋给jQuery.fn.init.prototype的原型，这样就把2个构造器的原型给关联起来了，整个结构就活了！不得不佩服作者的设计思路，别具匠心。</p>
+<p>init的构造图:<br><img src="/public/img/webfront/4.jpg" alt="init的构造图"><br>通过原型传递解决问题，把jQuery的原型传递给jQuery.prototype.init.prototype。换句话说jQuery的原型对象覆盖了init构造器的原型对象，因为是引用传递所以不需要担心这个循环引用的性能问题。</p>
+<p>###2.3 插件接口的设计<br>jQuery插件的开发分为两种：</p>
+<ul>
+<li>一种是挂在jQuery命名空间下的全局函数，也可称为静态方法；</li>
+<li>另一种是jQuery对象级别的方法，即挂在jQuery原型下的方法，这样通过选择器获取的jQuery对象实例也能共享该方法。</li>
+</ul>
+<p><strong>提供的接口：</strong><br><code>$.extend(target, [object1], [objectN])</code></p>
+<p>jQuery的代码实现：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">jQuery.extend = jQuery.fn.extend = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">2<span class="keyword">var</span> options,</span><br><span class="line">22target = <span class="built_in">arguments</span>[<span class="number">0</span>] || &#123;&#125;,</span><br><span class="line">22i = <span class="number">1</span>,</span><br><span class="line">22length = <span class="built_in">arguments</span>.length,</span><br><span class="line"></span><br><span class="line">2<span class="comment">// Extend jQuery itself if only one argument is passed</span></span><br><span class="line">2<span class="keyword">if</span> ( i === length ) &#123;</span><br><span class="line">22target = <span class="built_in">this</span>;  <span class="comment">//this决定这个方法是作为静态扩展还是实例扩展处理</span></span><br><span class="line">22i--;</span><br><span class="line">2&#125;</span><br><span class="line"></span><br><span class="line">2<span class="keyword">for</span> ( ; i &lt; length; i++ ) &#123;</span><br><span class="line">22<span class="comment">// Only deal with non-null/undefined values</span></span><br><span class="line">22<span class="keyword">if</span> ( (options = <span class="built_in">arguments</span>[ i ]) != <span class="literal">null</span> ) &#123;</span><br><span class="line">222<span class="comment">// Extend the base object</span></span><br><span class="line">22&#125;</span><br><span class="line">2&#125;</span><br><span class="line"></span><br><span class="line">2<span class="comment">// Return the modified object</span></span><br><span class="line">2<span class="keyword">return</span> target;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>从jQuery的源码中可以看到，jQuery.extend和jQuery.fn.extend其实是同指向同一方法的不同引用。<br>这里有一个设计的重点，通过调用的上下文，我们来确定这个方法是作为静态还是实例处理：</p>
+<ul>
+<li>jQuery.extend 调用的时候，this是指向jQuery对象，所以这里扩展在jQuery上，作为静态方法。</li>
+<li>jQuery.fn.extend 调用的时候，this指向jQuery.fn对象，jQuery.fn 和jQuery.prototype指向同一对象，扩展fn就是扩展jQuery.prototype原型对象，因此这里增加的是原型方法，也就是对象方法了。</li>
+</ul>
+<p><strong>接口的使用：</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//挂在jQuery命名空间下的全局函数,扩展后可以通过jQuery.data()和jQuery.removeData()访问，</span></span><br><span class="line"><span class="comment">//但是通过选择器获取的对象实例jQuery()不具有此方法，jQuery().data() 和 jQuery().removeData()无法访问</span></span><br><span class="line">jQuery.extend(&#123;</span><br><span class="line">    <span class="attr">data</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">    <span class="attr">removeData</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//挂在jQuery原型下的方法,扩展后可以通过jQuery的实例对象访问，jQuery().data() 和 jQuery().removeData()</span></span><br><span class="line"><span class="comment">//但是jQuery命名空间下不存在此方法，jQuery.data()和jQuery.removeData()无法访问</span></span><br><span class="line">jQuery.fn.extend(&#123;</span><br><span class="line">    <span class="attr">data</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">    <span class="attr">removeData</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong></p>
+<p>根据传入的参数不同，当参数仅仅传入一个对象时是对jquery功能的扩展，如果传入多个对象时，将用扩展传入的第一个对象，此过程与本节内容无关，不再讨论。</p>
+<p>###2.4 回溯处理<br>jQuery每次dom操作会返回一个jQuery对象而非dom对象，jQuery对象实际上是对dom对象的一层包装，每个jQuery对象都有三个属性：<code>context</code> 、<code>selector</code> 和 <code>prevObject</code> ，其中的 <code>prevObject</code> 属性就指向这个对象栈中的前一个对象，而通过这个属性可以回溯到最初的DOM元素集中。</p>
+<p>在浏览器可以看到jQuery对象属性：</p>
+<p><img src="/public/img/webfront/5.jpg" alt="jQuery对象属性"></p>
+<p>jQuery内部维护着一个jQuery对象栈。每个遍历方法都会找到一组新元素（一个jQuery对象），然后jQuery会把这组元素推入到栈中。</p>
+<p>jQuery为我们操作这个内部对象栈提供个非常有用的2个方法:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">.end() <span class="comment">//回溯到之前的Dom元素集合</span></span><br><span class="line">.addBack()/.andSelf()(jQ1<span class="number">.8</span>+) <span class="comment">//回溯之前一个位置，然后把两个位置上的元素集组合起来，并把这个新的、组合之后的元素集推入栈的上方。</span></span><br></pre></td></tr></table></figure>
+
+<p><code>end()</code> 方法主要用于jQuery的链式属性中。当没有使用链式用法时，我们通常只是调用变量名上的前一个对象，所以我们不需要操作栈。</p>
+<p><strong>Exapmple:</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;first&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;foo&quot;</span>&gt;</span>list item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;bar&quot;</span>&gt;</span>list item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;second&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;foo&quot;</span>&gt;</span>list item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;bar&quot;</span>&gt;</span>list item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//设置.first .foo颜色黑色，.first .foo颜色红色</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//首先在链式用法中只在第一个列表中查找样式为 foo 的项目，并将其颜色变成黑色。</span></span><br><span class="line"><span class="comment">//然后end()返回调用find()之前的状态。</span></span><br><span class="line"><span class="comment">//因此，第二次 find() 将只会查找 &lt;ul class=&quot;first&quot;&gt; 中的 &#x27;.bar&#x27;，</span></span><br><span class="line"><span class="comment">//而不是继续在&lt;li class=&quot;foo&quot;&gt;中进行查找，结果是将匹配到的元素的颜色变成红色。</span></span><br><span class="line">$(<span class="string">&#x27;.first&#x27;</span>).find(<span class="string">&#x27;.foo&#x27;</span>).css(<span class="string">&#x27;color&#x27;</span>, <span class="string">&#x27;black&#x27;</span>).end().find(<span class="string">&#x27;.bar&#x27;</span>).css(<span class="string">&#x27;color&#x27;</span>, <span class="string">&#x27;red&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//错误</span></span><br><span class="line"><span class="comment">//$(&#x27;.first&#x27;).find(&#x27;.foo&#x27;).css(&#x27;color&#x27;, &#x27;black&#x27;)后此时上下文已切换为.first .foo</span></span><br><span class="line"><span class="comment">//.find(&#x27;.bar&#x27;)无法找到该元素，故需要.end()回溯至上一步</span></span><br><span class="line">$(<span class="string">&#x27;.first&#x27;</span>).find(<span class="string">&#x27;.foo&#x27;</span>).css(<span class="string">&#x27;color&#x27;</span>, <span class="string">&#x27;black&#x27;</span>).find(<span class="string">&#x27;.bar&#x27;</span>).css(<span class="string">&#x27;color&#x27;</span>, <span class="string">&#x27;red&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>jQuery的代码实现：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//可以看到end方法返回prevObject属性</span></span><br><span class="line"><span class="attr">end</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="built_in">this</span>.prevObject || <span class="built_in">this</span>.constructor(<span class="literal">null</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在调用find方法查找元素时，通过pushStack方法构建jQuery对象，并返回</span></span><br><span class="line"><span class="attr">find</span>: <span class="function"><span class="keyword">function</span>(<span class="params">selector</span>) </span>&#123;</span><br><span class="line">2<span class="comment">//...........................省略................................</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//通过sizzle选择器，返回结果集</span></span><br><span class="line">    jQuery.find(selector, self[i], ret);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Needed because $( selector, context ) becomes $( context ).find( selector )</span></span><br><span class="line">    ret = <span class="built_in">this</span>.pushStack(len &gt; <span class="number">1</span> ? jQuery.unique(ret) : ret);</span><br><span class="line">    ret.selector = <span class="built_in">this</span>.selector ? <span class="built_in">this</span>.selector + <span class="string">&quot; &quot;</span> + selector : selector;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//pushStack对象，作用就通过新的DOM元素去创建一个新的jQuery对象</span></span><br><span class="line"><span class="attr">pushStack</span>: <span class="function"><span class="keyword">function</span>(<span class="params"> elems </span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Build a new jQuery matched element set</span></span><br><span class="line">    <span class="keyword">var</span> ret = jQuery.merge( <span class="built_in">this</span>.constructor(), elems );</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Add the old object onto the stack (as a reference)</span></span><br><span class="line">    ret.prevObject = <span class="built_in">this</span>;</span><br><span class="line">    ret.context = <span class="built_in">this</span>.context;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Return the newly-formed element set</span></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//constructor是指向构造器</span></span><br><span class="line">jQuery.fn = jQuery.prototype = &#123;</span><br><span class="line">2<span class="comment">//...........................省略................................</span></span><br><span class="line">2<span class="attr">constructor</span>: jQuery,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>流程解析：</strong></p>
+<ol>
+<li>首先构建一个新的jQuery对象，因为constructor是指向构造器的，所以这里就等同于调用jQuery()方法了，返回了一个新的jQuery对象；</li>
+<li>然后用jQuery.merge语句把elems节点合并到新的jQuery对象上；</li>
+<li>最后给返回的新jQuery对象添加prevObject属性，我们看到prevObject其实还是当前jQuery的一个引用罢了，所以也就是为什么通过prevObject能取到上一个合集的原因了。</li>
+</ol>
+<p><code>addBack()</code> 和 <code>addSelf()</code> 方法与 <code>end()</code> 类似，多了一步合并当前对象的操作，不再赘述。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">add: <span class="function"><span class="keyword">function</span>(<span class="params"> selector, context </span>) </span>&#123;</span><br><span class="line">2<span class="keyword">return</span> <span class="built_in">this</span>.pushStack(</span><br><span class="line">22jQuery.unique(</span><br><span class="line">222jQuery.merge( <span class="built_in">this</span>.get(), jQuery( selector, context ) )</span><br><span class="line">22)</span><br><span class="line">2);</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="attr">addBack</span>: <span class="function"><span class="keyword">function</span>(<span class="params"> selector </span>) </span>&#123;</span><br><span class="line">2<span class="keyword">return</span> <span class="built_in">this</span>.add( selector == <span class="literal">null</span> ?</span><br><span class="line">22<span class="built_in">this</span>.prevObject : <span class="built_in">this</span>.prevObject.filter(selector)</span><br><span class="line">2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jQuery.fn.andSelf = jQuery.fn.addBack;</span><br></pre></td></tr></table></figure>
+
+<p>###2.5 迭代器<br>迭代器是一个框架的重要设计。我们经常需要提供一种方法顺序用来处理聚合对象中各个元素，而又不暴露该对象的内部，这也是设计模式中的迭代器模式(Iterator)。针对迭代器，有几个特点：</p>
+<ul>
+<li>访问一个聚合对象的内容而无需暴露它的内部。</li>
+<li>为遍历不同的集合结构提供一个统一的接口，从而支持同样的算法在不同的集合结构上进行操作。</li>
+<li>遍历的同时更改迭代器所在的集合结构可能会导致问题。</li>
+</ul>
+<p>除此之外，还要考虑支持以下至少四种情况：</p>
+<ul>
+<li>支持聚合对象，可能是对象，字符串或者数组等类型</li>
+<li>支持参数传递</li>
+<li>支持上下文的传递</li>
+<li>支持循环中退出</li>
+</ul>
+<p><code>jQuery.each()</code> 实现：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">each: <span class="function"><span class="keyword">function</span>(<span class="params"> obj, callback, args </span>) </span>&#123;</span><br><span class="line">2<span class="keyword">var</span> value,</span><br><span class="line">22i = <span class="number">0</span>,</span><br><span class="line">22length = obj.length,</span><br><span class="line">22isArray = isArraylike( obj );</span><br><span class="line"></span><br><span class="line">2<span class="comment">//支持参数传递</span></span><br><span class="line">2<span class="keyword">if</span> ( args ) &#123;</span><br><span class="line">22<span class="keyword">if</span> ( isArray ) &#123;</span><br><span class="line">222<span class="keyword">for</span> ( ; i &lt; length; i++ ) &#123;</span><br><span class="line">2222value = callback.apply( obj[ i ], args );</span><br><span class="line"></span><br><span class="line">2222<span class="keyword">if</span> ( value === <span class="literal">false</span> ) &#123;</span><br><span class="line">22222<span class="keyword">break</span>;</span><br><span class="line">2222&#125;</span><br><span class="line">222&#125;</span><br><span class="line">22&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">222<span class="keyword">for</span> ( i <span class="keyword">in</span> obj ) &#123;</span><br><span class="line">2222value = callback.apply( obj[ i ], args );</span><br><span class="line"></span><br><span class="line">2222<span class="keyword">if</span> ( value === <span class="literal">false</span> ) &#123;</span><br><span class="line">22222<span class="keyword">break</span>;</span><br><span class="line">2222&#125;</span><br><span class="line">222&#125;</span><br><span class="line">22&#125;</span><br><span class="line"></span><br><span class="line">2<span class="comment">// A special, fast, case for the most common use of each</span></span><br><span class="line">2&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">22<span class="comment">//支持对象，或者数组</span></span><br><span class="line">22<span class="keyword">if</span> ( isArray ) &#123;</span><br><span class="line">222<span class="keyword">for</span> ( ; i &lt; length; i++ ) &#123;</span><br><span class="line"></span><br><span class="line">2222<span class="comment">//call直接把obj[i]作为上下文即callback回调中的this传递进去，</span></span><br><span class="line">2222value = callback.call( obj[ i ], i, obj[ i ] );</span><br><span class="line"></span><br><span class="line">2222<span class="comment">//支持循环中退出</span></span><br><span class="line">2222<span class="comment">//根据回调的处理，从而判断是否要立刻中断这个循环，</span></span><br><span class="line">2222<span class="comment">//通过回调函数callback返回的ture/false的布尔值结果就可以来判断当前是否要强制退出循环。</span></span><br><span class="line">2222<span class="keyword">if</span> ( value === <span class="literal">false</span> ) &#123;</span><br><span class="line">22222<span class="keyword">break</span>;</span><br><span class="line">2222&#125;</span><br><span class="line">222&#125;</span><br><span class="line">22&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">222<span class="keyword">for</span> ( i <span class="keyword">in</span> obj ) &#123;</span><br><span class="line">2222value = callback.call( obj[ i ], i, obj[ i ] );</span><br><span class="line"></span><br><span class="line">2222<span class="keyword">if</span> ( value === <span class="literal">false</span> ) &#123;</span><br><span class="line">22222<span class="keyword">break</span>;</span><br><span class="line">2222&#125;</span><br><span class="line">222&#125;</span><br><span class="line">22&#125;</span><br><span class="line">2&#125;</span><br><span class="line"></span><br><span class="line">2<span class="keyword">return</span> obj;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>jQuery的each方法从使用上就要分2种：</p>
+<ul>
+<li>$.each()</li>
+<li>$(selector).each()</li>
+</ul>
+<p><code>$(selector).each()</code> 的实现</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">each: <span class="function"><span class="keyword">function</span>(<span class="params">callback, args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> jQuery.each(<span class="built_in">this</span>, callback, args); <span class="comment">//调用$.each()静态方法</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>jQuery可以是多个合集数组DOM，所以在处理的时候经常就针对每一个DOM都要单独处理，所以一般都需要调用 <code>$(selector).each()</code>  方法，接口的抽象合并在jQuery内部的运用很多，把相同功能的代码功能合并处理。</p>
+<p>##3.回调Callbacks</p>
+<p>###3.1 运用回调<br>我们经常会在这些情况使用函数回调：</p>
+<ul>
+<li>事件触发通知</li>
+<li>资源加载通知</li>
+<li>定时器延时</li>
+<li>ajax、动画通知等等。</li>
+</ul>
+<p>以上都是很单一的事件监听回调的处理方式，但是jQuery把回调函数的用法设计成一个更高的抽像，用于解耦与分离变化。</p>
+<p><strong>例如：</strong></p>
+<p>jQuery针对Dom的处理提供了<code>append</code> 、<code>prepend</code> 、<code>before</code> 、<code>after</code> 等方法的处理，这几个方法的特征：</p>
+<ul>
+<li>参数的传递可以是HTML字符串、DOM元素、元素数组或者jQuery对象</li>
+<li>为了优化性能针对节点的处理需要生成文档碎片</li>
+</ul>
+<p><strong>实现代码：</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//callback 省略</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="attr">append</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">2<span class="keyword">return</span> <span class="built_in">this</span>.domManip( <span class="built_in">arguments</span>, callback);</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="attr">prepend</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">2<span class="keyword">return</span> <span class="built_in">this</span>.domManip( <span class="built_in">arguments</span>, callback);</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="attr">before</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">2<span class="keyword">return</span> <span class="built_in">this</span>.domManip( <span class="built_in">arguments</span>, callback);</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="attr">after</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">2<span class="keyword">return</span> <span class="built_in">this</span>.domManip( <span class="built_in">arguments</span>, callback);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="attr">domManip</span>: <span class="function"><span class="keyword">function</span>(<span class="params">args, callback</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Flatten any nested arrays</span></span><br><span class="line">    args = concat.apply([], args);</span><br><span class="line">    <span class="comment">// We can&#x27;t cloneNode fragments that contain checked, in WebKit</span></span><br><span class="line">    <span class="keyword">if</span> (isFunction ||</span><br><span class="line">        <span class="comment">//多参数处理</span></span><br><span class="line">        self.domManip(args, callback);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (l) &#123;</span><br><span class="line">        <span class="comment">//生成文档碎片</span></span><br><span class="line">        fragment = jQuery.buildFragment(args, <span class="built_in">this</span>[<span class="number">0</span>].ownerDocument, <span class="literal">false</span>, <span class="built_in">this</span>);</span><br><span class="line">        callback.call(<span class="built_in">this</span>[i], node, i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>jQuery通过抽象出一个domManip方法，然后在这个方法中处理共性，合并多个参数的处理与生成文档碎片的处理，然后最终把结果通过回调函数返回给每一个调用者。</p>
+<p>###3.2 观察者模式<br>观察者模式也即发布/订阅模式的背后，总的想法是在应用程序中增强松耦合性。并非是在其它对象的方法上的单个对象调用。一个对象作为特定任务或是另一对象的活动的观察者，并且在这个任务或活动发生时，通知观察者。</p>
+<p>观察者的使用场合就是：当一个对象的改变需要同时改变其它对象，并且它不知道具体有多少对象需要改变的时候，就应该考虑使用观察者模式。</p>
+<p>JS里对观察者模式的实现是通过回调来实现的，我们来先定义一个Observable对象，其内部包含了2个方法：订阅add方法与发布fire方法，如下代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Observable = &#123;</span><br><span class="line">2<span class="attr">callbacks</span>: [],</span><br><span class="line">2<span class="attr">add</span>: <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">22<span class="built_in">this</span>.callbacks.push(fn);</span><br><span class="line">2&#125;,</span><br><span class="line">2<span class="attr">fire</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">22<span class="built_in">this</span>.callbacks.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">222fn();</span><br><span class="line">22&#125;)</span><br><span class="line">2&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用add开始订阅：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Observable.add(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">2alert(<span class="number">1</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Observable.add(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">2alert(<span class="number">2</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>使用fire开始发布：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Observable.fire(); <span class="comment">// 1, 2</span></span><br></pre></td></tr></table></figure>
+
+<p>###3.3 观察者模式运用<br>假设一段ajax的请求，成功后通过done返回结果数据：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">2<span class="attr">url</span>: <span class="string">&quot;test.html&quot;</span>,</span><br><span class="line">2<span class="attr">context</span>: <span class="built_in">document</span>.body</span><br><span class="line">&#125;).done(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">2<span class="comment">//data数据的处理</span></span><br><span class="line">2$(<span class="string">&#x27;aaron1&#x27;</span>).html(data.a)</span><br><span class="line">2$(<span class="string">&#x27;aaron2&#x27;</span>).html(data.b)</span><br><span class="line">2$(<span class="string">&#x27;aaron3&#x27;</span>).html(data.c)</span><br><span class="line">2<span class="comment">//其余处理</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>所有的逻辑都写在done方法里面，虽然可以使用，但是问题就是逻辑太复杂了。Done里面有数据处理、html渲染、还可能有其它不同场景的业务逻辑。这样如果是换做不同的人去维护代码，增加功能就会显得很混乱而且没有扩展性。那么观察者模式能很好的解决了这个的问题。</p>
+<p>试着优化代码:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">2<span class="attr">url</span>: <span class="string">&quot;test.html&quot;</span>,</span><br><span class="line">2<span class="attr">context</span>: <span class="built_in">document</span>.body</span><br><span class="line">&#125;).done(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">2pocessData()</span><br><span class="line">2pocessHtml()</span><br><span class="line">2pocessOther()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pocessData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">//处理数据</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pocessHtml</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">2$(<span class="string">&#x27;aaron1&#x27;</span>).html(data.a)</span><br><span class="line">2$(<span class="string">&#x27;aaron2&#x27;</span>).html(data.b)</span><br><span class="line">2$(<span class="string">&#x27;aaron3&#x27;</span>).html(data.c)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pocessOther</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">//处理其他逻辑</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这种方式的好处是，分离出各种的业务函数，从而降低了代码之间的耦合度，但是这样代码写法几乎就是“就事论事”的处理，达不到抽象复用。</p>
+<p>使用之前的观察者模式再次优化上面的代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Observable.add(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">2<span class="comment">//pocessData</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Observable.add(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">2$(<span class="string">&#x27;aaron1&#x27;</span>).html(data.a)</span><br><span class="line">2$(<span class="string">&#x27;aaron2&#x27;</span>).html(data.b)</span><br><span class="line">2$(<span class="string">&#x27;aaron3&#x27;</span>).html(data.c)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Observable.add(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">2<span class="comment">//pocessOther</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">$.ajax(&#123;</span><br><span class="line">2<span class="attr">url</span>: <span class="string">&quot;test.html&quot;</span>,</span><br><span class="line">2<span class="attr">context</span>: <span class="built_in">document</span>.body</span><br><span class="line">&#125;).done(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">2Observable.fire(data)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>设计该模式背后的主要动力是促进形成松散耦合。在这种模式中，并不是一个对象调用另一个对象的方法，而是一个对象订阅另一个对象的特定活动并在状态改变后获得通知。订阅者也称为观察者，而被观察的对象称为发布者或主题。当发生了一个重要的事件时，发布者将会通知（调用）所有订阅者并且可能经常以事件对象的形式传递消息。</p>
+<p>###3.4 jQuery回调模块Callbacks<br>$.Callbacks是一个工厂函数，使用函数调用创建对象，它有一个可选参数 <code>flags</code> 用来设置回调函数的行为，对外的接口也就是self的返回。</p>
+<p><strong>jQuery.Callbacks()的API：</strong></p>
+<ul>
+<li><code>callbacks.add()</code> : 回调列表中添加一个回调或回调的集合。</li>
+<li><code>callbacks.disable()</code> : 禁用回调列表中的回调。</li>
+<li><code>callbacks.disabled()</code> : 确定回调列表是否已被禁用。</li>
+<li><code>callbacks.empty()</code> : 从列表中删除所有的回调。</li>
+<li><code>callbacks.fire()</code> : 用给定的参数调用所有的回调。</li>
+<li><code>callbacks.fired()</code> : 访问给定的上下文和参数列表中的所有回调。</li>
+<li><code>callbacks.fireWith()</code> : 访问给定的上下文和参数列表中的所有回调。</li>
+<li><code>callbacks.has()</code> : 确定列表中是否提供一个回调。</li>
+<li><code>callbacks.lock()</code> : 锁定当前状态的回调列表。</li>
+<li><code>callbacks.locked()</code> : 确定回调列表是否已被锁定。</li>
+<li><code>callbacks.remove()</code> : 从回调列表中的删除一个回调或回调集合。</li>
+</ul>
+<p><strong>参数列表：</strong></p>
+<ul>
+<li><code>once</code> : 确保这个回调列表只执行（ .fire() ）一次(像一个递延 Deferred)。</li>
+<li><code>memory</code> : 保持以前的值，将添加到这个列表的后面的最新的值立即执行调用任何回调 (像一个递延 Deferred)。</li>
+<li><code>unique</code> : 确保一次只能添加一个回调(所以在列表中没有重复的回调)。</li>
+<li><code>stopOnFalse</code> : 当一个回调返回false 时中断调用。</li>
+</ul>
+<p><strong>实现代码：</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">jQuery.Callbacks = <span class="function"><span class="keyword">function</span>(<span class="params">options</span>) </span>&#123;</span><br><span class="line">    options = <span class="keyword">typeof</span> options === <span class="string">&quot;string&quot;</span> ?</span><br><span class="line">        (optionsCache[options] || createOptions(options)) :</span><br><span class="line">        jQuery.extend(&#123;&#125;, options);</span><br><span class="line">    <span class="comment">//实现代码</span></span><br><span class="line">    fire = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">    self = &#123;</span><br><span class="line">        <span class="attr">add</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</span><br><span class="line">        <span class="attr">remove</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</span><br><span class="line">        <span class="attr">has</span>: <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>) </span>&#123;&#125;,</span><br><span class="line">        <span class="attr">empty</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</span><br><span class="line">        <span class="attr">disable</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</span><br><span class="line">        <span class="attr">disabled</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</span><br><span class="line">        <span class="attr">lock</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</span><br><span class="line">        <span class="attr">locked</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</span><br><span class="line">        <span class="attr">fireWith</span>: <span class="function"><span class="keyword">function</span>(<span class="params">context, args</span>) </span>&#123;&#125;,</span><br><span class="line">        <span class="attr">fire</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</span><br><span class="line">        <span class="attr">fired</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> self;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>整个结构要分三部分：</p>
+<ul>
+<li> Options参数缓存</li>
+<li> 内部fire触发器的设计</li>
+<li> 外部</li>
+</ul>
+<p>参数的缓存设计：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Callbacks是可以是接受的字符串的组合传参数，可以使用空格分割，</span></span><br><span class="line"><span class="comment">// 这样的操作其实是不需要重复的，可以设计一个缓存池，用来储存重复的操作</span></span><br><span class="line"><span class="comment">// jQuery把这些操作抽象出来作为内部通用工具代码</span></span><br><span class="line">options = <span class="keyword">typeof</span> options === <span class="string">&quot;string&quot;</span> ?</span><br><span class="line">22( optionsCache[ options ] || createOptions( options ) ) :</span><br><span class="line">22jQuery.extend( &#123;&#125;, options );</span><br><span class="line"></span><br><span class="line"><span class="comment">// jQuery 通用的缓存池设计代码</span></span><br><span class="line"><span class="comment">// String to Object options format cache</span></span><br><span class="line"><span class="keyword">var</span> optionsCache = &#123;&#125;;</span><br><span class="line"><span class="comment">// Convert String-formatted options into Object-formatted ones and store in cache</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createOptions</span>(<span class="params"> options </span>) </span>&#123;</span><br><span class="line">2<span class="keyword">var</span> object = optionsCache[ options ] = &#123;&#125;;</span><br><span class="line">2jQuery.each( options.match( rnotwhite ) || [], <span class="function"><span class="keyword">function</span>(<span class="params"> _, flag </span>) </span>&#123;</span><br><span class="line">22object[ flag ] = <span class="literal">true</span>;</span><br><span class="line">2&#125;);</span><br><span class="line">2<span class="keyword">return</span> object;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// jQuery 通用的字符串转参数对象代码</span></span><br><span class="line"><span class="keyword">var</span> rnotwhite = (<span class="regexp">/\S+/g</span>);</span><br><span class="line"><span class="comment">// String to Object options format cache</span></span><br><span class="line"><span class="keyword">var</span> optionsCache = &#123;&#125;;</span><br><span class="line"><span class="comment">// Convert String-formatted options into Object-formatted ones and store in cache</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createOptions</span>(<span class="params"> options </span>) </span>&#123;</span><br><span class="line">2<span class="keyword">var</span> object = optionsCache[ options ] = &#123;&#125;;</span><br><span class="line">2jQuery.each( options.match( rnotwhite ) || [], <span class="function"><span class="keyword">function</span>(<span class="params"> _, flag </span>) </span>&#123;</span><br><span class="line">22object[ flag ] = <span class="literal">true</span>;</span><br><span class="line">2&#125;);</span><br><span class="line">2<span class="keyword">return</span> object;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>接口的设计：</p>
+<p>callback需要在内部维护着一个list的队列数组，用于保存订阅的对象数据。同时也需要提供了add、remove、fire等订阅、发布、删除类似的接口。<br>可以构建一个存放回调的数组，如 <code>var list = []</code> ，通过闭包使这条回调数组保持存在。添加回调时，将回调push进list，执行则遍历list执行回调。</p>
+<p>##4.数据缓存</p>
+<p>##5.deferred.js</p>
+<p>###5.1 Deferred介绍<br>Deferred对象是由$.Deferred构造的，它用来解决JS中的异步编程，它遵循 Common Promise/A 规范。实现此规范的还有 when.js 和 dojo。</p>
+<p>Deferred 提供了一个抽象的非阻塞的解决方案（如异步请求的响应），它创建一个promise对象，其目的是在未来某个时间点返回一个响应。简单来说就是一个异步/同步回调函数的处理方案。</p>
+<p>$.Deferred作为新特性首次出现在版本1.5中，这个版本利用Deferred又完全重写了Ajax模块。$.Deferred在jQuery代码自身四处被使用，分别是promise方法、DOM ready、Ajax模块、动画模块。<br>deferred.js为jQuery对象提供了两个静态方法： <code>$.Deferred()</code> 、 <code>$.when()</code> 。</p>
+<p>jQuery的Deferred就是模块化程度非常高，可以混入任意的对象接口中配合使用：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">task</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">2<span class="keyword">var</span> dtd = $.Deferred();</span><br><span class="line">2<span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">22dtd.resolve(name)</span><br><span class="line">2&#125;, <span class="number">1000</span>)</span><br><span class="line">2<span class="keyword">return</span> dtd;</span><br><span class="line">&#125;</span><br><span class="line">$.when(task(<span class="string">&#x27;任务一&#x27;</span>), task(<span class="string">&#x27;任务二&#x27;</span>)).done(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">2alert(<span class="string">&#x27;成功&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>###5.2 用法</p>
+<p><code>done/resolve</code> 处理成功状态， <code>fail/reject</code> 处理失败状态， <code>progress/notify</code> 当前处理进度状态</p>
+<p>调用示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(<span class="string">&#x27;success&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(<span class="string">&#x27;fail&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn3</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(<span class="string">&#x27;progress&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> deferred = $.Deferred();</span><br><span class="line">deferred.done(fn1).fail(fn2).progress(fn3); <span class="comment">// 链式操作</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//耗时的异步操作</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    deferred.resolve();</span><br><span class="line">    <span class="comment">//deferred.reject();</span></span><br><span class="line">    <span class="comment">//deferred.notify();</span></span><br><span class="line">&#125;, <span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>then</code> ，一次添加成功，失败，进度回调函数，调用示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> deferred = $.Deferred();</span><br><span class="line">deferred.then(fn1, fn2, fn3);</span><br></pre></td></tr></table></figure>
+
+<p>调用then后还可以继续链式调用then添加多个不同回调函数，这个then也正是jQuery对 Common Promise/A 的实现。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> deferred = $.Deferred();</span><br><span class="line">deferred.then(fn1, fn2, fn3);</span><br></pre></td></tr></table></figure>
+
+<p>使用always方法为成功，失败状态添加同一个回调函数，回调函数中可以使用deferred.state方法获取异步过程中的最终状态,调用示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> deferred = $.Deferred()</span><br><span class="line">deferred.always(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> state = deferred.state()</span><br><span class="line">    <span class="keyword">if</span> ( state === <span class="string">&#x27;resolved&#x27;</span>) &#123;</span><br><span class="line">        alert(<span class="string">&#x27;success&#x27;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (state === <span class="string">&#x27;rejected&#x27;</span>) &#123;</span><br><span class="line">        alert(<span class="string">&#x27;fail&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    deferred.resolve();</span><br><span class="line">    <span class="comment">//deferred.reject();</span></span><br><span class="line">&#125;, <span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
+
+<p><code>$.when()</code> 保证多个异步操作全部成功后才回调，调用示例：</p>
+<p><code>deferred.promise()</code> 没有参数时，返回一个新的deferred对象；接受参数时，作用为在参数对象上部署deferred接口返回只能添加回调的对象，对象的运行状态无法被改变，即这个对象与$.Deferred()返回的对象不同，只能done/fail/progress，不能resolve/reject/notify。</p>
+<p>###5.3 $.Deferred接口</p>
+<p>$.Deferred的源码中对动作接口的定义：</p>
+<pre><code class="js">[ &quot;resolve&quot;, &quot;done&quot;, jQuery.Callbacks(&quot;once memory&quot;), &quot;resolved&quot; ],
+[ &quot;reject&quot;, &quot;fail&quot;, jQuery.Callbacks(&quot;once memory&quot;), &quot;rejected&quot; ],
+[ &quot;notify&quot;, &quot;progress&quot;, jQuery.Callbacks(&quot;memory&quot;) ]
+</code></pre>
+<p>实质上是观察者模式的实现:</p>
+<p>|| <em>订阅方法</em> || <em>发布方法</em> ||<br>|| Done (操作完成) || resolve/resolveWith（解决） ||<br>|| Fail (操作失败) || reject/rejectWith（拒绝） || 30 ||<br>|| Progress (操作进行中) || notify/notifyWith（通知） ||</p>
+<p>With接口扩展了3个可以定义上下文的发布方法</p>
+<h3 id="when"><a href="#when" class="headerlink" title="$.when"></a>$.when</h3><p>$.when接受若干个对象，参数仅一个且非Deferred对象将立即执行回调函数，Deferred对象和非Deferred对象混杂时，对于非Deferred对象remaining减1</p>
+<p>Deferred对象总数 = 内部构建的Deferred对象 + 所传参数中包含的Deferred对象，所传参数中所有Deferred对象每当resolve时remaining减1，直到为0时（所有都resolve）执行回调</p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

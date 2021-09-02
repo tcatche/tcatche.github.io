@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>分类: 翻译 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_s3wbqhahfs.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-new"></span>
+          <span class="title">目录</span>
+        </div>
+        <div class="sider-item" data-target="POSTS">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">文章标签</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper hide">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/css/">css</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/html/">html</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/js/">js</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a></li></ul>
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          
+
+  
+  
+    
+    
+    <section class="archives-wrap">
+      <div class="archives">
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2018-01-11T09:26:00.000Z" itemprop="datePublished">2018-01-11</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2018/01/react-reconciliation/">React - Reconciliation</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+原文：Reconciliation
+
+React provides a declarative API so that you don’t have to worry about exactly what changes on every update. This makes writing applications a lot easier, but it might not be obvious how this is implemented within React. This article explains the choices we made in React’s “diffi…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2018/01/react-reconciliation/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2018-01-11
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 3.4k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 22mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+        <span class="post-tag show-super-board" data-target="翻译" data-type="TAGS">翻译</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+    
+      </div></section>
+    
+    
+    <section class="archives-wrap">
+      <div class="archives">
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-08-29T09:18:00.000Z" itemprop="datePublished">2017-08-29</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/08/how-javascript-work-part-2-v8-engine-and-5-tips-optimized/">JavaScript 是如何工作的：V8 引擎内部机制及5个诀窍编写优化代码的技巧</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+原文：How JavaScript works: inside the V8 engine + 5 tips on how to write optimized code
+
+Couple of weeks ago we started a series aimed at digging deeper into JavaScript and how it actually works: we thought that by knowing the building blocks of JavaScript and how they come to play together you’ll be…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/08/how-javascript-work-part-2-v8-engine-and-5-tips-optimized/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-08-29
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 6.3k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 40mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="js" data-type="TAGS">js</span>
+    
+        <span class="post-tag show-super-board" data-target="翻译" data-type="TAGS">翻译</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-08-29T07:24:00.000Z" itemprop="datePublished">2017-08-29</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/08/how-javascript-work-part-1-overview/">JavaScript 是如何工作的：引擎，运行时和调用堆栈的概述</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+原文：How JavaScript works: an overview of the engine, the runtime, and the call stack
+
+As JavaScript is getting more and more popular, teams are leveraging its support on many levels in their stack - front-end, back-end, hybrid apps, embedded devices and much more.
+随着 JavaScript 越来越受欢迎，许多团队在他们技术栈的多个方…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/08/how-javascript-work-part-1-overview/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-08-29
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.5k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 15mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="js" data-type="TAGS">js</span>
+    
+        <span class="post-tag show-super-board" data-target="翻译" data-type="TAGS">翻译</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-08-18T03:13:00.000Z" itemprop="datePublished">2017-08-18</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/08/react-internals-part-five-transactions/">React 内部实现，第五部分：基本更新</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+原文：React Internals, Part Five: transactions
+
+In this part, we’ll talk about React’s transactions.
+The series
+part one: basic rendering
+part two: componentWillMount and componentDidMount
+part three: basic updating
+part four: setState
+part five: transactions &lt;- you are here
+
+全部译文：
+
+第一部分：基础渲染
+第二部分：…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/08/react-internals-part-five-transactions/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-08-18
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.6k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 11mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+        <span class="post-tag show-super-board" data-target="翻译" data-type="TAGS">翻译</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-07-27T06:12:00.000Z" itemprop="datePublished">2017-07-27</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/07/react-internals-part-four-setState/">React 内部原理，第四部分：setState</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+原文：React Internals, Part Four: setState
+
+In part four of this series we finally add setState to our little React clone. setState is a beast, so grab your favorite beverage and get comfortable!
+The series
+part one: basic rendering
+part two: componentWillMount and componentDidMount
+part three: basic …
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/07/react-internals-part-four-setState/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-07-27
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 4.5k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 30mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+        <span class="post-tag show-super-board" data-target="翻译" data-type="TAGS">翻译</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-07-26T07:32:00.000Z" itemprop="datePublished">2017-07-26</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/07/react-internals-part-three-basic-updating/">React 内部原理，第三部分：基本更新</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+原文：React Internals, Part Three: basic updating
+
+In part one, our small React clone, Feact, was implemented far enough to do basic rendering. But once the render happens, that was it. In this part, we’ll add the ability to make changes to the app with subsequent renders. This part will begin to show…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/07/react-internals-part-three-basic-updating/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-07-26
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 3.4k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 23mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+        <span class="post-tag show-super-board" data-target="翻译" data-type="TAGS">翻译</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-07-25T08:18:00.000Z" itemprop="datePublished">2017-07-25</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/07/react-internals-part-two-componentWillMount-and-componentDidMount/">React 内部原理，第二部分：添加 componentWillMount 和 componentDidMount</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+原文：React Internals, Part Two: componentWillMount and componentDidMount
+
+In part one we established basic rendering in Feact. That touched upon the most important lifecycle method, render, and now we’re going to add in componentWillMount and componentDidMount support to Feact.
+在part one ，我们在 Feact 中…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/07/react-internals-part-two-componentWillMount-and-componentDidMount/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-07-25
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.3k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 9mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+        <span class="post-tag show-super-board" data-target="翻译" data-type="TAGS">翻译</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-07-25T07:35:00.000Z" itemprop="datePublished">2017-07-25</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/07/react-internals-part-one-basic-rendering/">React 内部原理，第一部分：基础渲染</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+原文：React Internals, Part One: basic rendering
+
+In this five part series, we will “recreate” React from the ground up, learning how it works along the way. Once we’ve finished, you should have a good grasp of how React works, and when and why it calls the various lifecycle methods of a component.
+在这…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/07/react-internals-part-one-basic-rendering/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-07-25
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 4.2k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 27mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+        <span class="post-tag show-super-board" data-target="翻译" data-type="TAGS">翻译</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-07-24T07:25:00.000Z" itemprop="datePublished">2017-07-24</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/07/react-mixins-considered-harmful/">React - Mixins 是“有害”的（Mixins Considered Harmful）</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+原文：Mixins Considered Harmful
+
+“How do I share the code between several components?” is one of the first questions that people ask when they learn React. Our answer has always been to use component composition for code reuse. You can define a component and use it in several other components.
+“我如何在几个…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/07/react-mixins-considered-harmful/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-07-24
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 8.7k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 57mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+        <span class="post-tag show-super-board" data-target="翻译" data-type="TAGS">翻译</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-07-21T07:15:00.000Z" itemprop="datePublished">2017-07-21</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/07/react-higher-order-components/">React - 高阶组件（Higher-Order Components）</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+原文：Higher-Order Components
+
+高阶组件（HOC）是 React 中用于重用组件逻辑的高级技术。 HOC 本身不是 React API的一部分。它们是从 React 的组合特性产生的一种模式。
+具体来说，高阶组件就是一个接受一个组件作为参数，并返回一个新组件的函数。
+const EnhancedComponent = higherOrderComponent(WrappedComponent);
+
+就如组件将 props 转换为 UI ，高阶组件将一个组件转换为另一个组件。
+HOC 在第三方 React 库中很常见，例如 Redux 的 connect 和Relay的…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/07/react-higher-order-components/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-07-21
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 3.5k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 20mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+        <span class="post-tag show-super-board" data-target="翻译" data-type="TAGS">翻译</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+  </div></section>
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/categories/%E7%BF%BB%E8%AF%91/">&lt;</a><a class="page-number" href="/categories/%E7%BF%BB%E8%AF%91/">1</a><span class="page-number current">2</span><a class="page-number" href="/categories/%E7%BF%BB%E8%AF%91/page/3/">3</a><a class="extend next" rel="next" href="/categories/%E7%BF%BB%E8%AF%91/page/3/">&gt;</a>
+  </nav>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa fa-search ins-search-icon" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="fa fa-arrow-up goto-top" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

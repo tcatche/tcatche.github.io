@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>碰撞课程：汇编 - A crash course in assembly | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="WebAssembly" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-a-crash-course-in-assembly" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        碰撞课程：汇编 - A crash course in assembly
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-06-30
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 1.7k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 11mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="WebAssembly" data-type="TAGS">WebAssembly</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><strong>原文：<a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/">A crash course in just-in-time (JIT) compilers</a></strong></p>
+<p>本文译自<a target="_blank" rel="noopener" href="https://twitter.com/linclark">Lin Clark</a> 关于 WebAssembly 的卡通介绍系列，渣翻译，因此附上英文原文</p>
+<ul>
+<li>概述：<ul>
+<li><a href="/2017/06/a-cartoon-intro-to-webassembly/">WebAssembly 的漫画介绍</a></li>
+</ul>
+</li>
+<li>背景：<ul>
+<li><a href="/2017/06/a-crash-course-in-just-in-time-jit-compilers/">碰撞课程：即时（JIT）编译器 </a></li>
+<li><strong>碰撞课程：汇编</strong></li>
+</ul>
+</li>
+<li>现在的 WebAssembly：<ul>
+<li><a href="/2017/06/creating-and-working-with-webassembly-modules/">创建和使用 WebAssembly 模块</a></li>
+<li><a href="/2017/07/what-makes-webassembly-fast/">是什么使 WebAssembly 很快？</a></li>
+</ul>
+</li>
+<li>未来的 WebAssembly：<ul>
+<li><a href="/2017/07/where-is-webassembly-now-and-whats-next/">WebAssembly 的现状和未来？</a></li>
+</ul>
+</li>
+</ul>
+<p>To understand how WebAssembly works, it helps to understand what assembly is and how compilers produce it.</p>
+<p>In the <a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/">article on the JIT</a>, I talked about how communicating with the machine is like communicating with an alien.</p>
+<p>要了解 <code>WebAssembly</code> 如何工作，先理解 <code>assembly</code>（汇编） 是什么，以及编译器如何生成它会很有帮助。 </p>
+<p>在上一篇关于 <a href="/2017/06/a-crash-course-in-just-in-time-jit-compilers/">JIT 的文章</a>中，我谈到了与机器的通信就像与外星人通信。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/03-01-alien03-500x286.png"></p>
+<p>I want to take a look now at how that alien brain works—how the machine’s brain parses and understands the communication coming in to it.</p>
+<p>There’s a part of this brain that’s dedicated to the thinking—things like adding and subtracting, or logical operations. There’s also a part of the brain near that which provides short-term memory, and another part that provides longer-term memory.</p>
+<p>我想看看这个外星人的大脑如何工作——机器的大脑如何解析和理解通信。</p>
+<p>这个大脑中有一部分专注于思考，例如加法和减法，或逻辑操作。附近还有一部分提供短期记忆的大脑，还有另一部分提供长期记忆。</p>
+<p>These different parts have names.</p>
+<ul>
+<li>The part that does the thinking is the Arithmetic-logic Unit (ALU).</li>
+<li>The short term memory is provided by registers.</li>
+<li>The longer term memory is the Random Access Memory (or RAM).</li>
+</ul>
+<p>这三部分都有名字：</p>
+<ul>
+<li>思考的部分是算术逻辑单元（<code>ALU</code>）</li>
+<li>短期记忆由寄存器提供。</li>
+<li>长期存储器是随机存取存储器（或 <code>RAM</code> ）。</li>
+</ul>
+<p><img src="https://hacks.mozilla.org/files/2017/02/03-02-computer_architecture09-500x302.png"></p>
+<p>The sentences in machine code are called instructions.</p>
+<p>What happens when one of these instructions comes into the brain? It gets split up into different parts that mean different things.</p>
+<p>The way that this instruction is split up is specific to the wiring of this brain.</p>
+<p>机器码中的句子被称为指令。当这些中的一个指令进入大脑时会发生什么？</p>
+<p>它分成不同的部分，意味着不同的东西。这个指令分开的方式是针对这个大脑的布线。</p>
+<p>For example, a brain that is wired like this might always take the first six bits and pipe that in to the ALU. The ALU will figure out, based on the location of ones and zeros, that it needs to add two things together.</p>
+<p>This chunk is called the “opcode”, or operation code, because it tells the ALU what operation to perform.</p>
+<p>例如，像这样布线的大脑总是可以将前六位和管道连接到 <code>ALU</code>。 <code>ALU</code>将根据 <code>1</code> 和 <code>0</code> 的位置确认它需要将两者加在一起。</p>
+<p>这个块被称为“操作码”或操作代码，因为它告诉 <code>ALU</code> 执行什么操作。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/03-03-computer_architecture12-500x354.png"></p>
+<p>Then this brain would take the next two chunks of three bits each to determine which two numbers it should add. These would be addresses of the registers.</p>
+<p>然后这个大脑会把接下来的代码块分成两个三位来确定它应该执行加法的两个数字。这些都是是寄存器的地址。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/03-04-computer_architecture17-500x352.png"></p>
+<p>Note the annotations above the machine code here, which make it easier for us humans to understand what’s going on. This is what assembly is. It’s called symbolic machine code. It’s a way for humans to make sense of the machine code.</p>
+<p>You can see here there is a pretty direct relationship between the assembly and the machine code for this machine. Because of this, there are different kinds of assembly for the different kinds of machine architectures that you can have. When you have a different architecture inside of a machine, it is likely to require its own dialect of assembly.</p>
+<p>So we don’t just have one target for our translation. It’s not just one language called machine code. It’s many different kinds of machine code. Just as we speak different languages as people, machines speak different languages.</p>
+<p>请注意这里的机器码上面的注释，这使得我们人类更容易了解发生了什么。这就是汇编语言的内容，它被称为符号机器代码。这是人类理解机器代码的方式。</p>
+<p>你可以看到汇编语言和机器代码之间有一个非常直接的关系。正因为因此，对于不同类型的机器架构，会有不同类型的汇编语言。当你有一种不同的机器内部架构时，你可能需要自己的汇编语言方言。</p>
+<p>所以我们不是只有一个翻译目标，它也不只是一种称为机器码的语言。实际上，有很多种不同的机器码，就像我们使用不同的语言一样，机器也说不同的语言。</p>
+<p>With human to alien translation, you may be going from English, or Russian, or Mandarin to Alien Language A or Alien language B. In programming terms, this is like going from C, or C++, or Rust to x86 or to ARM.</p>
+<p>You want to be able to translate any one of these high-level programming languages down to any one of these assembly languages (which corresponds to the different architectures). One way to do this would be to create a whole bunch of different translators that can go from each language to each assembly.</p>
+<p>通过人与外星人的翻译，您可能会从英语，俄语或普通话转换到到外星人语言A或外来语言B。在编程方面，这就像从 <code>C</code> 或 <code>C++</code>，或 <code>Rust</code> 到 <code>x86</code> 或 <code>ARM</code>。</p>
+<p>你希望能够将这些高级编程语言中的任何一种转换为这些汇编语言中的任何一种（对应于不同架构）。这样做的一个方法是创建一大堆不同的翻译器，可以从每种语言转到每个程序集。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/03-05-langs05-500x308.png"></p>
+<p>That’s going to be pretty inefficient. To solve this, most compilers put at least one layer in between. The compiler will take this high-level programming language and translate it into something that’s not quite as high level, but also isn’t working at the level of machine code. And that’s called an intermediate representation (IR).</p>
+<p>这将是非常低效的。为了解决这个问题，大多数编译器在两者之间至少放置了一层中间层。编译器通常接收高级编程语言，并将其转换为不太高的级别，但也不能在机器代码级别工作。这就是所谓的中间表示（<code>IR</code>）。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/03-06-langs06-500x317.png"></p>
+<p>This means the compiler can take any one of these higher-level languages and translate it to the one IR language. From there, another part of the compiler can take that IR and compile it down to something specific to the target architecture.</p>
+<p>The compiler’s front-end translates the higher-level programming language to the IR. The compiler’s backend goes from IR to the target architecture’s assembly code.</p>
+<p>这意味着编译器可以处理这些更高级别的语言中的任何一种，将其转换为一种 <code>IR</code> 语言。随后，编译器的另一部分可以处理该 <code>IR</code> 将其编译为特定于目标架构的特定内容。</p>
+<p>编译器的前端将高级编程语言转换为 <code>IR</code> 。编译器的后端将 <code>IR</code> 转换到目标架构的汇编代码。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/03-07-langs09-500x306.png"></p>
+<p>That’s what assembly is and how compilers translate higher-level programming languages to assembly. In the <a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2017/02/creating-and-working-with-webassembly-modules/">next article</a>, we’ll see how WebAssembly fits in to this.</p>
+<p>这就是汇编和编译器如何将更高级的编程语言翻译成汇编的过程。在下一篇文章中，我们将看到 <code>WebAssembly</code> 如何和这相符。</p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

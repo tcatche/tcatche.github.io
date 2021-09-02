@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>创建和使用 WebAssembly 模块 - Creating and working with WebAssembly modules | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="WebAssembly" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-creating-and-working-with-webassembly-modules" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        创建和使用 WebAssembly 模块 - Creating and working with WebAssembly modules
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-06-30
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 4k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 26mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="WebAssembly" data-type="TAGS">WebAssembly</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><strong>原文：<a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2017/02/creating-and-working-with-webassembly-modules/">Creating and working with WebAssembly modules</a></strong></p>
+<p>本文译自<a target="_blank" rel="noopener" href="https://twitter.com/linclark">Lin Clark</a> 关于 WebAssembly 的卡通介绍系列，渣翻译，因此附上英文原文</p>
+<ul>
+<li>概述：<ul>
+<li><a href="/2017/06/a-cartoon-intro-to-webassembly/">WebAssembly 的漫画介绍</a></li>
+</ul>
+</li>
+<li>背景：<ul>
+<li><a href="/2017/06/a-crash-course-in-just-in-time-jit-compilers/">碰撞课程：即时（JIT）编译器 </a></li>
+<li><a href="/2017/06/a-crash-course-in-assembly/">碰撞课程：汇编</a></li>
+</ul>
+</li>
+<li>现在的 WebAssembly：<ul>
+<li><strong>创建和使用 WebAssembly 模块</strong></li>
+<li><a href="/2017/07/what-makes-webassembly-fast/">是什么使 WebAssembly 很快？</a></li>
+</ul>
+</li>
+<li>未来的 WebAssembly：<ul>
+<li><a href="/2017/07/where-is-webassembly-now-and-whats-next/">WebAssembly 的现状和未来？</a></li>
+</ul>
+</li>
+</ul>
+<p>WebAssembly is a way to run programming languages other than JavaScript on web pages. In the past when you wanted to run code in the browser to interact with the different parts of the web page, your only option was JavaScript.</p>
+<p>So when people talk about WebAssembly being fast, the apples to apples comparison is to JavaScript. But that doesn’t mean that it’s an either/or situation—that you are either using WebAssembly, or you’re using JavaScript.</p>
+<p>WebAssembly 是一种在网页上运行 JavaScript 以外的编程语言的方法。过去，当你想在浏览器中运行代码与网页的不同部分进行交互时，你唯一的选择是JavaScript。</p>
+<p>所以当人们谈论 <code>WebAssembly</code> 很快的时候，就是和 JavaScript 对比的。但是，这并不意味着这是一个二选一的问题：使用 <code>WebAssembly</code>，或者使用JavaScript。</p>
+<p>In fact, we expect that developers are going to use both WebAssembly and JavaScript in the same application. Even if you don’t write WebAssembly yourself, you can take advantage of it.</p>
+<p>WebAssembly modules define functions that can be used from JavaScript. So just like you download a module like lodash from npm today and call functions that are part of its API, you will be able to download WebAssembly modules in the future.</p>
+<p>So let’s see how we can create WebAssembly modules, and then how we can use them from JavaScript.</p>
+<p>事实上，我们期望开发人员将在同一应用程序中同时使用 <code>WebAssembly</code> 和 JavaScript。即使你不自己编写 <code>WebAssembly</code>，你也可以利用它。</p>
+<p>WebAssembly 模块定义了可以在 JavaScript 使用的函数。就像从 npm 下载一个像 lodash 这样的模块，并且调用其 API 。将来，你也可以下载 WebAssembly 模块。</p>
+<p>那么让我们来看看我们如何创建 <code>WebAssembly</code> 模块，然后如何用 JavaScript 来使用。</p>
+<h2 id="WebAssembly-在哪里适合？"><a href="#WebAssembly-在哪里适合？" class="headerlink" title="WebAssembly 在哪里适合？"></a>WebAssembly 在哪里适合？</h2><p>In the article about assembly, I talked about how compilers take high-level programming languages and translate them to machine code.</p>
+<p>在关于汇编的文章中，我讨论了编译器如何将高级编程语言转换为机器代码。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/04-01-langs09-500x306.png"></p>
+<p>Where does WebAssembly fit into this picture?</p>
+<p>You might think it is just another one of the target assembly languages. That is kind of true, except that each one of those languages (x86, ARM ) corresponds to a particular machine architecture.</p>
+<p>WebAssembly 在这张图片的哪个位置呢？</p>
+<p>也许你认为这只是另一种目标汇编语言。这是真的，除了这些语言（<code>x86</code>，<code>ARM</code>）中的每一种对应于特定的机器体系结构。</p>
+<p>When you’re delivering code to be executed on the user’s machine across the web, you don’t know what your target architecture the code will be running on.</p>
+<p>So WebAssembly is a little bit different than other kinds of assembly. It’s a machine language for a conceptual machine, not an actual, physical machine.</p>
+<p>当你为网络上的用户提供机器上执行的代码时，你并不知道代码将运行的目标体系结构。</p>
+<p><code>WebAssembly</code> 与其他类型的程序集有所不同，它是概念机器的机器语言，而不是实际的物理机器。</p>
+<p>Because of this, WebAssembly instructions are sometimes called virtual instructions. They have a much more direct mapping to machine code than JavaScript source code. They represent a sort of intersection of what can be done efficiently across common popular hardware. But they aren’t direct mappings to the particular machine code of one specific hardware.</p>
+<p><code>WebAssembly</code> 指令有时称为虚拟指令。它们比 JavaScript 源代码更直接的映射到机器代码。它们代表了常见的硬件可以有效地完成的那些普遍的工作。但是它们并不直接映射到一个特定硬件的特定机器代码。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/04-02-langs08-500x326.png"></p>
+<p>The browser downloads the WebAssembly. Then, it can make the short hop from WebAssembly to that target machine’s assembly code.</p>
+<p>浏览器下载 <code>WebAssembly</code>。然后，它可以从 <code>WebAssembly</code> 跳转到目标机器的汇编代码。</p>
+<h2 id="编译为-wasm"><a href="#编译为-wasm" class="headerlink" title="编译为.wasm"></a>编译为.wasm</h2><p>The compiler tool chain that currently has the most support for WebAssembly is called LLVM. There are a number of different front-ends and back-ends that can be plugged into LLVM.<br>Note: Most WebAssembly module developers will code in languages like C and Rust and then compile to WebAssembly, but there are other ways to create a WebAssembly module. For example, there is an experimental tool that helps you build a WebAssembly module using TypeScript, or you can code in the text representation of WebAssembly directly.</p>
+<p>当前对 <code>WebAssembly</code> 支持最多的编译器工具链称为 <code>LLVM</code>。有许多不同的前端和后端可以插入到 <code>LLVM</code> 中。<br>注意：大多数 WebAssembly 模块开发人员将使用 C 和 Rust 等语言进行编码，然后编译到 WebAssembly，但还有其他方法可以创建 WebAssembly 模块。例如，有一个实验工具可以帮助你使用 TypeScript 构建 WebAssembly 模块，也可以直接在 WebAssembly 的文本表示中进行编码。</p>
+<p>Let’s say that we wanted to go from C to WebAssembly. We could use the clang front-end to go from C to the LLVM intermediate representation. Once it’s in LLVM’s IR, LLVM understands it, so LLVM can perform some optimizations.</p>
+<p>To go from LLVM’s IR (intermediate representation) to WebAssembly, we need a back-end. There is one that’s currently in progress in the LLVM project. That back-end is most of the way there and should be finalized soon. However, it can be tricky to get it working today.</p>
+<p>There’s another tool called Emscripten which is a bit easier to use at the moment. It has its own back-end that can produce WebAssembly by compiling to another target (called asm.js) and then converting that to WebAssembly. It uses LLVM under the hood, though, so you can switch between the two back-ends from Emscripten.</p>
+<p>假设我们想从 C 到 <code>WebAssembly</code>。我们可以使用 <code>clang</code> 前端把 C 转换到 <code>LLVM</code> 中间表示。一旦在 <code>LLVM</code> 的 <code>IR</code> 中，<code>LLVM</code> 就会理解它，<code>LLVM</code> 可以执行一些优化。</p>
+<p>要从 <code>LLVM</code> 的 <code>IR</code>（中间表示）到 <code>WebAssembly</code>，我们需要一个后端，目前 <code>LLVM</code> 项目中的后端正在开发中，这个后端是最重要的，会尽快完成，然而，现在很难让它工作起来。</p>
+<p>还有另外一个名为 <code>Emscripten</code> 的工具，现在更容易使用。它有自己的后端，可以通过编译到另一个目标（称为asm.js），然后把它（asm.js） 转换为 <code>WebAssembly</code>。它的底层使用了 <code>LLVM</code> ，所以你可以在两个后端之间切换。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/04-03-toolchain07-500x411.png"></p>
+<p>Emscripten includes many additional tools and libraries to allow porting whole C/C++ codebases, so it’s more of a software developer kit (SDK) than a compiler. For example, systems developers are used to having a filesystem that they can read from and write to, so Emscripten can simulate a file system using IndexedDB.</p>
+<p>Regardless of the toolchain you’ve used, the end result is a file that ends in .wasm. I’ll explain more about the structure of the .wasm file below. First, let’s look at how you can use it in JS.</p>
+<p>Emscripten 包含许多其他工具和库，可以移植整个 C/C++ 代码库，它比编译器更像是软件开发工具包（SDK）。比如，系统开发人员习惯于读取和写入的文件系统，而 Emscripten 可以使用IndexedDB 来模拟文件系统。</p>
+<p>不管你使用什么样的工具链，最终的结果是生成以 <code>.wasm</code> 结尾的文件。我将在下面详细解释 <code>.wasm</code> 文件的结构。首先，我们来看看如何在 JS 中使用它。</p>
+<h2 id="在JavaScript中加载-wasm模块"><a href="#在JavaScript中加载-wasm模块" class="headerlink" title="在JavaScript中加载.wasm模块"></a>在JavaScript中加载.wasm模块</h2><p>The .wasm file is the WebAssembly module, and it can be loaded in JavaScript. As of this moment, the loading process is a little bit complicated.</p>
+<p><code>.wasm</code> 文件是 <code>WebAssembly</code> 模块，可以在 JavaScript 中加载。目前，装载过程有点复杂。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchAndInstantiate</span>(<span class="params">url, importObject</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> fetch(url).then(<span class="function"><span class="params">response</span> =&gt;</span></span><br><span class="line">    response.arrayBuffer()</span><br><span class="line">  ).then(<span class="function"><span class="params">bytes</span> =&gt;</span></span><br><span class="line">    WebAssembly.instantiate(bytes, importObject)</span><br><span class="line">  ).then(<span class="function"><span class="params">results</span> =&gt;</span></span><br><span class="line">    results.instance</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>You can see this in more depth in <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/WebAssembly">our docs</a>.</p>
+<p>详细用法可以参考<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/WebAssembly">文档</a></p>
+<p>We’re working on making this process easier. We expect to make improvements to the toolchain and integrate with existing module bundlers like webpack or loaders like SystemJS. We believe that loading WebAssembly modules can be as easy as as loading JavaScript ones.</p>
+<p>There is a major difference between WebAssembly modules and JS modules, though. Currently, functions in WebAssembly can only use numbers (integers or floating point numbers) as parameters or return values.</p>
+<p>我们正在努力使这个过程更容易。我们期望对工具链进行改进，并与现有的模块打包程序如 <code>Webpack</code> ，或 <code>SystemJS</code> 加载器整合。我们相信，加载 <code>WebAssembly</code> 模块可以像加载 JavaScript 一样简单。</p>
+<p>但是，<code>WebAssembly</code> 模块和 JS 模块之间存在很大差异。目前，<code>WebAssembly</code> 中的函数只能使用数值（整数或浮点数）作为参数或返回值。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/04-04-memory04-500x93.png"></p>
+<p>For any data types that are more complex, like strings, you have to use the WebAssembly module’s memory.</p>
+<p>If you’ve mostly worked with JavaScript, having direct access to memory isn’t so familiar. More performant languages like C, C++, and Rust, tend to have manual memory management. The WebAssembly module’s memory simulates the heap that you would find in those languages.</p>
+<p>对于任何更复杂的数据类型（如字符串），必须使用 <code>WebAssembly</code> 模块的内存。</p>
+<p>如果你主要使用 JavaScript，对直接访问内存并不是很熟悉。而有更好性能的语言，如 C，C++ 和 Rust，往往具有手动内存管理。<code>WebAssembly</code> 模块的内存模拟你会在这些语言中使用的堆。</p>
+<p>To do this, it uses something in JavaScript called an ArrayBuffer. The array buffer is an array of bytes. So the indexes of the array serve as memory addresses.</p>
+<p>If you want to pass a string between the JavaScript and the WebAssembly, you convert the characters to their character code equivalent. Then you write that into the memory array. Since indexes are integers, an index can be passed in to the WebAssembly function. Thus, the index of the first character of the string can be used as a pointer.</p>
+<p>为此，它使用 JavaScript 中的 <code>ArrayBuffer</code>（数组缓冲区）。数组缓冲区是一个字节数组，因此，数组的索引可以作为内存地址。</p>
+<p>如果要在 JavaScript 和 <code>WebAssembly</code> 之间传递一个字符串，则将字符转换为等效的字符码。然后你写入内存数组。由于索引是整数，因此可以将索引传入 <code>WebAssembly</code> 函数。如此，字符串的第一个字符的索引可以用作指针。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/04-05-memory12-500x400.png"></p>
+<p>It’s likely that anybody who’s developing a WebAssembly module to be used by web developers is going to create a wrapper around that module. That way, you as a consumer of the module don’t need to know about memory management.</p>
+<p>If you want to learn more, check out our docs on <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/WebAssembly">working with WebAssembly’s memory</a>.</p>
+<p>开发 <code>WebAssembly</code> 模块的人员很可能围绕该模块创建一个包装器给 Web 开发人员使用。这样，模块的使用者不需要了解内存管理。</p>
+<p>如果你想了解更多信息，请查看我们在使用 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/WebAssembly">WebAssembly 内存</a>的文档。</p>
+<h2 id="wasm文件的结构"><a href="#wasm文件的结构" class="headerlink" title=".wasm文件的结构"></a>.wasm文件的结构</h2><p>If you are writing code in a higher level language and then compiling it to WebAssembly, you don’t need to know how the WebAssembly module is structured. But it can help to understand the basics.</p>
+<p>If you haven’t already, we suggest reading the article on assembly (part 3 of the series).</p>
+<p>如果你使用较高级别的语言编写代码，然后将其编译到 <code>WebAssembly</code> ，则无需知道 <code>WebAssembly</code> 模块的结构。但它可以帮助了解基础知识。</p>
+<p>如果还没有阅读之前汇编的文章，我们建议你先阅读。</p>
+<p>Here’s a C function that we’ll turn into WebAssembly:</p>
+<p>这是一个C函数，我们会将其转换为 <code>WebAssembly</code>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">int <span class="function"><span class="title">add42</span>(<span class="params">int num</span>)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> num + <span class="number">42</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>You can try using the <a target="_blank" rel="noopener" href="http://mbebenita.github.io/WasmExplorer/">WASM Explorer</a> to compile this function.</p>
+<p>If you open up the .wasm file (and if your editor supports displaying it), you’ll see something like this.</p>
+<p>你可以尝试使用 <code>WASM Explorer</code> 编译此功能。 如果你打开了 <code>.wasm</code> 文件（如果你的编辑器支持显示它），你会看到这样的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">00 61 73 6D 0D 00 00 00 01 86 80 80 80 00 01 60</span><br><span class="line">01 7F 01 7F 03 82 80 80 80 00 01 00 04 84 80 80</span><br><span class="line">80 00 01 70 00 00 05 83 80 80 80 00 01 00 01 06</span><br><span class="line">81 80 80 80 00 00 07 96 80 80 80 00 02 06 6D 65</span><br><span class="line">6D 6F 72 79 02 00 09 5F 5A 35 61 64 64 34 32 69</span><br><span class="line">00 00 0A 8D 80 80 80 00 01 87 80 80 80 00 00 20</span><br><span class="line">00 41 2A 6A 0B</span><br></pre></td></tr></table></figure>
+
+<p>That is the module in its “binary” representation. I put quotes around binary because it’s usually displayed in hexadecimal notation, but that can be easily converted to binary notation, or to a human readable format.</p>
+<p>For example, here’s what num + 42 looks like.</p>
+<p>那就是“二进制”表示的的模块。我用引号把“二进制”括起来，因为它通常以十六进制表示法显示，但可以很容易地转换成二进制符号，或者以人类可读的格式。</p>
+<p>例如，这里是 <code>num + 42</code> 的样子。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/04-06-hex_binary_asm01-500x254.png"></p>
+<h3 id="代码如何工作：堆栈器（How-the-code-works-a-stack-machine）"><a href="#代码如何工作：堆栈器（How-the-code-works-a-stack-machine）" class="headerlink" title="代码如何工作：堆栈器（How the code works: a stack machine）"></a>代码如何工作：堆栈器（How the code works: a stack machine）</h3><p>In case you’re wondering, here’s what those instructions would do.</p>
+<p>如果你想知道，这些指令会做什么。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/04-07-hex_binary_asm02-500x175.png"></p>
+<p>You might have noticed that the add operation didn’t say where its values should come from. This is because WebAssembly is an example of something called a stack machine. This means that all of the values an operation needs are queued up on the stack before the operation is performed.</p>
+<p>你可能已经注意到，<code>add</code> 操作符没有说明其值来自哪里。这是因为 <code>WebAssembly</code> 是一个堆栈机器。这是说在在执行操作之前，操作需要的所有值都在堆栈中排队。</p>
+<p>Operations like add know how many values they need. Since add needs two, it will take two values from the top of the stack. This means that the add instruction can be short (a single byte), because the instruction doesn’t need to specify source or destination registers. This reduces the size of the .wasm file, which means it takes less time to download.</p>
+<p>像 <code>add</code> 之类的操作知道它们运算需要多少值。由于 <code>add</code> 运算需要两个，它将从堆栈的顶部获取两个值。这意味着 <code>add</code> 指令可以是短的（单个字节），因为指令不需要指定源寄存器或目标寄存器。这减少了 <code>.wasm</code> 文件的大小，意味着需要更少的时间来下载文件。</p>
+<p>Even though WebAssembly is specified in terms of a stack machine, that’s not how it works on the physical machine. When the browser translates WebAssembly to the machine code for the machine the browser is running on, it will use registers. Since the WebAssembly code doesn’t specify registers, it gives the browser more flexibility to use the best register allocation for that machine.</p>
+<p>即使 <code>WebAssembly</code> 是根据堆栈机器来指定的，但是这并不是它在物理机上的工作原理。当浏览器将 <code>WebAssembly</code> 代码没有指定寄存器，因此这使浏览器可以更灵活地使用该机器的最佳寄存器分配。</p>
+<h3 id="模块部分"><a href="#模块部分" class="headerlink" title="模块部分"></a>模块部分</h3><p>Besides the add42 function itself, there are other parts in the .wasm file. These are called sections. Some of the sections are required for any module, and some are optional.</p>
+<p>除了 <code>add42</code> 函数本身，<code>.wasm</code> 文件中的其他部分。这些被称为 <code>sections</code> 。某些 <code>sections</code> 是必选的，任何模块都需要，有些 <code>sections</code> 是可选的。</p>
+<p>Required:</p>
+<ul>
+<li>Type. Contains the function signatures for functions defined in this module and any imported functions.</li>
+<li>Function. Gives an index to each function defined in this module.</li>
+<li>Code. The actual function bodies for each function in this module.</li>
+</ul>
+<p>必选的：</p>
+<ul>
+<li><code>Type</code>: 包含定义在本模块的函数和导入函数的签名。</li>
+<li><code>Function</code>: 为此模块中定义的每个功能提供索引。</li>
+<li><code>Code</code>: 本模块中每个函数的实际函数体。</li>
+</ul>
+<p>Optional:</p>
+<ul>
+<li>Export. Makes functions, memories, tables, and globals available to other WebAssembly modules and JavaScript. This allows separately-compiled modules to be dynamically linked together. This is WebAssembly’s version of a .dll.</li>
+<li>Import. Specifies functions, memories, tables, and globals to import from other WebAssembly modules or JavaScript.</li>
+<li>Start. A function that will automatically run when the WebAssembly module is loaded (basically like a main function).</li>
+<li>Global. Declares global variables for the module.</li>
+<li>Memory. Defines the memory this module will use.</li>
+<li>Table. Makes it possible to map to values outside of the WebAssembly module, such as JavaScript objects. This is especially useful for allowing indirect function calls.</li>
+<li>Data. Initializes imported or local memory.</li>
+<li>Element. Initializes an imported or local table.</li>
+</ul>
+<p>可选的：</p>
+<ul>
+<li><code>Export</code>: 使函数，内存，表格和全局变量可用于其他 WebAssembly 模块和 JavaScript。这允许单独编译的模块动态链接在一起。这是 <code>WebAssembly</code> 版本的 <code>.dll</code>。</li>
+<li><code>Import</code>: 指定从其他 <code>WebAssembly</code> 模块或 JavaScript 中导入的函数，内存，表和全局定义。</li>
+<li><code>Start</code>: 一种在加载 <code>WebAssembly</code> 模块时将自动运行的函数（基本上类似 <code>main</code> 函数）。</li>
+<li><code>Global</code>: 声明模块的全局变量。</li>
+<li><code>Memory</code>: 定义该模块将使用的内存。</li>
+<li><code>Table</code>: 可以映射到 <code>WebAssembly</code> 模块以外的值，例如 <code>JavaScript</code> 对象。这对于间接函数调用特别有用。</li>
+<li><code>Data</code>: 初始化导入的或本地内存。</li>
+<li><code>Element</code>: 初始化导入或本地表。</li>
+</ul>
+<p>For more on sections, here’s a great in-depth explanation of <a href="(https://rsms.me/wasm-intro)">how these sections work</a>.</p>
+<p>有关部分的更多内容，这里将详细介绍这些部分的<a target="_blank" rel="noopener" href="https://rsms.me/wasm-intro">工作原理</a>。</p>
+<h2 id="下一节"><a href="#下一节" class="headerlink" title="下一节"></a>下一节</h2><p>Now that you know how to work with WebAssembly modules, let’s look at why WebAssembly is fast.</p>
+<p>现在，你已经知道如何使用 <code>WebAssembly</code> 模块，接下来我们来看看 <code>WebAssembly</code> 为什么很快。</p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

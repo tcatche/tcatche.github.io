@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>JavaScript 是如何工作的：引擎，运行时和调用堆栈的概述 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="js,翻译" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-how-javascript-work-part-1-overview" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        JavaScript 是如何工作的：引擎，运行时和调用堆栈的概述
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-08-29
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 2.5k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 15mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="js" data-type="TAGS">js</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="翻译" data-type="TAGS">翻译</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <blockquote>
+<p>原文：<a target="_blank" rel="noopener" href="https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf">How JavaScript works: an overview of the engine, the runtime, and the call stack</a></p>
+</blockquote>
+<p>As JavaScript is getting more and more popular, teams are leveraging its support on many levels in their stack - front-end, back-end, hybrid apps, embedded devices and much more.</p>
+<p>随着 JavaScript 越来越受欢迎，许多团队在他们技术栈的多个方面使用它：前端，后端，混合应用程序，嵌入式设备等等。 </p>
+<p>As shown in the <a target="_blank" rel="noopener" href="http://githut.info/">GitHut stats</a>, JavaScript is at the top in terms of Active Repositories and Total Pushes in GitHub. It doesn’t lag behind much in the other categories either.</p>
+<p>如 <a target="_blank" rel="noopener" href="http://githut.info/">GitHut统计</a> 所示，JavaScript 在 GitHub 中的活跃仓库和总推送方面位于顶部，在其他类别中也没有落后很多。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*Zf4reZZJ9DCKsXf5CSXghg.png" alt="([Check out up-to-date GitHub language stats](https://madnight.github.io/githut/))"></p>
+<p>If projects are getting so much dependent on JavaScript, this means that developers have to be utilizing everything that the language and the ecosystem provide with deeper and deeper understanding of the internals, in order to build amazing software.</p>
+<p>如果项目越来越依赖 JavaScript，这意味着开发人员必须利用这门语言和生态系统提供的所有内容，并且深入地了解其内部内容，以便构建出惊人的软件。 </p>
+<p>As it turns out, there are a lot of developers that are using JavaScript on a daily basis but don’t have the knowledge of what happens under the hood.</p>
+<p>事实证明，有很多开发人员每天都在使用JavaScript，但并不知道什么情况下会发生什么。</p>
+<h3 id="概述（Overview）"><a href="#概述（Overview）" class="headerlink" title="概述（Overview）"></a>概述（Overview）</h3><p>Almost everyone has already heard of the V8 Engine as a concept, and most people know that JavaScript is single-threaded or that it is using a callback queue.</p>
+<p>几乎所有人都已经听说过V8引擎的概念，大多数人都知道JavaScript是单线程的，或者是使用回调队列。 </p>
+<p>In this post, we’ll go through all these concepts in detail and explain how JavaScript actually runs. By knowing these details, you’ll be able to write better, non-blocking apps that are properly leveraging the provided APIs.</p>
+<p>在这篇文章中，我们将详细介绍所有这些概念，并解释 JavaScript 如何运行。了解这些细节，你将能够正确利用提供的 API 编写更好的非阻塞性应用程序。</p>
+<p>If you’re relatively new to JavaScript, this blog post will help you understand why JavaScript is so “weird” compared to other languages.</p>
+<p>如果你是 JavaScript 初学者，此博客文章将帮助你了解为什么 JavaScript 与其他语言相比是如此“奇怪”。 </p>
+<p>And if you’re an experienced JavaScript developer, hopefully, it will give you some fresh insights on how the JavaScript Runtime you’re using every day actually works.</p>
+<p>如果你是一位经验丰富的 JavaScript 开发人员，希望能为你提供一些关于你每天使用的 JavaScript 运行时实际工作的新见解。</p>
+<h3 id="JavaScript引擎（The-JavaScript-Engine）"><a href="#JavaScript引擎（The-JavaScript-Engine）" class="headerlink" title="JavaScript引擎（The JavaScript Engine）"></a>JavaScript引擎（The JavaScript Engine）</h3><p>A popular example of a JavaScript Engine is Google’s V8 engine. The V8 engine is used inside Chrome and Node.js for example. Here is a very simplified view of what it looks like:</p>
+<p>JavaScript 引擎的一个流行示例是 Google 的 V8 引擎。V8 引擎被 Chrome 和 Node.js 使用。这是一个该引擎非常简化的视图：</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*OnH_DlbNAPvB9KLxUCyMsA.png" alt="V8 引擎简化视图"></p>
+<p>The Engine consists of two main components:</p>
+<ul>
+<li>Memory Heap - this is where the memory allocation happens</li>
+<li>Call Stack - this is where your stack frames are as your code executes</li>
+</ul>
+<p>引擎由两个主要组成部分组成：</p>
+<ul>
+<li>内存堆 - 这是内存分配发生的地方 </li>
+<li>调用堆栈 - 这是你的代码执行时堆栈帧的位置</li>
+</ul>
+<h3 id="运行时（The-Runtime）"><a href="#运行时（The-Runtime）" class="headerlink" title="运行时（The Runtime）"></a>运行时（The Runtime）</h3><p>There are APIs in the browser that have been used by almost any JavaScript developer out there (e.g. “setTimeout”). Those APIs, however, are not provided by the Engine.</p>
+<p>浏览器中已经有一些几乎被所有 JavaScript 开发人员使用的API（例如“setTimeout”）。然而，引擎不提供这些API。 </p>
+<p>So, where are they coming from?</p>
+<p>It turns out that the reality is a bit more complicated.</p>
+<p>那么他们从哪里来？ 事实上，这有点复杂。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*4lHHyfEhVB0LnQ3HlhSs8g.png" alt="Runtime"></p>
+<p>So, we have the Engine but there is actually a lot more. We have those things called Web APIs which are provided by browsers, like the DOM, AJAX, setTimeout and much more.</p>
+<p>所以，我们有引擎，但实际上还有更多内容。有一些被称为 Web API 的东西，由浏览器提供，如 DOM，AJAX，setTimeout 等等。 </p>
+<p>And then, we have the so popular <strong>event loop</strong> and the <strong>callback queue</strong>.</p>
+<p>然后，还有受欢迎的<strong>事件循环</strong>和<strong>回调队列</strong>。</p>
+<h3 id="调用堆栈（The-Call-Stack）"><a href="#调用堆栈（The-Call-Stack）" class="headerlink" title="调用堆栈（The Call Stack）"></a>调用堆栈（The Call Stack）</h3><p>JavaScript is a single-threaded programming language, which means it has a single Call Stack. Therefore it can do one thing at a time.</p>
+<p>JavaScript是一种单线程编程语言，这意味着它有一个单一的调用堆栈。因此，它一次只可以做一件事。</p>
+<p><code>The Call Stack is a data structure which records basically where in the program we are.</code>If we step into a function, we put it on the top of the stack. If we return from a function, we pop off the top of the stack. That’s all the stack can do.</p>
+<p><code>调用堆栈是一个数据结构，它记录了我们在程序的基本位置。</code>如果我们进入一个函数，我们把它放在堆栈的顶部。如果我们从一个函数返回，我们弹出堆栈的顶部。这就是堆栈做的事情。 </p>
+<p>Let’s see an example. Take a look at the following code:</p>
+<p>我们来看一个例子。看看下面的代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printSquare</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> s = multiply(x, x);</span><br><span class="line">    <span class="built_in">console</span>.log(s);</span><br><span class="line">&#125;</span><br><span class="line">printSquare(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+<p>When the engine starts executing this code, the Call Stack will be empty. Afterwards, the steps will be the following:</p>
+<p>当引擎开始执行此代码时，调用堆栈将为空。之后，步骤如下</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Yp1KOt_UJ47HChmS9y7KXw.png"></p>
+<p>Each entry in the Call Stack is called a <strong>Stack Frame</strong>.</p>
+<p>进入调用堆栈中的每个条目称为<strong>堆栈帧</strong>。</p>
+<p>And this is exactly how stack traces are being constructed when an exception is being thrown — it is basically the state of the Call Stack when the exception happened. Take a look at the following code:</p>
+<p>这正是在抛出异常时构造堆栈跟踪的方式 — 当异常发生时，它基本上是调用堆栈的状态。看看下面的代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;SessionStack will help you resolve crashes :)&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    bar();</span><br><span class="line">&#125;</span><br><span class="line">start();</span><br></pre></td></tr></table></figure>
+
+<p>If this is executed in Chrome (assuming that this code is in a file called foo.js), the following stack trace will be produced:</p>
+<p>如果这是在 Chrome 中执行的（假设此代码位于一个名为foo.js的文件中），则会产生以下堆栈跟踪：</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*T-W_ihvl-9rG4dn18kP3Qw.png"></p>
+<p><strong>Blowing the stack</strong> — this happens when you reach the maximum Call Stack size. And that could happen quite easily, especially if you’re using recursion without testing your code very extensively. Take a look at this sample code:</p>
+<p><strong>Blowing the stack</strong> — 当你达到最大调用堆栈尺寸时，会发生这种情况。这可能会非常容易发生，特别是如果你在不经过很大程度测试代码的情况下使用递归。看看这个示例代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
+
+<p>When the engine starts executing this code, it starts with calling the function “foo”. This function, however, is recursive and starts calling itself without any termination conditions. So at every step of the execution, the same function gets added to the Call Stack over and over again. It looks something like this:</p>
+<p>当引擎开始执行这个代码时，它首先调用 “foo” 函数。然而，此函数是递归的，并且开始调用自身而没有任何终止条件。所以在执行的每个步骤中，相同的函数都被一次又一次地添加到调用堆栈中。看起来像这样：</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*AycFMDy9tlDmNoc5LXd9-g.png" alt="Call Stack"></p>
+<p>At some point, however, the number of function calls in the Call Stack exceeds the actual size of the Call Stack, and the browser decides to take action, by throwing an error, which can look something like this:</p>
+<p>然后，在调用堆栈中的函数调用次数超过了调用堆栈的实际大小的时候，浏览器决定采取行动，抛出一个错误，看起来像这样：</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*e0nEd59RPKz9coyY8FX-uw.png"></p>
+<p>Running code on a single thread can be quite easy since you don’t have to deal with complicated scenarios that are arising in multi-threaded environments — for example, deadlocks.</p>
+<p>在单线程上运行代码可能非常容易，因为你不必处理在多线程环境中出现的复杂场景，例如死锁。 </p>
+<p>But running on a single thread is quite limiting as well. Since JavaScript has a single Call Stack, <strong>what happens when things are slow?</strong></p>
+<p>但在单线程上运行也是非常受限的。由于JavaScript有一个调用堆栈，<strong>当事情开始缓慢时会发生什么？</strong></p>
+<h3 id="并发和事件循环（Concurrency-amp-the-Event-Loop）"><a href="#并发和事件循环（Concurrency-amp-the-Event-Loop）" class="headerlink" title="并发和事件循环（Concurrency &amp; the Event Loop）"></a>并发和事件循环（Concurrency &amp; the Event Loop）</h3><p>What happens when you have function calls in the Call Stack that take a huge amount of time in order to be processed? For example, imagine that you want to do some complex image transformation with JavaScript in the browser.</p>
+<p>当你在调用堆栈中进行函数调用需要大量时间才能进行处理时会发生什么？例如，假设你想在浏览器中使用 JavaScript 进行一些复杂的图像转换。 </p>
+<p>You may ask — why is this even a problem? The problem is that while the Call Stack has functions to execute, the browser can’t actually do anything else — it’s getting blocked. This means that the browser can’t render, it can’t run any other code, it’s just stuck. And this creates problems if you want nice fluid UIs in your app.</p>
+<p>你可能会问 - 为什么这是一个问题？问题在于，当调用堆栈有函数在执行的时候，浏览器实际上不能做任何事情 - 它被阻塞了。这意味着浏览器无法渲染任何内容，它也不能运行任何其他代码，它卡住了。如果你想要的UI流畅，这会产生问题。 </p>
+<p>And that’s not the only problem. Once your browser starts processing so many tasks in the Call Stack, it may stop being responsive for quite a long time. And most browsers take action by raising an error, asking you whether you want to terminate the web page.</p>
+<p>这不是唯一的问题。一旦你的浏览器开始处理“调用堆栈”中的许多任务，它可能会停止响应很长时间。大多数浏览器通过提出错误来采取行动，询问你是否要终止网页。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*WlMXK3rs_scqKTRV41au7g.jpeg"></p>
+<p>Now, that’s not the best user experience out there, is it?</p>
+<p>这不是最好的用户体验，不是吗？</p>
+<p>So, how can we execute heavy code without blocking the UI and making the browser unresponsive? Well, the solution is <strong>asynchronous callbacks</strong>.</p>
+<p>那么，如何不阻塞 UI 并不造成使浏览器不响应的情况下执行繁重的代码呢？解决方案是<strong>异步回调</strong>。</p>
+<p>This will be explained in great detail in <strong>Part 2</strong> of the “How JavaScript actually work” tutorial. Stay tuned :)</p>
+<p>这将在“如何JavaScript实际工作”教程的第2部分中详细解释。敬请关注 :)。</p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

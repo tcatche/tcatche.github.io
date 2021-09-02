@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>关于 rel=&#34;noopener noreferrer&#34; | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="js,安全" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-a-blank-must-set-rel-noopener" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        关于 rel=&#34;noopener noreferrer&#34;
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2018" data-type="ARCHIVES">
+        2018-01-10
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 524
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 3mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="js" data-type="TAGS">js</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="安全" data-type="TAGS">安全</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>在使用 ESlint 的时候发现，当使用新标签打开外部链接时候（<code>target=&quot;_black&quot;</code>）， <code>eslint-plugin-react</code> 插件报出了错误：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Prevent usage <span class="keyword">of</span> unsafe target=<span class="string">&#x27;_blank&#x27;</span> (react/jsx-no-target-blank)</span><br></pre></td></tr></table></figure>
+
+<p>查了下发现这是一个一直被忽视的很严重的安全问题。</p>
+<h2 id="危险的-target-”-blank”"><a href="#危险的-target-”-blank”" class="headerlink" title="危险的 target=”_blank”"></a>危险的 target=”_blank”</h2><p>假设在我们的这个页面（<code>www.me.com</code>）引入了外部的打开了外部的一个网页（<code>www.out.com</code>）：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- www.me.com --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;www.out.com&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span>www.out.com<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- www.me.com --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">if</span> (opener) &#123;</span></span><br><span class="line"><span class="javascript">      opener.window.location.href=<span class="string">&quot;www.danger.com&quot;</span>;</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在我们的网页点击超链接，打开外部网页（<code>www.out.com</code>），然后再切回来我们的网页，就会意外的发现我们的网页被篡改为其他网页（<code>www.danger.com</code>）</p>
+<p>而且，打开的外部网页具有本网页的全部控制权，这意外着外部网页可以自由的获取本页面的 <code>cookie</code>、表单等敏感信息。</p>
+<p>甚至，在跨域的情况下也生效， <code>CORS</code> 限制对此不起作用！！！</p>
+<h2 id="rel-”noopener-noreferrer”"><a href="#rel-”noopener-noreferrer”" class="headerlink" title="rel=”noopener noreferrer”"></a>rel=”noopener noreferrer”</h2><p>破解也很简单，对于使用了 <code>target=&quot;_blank&quot;</code> 并且跳转到外部链接的超链接，加上 <code>rel=&quot;noopener noreferrer&quot;</code> 属性即可，此时外部链接获取到的 <code>opener</code> 为 <code>null</code>。</p>
+<p>首先，<code>rel=&quot;noopener&quot;</code> 可以确保 <code>window.opener</code> 为 <code>null</code> 在 Chrome 49+ 和 Opera 36，而对于旧版本浏览器和火狐浏览器，可以加上 <code>rel=&quot;noreferrer&quot;</code> 更进一步禁用 HTTP 的 <code>Referer</code> 头，或者使用 js 打开新页面：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> safeOpen = <span class="function"><span class="params">url</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">var</span> otherWindow = <span class="built_in">window</span>.open();</span><br><span class="line">  otherWindow.opener = <span class="literal">null</span>;</span><br><span class="line">  otherWindow.location = url;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总而言之，如果使用了 <code>target=&quot;_blank&quot;</code> 打开外部页面，就必须加上 <code>rel=&quot;noopener noreferrer&quot;</code> 属性以保证安全，特别地，对于由用户输入的链接（比如论坛，讨论等）更要做好拦截处理工作。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://mathiasbynens.github.io/rel-noopener/">About rel=noopener</a></li>
+</ul>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

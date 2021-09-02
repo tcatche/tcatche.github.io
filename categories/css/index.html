@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>分类: css | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_s3wbqhahfs.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-new"></span>
+          <span class="title">目录</span>
+        </div>
+        <div class="sider-item" data-target="POSTS">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">文章标签</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper hide">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/css/">css</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/html/">html</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/js/">js</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a></li></ul>
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          
+
+  
+  
+    
+    
+    <section class="archives-wrap">
+      <div class="archives">
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-02-04T05:49:00.000Z" itemprop="datePublished">2021-02-04</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/02/css_current_color/">CSS currentColor 属性值</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            currentColor 关键字表示当前元素设置的或者继承来的 color 属性的颜色值，可以用到任意属性值为颜色的地方。
+这样说有点抽象，下面直接看几个例子，本文所有示例都在文章末尾：
+currentColor 可以设置为颜色的属性值下面是一个设置边框，阴影颜色和文字颜色一样的例子：
+.example1 &#123;  color: red;  border: 1px solid currentColor;&#125;.example2 &#123;  color: red;  box-shadow: 0 0 2px currentColor;&#125;
+
+currentColor 也可以…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/02/css_current_color/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-02-04
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 334
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 1mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="css" data-type="CATEGORIES">css</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="css" data-type="TAGS">css</span>
+    
+        <span class="post-tag show-super-board" data-target="color" data-type="TAGS">color</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-02-03T07:41:00.000Z" itemprop="datePublished">2021-02-03</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/02/css_min_max_clamp/">CSS min()，max() 和 clamp() 函数</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            min()，max() 和 clamp() 是css 的三个函数，它们的作用都是从其参数中选择一个值作为实际的属性值。
+这三个函数可以被用在任何允许&lt;长度&gt;、&lt;频率&gt;、&lt;角度&gt;、&lt;时间&gt;、&lt;百分比&gt;、&lt;数字&gt;或&lt;整数&gt;的地方使用。
+min()min() 函数接受一个或多个以逗号分隔的表达式作为参数，并从参数中选择最小的值作为实际的 CSS 属性值。
+签名为：
+
+property: min(expression [, expression]);
+
+/* min() 示例 */min(100px, 200px); …
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/02/css_min_max_clamp/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-02-03
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 456
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 2mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="css" data-type="CATEGORIES">css</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="css" data-type="TAGS">css</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+    
+      </div></section>
+    
+    
+    <section class="archives-wrap">
+      <div class="archives">
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2018-11-14T07:14:00.000Z" itemprop="datePublished">2018-11-14</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2018/11/css-counter/">CSS 计数器：counter</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            之前在实现代码行号的时候发现 CSS 有个很方便的功能“计数器”，可以很方便的生成代码行号以及章节号，本文介绍一些这些功能。
+css 计数器有三部分组成： counter-reset、counter-increment 两个属性和函数 counter()/counters()。下面介绍一下它们的使用。
+counter-reset使用计数器前需要使用 counter-reset 声明一个或多个计数器：
+
+counter-reset: counter-name [initValue] [counter-name2 [initValue2]] …[counter-nameN [initValueN]…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2018/11/css-counter/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2018-11-14
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 611
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 3mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="css" data-type="CATEGORIES">css</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="counter" data-type="TAGS">counter</span>
+    
+        <span class="post-tag show-super-board" data-target="计数器" data-type="TAGS">计数器</span>
+    
+        <span class="post-tag show-super-board" data-target="list-style" data-type="TAGS">list-style</span>
+    
+        <span class="post-tag show-super-board" data-target="content" data-type="TAGS">content</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+    
+      </div></section>
+    
+    
+    <section class="archives-wrap">
+      <div class="archives">
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-08-30T03:50:00.000Z" itemprop="datePublished">2017-08-30</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/08/css-selector-cascade-order/">CSS 选择器优先级</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在我们学习 css 的时候就了解样式优先级的排序是：!important &gt; 行内样式 &gt; ID选择器 &gt; 类选择器 &gt; 标签 &gt; 通配符 &gt; 继承 &gt; 浏览器默认属性，我们看一下它们到底具体是如何定义的。
+css 的样式有三种来源，页面开发者，用户（使用浏览器的人设置的样式），和用户代理（浏览器），这些样式表会在一定的范围内重叠，互相影响页面的最终样式。
+当然， css 的层叠规则也指定了不同样式的权重，当这几种规则同时存在的时候，优先级高的规则生效。
+样式表层叠顺序
+在应用样式之前，会根据媒体查询（@media 规则）过滤掉一部分样式。
+
+需要说明…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/08/css-selector-cascade-order/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-08-30
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 6mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="css" data-type="CATEGORIES">css</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="css" data-type="TAGS">css</span>
+    
+        <span class="post-tag show-super-board" data-target="cascade" data-type="TAGS">cascade</span>
+    
+        <span class="post-tag show-super-board" data-target="style" data-type="TAGS">style</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-08-29T04:11:00.000Z" itemprop="datePublished">2017-08-29</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/08/mastering_margin_collapsing_and_block_formatting_context/">外边距合并（margin collapsing）和 块格式上下文（Block formatting contexts）</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            外边距合并（margin collapsing）在流式布局中，两个或者多个毗邻元素块的外边距（margin）在垂直方向上会被合并为单个的外边距，其大小是两个块中的最大的外边距，这就是外边距合并（margin collapsing）
+首先要注意的是，发生合并是元素块之间相互的行为，元素块数量则必须大于一个，单个元素块不存在合并的行为。其次，只有垂直方向上的 margin 会发生合并，水平方向上的并不会合并。
+发生外边距合并这要有三种情况：
+相邻的兄弟元素两个相邻的兄弟元素会发生边距合并，如：
+&lt;div class=&quot;block&quot;&gt;  &lt;h2&gt;相邻的兄弟…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/08/mastering_margin_collapsing_and_block_formatting_context/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-08-29
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.5k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 15mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="css" data-type="CATEGORIES">css</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="css" data-type="TAGS">css</span>
+    
+        <span class="post-tag show-super-board" data-target="html" data-type="TAGS">html</span>
+    
+        <span class="post-tag show-super-board" data-target="bfc" data-type="TAGS">bfc</span>
+    
+        <span class="post-tag show-super-board" data-target="块格式上下文" data-type="TAGS">块格式上下文</span>
+    
+        <span class="post-tag show-super-board" data-target="外边距合并" data-type="TAGS">外边距合并</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-08-22T10:47:00.000Z" itemprop="datePublished">2017-08-22</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/08/stacking-context-and-z-index/">深入理解层叠上下文（stacking context）和 z-index</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在CSS的盒模型中，所有的元素除了可以再屏幕上自由摆放外，还可以沿着 z轴 进行摆放，特别是当元素为止互相重叠的时候，了解z轴的摆放顺序非常重要。使用 z-index 可以改变元素在 z轴 的上下层级，但是 z-index 具体是如何影响元素的层级呢？为什么有时候它并不生效。本文详细总结一下这些问题。
+层叠上下文（stacking context）元素被绘制到画布上的层级顺序用层叠上下文来描述。当前层叠上下文可以包含子层叠上下文，当元素的内容发生层叠后，整个该元素将会在父层叠上下文中按顺序进行层叠。每个层叠上下文完全独立于它的兄弟元素，在其他层叠环境中的元素不会影响当前层叠环境。
+每个盒元素都…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/08/stacking-context-and-z-index/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-08-22
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.3k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 7mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="css" data-type="CATEGORIES">css</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="css" data-type="TAGS">css</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-05-16T08:54:00.000Z" itemprop="datePublished">2017-05-16</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/05/css-variables/">CSS 变量</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在任何一门语言中，变量的存在都是必不可少的，使用变量可以很方便的复用很多信息，比如网页的配色方案，使用方案只需要修改几个变量值即可完成对整个页面的配色的修改。而且变量本身包含了语义信息，更容易理解，比如 main-text-color 相对 #333 更容易理解。以前只能通过预处理器 Sass 、Less 等使用变量，而现在原生 css 终于也添加了变量的引入。
+首先看一下 css 变量的兼容性：
+
+从兼容性表格可以看出，css 变量的兼容性已经非常好了，主流浏览器 Chrome 、Safari 、Firefox 的支持度都挺高的。接下来开始使用：
+变量声明和使用变量的声明使用两个连词线 --…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/05/css-variables/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-05-16
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.1k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 6mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="css" data-type="CATEGORIES">css</span>
+    
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-02-27T09:21:00.000Z" itemprop="datePublished">2017-02-27</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/02/text-overflow-ellipsis/">文本省略显示</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发中有一些情景下需要隐藏过多的文本，比如文章列表中文章的描述或者摘要，并加以省略号给用户提醒，在这里对常用的方法进行简单的总结：
+单行文本省略单行文本省略很简单，只需三行css属性即可：
+&lt;p&gt;这里是一段用脸滚出来的文字：卡技术的恢复了开始发说说的反馈啦活动福利很好的数量咖啡还&lt;/p&gt;
+
+p &#123;  width: 200px;   white-space: nowrap; //强制文本单行显示  overflow: hidden; //溢出内容隐藏  text-overflow: ellipsis; //文本溢出内容添加省略号提醒  border: 3px …
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/02/text-overflow-ellipsis/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-02-27
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 661
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 3mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="css" data-type="CATEGORIES">css</span>
+    
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+    
+      </div></section>
+    
+    
+    <section class="archives-wrap">
+      <div class="archives">
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2016-03-31T03:55:09.000Z" itemprop="datePublished">2016-03-31</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2016/03/css-media-query/">Css媒体查询</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            响应式Web设计(Responsive Web design)的理念是：页面的设计与开发应当根据用户行为以及设备环境(系统平台、屏幕尺寸、屏幕定向等)进行相应的响应和调整。
+媒体查询准备工作设置Meta标签
+首先我们在使用Media的时候需要先设置下面这段代码，来兼容移动设备的展示效果：&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot;&gt;参数解释：
+
+width = device-w…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2016/03/css-media-query/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2016-03-31
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.5k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 13mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="css" data-type="CATEGORIES">css</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="css" data-type="TAGS">css</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2016-03-31T03:55:09.000Z" itemprop="datePublished">2016-03-31</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2016/03/css3-transition-transform-animation/">css3特效</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Transform 转换Transform 属性向元素应用 2D 或 3D 转换，该属性允许我们对元素进行旋转、缩放、移动或倾斜，主要有以下几个方法：translate()、rotate()、scale()、skew()、matrix()。
+JavaScript 语法: object.style.transform=&quot;rotate(xdeg)&quot;Css语法：transform: none|transform-functions;
+Transform 属性:
+
+transform 向元素应用 2D 或 3D 转换。
+transform-origin 允许你改变被转换元素的位置。…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2016/03/css3-transition-transform-animation/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2016-03-31
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.9k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 11mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="css" data-type="CATEGORIES">css</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="css" data-type="TAGS">css</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+  </div></section>
+
+
+  <nav id="page-nav">
+  没有更多的内容了
+  </nav>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa fa-search ins-search-icon" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="fa fa-arrow-up goto-top" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

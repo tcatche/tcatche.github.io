@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>React Hooks 文档翻译 - 3 - Using the State Hook（使用状态 Hook） | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,翻译,hooks" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-react-hooks-state" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        React Hooks 文档翻译 - 3 - Using the State Hook（使用状态 Hook）
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2019" data-type="ARCHIVES">
+        2019-04-03
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 2.6k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 15mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="react" data-type="TAGS">react</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="翻译" data-type="TAGS">翻译</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="hooks" data-type="TAGS">hooks</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><strong>翻译自：<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-state.html">https://reactjs.org/docs/hooks-state.html</a></strong></p>
+<p>Hooks 是 React 16.8 新增的功能。它允许你在不编写类的情况下使用状态和其他 React 特性。</p>
+<p><a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-intro.html">上一篇文章</a>使用了下面的示例介绍了 Hooks：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Declare a new state variable, which we&#x27;ll call &quot;count&quot;</span></span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>You clicked &#123;count&#125; times<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setCount(count + 1)&#125;&gt;</span></span><br><span class="line"><span class="xml">        Click me</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>我们将通过此代码与同样功能的类实现的代码进行比较来学习 Hooks。</p>
+<h2 id="Equivalent-Class-Example"><a href="#Equivalent-Class-Example" class="headerlink" title="Equivalent Class Example"></a>Equivalent Class Example</h2><p>等效的类实现示例</p>
+<p>如果你之前在 React 中使用过类，那么这段代码应该很熟悉：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line">    <span class="built_in">this</span>.state = &#123;</span><br><span class="line">      <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>You clicked &#123;this.state.count&#125; times<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> this.setState(&#123; count: this.state.count + 1 &#125;)&#125;&gt;</span></span><br><span class="line"><span class="xml">          Click me</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>state 的初始状态为 <code>&#123; count: 0 &#125;</code> ，当用户单击按钮调用 <code>this.setState()</code> 时，会增加 <code>state.count</code> 。我们将在整个页面中使用此类的片段。</p>
+<blockquote>
+<p>Note</p>
+<p>你可能想知道为什么我们使用计数器而不是更真实的例子。这是为了我们在 Hooks 迈出第一步时能够更专注于API。</p>
+</blockquote>
+<h2 id="Hooks-and-Function-Components"><a href="#Hooks-and-Function-Components" class="headerlink" title="Hooks and Function Components"></a>Hooks and Function Components</h2><p>Hooks 和函数组件</p>
+<p>提醒一下，React 中的函数组件如下所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Example = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// You can use Hooks here!</span></span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> /&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Example</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// You can use Hooks here!</span></span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> /&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>你可能以前称之为“无状态组件”。现在我们为它们引入了使用 React state 的能力，所以我们更喜欢“函数组件”的名称。</p>
+<p>Hooks 在类里<strong>不起作用</strong>。你可以使用它们而不用再编写类组件。</p>
+<h2 id="What’s-a-Hook"><a href="#What’s-a-Hook" class="headerlink" title="What’s a Hook?"></a>What’s a Hook?</h2><p>什么是 Hooks？</p>
+<p>我们的新示例首先从 React 中引入 <code>useState</code> Hook：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>什么是 Hook？</strong> Hook 是一种特殊功能，可以让你“挂钩到” React 的一些功能。例如，<code>useState</code> 就是一个 Hook，允许你将 React 的状态添加到函数组件。我们稍后会学习其他的 hooks。</p>
+<p><strong>我什么时候使用 Hook？</strong> 如果你写了一个函数组件并意识到需要为它添加一些状态，如果在以前，你必须将它转换为一个类。现在，你可以在现有的函数组件中使用 Hook。就像我们现在这么做的！</p>
+<blockquote>
+<p>Note:</p>
+<p>关于在何处可以或者不可以使用 Hook ，有一些特殊规则。我们可以在<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-rules.html">Hooks 的规则</a>中学习它们。</p>
+</blockquote>
+<h2 id="Declaring-a-State-Variable"><a href="#Declaring-a-State-Variable" class="headerlink" title="Declaring a State Variable"></a>Declaring a State Variable</h2><p>声明一个状态变量</p>
+<p>在类中，我们初始化 <code>count</code> 状态为 <code>0</code> 通过在构造器中设置 <code>this.state</code> 的值为 <code>&#123; count: 0 &#125;</code>。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line">    <span class="built_in">this</span>.state = &#123;</span><br><span class="line">      <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>函数组件中没有 <code>this</code> ，因此，不能设置或者读取 <code>this.state</code> ，相反，我们直接在组件中调用 <code>useState</code> Hook。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Declare a new state variable, which we&#x27;ll call &quot;count&quot;</span></span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>调用 <code>useState</code> 做了什么？</strong> 它声明了一个“状态变量”。我们的变量叫做 <code>count</code> ，也可以叫其他任何名字，比如 <code>banana</code> 。这是一种在函数调用间“保留”某些值的方法 – <code>useState</code> 是一种新方法，可以提供和类中 <code>this.state</code> 完全相同的功能。通常，当函数结束时变量“消失”但 React 可以为我们保留“状态变量”。</p>
+<p><strong>我们传递给 <code>useState</code> 的参数是什么？</strong> <code>useState()</code> Hook 的唯一参数是初始状态值。与类不同，状态不必是对象。如果需要的话，可以设置为一个数字或字符串。在示例中，我们只需要一个数字来表示用户点击的次数，因此传入 <code>0</code> 作为变量的初始状态。（如果我们想在状态中存储两个不同的值，可以调用 <code>useState()</code> 两次。）</p>
+<p><strong><code>useState</code> 返回值是什么？</strong> 它返回了一对值：当前状态值和更新状态值的函数。这就是我们写 <code>const [count, setCount] = useState()</code>。它与类中的 <code>this.state.count</code> 和 <code>this.setState</code> 类似，只不过它们是成对的。如果你不熟悉我们使用的方括号语法（即数组解构，译者注），我们将在<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-state.html#tip-what-do-square-brackets-mean">本页底部回顾它</a>。</p>
+<p>现在，了解了 <code>useState</code> Hook的作用，我们的例子就更容易理解：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Declare a new state variable, which we&#x27;ll call &quot;count&quot;</span></span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>We declare a state variable called <code>count</code>, and set it to <code>0</code>. React will remember its current value between re-renders, and provide the most recent one to our function. If we want to update the current <code>count</code>, we can call <code>setCount</code>.</p>
+<p>我们声明一个名为 <code>count</code> 的状态变量，并将其设置为 <code>0</code>。 React 能记住它在多次渲染时的当前值，并为组件提供了最新的值。如果想要更新当前计数值 <code>count</code> ，可以调用 <code>setCount</code>。</p>
+<blockquote>
+<p>Note</p>
+<p>你可能想知道：为什么 <code>useState</code> 没有命名为 <code>createState</code> ？</p>
+<p>“创建”不很准确，因为状态仅在组件首次渲染时创建。在下一次渲染时，<code>useState</code> 提供了当前的状态值，否则它根本不会是“状态”！Hooks 名称<em>总是</em>从<code>使用</code>开始也是有原因的。我们将在后面的 <a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-rules.html">Hooks 的规则</a> 中了解它。</p>
+</blockquote>
+<h2 id="Reading-State"><a href="#Reading-State" class="headerlink" title="Reading State"></a>Reading State</h2><p>读状态</p>
+<p>当我们想要在类组件中显示当前计数时，通过 <code>this.state.count</code> 读取值：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;You clicked &#123;<span class="built_in">this</span>.state.count&#125; times&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>在函数组件中，可以直接使用 <code>count</code> ：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;You clicked &#123;count&#125; times&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Updating-State"><a href="#Updating-State" class="headerlink" title="Updating State"></a>Updating State</h2><p>更新状态</p>
+<p>In a class, we need to call <code>this.setState()</code> to update the <code>count</code> state:</p>
+<p>在类组件中，需要调用 <code>this.setState()</code> 来更新 <code>count</code> 状态值：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;button onClick=&#123;<span class="function">() =&gt;</span> <span class="built_in">this</span>.setState(&#123; <span class="attr">count</span>: <span class="built_in">this</span>.state.count + <span class="number">1</span> &#125;)&#125;&gt;</span><br><span class="line">  Click me</span><br><span class="line">&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在函数组件中，已经有了 <code>setCount</code> 和 <code>count</code> 变量，不需要再使用 <code>this</code>:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;button onClick=&#123;<span class="function">() =&gt;</span> setCount(count + <span class="number">1</span>)&#125;&gt;</span><br><span class="line">  Click me</span><br><span class="line">&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Recap"><a href="#Recap" class="headerlink" title="Recap"></a>Recap</h2><p>概括</p>
+<p>现在，我们通过下面代码逐行<strong>概括我们学习到的内容</strong>，并检查我们的理解。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>You clicked &#123;count&#125; times<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setCount(count + 1)&#125;&gt;</span></span><br><span class="line"><span class="xml">       Click me</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第1行：我们从 React 引入 useState Hook。它允许我们将本地状态保存在函数组件中。</li>
+<li></li>
+<li>第4行：在 Example 组件内部，通过调用 <code>useState</code> Hook 声明一个新的状态变量。它返回一对值到给它们的命名上。我们调用变量计数 <code>count</code>，它保存了按钮点击次数。我们将其值初始化为零，通过传递 <code>0</code> 作为 <code>useState</code> 的唯一参数。第二个返回项是一个函数，它可以用来更新计数 <code>count</code>，因此我们将其命名为 <code>setCount</code>。</li>
+<li></li>
+<li>第9行：当用户点击时，使用新值调用 <code>setCount</code>。然后，React 将重新渲染 Example 组件，并将新计数值传递给它。</li>
+</ul>
+<p>开始，看起来似乎需要考虑很多东西，不要急于求成！如果你被上面的解释迷糊了，请再次查看上面的代码并尝试逐行阅读。我们保证，一旦你“忘记”了状态如何在类上工作，并以新的眼光看待这个代码，就会很容易理解。</p>
+<h3 id="Tip-What-Do-Square-Brackets-Mean"><a href="#Tip-What-Do-Square-Brackets-Mean" class="headerlink" title="Tip: What Do Square Brackets Mean?"></a>Tip: What Do Square Brackets Mean?</h3><p>提示：方括号语法什么意思？</p>
+<p>当声明一个状态变量时，你可能已经注意到了方括号：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+
+<p>左侧的名称不是 React 的 API。你可以随便命名自己的状态变量：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> [fruit, setFruit] = useState(<span class="string">&#x27;banana&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>This JavaScript syntax is called <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-UShttps://reactjs.org/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring">“array destructuring”</a>. It means that we’re making two new variables <code>fruit</code> and <code>setFruit</code>, where <code>fruit</code> is set to the first value returned by <code>useState</code>, and <code>setFruit</code> is the second. It is equivalent to this code:</p>
+<p>这段 JavaScript 语法称为<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-UShttps://reactjs.org/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring">“数组解构”</a>。它的意思是创建两个新变量 <code>fruit</code> 和 <code>setFruit</code> ，其中 <code>fruit</code> 设置为 <code>useState</code> 返回的数组的第一个值，<code>setFruit</code> 是数组的第二个值。它等价于这段代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fruitStateVariable = useState(<span class="string">&#x27;banana&#x27;</span>); <span class="comment">// Returns a pair</span></span><br><span class="line"><span class="keyword">var</span> fruit = fruitStateVariable[<span class="number">0</span>]; <span class="comment">// First item in a pair</span></span><br><span class="line"><span class="keyword">var</span> setFruit = fruitStateVariable[<span class="number">1</span>]; <span class="comment">// Second item in a pair</span></span><br></pre></td></tr></table></figure>
+
+
+<p>当使用 <code>useState</code> 声明一个状态变量时，返回一个包含两个项的数组。第一项是当前值，第二项是允许更新它的函数。使用 <code>[0]</code> 和 <code>[1]</code> 访问它们有点令人困惑，因为它们有着特定含义。这就是在这里使用数组解构的原因。</p>
+<blockquote>
+<p>Note</p>
+<p>你可能很好奇， React 如何知道 <code>useState</code> 和组件的对应关系，因为并没有将像 <code>this</code> 这样的任何内容传递给 React。我们将在FAQ部分回答<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-faq.html#how-does-react-associate-hook-calls-with-components">这个问题</a>以及许多其他问题。</p>
+</blockquote>
+<h3 id="Tip-Using-Multiple-State-Variables"><a href="#Tip-Using-Multiple-State-Variables" class="headerlink" title="Tip: Using Multiple State Variables"></a>Tip: Using Multiple State Variables</h3><p>提示：使用多个状态变量</p>
+<p>将状态变量声明为一对 <code>[something，setSomething]</code> 的结构也很方便，因为如果我们想要多个状态变量，可以很方便的为不同的状态变量赋予<em>不同</em>的名称：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ExampleWithManyStates</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Declare multiple state variables!</span></span><br><span class="line">  <span class="keyword">const</span> [age, setAge] = useState(<span class="number">42</span>);</span><br><span class="line">  <span class="keyword">const</span> [fruit, setFruit] = useState(<span class="string">&#x27;banana&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> [todos, setTodos] = useState([&#123; <span class="attr">text</span>: <span class="string">&#x27;Learn Hooks&#x27;</span> &#125;]);</span><br></pre></td></tr></table></figure>
+
+<p>在上面的组件中，<code>age</code>，<code>fruit</code> 和 <code>todos</code> 作为局部变量，可以单独更新它们：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleOrangeClick</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Similar to this.setState(&#123; fruit: &#x27;orange&#x27; &#125;)</span></span><br><span class="line">  setFruit(<span class="string">&#x27;orange&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>你<strong>不是必须</strong>使用多个状态变量。状态变量也可以很好地保存在对象和数组中，因此你仍然可以将相关数据组合在一起。但是，与类中的 <code>this.setState</code> 不同，更新状态变量总是<strong>替换</strong>它而不是合并它。</p>
+<p>我们在<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-faq.html#should-i-use-one-or-many-state-variables">FAQ</a>中提供了有关拆分独立状态变量的更多建议。</p>
+<h2 id="Next-Steps"><a href="#Next-Steps" class="headerlink" title="Next Steps"></a>Next Steps</h2><p>下一步</p>
+<p>本文，我们了解了 React 提供的名为 <code>useState</code> 的 Hook。有时也会称为“状态 Hook”。它允许我们将内部状态添加到 React 函数组件 – 历史上第一次可以这样做！</p>
+<p>我们还了解了更多关于 Hooks 是什么的内容。Hooks 让你从函数组件“挂钩” React 的功能。它们的名字总是从 <code>use</code> 开始，并且还有其它更多还没见过的钩子。</p>
+<p><strong>现在让我们继续<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-effect.html">学习下一个 Hook：<code>useEffect</code></a>。</strong>它允许你在组件中执行副作用的操作，类似类组件中的生命周期方法。</p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

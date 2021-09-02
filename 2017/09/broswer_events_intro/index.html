@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>JavaScript 事件研究 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="dom,bom,event,listener" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-broswer_events_intro" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        JavaScript 事件研究
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-09-12
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 4.5k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 27mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="dom" data-type="TAGS">dom</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="bom" data-type="TAGS">bom</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="event" data-type="TAGS">event</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="listener" data-type="TAGS">listener</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>浏览器中的事件主要有两个来源： 一些是用户生成的（例如鼠标或键盘事件），而其他由API生成(例如指示动画已经完成运行的事件，视频已被暂停等等)。</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p>本文主要综合介绍一下浏览器的事件，首先来看事件的监听</p>
+<h2 id="事件监听注册与移除"><a href="#事件监听注册与移除" class="headerlink" title="事件监听注册与移除"></a>事件监听注册与移除</h2><p>注册事件监听有两种方式：注册 <code>on-event</code> 处理器和使用 <code>addEventListener()</code> 事件监听器：</p>
+<h3 id="注册-on-event处理器"><a href="#注册-on-event处理器" class="headerlink" title="注册 on-event处理器"></a>注册 on-event处理器</h3><p>可以将事件监听函数直接写在 HTML 元素属性内：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;btn&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;alert(&#x27;Hello world!&#x27;)&quot;</span>&gt;</span>click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这种方法将 HTML 和 JS 糅合在一起，不利于维护和开发，尽量避免如此使用。</p>
+<p>也可以直接为DOM属性设置指定事件的处理函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;btn&#x27;</span>);</span><br><span class="line">btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">&#x27;click button&#x27;</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>为DOM 属性设置的事件处理器会覆盖绑定在HTML元素属性内的事件处理器，但是使用 <code>getAttribute()</code> 获取到的值仍旧为原始值：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;button id=<span class="string">&quot;btn&quot;</span> onclick=<span class="string">&quot;console.log(&#x27;click btn handler1.&#x27;)&quot;</span>&gt;click&lt;/button&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">&quot;btn&quot;</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="built_in">console</span>.log(<span class="string">&quot;Attribute reflected as a property: &quot;</span>, div.onclick.toString());</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="comment">// function onclick(event) &#123; console.log(&#x27;click btn handler1.&#x27;) &#125;</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">  div.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="built_in">console</span>.log(<span class="string">&#x27;click btn handler2.&#x27;</span>)</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  &#125;;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="built_in">console</span>.log(<span class="string">&quot;Changed property to: &quot;</span>, div.onclick.toString());</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="comment">// function () &#123; console.log(&#x27;click btn handler2.&#x27;) &#125;</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="built_in">console</span>.log(<span class="string">&quot;Attribute value is unchanged: &quot;</span>, div.getAttribute(<span class="string">&quot;onclick&quot;</span>));</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="comment">// console.log(&#x27;click btn handler1.&#x27;)</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="comment">// click btn.</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="comment">// &#x27;click btn handler2.&#x27;</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong> 事件处理器的返回值决定了事件默认行为是否被取消，如果返回值为 false，则会取消事件的某些默认行为，相当于调用了 <code>event.preventDefault()</code>，更多细节查看 <a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/webappapis.html#the-event-handler-processing-algorithm">The event handler processing algorithm</a>。</p>
+<p><code>on-event</code> 处理器只能为每个元素设置一个处理函数，但是可以设置一个执行函数，在函数内绑定多个事件处理器：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> eventProxy = <span class="function"><span class="keyword">function</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> _fns = &#123;&#125;;</span><br><span class="line">  <span class="keyword">var</span> _ele = ele;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> _trigger = <span class="function"><span class="keyword">function</span>(<span class="params">type</span>) </span>&#123;</span><br><span class="line">    _fns[type].forEach(<span class="function"><span class="params">fn</span> =&gt;</span> fn(ele));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> _addEvent = <span class="function"><span class="keyword">function</span>(<span class="params">type, fn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!_fns[type]) &#123;</span><br><span class="line">      _fns[type] = [fn];</span><br><span class="line">      _ele[type] = _trigger(type);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      _fns[type].push(fn);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> _removeEvent = <span class="function"><span class="keyword">function</span>(<span class="params">type, fn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!_fns[type]) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">var</span> fns = [];</span><br><span class="line">      _fns[type].forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (item !== fn) &#123;</span><br><span class="line">          fns.push(item);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      _fns[type] = fns;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">addEvent</span>: _addEvent,</span><br><span class="line">    <span class="attr">removeEvent</span>: _removeEvent,</span><br><span class="line">    <span class="attr">trigger</span>: _trigger</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上，这是一个非常简陋的多事件管理器，当然这个还存在很多问题，比如没有检查参数，没有检查重复，添加删除过程中没有考虑队列是否正在使用等等问题。当然对于多个事件监听，还是推荐以下的标准事件监听函数：</p>
+<h3 id="事件监听函数（推荐使用）"><a href="#事件监听函数（推荐使用）" class="headerlink" title="事件监听函数（推荐使用）"></a>事件监听函数（推荐使用）</h3><p><code>addEventListener()</code> 方法将指定的监听器注册到 <code>EventTarget</code> 上，当该对象触发指定的事件时，指定的回调函数就会被执行。 事件目标可以是一个文档上的元素 <code>Document</code> 本身，或者任何其他支持事件的对象 (比如 <code>XMLHttpRequest</code>)。</p>
+<blockquote>
+<p>target.addEventListener(type, listener[, options]);<br>target.addEventListener(type, listener[, useCapture]);</p>
+</blockquote>
+<p><code>type</code> 表示事件类型；<code>listener</code> 表示事件监听函数；第三个参数为 boolean 时候，表示该参数是在捕获阶段监听（<code>true</code>）还是在冒泡阶段监听（<code>false</code>），如果为对象，则对象可以有三个选项：<code>capture</code>配置触发是在捕获还是冒泡阶段，<code>once</code> 指定监听器是否只执行一次，<code>passive</code> 指定是否忽略事件监听器中调用的 <code>preventDefault</code> 函数。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// html</span></span><br><span class="line">&lt;button id=<span class="string">&quot;btn&quot;</span>&gt;click&lt;/button&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//js</span></span><br><span class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;btn&#x27;</span>);</span><br><span class="line">btn.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">&#x27;click button&#x27;</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<p>注意，<code>listener</code> 中的 <code>this</code> 指向的是元素自身，也与传递给它的 <code>event</code> 对象的 <code>currentTarget</code> 属性值一致。如果依赖了某些上下文，可以使用 <code>bind</code> 函数解决：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> doSomething = <span class="function"><span class="keyword">function</span>(<span class="params">element</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = <span class="string">&#x27;Something Name&#x27;</span>;</span><br><span class="line">  <span class="built_in">this</span>.onclick = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name); <span class="comment">// undefined, as |this| is the element</span></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  element.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="built_in">this</span>.onclick, <span class="literal">false</span>); <span class="comment">// undefined</span></span><br><span class="line">  element.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="built_in">this</span>.onclick.bind(<span class="built_in">this</span>), <span class="literal">false</span>); <span class="comment">// Something Name</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> s = <span class="keyword">new</span> doSomething(<span class="built_in">document</span>.body);</span><br></pre></td></tr></table></figure>
+
+<p>在 IE 9 之前，不支持该方法，必须使用 <code>attachEvent</code>，如果需要兼容 IE，可以这样写：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> addEvent = (<span class="function">(<span class="params">root</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (root.attachEvent) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">ele, type, fn</span>) =&gt;</span> ele.attachEvent(<span class="string">&#x27;on&#x27;</span> + type, fn);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (root.addEventListener) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">ele, type, fn, capture = <span class="literal">false</span></span>) =&gt;</span> ele.addEventListener(type, fn, capture);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(<span class="built_in">window</span>);</span><br></pre></td></tr></table></figure>
+
+<p>同一个 <code>EventTarget</code> 注册了多个相同的 <code>listener</code>，那么重复的实例会被抛弃，所以不必担心 <code>listener</code> 被调用两次。因此要注意尽量避免使用匿名函数，一方面匿名函数无法取消，而另一方面，传递同样内容的匿名函数不会被抛弃，会被重复执行：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fun1 = <span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;bind func1&#x27;</span>);</span><br><span class="line">btn.addEventListener(<span class="string">&#x27;click&#x27;</span>, fun1);</span><br><span class="line">btn.addEventListener(<span class="string">&#x27;click&#x27;</span>, fun1);</span><br><span class="line"><span class="comment">// click 重复绑定函数被抛除</span></span><br><span class="line"><span class="comment">// bind func1</span></span><br><span class="line"></span><br><span class="line">btn.removeEventListener(<span class="string">&#x27;click&#x27;</span>, fun1);</span><br><span class="line">btn.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;bind func2&#x27;</span>));</span><br><span class="line">btn.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;bind func2&#x27;</span>));</span><br><span class="line"><span class="comment">// click 匿名函数内容一致也无法被抛除</span></span><br><span class="line"><span class="comment">// bind func2</span></span><br><span class="line"><span class="comment">// bind func2</span></span><br></pre></td></tr></table></figure>
+
+<p>注意 IE8 不具有任何替代 <code>useCapture</code> 的方法，如果有依赖这个捕获阶段的函数，请慎重考虑。</p>
+<h3 id="事件监听移除"><a href="#事件监听移除" class="headerlink" title="事件监听移除"></a>事件监听移除</h3><p>对应于以上两种事件监听注册方式，有两种不同的移除方式：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// on-event 注册方式的移除</span></span><br><span class="line">btn.onclick = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// addEventListener 注册方式的移除</span></span><br><span class="line"><span class="keyword">const</span> removeEvent = (<span class="function">(<span class="params">root</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (root.detachEvent) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">ele, type, fn</span>) =&gt;</span> ele.detachEvent(<span class="string">&#x27;on&#x27;</span> + type, fn);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (root.removeEventListener) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">ele, type, fn, capture = <span class="literal">false</span></span>) =&gt;</span> ele.removeEventListener(type, fn, capture);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(<span class="built_in">window</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="事件触发过程"><a href="#事件触发过程" class="headerlink" title="事件触发过程"></a>事件触发过程</h2><p>上几节定义了事件的注册，本节详细看一下事件的发生过程。</p>
+<h3 id="事件捕获和冒泡"><a href="#事件捕获和冒泡" class="headerlink" title="事件捕获和冒泡"></a>事件捕获和冒泡</h3><p>事件触发的过程可以分为3个阶段：事件捕获阶段、目标阶段、事件冒泡阶段，这三个阶段的过程图所示：</p>
+<p><img src="https://www.w3.org/TR/DOM-Level-3-Events/images/eventflow.svg" alt="W3C 事件触发过程"></p>
+<p>事件对象逐个完成这些阶段。如果浏览器不支持该阶段，或者事件对象的传播已被停止，则将跳过该阶段。例如，如果将事件对象的 <code>bubbles</code> 属性设置为 <code>false</code>，则将跳过冒泡阶段，如果在调度之前调用了 <code>stopPropagation()</code>，则将跳过所有阶段。</p>
+<ul>
+<li><strong>事件捕获阶段：</strong>事件对象从 window 对象开始，向下经过 document、body 等元素最终传播到<strong>事件目标的父级</strong>，这个阶段被称为捕获阶段。</li>
+<li><strong>目标阶段：</strong>事件对象到达事件目标对象（即，event.target），该阶段称为目标阶段。如果事件类型表示事件不冒泡，则事件对象将在此阶段完成后停止，不进入事件冒泡阶段。</li>
+<li><strong>事件冒泡阶段：</strong>事件对象以事件捕获阶段相反的顺序从<strong>事件目标的父级</strong>传播到目标的祖先，到 window 对象结束，该阶段称为冒泡阶段。</li>
+</ul>
+<p>我们来看个例子：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;outer&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>click outer.<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;inner&quot;</span>&gt;</span>click inner.<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> outer = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;outer&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> inner = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;inner&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  outer.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;outer capture phase&#x27;</span>);</span><br><span class="line">  &#125;, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  outer.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;outer bubble phase&#x27;</span>);</span><br><span class="line">  &#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  inner.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;inner capture phase&#x27;</span>);</span><br><span class="line">  &#125;, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  inner.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;inner bubble phase&#x27;</span>);</span><br><span class="line">  &#125;, <span class="literal">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>点击后，打印的结果为：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// click outer</span></span><br><span class="line"><span class="string">&quot;outer capture phase&quot;</span></span><br><span class="line"><span class="string">&quot;outer bubble phase&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// click inner</span></span><br><span class="line"><span class="string">&quot;outer capture phase&quot;</span></span><br><span class="line"><span class="string">&quot;inner capture phase&quot;</span></span><br><span class="line"><span class="string">&quot;inner bubble phase&quot;</span></span><br><span class="line"><span class="string">&quot;outer bubble phase&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="注册事件监听器的执行顺序"><a href="#注册事件监听器的执行顺序" class="headerlink" title="注册事件监听器的执行顺序"></a>注册事件监听器的执行顺序</h3><p>之前提到 <code>addEventListener</code> 函数的第三个参数就是指定事件在哪个阶段处理，设置为 <code>true</code> 则在事件捕获阶段处理，设置为 false 则在事件冒泡阶段处理，实际上并不准确，我们看如下的例子：</p>
+<p>a.我们去掉 <code>outer</code> 的事件，修改 <code>inner</code> 事件的注册顺序：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> outer = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;outer&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> inner = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;inner&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  inner.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;inner bubble phase&#x27;</span>);</span><br><span class="line">  &#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  inner.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;inner capture phase&#x27;</span>);</span><br><span class="line">  &#125;, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后点击 <code>inner</code> 发现，先执行冒泡，后捕获，似乎和注册的顺序有关：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// click inner</span></span><br><span class="line"><span class="string">&quot;inner bubble phase&quot;</span></span><br><span class="line"><span class="string">&quot;inner capture phase&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>b.这一次，我们去掉 <code>inner</code> 的事件，为 <code>outer</code> 绑定事件：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> outer = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;outer&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> inner = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;inner&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  outer.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;outer bubble phase&#x27;</span>);</span><br><span class="line">  &#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  outer.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;outer capture phase&#x27;</span>);</span><br><span class="line">  &#125;, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时点击 <code>inner</code> 发现，和事件绑定顺序无关，总是先执行捕获，后执行冒泡：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// click inner/inner</span></span><br><span class="line"><span class="string">&quot;outer capture phase&quot;</span></span><br><span class="line"><span class="string">&quot;outer bubble phase&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>c.在 b 的基础上，为 <code>outer</code> 设置 <code>padding</code>，然后点击 <code>outer</code>，避免点击其子元素，会发现，此时又是和事件注册顺序有关，先执行冒泡，后捕获：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;outer bubble phase&quot;</span></span><br><span class="line"><span class="string">&quot;outer capture phase&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>事件监听器的执行顺序是这样的：</p>
+<ol>
+<li>事件发生后，首先进入捕获阶段。</li>
+<li>在捕获阶段经过的每一个元素（这些元素均为事件目标元素的祖先元素），查看是否有定义在该阶段的事件监听器和该元素上的事件监听器，如果有则按照定义顺序逐个执行，最终进入目标阶段。</li>
+<li>进入目标阶段，按照事件监听器定义顺序，逐个执行定义在事件目标元素上的事件监听器，此时，<strong>不考虑</strong>听器在注册时 <code>capture</code> 参数值是 <code>true</code> 还是 <code>false</code>，完成后进入下一步。</li>
+<li>如果允许冒泡在开始冒泡，并在冒泡阶段，逐个检查并运行绑定在当前元素上的冒泡阶段执行的事件监听器。</li>
+</ol>
+<p>总结：如果事件点击目标（<code>event.target</code>）和事件的绑定目标一致（<code>event.currentTarget</code>) 一致，则多个事件监听器按照监听器的绑定顺序执行。否则，事件按照先执行捕获事件，后执行冒泡顺序的事件执行。</p>
+<p>更详细的事件触发过程可以参考 DOM 的规范定义：<a target="_blank" rel="noopener" href="https://dom.spec.whatwg.org/#dom-eventtarget-dispatchevent">This specification standardizes the DOM#2.8. Dispatching events</a></p>
+<blockquote>
+<p>In the browsers that support the W3C DOM, a traditional event registration <code>element1.onclick = doSomething2;</code> is seen as a registration in the bubbling phase.</p>
+</blockquote>
+<p>注意，在支持捕获和冒泡双阶段的浏览器中，<strong>使用 on-event 的传统方式注册的事件，可以认为是发生在冒泡阶段的。</strong></p>
+<p>顺便说个小插曲，这两个阶段是当年 netscape 和 微软的战争遗留，当时，netscape 主张捕获方式，微软主张冒泡方式。后来 w3c 采用折中的方式，制定了统一的标准：先捕获再冒泡。</p>
+<h2 id="阻止事件继续执行"><a href="#阻止事件继续执行" class="headerlink" title="阻止事件继续执行"></a>阻止事件继续执行</h2><p>在有些场合下，我们已经捕获到了想要处理的事件，不想让事件继续向下执行，这个时候就要阻止事件的冒泡：</p>
+<h3 id="event-stopPropagation"><a href="#event-stopPropagation" class="headerlink" title="event.stopPropagation"></a>event.stopPropagation</h3><p><code>stopPropagation</code> 方法可以停止事件继续传播：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> outer = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;outer&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> inner = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;inner&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  outer.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;outer run&#x27;</span>);</span><br><span class="line">    event.stopPropagation();</span><br><span class="line">  &#125;, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  inner.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;inner stoped&#x27;</span>);</span><br><span class="line">  &#125;, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// &quot;outer run&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以使用 <code>e.cancelBubble = true</code> 来替代 <code>e.stopPropagation()</code>，但是 <code>cancelBubble</code> 支持程度可能受限，为了保险，可以同时设置：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> cancelBubble = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (!e) e = <span class="built_in">window</span>.event;</span><br><span class="line">2e.cancelBubble = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">2<span class="keyword">if</span> (e.stopPropagation) e.stopPropagation();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="event-stopImmediatePropagation"><a href="#event-stopImmediatePropagation" class="headerlink" title="event.stopImmediatePropagation"></a>event.stopImmediatePropagation</h3><p><code>stopPropagation</code> 方法，可以阻止事件传播，但是不能阻止当前事件绑定的其他的事件监听器，而本函数可以阻止事件传播，同时阻止当前事件注册的其他事件监听器：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> outer = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;outer&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> inner = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;inner&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  outer.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;outer run1&#x27;</span>);</span><br><span class="line">    event.stopPropagation();</span><br><span class="line">  &#125;, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  outer.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;outer run2&#x27;</span>);</span><br><span class="line">  &#125;, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  inner.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;inner stoped&#x27;</span>);</span><br><span class="line">  &#125;, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// stopPropagation 无法阻止当前事件绑定的其他的事件监听器</span></span><br><span class="line"><span class="comment">//&quot;outer run1&quot;</span></span><br><span class="line"><span class="comment">//&quot;outer run2&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> outer = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;outer&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> inner = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;inner&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  outer.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;outer run1&#x27;</span>);</span><br><span class="line">    event.stopImmediatePropagation();</span><br><span class="line">  &#125;, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  outer.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;outer run2&#x27;</span>);</span><br><span class="line">  &#125;, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  inner.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;inner stoped&#x27;</span>);</span><br><span class="line">  &#125;, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// stopImmediatePropagation 可以阻止</span></span><br><span class="line"><span class="comment">// &quot;outer run1&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h2><p>由于事件的冒泡机制，所有的子元素节点发生的事件都会经过父元素，并返回父元素，这样，可以将事件的处理交给父元素，这就是事件委托。</p>
+<p>看这个例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// html</span></span><br><span class="line">&lt;ul id=<span class="string">&quot;list&quot;</span>&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 4<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 5<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//js</span></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">&quot;list&quot;</span>).addEventListener(<span class="string">&quot;click&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( event.target.tagName == <span class="string">&#x27;LI&#x27;</span> ) &#123;</span><br><span class="line">     <span class="comment">// do sth.</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>使用事件委托有两个优点：</p>
+<ol>
+<li>可以减少事件的绑定，不用给每一个元素都绑定事件；</li>
+<li>对于使用脚本动态添加的元素，仍然可以监听之前绑定的事件，不需要重新绑定。</li>
+</ol>
+<h2 id="事件对象-Event"><a href="#事件对象-Event" class="headerlink" title="事件对象 Event"></a>事件对象 Event</h2><p>上面简单介绍了如何为元素注册和移除事件，本节看一下传递给事件监听器的事件对象。</p>
+<p>Event接口用于向事件处理程序提供关于事件的上下文信息。实现 <code>Event</code> 接口的对象通常作为第一个参数传递给事件监听器。</p>
+<p>Web浏览器定义了不同种类的许多事件，每个不同的事件的定义都是继承自 <code>Event Prototype</code> 对象的对象。事件的继承层次如下：<br><img src="https://mdn.mozillademos.org/files/6633/Js_Event_Object_Hierarchy.svg" alt="The Event object hierarchy"></p>
+<p>Event 对象通用的属性和方法</p>
+<p>通用属性：</p>
+<ul>
+<li><strong>bubbles：</strong> ([boolean, <code>readonly</code>]）指示事件是否可以冒泡。如果可以冒泡，则值为 true，否则该值为 false。</li>
+<li><strong>cancelable：</strong> ([boolean, <code>readonly</code>]）指示事件是否可以取消其默认动作。如果可以取消该值为 true，否则为 false。</li>
+<li><strong>cancelBubble：</strong> ([boolean]）在事件处理器中将其值设置为 true 可防止事件传播。</li>
+<li><strong>currentTarget：</strong> ([EventTarget, <code>readonly</code>]）指示正​​在处理其 <code>EventListener</code> 的 <code>EventTarget</code>。这在捕获和冒泡时特别有用。</li>
+<li><strong>defaultPrevented：</strong> ([boolean, <code>readonly</code>]）指示事件是否调用了 <code>event.preventDefault()</code>。</li>
+<li><strong>eventPhase：</strong> ([unsigned short, <code>readonly</code>]）指示当前事件正处于的哪个阶段。</li>
+<li><strong>srcElement ：</strong>([EventTarget, <code>readonly</code>]） <code>target</code> 的别名。</li>
+<li><strong>target：</strong> ([EventTarget, <code>readonly</code>]）指示事件最初发送到的 <code>EventTarget</code>。</li>
+<li><strong>timeStamp：</strong> ([DOMTimeStamp, <code>readonly</code>]）创建事件的时间（以秒为单位）</li>
+<li><strong>type：</strong> ([DOMString, <code>readonly</code>]）事件的名称（不区分大小写）</li>
+</ul>
+<p>通用方法：</p>
+<ul>
+<li><strong>preventDefault：</strong> 取消事件对应的默认行为，比如点击超链接跳转新页面，如果 <code>cancelable</code> 属性值为 false 则不可取消，此时调用该方法无效。</li>
+<li><strong>stopPropagation</strong> 阻止当前事件在捕获和冒泡阶段的进一步传播。</li>
+<li><strong>stopImmediatePropagation</strong> 阻止事件冒泡，如果几个监听器被绑定到同一个元素的相同事件上，则按照它们被添加的顺序调用它们，如果有一个调用期间调用了<code>event.stopImmediatePropagation()</code>，则不会调用剩余的监听器。</li>
+</ul>
+<h2 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h2><p>在有些场合下，我们会想要自定义事件，这在我们自己的类库、组件的开发场合下很有用，本节介绍如何自定义事件，触发事件：</p>
+<h3 id="使用-Event、CustomEvent-创建自定义事件"><a href="#使用-Event、CustomEvent-创建自定义事件" class="headerlink" title="使用 Event、CustomEvent 创建自定义事件"></a>使用 Event、CustomEvent 创建自定义事件</h3><p>简单创建自定义事件，可以使用 <code>Event</code> 构造函数：</p>
+<blockquote>
+<p>var event = new Event(typeArg, [eventInit]);</p>
+</blockquote>
+<ul>
+<li><strong>typeArg</strong>：是 <code>DOMString</code> 类型，表示所创建事件的名称。</li>
+<li><strong>eventInit</strong>：可选，接受以下字段:<ul>
+<li><strong>bubbles</strong>：可选，Boolean 类型，默认值为 false，表示该事件是否冒泡。</li>
+<li><strong>cancelable</strong>：可选，Boolean 类型，默认值为 false， 表示该事件能否被取消。</li>
+</ul>
+</li>
+</ul>
+<p>如果需要更高级的附带自定义数据的事件，可以使用 <code>CustomEvent</code>：</p>
+<blockquote>
+<p>var myEvent = new CustomEvent(eventName, [options]);</p>
+</blockquote>
+<ul>
+<li><strong>eventName</strong>：是 String 类型，表示所创建自定义事件的名称。</li>
+<li><strong>options</strong>：可选，接受以下字段:<ul>
+<li><strong>detail</strong>：可选，默认值为 null，表示该事件任意的自定义数据。</li>
+<li><strong>bubbles</strong>：可选，Boolean 类型，默认值为 false，表示该事件是否冒泡。</li>
+<li><strong>cancelable</strong>：可选，Boolean 类型，默认值为 false， 表示该事件能否被取消。</li>
+</ul>
+</li>
+</ul>
+<p>如下示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// add an appropriate event listener</span></span><br><span class="line">obj.addEventListener(<span class="string">&quot;cat&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123; process(e.detail) &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// create and dispatch the event</span></span><br><span class="line"><span class="keyword">var</span> event = <span class="keyword">new</span> CustomEvent(<span class="string">&quot;cat&quot;</span>, &#123;</span><br><span class="line">  <span class="attr">detail</span>: &#123;</span><br><span class="line">    <span class="attr">hazcheeseburger</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">obj.dispatchEvent(event);</span><br></pre></td></tr></table></figure>
+
+<h3 id="触发事件"><a href="#触发事件" class="headerlink" title="触发事件"></a>触发事件</h3><p>除了自定义的事件外，浏览器内置的一些事件（比如，click 事件）也可以被模拟触发，比如下面这个模拟触发 click 事件的例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">simulateClick</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> event = <span class="keyword">new</span> MouseEvent(<span class="string">&#x27;click&#x27;</span>, &#123;</span><br><span class="line">    <span class="string">&#x27;view&#x27;</span>: <span class="built_in">window</span>,</span><br><span class="line">    <span class="string">&#x27;bubbles&#x27;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">&#x27;cancelable&#x27;</span>: <span class="literal">true</span></span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">var</span> cb = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;checkbox&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> cancelled = !cb.dispatchEvent(event);</span><br><span class="line">  <span class="keyword">if</span> (cancelled) &#123;</span><br><span class="line">    <span class="comment">// A handler called preventDefault.</span></span><br><span class="line">    alert(<span class="string">&quot;cancelled&quot;</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// None of the handlers called preventDefault.</span></span><br><span class="line">    alert(<span class="string">&quot;not cancelled&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在自定义触发事件的时候，常用到的两个方法是：<code>Event Constructor</code>（例如 <code>Event()</code>、<code>MouseEvent()</code>）、<code>element.dispatchEvent(event)</code>。</p>
+<p>有的地方可能会用如下的方法，但是注意，<strong>这种方法已经过时</strong>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">simulateClick</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 这种方法已经过时，不推荐使用</span></span><br><span class="line">  <span class="keyword">var</span> evt = <span class="built_in">document</span>.createEvent(<span class="string">&quot;MouseEvents&quot;</span>);</span><br><span class="line">  evt.initMouseEvent(<span class="string">&quot;click&quot;</span>, <span class="literal">true</span>, <span class="literal">true</span>, <span class="built_in">window</span>,</span><br><span class="line">    <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="number">0</span>, <span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用自定义事件实现发布订阅者模式"><a href="#使用自定义事件实现发布订阅者模式" class="headerlink" title="使用自定义事件实现发布订阅者模式"></a>使用自定义事件实现发布订阅者模式</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EventEmitter</span> </span>&#123;</span><br><span class="line">  <span class="attr">listen</span>: <span class="built_in">window</span>.addEventListener,</span><br><span class="line">  <span class="attr">unlisten</span>: <span class="built_in">window</span>.removeEventListener,</span><br><span class="line">  <span class="function"><span class="title">trigger</span>(<span class="params">type, data</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.dispatchEvent(<span class="keyword">new</span> CustomEvent(type, &#123; <span class="attr">detail</span>: data &#125;))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>本文涉及内容较多，也不可能面面具到，本文主要参考以下内容，更多资料还请阅读下文：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/webappapis.html#the-event-handler-processing-algorithm">The event handler processing algorithm</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3.org/TR/DOM-Level-3-Events/#event-flow">UI Events, W3C Working Draft #3.1. Event dispatch and DOM event flow</a></li>
+<li><a target="_blank" rel="noopener" href="https://dom.spec.whatwg.org/#dom-eventtarget-dispatchevent">This specification standardizes the DOM#2.8. Dispatching events</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-Event">W3c-Document Object Model Events#1.4. Event interface</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/Guide/Events">Event developer guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Event">MDN：Web APIs-Event</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.quirksmode.org/js/events_order.html">Event order</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/23059366">JavaScript 浏览器事件解读</a></li>
+</ul>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

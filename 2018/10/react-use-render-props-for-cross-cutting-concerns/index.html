@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>React - Render Props(使用 props 渲染内容) | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,翻译" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-react-use-render-props-for-cross-cutting-concerns" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        React - Render Props(使用 props 渲染内容)
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2018" data-type="ARCHIVES">
+        2018-10-19
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 3.3k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 23mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="react" data-type="TAGS">react</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="翻译" data-type="TAGS">翻译</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>翻译自 <a target="_blank" rel="noopener" href="https://reactjs.org/docs/render-props.html#use-render-props-for-cross-cutting-concerns">React Docs: Render Props</a></p>
+<p>The term <a target="_blank" rel="noopener" href="https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce">“render prop”</a> refers to a technique for sharing code between React components using a prop whose value is a function.</p>
+<p>术语  <a target="_blank" rel="noopener" href="https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce">“render prop”</a> 指的是使用其值为函数的 prop 在 React 组件之间共享代码的技术。</p>
+<p>A component with a render prop takes a function that returns a React element and calls it instead of implementing its own render logic.</p>
+<p>具有 render prop 的组件接受一个函数，该函数返回一个React元素并调用它而不是自己实现渲染逻辑。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;DataProvider render=&#123;<span class="function"><span class="params">data</span> =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello &#123;data.target&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line">)&#125;/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>Libraries that use render props include <a target="_blank" rel="noopener" href="https://reacttraining.com/react-router/web/api/Route/Route-render-methods">React Router</a> and <a target="_blank" rel="noopener" href="https://github.com/paypal/downshift">Downshift</a>.</p>
+<p>使用 render props 的库有 <a target="_blank" rel="noopener" href="https://reacttraining.com/react-router/web/api/Route/Route-render-methods">React Router</a> 和 <a target="_blank" rel="noopener" href="https://github.com/paypal/downshift">Downshift</a>。</p>
+<p>In this document, we’ll discuss why render props are useful, and how to write your own.</p>
+<p>本文，我们将讨论为什么 render props 很有用，以及如何编写。</p>
+<h2 id="Use-Render-Props-for-Cross-Cutting-Concerns（使用-render-props-来解决横切关注点）"><a href="#Use-Render-Props-for-Cross-Cutting-Concerns（使用-render-props-来解决横切关注点）" class="headerlink" title="Use Render Props for Cross-Cutting Concerns（使用 render props 来解决横切关注点）"></a>Use Render Props for Cross-Cutting Concerns（使用 render props 来解决横切关注点）</h2><p>Components are the primary unit of code reuse in React, but it’s not always obvious how to share the state or behavior that one component encapsulates to other components that need that same state.</p>
+<p>组件是 React 中代码重用的主要单元，但是将一个组件封装的状态或行为共享给其它组件并容易。</p>
+<p>For example, the following component tracks the mouse position in a web app:</p>
+<p>例如，下面这个组件跟踪 Web 应用程序中的鼠标位置：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MouseTracker</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line">    <span class="built_in">this</span>.handleMouseMove = <span class="built_in">this</span>.handleMouseMove.bind(<span class="built_in">this</span>);</span><br><span class="line">    <span class="built_in">this</span>.state = &#123; <span class="attr">x</span>: <span class="number">0</span>, <span class="attr">y</span>: <span class="number">0</span> &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">handleMouseMove</span>(<span class="params">event</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">      <span class="attr">x</span>: event.clientX,</span><br><span class="line">      <span class="attr">y</span>: event.clientY</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;</span> &#123; <span class="attr">height:</span> &#x27;<span class="attr">100</span>%&#x27; &#125; &#125; <span class="attr">onMouseMove</span>=<span class="string">&#123;this.handleMouseMove&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Move the mouse around!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>The current mouse position is (&#123;this.state.x&#125;, &#123;this.state.y&#125;)<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>As the cursor moves around the screen, the component displays its (x, y) coordinates in a <code>&lt;p&gt;</code>.</p>
+<p>当光标在屏幕上移动时，组件在 <code>&lt;p&gt;</code> 中显示其（x，y）坐标。</p>
+<p>Now the question is: How can we reuse this behavior in another component? In other words, if another component needs to know about the cursor position, can we encapsulate that behavior so that we can easily share it with that component?</p>
+<p>现在问题是：我们如何在另一个组件中重用此行为？换句话说，如果另一个组件需要知道光标位置，我们是否可以封装该行为，以便我们可以轻松地与其它组件共享此行为？</p>
+<p>Since components are the basic unit of code reuse in React, let’s try refactoring the code a bit to use a <code>&lt;Mouse&gt;</code> component that encapsulates the behavior we need to reuse elsewhere.</p>
+<p>由于组件是 React 中代码重用的基本单元，让我们试着重构代码，使用 <code>&lt;Mouse&gt;</code> 组件来封装我们需要在其他地方重用的行为。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// The &lt;Mouse&gt; component encapsulates the behavior we need...</span></span><br><span class="line"><span class="comment">// &lt;Mouse&gt; 组件封装了我们需要的行为</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mouse</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line">    <span class="built_in">this</span>.handleMouseMove = <span class="built_in">this</span>.handleMouseMove.bind(<span class="built_in">this</span>);</span><br><span class="line">    <span class="built_in">this</span>.state = &#123; <span class="attr">x</span>: <span class="number">0</span>, <span class="attr">y</span>: <span class="number">0</span> &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">handleMouseMove</span>(<span class="params">event</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">      <span class="attr">x</span>: event.clientX,</span><br><span class="line">      <span class="attr">y</span>: event.clientY</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div style=&#123; &#123; height: &#x27;100%&#x27; &#125; &#125; onMouseMove=&#123;this.handleMouseMove&#125;&gt;</span><br><span class="line"></span><br><span class="line">        &#123;/* ...but how do we render something other than a &lt;p&gt;?</span><br><span class="line">        但是怎样渲染其他内容而不仅仅是渲染一个 &lt;p&gt; 元素？*/&#125;</span><br><span class="line">        &lt;p&gt;The current mouse position is (&#123;this.state.x&#125;, &#123;this.state.y&#125;)&lt;/p&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MouseTracker extends React.Component &#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;Move the mouse around!&lt;/h1&gt;</span><br><span class="line">        &lt;Mouse /&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Now the <code>&lt;Mouse&gt;</code> component encapsulates all behavior associated with listening for <code>mousemove</code> events and storing the (x, y) position of the cursor, but it’s not yet truly reusable.</p>
+<p>现在，<code>&lt;Mouse&gt;</code> 组件封装了侦听 <code>mousemove</code> 事件，存储了与光标的位置（x，y）相关的所有行为，但它还不能真正重用。</p>
+<p>For example, let’s say we have a <code>&lt;Cat&gt;</code> component that renders the image of a cat chasing the mouse around the screen. We might use a <code>&lt;Cat mouse=&#123; &#123; x, y &#125; &#125;&gt;</code> prop to tell the component the coordinates of the mouse so it knows where to position the image on the screen.</p>
+<p>例如，假设我们有一个 <code>&lt;Cat&gt;</code> 组件，它可以呈现猫在屏幕上追逐鼠标的图像。我们可能会使用 <code>&lt;Cat mouse = &#123; &#123;x，y&#125; &#125;&gt;</code> prop 来告诉组件鼠标的坐标，以便知道将图像放在屏幕上的位置。</p>
+<p>As a first pass, you might try rendering the <code>&lt;Cat&gt;</code><em>inside <code>&lt;Mouse&gt;</code>’s <code>render</code> method</em>, like this:</p>
+<p>第一版的代码，你可能尝试在 <code>&lt;Mouse&gt;</code> 的 render 方法中渲染 <code>&lt;Cat&gt;</code>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> mouse = <span class="built_in">this</span>.props.mouse;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/cat.jpg&quot;</span> <span class="attr">style</span>=<span class="string">&#123;</span> &#123; <span class="attr">position:</span> &#x27;<span class="attr">absolute</span>&#x27;, <span class="attr">left:</span> <span class="attr">mouse.x</span>, <span class="attr">top:</span> <span class="attr">mouse.y</span> &#125; &#125; /&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MouseWithCat</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line">    <span class="built_in">this</span>.handleMouseMove = <span class="built_in">this</span>.handleMouseMove.bind(<span class="built_in">this</span>);</span><br><span class="line">    <span class="built_in">this</span>.state = &#123; <span class="attr">x</span>: <span class="number">0</span>, <span class="attr">y</span>: <span class="number">0</span> &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">handleMouseMove</span>(<span class="params">event</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">      <span class="attr">x</span>: event.clientX,</span><br><span class="line">      <span class="attr">y</span>: event.clientY</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div style=&#123; &#123; height: &#x27;100%&#x27; &#125; &#125; onMouseMove=&#123;this.handleMouseMove&#125;&gt;</span><br><span class="line"></span><br><span class="line">        &#123;/*</span><br><span class="line">          We could just swap out the &lt;p&gt; for a &lt;Cat&gt; here ... but then</span><br><span class="line">          we would need to create a separate &lt;MouseWithSomethingElse&gt;</span><br><span class="line">          component every time we need to use it, so &lt;MouseWithCat&gt;</span><br><span class="line">          isn&#x27;t really reusable yet.</span><br><span class="line">          我们只需要把这里的 &lt;p&gt; 换成 &lt;Cat&gt; here ... but then</span><br><span class="line">          但是这样的话，每次我们需要这种行为都需要重新创建一个 &lt;MouseWithSomethingElse&gt;</span><br><span class="line">          组件，很明显这样仍然没有实现更好地复用</span><br><span class="line">        */&#125;</span><br><span class="line">        &lt;Cat mouse=&#123;this.state&#125; /&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MouseTracker extends React.Component &#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;Move the mouse around!&lt;/h1&gt;</span><br><span class="line">        &lt;MouseWithCat /&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This approach will work for our specific use case, but we haven’t achieved the objective of truly encapsulating the behavior in a reusable way. Now, every time we want the mouse position for a different use case, we have to create a new component (i.e. essentially another <code>&lt;MouseWithCat&gt;</code>) that renders something specifically for that use case.</p>
+<p>这种方法适用于我们的特定用例，但还没有达到真正可重用的封装行为的目标。现在，每当我们想要在不同的用例中使用鼠标位置时，我们必须创建一个新的组件专门渲染此用例（其本质上是另一个 <code>&lt;MouseWithCat&gt;</code>）。</p>
+<p>Here’s where the render prop comes in: Instead of hard-coding a <code>&lt;Cat&gt;</code> inside a <code>&lt;Mouse&gt;</code> component, and effectively changing its rendered output, we can provide <code>&lt;Mouse&gt;</code> with a function prop that it uses to dynamically determine what to render–a render prop.</p>
+<p>这就是 render props 的用武之地：我们可以为 <code>&lt;Mouse&gt;</code> 提供一个函数类型的 prop，它可以动态地确定要渲染的内容，而不是硬编码写在 <code>&lt;Mouse&gt;</code> 组件中的 <code>&lt;Cat&gt;</code>，直接改变 <code>&lt;Mouse&gt;</code> 的渲染内容。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> mouse = <span class="built_in">this</span>.props.mouse;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/cat.jpg&quot;</span> <span class="attr">style</span>=<span class="string">&#123;</span> &#123; <span class="attr">position:</span> &#x27;<span class="attr">absolute</span>&#x27;, <span class="attr">left:</span> <span class="attr">mouse.x</span>, <span class="attr">top:</span> <span class="attr">mouse.y</span> &#125; &#125; /&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mouse</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line">    <span class="built_in">this</span>.handleMouseMove = <span class="built_in">this</span>.handleMouseMove.bind(<span class="built_in">this</span>);</span><br><span class="line">    <span class="built_in">this</span>.state = &#123; <span class="attr">x</span>: <span class="number">0</span>, <span class="attr">y</span>: <span class="number">0</span> &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">handleMouseMove</span>(<span class="params">event</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">      <span class="attr">x</span>: event.clientX,</span><br><span class="line">      <span class="attr">y</span>: event.clientY</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;</span> &#123; <span class="attr">height:</span> &#x27;<span class="attr">100</span>%&#x27; &#125; &#125; <span class="attr">onMouseMove</span>=<span class="string">&#123;this.handleMouseMove&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        &#123;/*</span></span><br><span class="line"><span class="xml">          Instead of providing a static representation of what <span class="tag">&lt;<span class="name">Mouse</span>&gt;</span> renders,</span></span><br><span class="line"><span class="xml">          use the `render` prop to dynamically determine what to render.</span></span><br><span class="line"><span class="xml">          与提供静态的渲染内容相比较，使用 `render` prop 来决定要渲染的内容更好</span></span><br><span class="line"><span class="xml">        */&#125;</span></span><br><span class="line"><span class="xml">        &#123;this.props.render(this.state)&#125;</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    );</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">class MouseTracker extends React.Component &#123;</span></span><br><span class="line"><span class="xml">  render() &#123;</span></span><br><span class="line"><span class="xml">    return (</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Move the mouse around!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Mouse</span> <span class="attr">render</span>=<span class="string">&#123;mouse</span> =&gt;</span> (</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">Cat</span> <span class="attr">mouse</span>=<span class="string">&#123;mouse&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        )&#125;/&gt;</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    );</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+<p>Now, instead of effectively cloning the <code>&lt;Mouse&gt;</code> component and hard-coding something else in its <code>render</code> method to solve for a specific use case, we provide a <code>render</code> prop that <code>&lt;Mouse&gt;</code> can use to dynamically determine what it renders.</p>
+<p>现在，我们通过提供了一个名为 <code>render</code> 的 prop,  <code>&lt;Mouse&gt;</code> 组件用它来确定它需要动态地渲染的内容，而不是克隆 <code>&lt;Mouse&gt;</code> 组件并在其render方法中对其渲染的内容进行硬编码。</p>
+<p>More concretely, <strong>a render prop is a function prop that a component uses to know what to render.</strong></p>
+<p>更具体地说，<strong>render props 是组件用来知道渲染什么内容的函数 prop。</strong></p>
+<p>This technique makes the behavior that we need to share extremely portable. To get that behavior, render a <code>&lt;Mouse&gt;</code> with a <code>render</code> prop that tells it what to render with the current (x, y) of the cursor.</p>
+<p>这种技术使我们共享行为非常便携。要获得该行为，只需要使用一个 <code>render</code> prop 渲染 <code>&lt;Mouse&gt;</code>，该 prop 知道如何使用光标的当前（x，y）渲染内容。</p>
+<p>One interesting thing to note about render props is that you can implement most <a href="/docs/higher-order-components.html">higher-order components</a> (HOC) using a regular component with a render prop. For example, if you would prefer to have a <code>withMouse</code> HOC instead of a <code>&lt;Mouse&gt;</code> component, you could easily create one using a regular <code>&lt;Mouse&gt;</code> with a render prop:</p>
+<p>关于 render props 的一个有趣的事情是， 你可以使用具有 render props 的常规组件来实现大多数的 <a href="/docs/higher-order-components.html">高阶组件</a> （HOC）。例如，如果你希望使用一个 <code>withMouse</code> 的 HOC 而不是 <code>&lt;Mouse&gt;</code> 组件，你可以使用 render prop 轻松创建一个 <code>&lt;Mouse&gt;</code>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// If you really want a HOC for some reason, you can easily</span></span><br><span class="line"><span class="comment">// create one using a regular component with a render prop!</span></span><br><span class="line"><span class="comment">// 如果你因为某些原因想要实现一个高阶组件，你可以很容易的使用一个接收</span></span><br><span class="line"><span class="comment">// render props 的常规的组件来创建一个</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">withMouse</span>(<span class="params">Component</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        <span class="xml"><span class="tag">&lt;<span class="name">Mouse</span> <span class="attr">render</span>=<span class="string">&#123;mouse</span> =&gt;</span> (</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">Component</span> &#123;<span class="attr">...this.props</span>&#125; <span class="attr">mouse</span>=<span class="string">&#123;mouse&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        )&#125;/&gt;</span></span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>So using a render prop makes it possible to use either pattern.</p>
+<p>因此，使用渲染道具不影响使用其它模式。</p>
+<h2 id="Using-Props-Other-Than-render（可以使用任意的-props，而不仅仅名为-render-的-prop）"><a href="#Using-Props-Other-Than-render（可以使用任意的-props，而不仅仅名为-render-的-prop）" class="headerlink" title="Using Props Other Than render（可以使用任意的 props，而不仅仅名为 render 的 prop）"></a>Using Props Other Than <code>render</code>（可以使用任意的 props，而不仅仅名为 <code>render</code> 的 prop）</h2><p>It’s important to remember that just because the pattern is called “render props” you don’t <em>have to use a prop named <code>render</code> to use this pattern</em>. In fact, <a target="_blank" rel="noopener" href="https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce"><em>any</em> prop that is a function that a component uses to know what to render is technically a “render prop”</a>.</p>
+<p>你需要知道的重要的一点是，这种模式被称为 “render props”，而非你必须使用名为 render 的 prop 来使用此模式。实际上，<a target="_blank" rel="noopener" href="https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce"><em>任意</em> 的被组件用来渲染其内容的函数的 prop 在技术上都是 “render props”</a>。</p>
+<p>Although the examples above use <code>render</code>, we could just as easily use the <code>children</code> prop!</p>
+<p>虽然上面的例子使用 <code>render</code> 属性，但也可以很很容易地使用 children props！</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;Mouse children=&#123;<span class="function"><span class="params">mouse</span> =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The mouse position is &#123;mouse.x&#125;, &#123;mouse.y&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line">)&#125;/&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>And remember, the <code>children</code> prop doesn’t actually need to be named in the list of “attributes” in your JSX element. Instead, you can put it directly <em>inside</em> the element!</p>
+<p>请记住， <code>children</code> prop 不需要在JSX元素的“属性”列表中命名。相反地，你可以把它直接放在元素中！</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;Mouse&gt;</span><br><span class="line">  &#123;<span class="function"><span class="params">mouse</span> =&gt;</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The mouse position is &#123;mouse.x&#125;, &#123;mouse.y&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line">  )&#125;</span><br><span class="line">&lt;/Mouse&gt;</span><br></pre></td></tr></table></figure>
+
+<p>You’ll see this technique used in the <a target="_blank" rel="noopener" href="https://github.com/chenglou/react-motion">react-motion</a> API.</p>
+<p>你能在 <a target="_blank" rel="noopener" href="https://github.com/chenglou/react-motion">react-motion</a> API中看到此技术。</p>
+<p>Since this technique is a little unusual, you’ll probably want to explicitly state that <code>children</code> should be a function in your <code>propTypes</code> when designing an API like this.</p>
+<p>由于这种技术不常见，因此在设计像这样的 API 时，你最好明确在 <code>propTypes</code> 声明 <code>children</code> 应该是一个函数类型。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Mouse.propTypes = &#123;</span><br><span class="line">  <span class="attr">children</span>: PropTypes.func.isRequired</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Caveats-注意事项"><a href="#Caveats-注意事项" class="headerlink" title="Caveats(注意事项)"></a>Caveats(注意事项)</h2><h3 id="Be-careful-when-using-Render-Props-with-React-PureComponent（将-Render-Props-与React-PureComponent-一起使用时要小心）"><a href="#Be-careful-when-using-Render-Props-with-React-PureComponent（将-Render-Props-与React-PureComponent-一起使用时要小心）" class="headerlink" title="Be careful when using Render Props with React.PureComponent（将 Render Props 与React.PureComponent 一起使用时要小心）"></a>Be careful when using Render Props with React.PureComponent（将 Render Props 与React.PureComponent 一起使用时要小心）</h3><p>Using a render prop can negate the advantage that comes from using <a href="/docs/react-api.html#reactpurecomponent"><code>React.PureComponent</code></a> if you create the function inside a <code>render</code> method. This is because the shallow prop comparison will always return <code>false</code> for new props, and each <code>render</code> in this case will generate a new value for the render prop.</p>
+<p>如果在 render 方法中创建函数，则使用 render prop 可以会忽视使用 <code>React.PureComponent</code> 所带来的好处。这是因为<code>React.PureComponent</code> 对 props 的浅比较将始终为每次渲染新生成的函数的比较结果返回 <code>false</code>，在这种情况下每次渲染将为 render props 生成新值。</p>
+<p>For example, continuing with our <code>&lt;Mouse&gt;</code> component from above, if <code>Mouse</code> were to extend <code>React.PureComponent</code> instead of <code>React.Component</code>, our example would look like this:</p>
+<p>例如，对于上面的 <code>&lt;Mouse&gt;</code> 组件，如果 <code>Mouse</code> 要扩展 <code>React.PureComponent</code> 而不是<code>React.Component</code>，我们的示例将如下所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mouse</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">PureComponent</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Same implementation as above...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MouseTracker</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Move the mouse around!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        &#123;/*</span></span><br><span class="line"><span class="xml">          This is bad! The value of the `render` prop will</span></span><br><span class="line"><span class="xml">          be different on each render.</span></span><br><span class="line"><span class="xml">          这很糟糕，`render` prop 的值在每次渲染的时候都会是一个不同的值</span></span><br><span class="line"><span class="xml">        */&#125;</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Mouse</span> <span class="attr">render</span>=<span class="string">&#123;mouse</span> =&gt;</span> (</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">Cat</span> <span class="attr">mouse</span>=<span class="string">&#123;mouse&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        )&#125;/&gt;</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>In this example, each time <code>&lt;MouseTracker&gt;</code> renders, it generates a new function as the value of the <code>&lt;Mouse render&gt;</code> prop, thus negating the effect of <code>&lt;Mouse&gt;</code> extending <code>React.PureComponent</code> in the first place!</p>
+<p>在这个例子中，每次 <code>&lt;MouseTracker&gt;</code> 渲染时，它都会生成一个新函数作为 <code>&lt;Mouse render&gt;</code> 的 prop的值，从而使最初 <code>&lt;Mouse&gt;</code> 扩展自 <code>React.PureComponent</code> 的优化效果失效！</p>
+<p>To get around this problem, you can sometimes define the prop as an instance method, like so:</p>
+<p>要解决此问题， render props 可以将 prop 定义为实例方法，如下所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MouseTracker</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Defined as an instance method, `this.renderTheCat` always</span></span><br><span class="line">  <span class="comment">// refers to *same* function when we use it in render</span></span><br><span class="line">  <span class="comment">// 定义为实例方法，`this.renderTheCat` 在渲染师将会一直引用同一个方法</span></span><br><span class="line">  <span class="function"><span class="title">renderTheCat</span>(<span class="params">mouse</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Cat</span> <span class="attr">mouse</span>=<span class="string">&#123;mouse&#125;</span> /&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Move the mouse around!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Mouse</span> <span class="attr">render</span>=<span class="string">&#123;this.renderTheCat&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>In cases where you cannot define the prop statically (e.g. because you need to close over the component’s props and/or state) <code>&lt;Mouse&gt;</code> should extend <code>React.Component</code> instead.</p>
+<p>如果 render props 无法是静态定义prop（例如，因为 render props 需要关闭组件的 props 和/或状态），那么，<code>&lt;Mouse&gt;</code> 应该扩展 <code>React.Component</code>。</p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

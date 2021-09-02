@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>JavaScript 常用事件之鼠标事件 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="dom,bom,event,事件,dom 事件,鼠标事件,监听鼠标点击事件,监听鼠标滑动事件" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-broswer_common_mouse_event" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        JavaScript 常用事件之鼠标事件
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2018" data-type="ARCHIVES">
+        2018-01-25
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 2.2k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 13mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="dom" data-type="TAGS">dom</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="bom" data-type="TAGS">bom</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="event" data-type="TAGS">event</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="事件" data-type="TAGS">事件</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>鼠标事件是目前最常用的事件，与鼠标操作相关的事件主要有： <code>mousedown</code>, <code>mouseup</code>, <code>click</code>, <code>dblclick</code>, <code>contextmenu</code>, <code>mousemove</code>, <code>mouseover</code>, <code>mouseout</code>。</p>
+<h2 id="mousedown-mouseup-click"><a href="#mousedown-mouseup-click" class="headerlink" title="mousedown, mouseup, click"></a>mousedown, mouseup, click</h2><p>用户点击元素触发的事件顺序为：</p>
+<ol>
+<li><code>mousedown</code>，用户在该元素按下鼠标按钮；</li>
+<li><code>mouseup</code>，用户在此元素上释放按下的鼠标按钮；</li>
+<li><code>click</code>，在此元素上检测到一个 <code>mousedown</code> 和一个 <code>mouseup</code>；</li>
+</ol>
+<p>注意，有时用户使用鼠标执行某些操作，但并不会触发 <code>click</code> 事件。例如用户在链接上按下鼠标按钮，然后将鼠标从链接上移开，然后释放鼠标按钮，此时只触发了 <code>mousedown</code> 事件。类似地，如果用户按下鼠标按钮，则将鼠标移动到链接上，然后释放鼠标按钮，此时触发了此元素的 <code>mouseup</code> 事件。这两种情况下下都不会触发点击事件。</p>
+<h2 id="dblclick"><a href="#dblclick" class="headerlink" title="dblclick"></a>dblclick</h2><p><code>dblclick</code> 事件很少使用。即使使用它，也应该确保不要在同一个 HTML 元素上注册 <code>onclick</code> 和 <code>ondblclick</code> 事件处理程序。毕竟，当用户双击元素时，<code>click</code> 事件将发生在 <code>dblclick</code> 之前。</p>
+<p><strong>注意</strong>，取消点击事件不会影响触发 <code>dblclick</code> 事件。</p>
+<p>双击事件会有一个副作用，就是双击文本会选中文本，<a target="_blank" rel="noopener" href="https://javascript.info/mouse-events-basics#no-selection-on-mousedown">查看更多</a></p>
+<h2 id="contextmenu"><a href="#contextmenu" class="headerlink" title="contextmenu"></a>contextmenu</h2><p>和 <code>click</code> 行为类似，区别在于点击鼠标左键触发 <code>click</code> 事件，点击鼠标右键触发该事件。</p>
+<p><strong>注意</strong>，该事件和 <code>click</code> 事件类似，也能触发 <code>mousedown</code> 和 <code>mouseup</code> 事件，并且这两个事件先于 <code>contextmenu</code> 事件触发。</p>
+<h2 id="mouseover、mouseout-与-mouseenter、mouseleave"><a href="#mouseover、mouseout-与-mouseenter、mouseleave" class="headerlink" title="mouseover、mouseout 与 mouseenter、mouseleave"></a>mouseover、mouseout 与 mouseenter、mouseleave</h2><p>这两组事件是成对出现，并且行为比较相似，放在一起说。</p>
+<p><code>mouseover</code> 和 <code>mouseenter</code> 都是鼠标进入元素的时候触发的，不同点在于，对于如下的结构：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;lv1&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;lv2&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;lv3&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>当鼠标进入 <code>lv3</code> 的时候，会触发单一的 <code>mouseover</code>，并且 <code>mouseover</code> 事件会冒泡，从 <code>lv3 -&gt; lv2 -&gt; lv1 -&gt; ... -&gt; root</code> 这个顺序开始冒泡，如果中间事件被阻止冒泡，则后面元素不能触发这个事件；而 <code>mouseenter</code> 事件不会冒泡，不能取消，相反 lv1、lv2、lv3 都会触发各自的 <code>mouseenter</code> 事件，同时，鼠标从其后代元素移动到自身元素<strong>不会再次触发此事件</strong>。这意味着，由于层次较深，所发送的 <code>mouseenter</code> 事件的数量可能非常多，容易造成重大的性能问题，在这种情况下，最好监听 <code>mouseover</code> 事件。</p>
+<p><code>mouseout</code> 和 <code>mouseleave</code> 都是在鼠标离开元素的时候触发，并且它们的行为分别很类似于 <code>mouseover</code> 和 <code>mouseenter</code>：当指针离开元素或离开其后代之一（即使指针仍在元素内）时，<code>mouseout</code> 将被触发，并且冒泡；当指针已经退出元素及其所有后代时，此元素的所有祖先元素触发各自的 <code>mouseleave</code> 事件。</p>
+<p>看个示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// html</span></span><br><span class="line">&lt;ul id=<span class="string">&quot;test&quot;</span>&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// js</span></span><br><span class="line"><span class="keyword">var</span> test = <span class="built_in">document</span>.getElementById(<span class="string">&quot;test&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// this handler will be executed only once when the cursor moves over the unordered list</span></span><br><span class="line">test.addEventListener(<span class="string">&quot;mouseenter&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"> event </span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;mouseenter&quot;</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// this handler will be executed every time the cursor is moved over a different list item</span></span><br><span class="line">test.addEventListener(<span class="string">&quot;mouseover&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"> event </span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;mouseover&quot;</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// this handler will be executed only once when the cursor moves out of the unordered list</span></span><br><span class="line">test.addEventListener(<span class="string">&quot;mouseleave&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"> event </span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;mouseleave&quot;</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// this handler will be executed every time the cursor is moved over a different list item</span></span><br><span class="line">test.addEventListener(<span class="string">&quot;mouseout&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"> event </span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;mouseout&quot;</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="mousemove"><a href="#mousemove" class="headerlink" title="mousemove"></a>mousemove</h2><p>当在元素上方移动鼠标时，会触发 <code>mousemove</code> 事件。</p>
+<p>即使用户将鼠标移动一个像素，也会触发 <code>mousemove</code> 事件。这会非常的影响系统的性能，最好对此事件优化去抖，同时在不使用的时候移除事件的监听，具体查看本文“其他事件 —— resize 和 scroll” 一节。</p>
+<h2 id="wheel"><a href="#wheel" class="headerlink" title="wheel"></a>wheel</h2><p>当鼠标中键滚动时，触发该事件。基本用不到，有兴趣可以去啃一下 W3C 规范 <a target="_blank" rel="noopener" href="https://www.w3.org/TR/uievents/#events-wheelevents">Wheel Events</a>。</p>
+<h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><p>当文本被选中的时候，<code>select</code> 事件会触发。并非每个元素都能触发这个事件，在 Html5 规范里，只能在 <code>input</code> 和 <code>textarea</code> 上触发该事件。</p>
+<p>该事件不提供获得选取内容的接口，如果想要获得选取的内容，可以使用 <code>[document/window].getSelection().toString()</code></p>
+<h2 id="区分点击按键"><a href="#区分点击按键" class="headerlink" title="区分点击按键"></a>区分点击按键</h2><p>鼠标事件的 which 属性区分了点击的哪个按键：</p>
+<ul>
+<li>event.which == 1: 左键</li>
+<li>event.which == 2: 中键</li>
+<li>event.which == 3: 右键</li>
+</ul>
+<p><strong>注意</strong> 通常情况下并不会用到这个属性，因为点击左键触发 <code>click</code> 事件，点击右键触发 <code>contextmenu</code> 事件，但是它们都会触发 <code>mousedown</code> 和 `mouseup 事件，如果使用这两个事件，可能需要注意一下是否需要区分点击的按键。</p>
+<h2 id="鼠标按键组合事件"><a href="#鼠标按键组合事件" class="headerlink" title="鼠标按键组合事件"></a>鼠标按键组合事件</h2><p>鼠标事件同时也会包含按键的相关信息，常用的控制按键包括：</p>
+<ul>
+<li><strong>altKey：</strong> 当鼠标事件触发时，如果 <code>Alt</code> 键被按下，则返回 true；</li>
+<li><strong>ctrlKey：</strong> 当鼠标事件触发时，如果 <code>Ctrl</code> 键被按下，则返回 true；</li>
+<li><strong>metaKey：</strong> <code>Mac</code> 上特殊属性，等价于 <code>Windows</code> 上的 <code>ctrlKey</code>，当在 Mac 上鼠标事件被触发时，如果 <code>Cmd</code> 键被按下，则返回 true ；</li>
+<li><strong>shiftKey：</strong> 当鼠标事件触发时，如果 <code>Shift</code> 键被按下，则返回 true；</li>
+</ul>
+<p>使用控制按键，可以组合出更加丰富的鼠标事件，比如下面是一个支持多选的列表，按住 <code>ctrl</code> 点击选项则多选，否则为单选：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">&quot;list&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>li1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>li2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>li3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>li4<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>li5<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> selected = [];</span></span><br><span class="line"><span class="javascript"><span class="built_in">document</span>.getElementById(<span class="string">&#x27;list&#x27;</span>).addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">if</span> (event.ctrlKey) &#123;</span></span><br><span class="line"><span class="javascript">    event.target.style.color = <span class="string">&quot;red&quot;</span>;</span></span><br><span class="line"><span class="javascript">  &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> liEles = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&#x27;li&#x27;</span>);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; liEles.length; i ++) &#123;</span></span><br><span class="line"><span class="javascript">      liEles[i].style.color = <span class="string">&quot;black&quot;</span>;</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">    event.target.style.color = <span class="string">&quot;red&quot;</span>;</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">&#125;);</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">不按 ctrl，单点 li1: li1 变红</span><br><span class="line"></span><br><span class="line">不按 ctrl，单点 li2：li2 变红,li3 为黑色</span><br><span class="line"></span><br><span class="line">按住 ctrl 点 li3，多选：li2,li3 变红</span><br><span class="line"></span><br><span class="line">不按 ctrl，单点 li4：li4 变红，其他为黑色</span><br></pre></td></tr></table></figure>
+
+<p>注意，Mac 下不存在 <code>Ctrl</code> 键，需要使用 <code>Cmd</code> 代替，可以很容易使代码支持 Mac：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (event.ctrlKey || event.metaKey) &#123;</span><br><span class="line">  event.target.style.color = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="坐标属性"><a href="#坐标属性" class="headerlink" title="坐标属性"></a>坐标属性</h2><p>这里是鼠标事件中和坐标相关的属性：</p>
+<ul>
+<li><strong>offsetX/Y：</strong> 点击位置相对于所处元素左上角的位置；</li>
+<li><strong>clientX/Y：</strong> 点击位置相对于浏览器内容区域左上角的位置；</li>
+<li><strong>screenX/Y：</strong> 点击位置相对于屏幕左上角的位置；</li>
+<li><strong>pageX/Y：</strong> 点击位置相对整张页面左上角的位置，<code>pageX/Y</code> 与 <code>clientX/Y</code> 一般情况下会相同，只有出现滚动条时才不一样。</li>
+</ul>
+<p>这几个坐标值也没有什么难度，就是很容易混淆，可以现用现查，不再详细说明。</p>
+<h2 id="应用：滑动选择器"><a href="#应用：滑动选择器" class="headerlink" title="应用：滑动选择器"></a>应用：滑动选择器</h2><p>之前项目有个需求，需要滑动选择内容，项目要求鼠标在点击单元格开始选择，然后在多个单元格上滑动，直到按键松开选择结束，这实际上就是 <code>mousedown/mouseover/mouseup</code> 这三个事件的综合应用，这里来看一下如何实现：</p>
+<p>首先初始化选择区域:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DragSelector</span>(<span class="params">container</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>._container = $(container);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">DragSelector.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params">row, column, afterSelected</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>._row = row;</span><br><span class="line">  <span class="built_in">this</span>._column = column;</span><br><span class="line">  <span class="keyword">var</span> index = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; row; i ++) &#123;</span><br><span class="line">    <span class="keyword">var</span> ulHtml = <span class="string">&#x27;&lt;ul&gt;&#x27;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; column; j ++) &#123;</span><br><span class="line">      ulHtml += <span class="string">&#x27;&lt;li data-value=&quot;&#x27;</span> + index + <span class="string">&#x27;&quot;&gt;&lt;/li&gt;&#x27;</span>;</span><br><span class="line">      index ++;</span><br><span class="line">    &#125;</span><br><span class="line">    ulHtml += <span class="string">&#x27;&lt;/ul&gt;&#x27;</span>;</span><br><span class="line">    <span class="built_in">this</span>._container.append(ulHtml);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">this</span>._afterSelected = afterSelected;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.bind();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">DragSelector.prototype.bind = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">  self._selected = [];</span><br><span class="line">  <span class="comment">// bind events</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>然后是重点，绑定事件，这个可以分解为多个任务：</p>
+<p>1.使用 <code>mousedown</code> 处理点击后开始选择：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// self.draging 标识开始选择，将</span></span><br><span class="line">$(<span class="built_in">this</span>._container).on(<span class="string">&#x27;mousedown&#x27;</span>, <span class="string">&#x27;li&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!self.draging) &#123;</span><br><span class="line">    self._draging = <span class="literal">true</span>;</span><br><span class="line">    self._selected.push($(<span class="built_in">this</span>).data(<span class="string">&#x27;value&#x27;</span>));</span><br><span class="line">    $(<span class="built_in">this</span>).addClass(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>2.使用 <code>mouseover</code> 处理滑动到元素后开始选择：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="built_in">this</span>._container).on(<span class="string">&#x27;mouseover&#x27;</span>, <span class="string">&#x27;li&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (self._draging) &#123;</span><br><span class="line">    self._selected.push($(<span class="built_in">this</span>).data(<span class="string">&#x27;value&#x27;</span>));</span><br><span class="line">    $(<span class="built_in">this</span>).addClass(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>3.使用 <code>mouseup</code> 处理按键松开后结束选择：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="built_in">this</span>._container).on(<span class="string">&#x27;mouseup&#x27;</span>, <span class="string">&#x27;li&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (self._draging) &#123;</span><br><span class="line">    self._draging = <span class="literal">false</span>;</span><br><span class="line">    self._afterSelected(self._selected);</span><br><span class="line">    $(<span class="built_in">this</span>).addClass(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这样就是一个简略的滑动选择器，当然没有进行复杂的处理，比如数据去重，比如反选等操作，仅做简单演示。</p>
+<p data-height="265" data-theme-id="0" data-slug-hash="NXZNeV" data-default-tab="js,result" data-user="tcatche" data-embed-version="2" data-pen-title="NXZNeV" class="codepen">See the Pen <a target="_blank" rel="noopener" href="https://codepen.io/tcatche/pen/NXZNeV/">NXZNeV</a> by tcatche (<a target="_blank" rel="noopener" href="https://codepen.io/tcatche">@tcatche</a>) on <a target="_blank" rel="noopener" href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/Events/click">Events - click</a></li>
+<li><a target="_blank" rel="noopener" href="https://javascript.info/mouse-events-basics#no-selection-on-mousedown">No selection on mousedown</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3.org/TR/DOM-Level-3-Events/#event-type-select">select</a></li>
+</ul>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

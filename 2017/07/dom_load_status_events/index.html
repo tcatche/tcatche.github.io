@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>关于文档加载状态相关的事件探讨 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="DOM" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-dom_load_status_events" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        关于文档加载状态相关的事件探讨
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-07-14
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 1.2k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 7mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="DOM" data-type="TAGS">DOM</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>在开发的时候，经常有些操作需要等 DOM 完成后才执行，比如为某个按钮绑定事件、为防止抖动，在页面内容加载完成后才展示页面。这里我们看一下和页面加载有关的一些事件。</p>
+<h2 id="window-onload"><a href="#window-onload" class="headerlink" title="window.onload"></a>window.onload</h2><p>在文档装载完成后会触发 <code>onload</code> 事件。此时，在文档中的所有对象都在 DOM 中，所有图片，脚本，链接以及子框都完成了装载。 </p>
+<p>如果在 <code>onload</code> 的事件函数里面，再次监听 <code>onload</code> 事件，那么，是不会再次触发函数的。 </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addOnload</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">window</span>.addEventListener )&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">window</span>.addEventListener(<span class="string">&quot;load&quot;</span>, callback, <span class="literal">false</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">window</span>.attachEvent(<span class="string">&quot;onload&quot;</span>, callback);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onload1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;First onload executed.&quot;</span>);</span><br><span class="line">  addOnload(onload2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onload2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;Second onload not executed.&quot;</span>); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">addOnload(onload1);</span><br><span class="line"><span class="comment">// &quot;First onload executed.&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>如上，因此，对于异步加载的JS，为了保证能在 <code>onload</code> 里面触发，可以先判断 <code>document.readystate === &quot;complete&quot;</code>，如果成功，则立即执行函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addOnload</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="string">&quot;complete&quot;</span> == <span class="built_in">document</span>.readyState ) &#123;</span><br><span class="line">    callback();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.addEventListener )&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">window</span>.addEventListener(<span class="string">&quot;load&quot;</span>, callback, <span class="literal">false</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">window</span>.attachEvent(<span class="string">&quot;onload&quot;</span>, callback);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onload1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;First onload executed.&quot;</span>);</span><br><span class="line">  addOnload(onload2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onload2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;Now, second onload also executed.&quot;</span>); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">addOnload(onload1);</span><br><span class="line"><span class="comment">// &quot;First onload executed.&quot;</span></span><br><span class="line"><span class="comment">// &quot;Now, second onload also executed.&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>onload</code> 需要等所有的资源加载完成才执行，当资源过多过大时，<code>onload</code> 会出现比较严重的延迟问题，严重影响用户体验。</p>
+<h2 id="DOMContentLoaded"><a href="#DOMContentLoaded" class="headerlink" title="DOMContentLoaded"></a>DOMContentLoaded</h2><p>当初始 HTML 文档被完全加载和解析时，<code>DOMContentLoaded</code> 事件被触发，而无需等待样式表、图像和子框架完成加载。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;onload 后输出&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">&quot;DOMContentLoaded&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;DOMContentLoaded 先输出&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &quot;DOMContentLoaded 先输出&quot;</span></span><br><span class="line"><span class="comment">// &quot;onload 后输出&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果 <code>script</code> 标签中包含 <code>defer</code>，那么 HTML 文档构建不受影响，而 <code>DOMContentLoaded</code> 只有在 <code>defer</code> 脚本执行结束后才会被触发。</p>
+<p>如果 <code>script</code> 标签中包含 <code>async</code>，则 HTML 文档构建不受影响，解析完毕后，<code>DOMContentLoaded</code> 触发，而不需要等待 <code>async</code> 脚本执行、样式表加载等等。</p>
+<p><code>JQuery</code> 等框架中的 <code>ready</code> 方法实际上主要就是采用 <code>DOMContentLoaded</code> 实现的,而 <code>load</code> 方法监听的是 <code>onload</code> 事件。</p>
+<p>该方法在 <code>IE 9-</code> 以下不被支持，但是可以采用下面几节介绍的内容实现。</p>
+<h2 id="onreadystatechange-事件"><a href="#onreadystatechange-事件" class="headerlink" title="onreadystatechange 事件"></a>onreadystatechange 事件</h2><p>该事件提供与文档的加载状态有关的信息。支持 <code>onreadystatechange</code> 事件的每个对象都有一个 <code>readyState</code> 属性，它的属性包含以下五个值：</p>
+<ul>
+<li><code>uninitialized</code> 尚未初始化，对象已经存在但尚未初始化。</li>
+<li><code>loading</code> 正在加载中，对象正在加载数据。</li>
+<li><code>loaded</code> 加载完毕，对象加载数据完成。</li>
+<li><code>interactive</code> 可交互，可以操作 DOM 对象了，但还没有完全加载。</li>
+<li><code>complete</code> 完成，对象已经加载完毕。</li>
+</ul>
+<p>当这个属性的值变化时，<code>document</code> 对象上的 <code>readystatechange</code> 事件将被触发。如下，回调函数被执行2次：·</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">document</span>.readyState);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// &quot;interactive&quot;</span></span><br><span class="line"><span class="comment">// &quot;complete&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果在文档的不同状态绑定事件，可以用来模拟 <code>onload</code> 和 近似模拟 <code>DOMContentLoaded</code> 事件。</p>
+<p>模拟 <code>onload</code> 事件：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">document</span>.readyState === <span class="string">&quot;complete&quot;</span>) &#123;</span><br><span class="line">    initApplication();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不严格情况下能模拟 <code>DOMContentLoaded</code>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">document</span>.readyState === <span class="string">&quot;interactive&quot;</span>) &#123;</span><br><span class="line">    initApplication();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实际上 <code>DOMContentLoaded</code> 的执行时机是要比设置 <code>document.readyState = &quot;interactive&quot;</code> 晚的，大概顺序为 <code>interactive</code> 状态 -&gt; 运行<code>defer</code> 脚本和其他阻塞脚本 -&gt; <code>DOMContentLoaded</code> &gt; 运行 <code>async</code> 脚本 -&gt; <code>complete</code> 。具体参考<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3665561/document-readystate-of-interactive-vs-ondomcontentloaded">document.readystate of “interactive” vs. ondomcontentloaded?</a><br>因此最后一节的模拟 <code>DOMContentLoaded</code> 的实现并未采用这个事件来完成。</p>
+<h2 id="doScroll"><a href="#doScroll" class="headerlink" title="doScroll"></a>doScroll</h2><p>IE 还有个特有的方法 <code>doScroll</code>，当页面未加载完成时，该方法会报错。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.documentElement.doScroll(<span class="string">&quot;left&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>通过间隔调用，直到 <code>doScroll</code> 不再报错时，就代表 DOM 加载完成了，可以用来检测 DOM 是否加载完成。</p>
+<h2 id="自定义-DOMContentLoaded-事件"><a href="#自定义-DOMContentLoaded-事件" class="headerlink" title="自定义 DOMContentLoaded 事件"></a>自定义 DOMContentLoaded 事件</h2><p>根据上面内容可以提供一个兼容性较好的 <code>DOMContentLoaded</code> 实现：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">domReady</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// 现代浏览器，支持 DOMContentLoaded 事件</span></span><br><span class="line">  <span class="keyword">if</span>(<span class="built_in">document</span>.addEventListener) &#123;</span><br><span class="line">    <span class="built_in">document</span>.addEventListener(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, fn, <span class="literal">false</span>);</span><br><span class="line">  &#125; </span><br><span class="line"></span><br><span class="line">  <span class="comment">// IE</span></span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 确保当页面是在iframe中加载时，事件依旧会被安全触发</span></span><br><span class="line">    <span class="built_in">document</span>.attachEvent(<span class="string">&#x27;onreadystatechange&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">// 如果此时 document 已经 load，立即执行</span></span><br><span class="line">      <span class="keyword">if</span>(<span class="built_in">document</span>.readyState == <span class="string">&#x27;complete&#x27;</span>) &#123;</span><br><span class="line">        <span class="built_in">document</span>.onreadystatechange = <span class="literal">null</span>;</span><br><span class="line">        fn();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果页面不在 iframe 中时，轮询调用 doScroll 方法检测 DOM 是否加载完毕</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">document</span>.documentElement.doScroll &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">window</span>.frameElement === <span class="string">&quot;undefined&quot;</span>) &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="built_in">document</span>.documentElement.doScroll(<span class="string">&#x27;left&#x27;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">catch</span>(error)&#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="built_in">arguments</span>.callee, <span class="number">20</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;;</span><br><span class="line">      fn();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>更具体可以参考各个主流框架的实现 <a target="_blank" rel="noopener" href="http://www.cnblogs.com/JulyZhang/archive/2011/02/12/1952484.html">主流JS框架中DOMReady事件的实现</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000005869515">浅谈DOMContentLoaded事件及其封装方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/readyState">document.readyState</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3665561/document-readystate-of-interactive-vs-ondomcontentloaded">document.readystate of “interactive” vs. ondomcontentloaded?</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/JulyZhang/archive/2011/02/12/1952484.html">主流JS框架中DOMReady事件的实现</a></li>
+</ul>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

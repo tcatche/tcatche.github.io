@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>React - Reconciliation | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,翻译" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-react-reconciliation" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        React - Reconciliation
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2018" data-type="ARCHIVES">
+        2018-01-11
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 3.4k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 22mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="react" data-type="TAGS">react</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="翻译" data-type="TAGS">翻译</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <blockquote>
+<p>原文：<a target="_blank" rel="noopener" href="https://reactjs.org/docs/reconciliation.html">Reconciliation</a></p>
+</blockquote>
+<p>React provides a declarative API so that you don’t have to worry about exactly what changes on every update. This makes writing applications a lot easier, but it might not be obvious how this is implemented within React. This article explains the choices we made in React’s “diffing” algorithm so that component updates are predictable while being fast enough for high-performance apps.</p>
+<p>React 提供了声明式 API，所以，你不用考虑每次更新都更改了哪些内容。这让你开发应用更加容易，但会使你并不了解 React 内部是如何实现它的。本文解释了我们在 React 的“差异化”算法中做出的选择，以便组件的更新可预测，同时让高性能应用程序也足够快。</p>
+<h2 id="动机-Motivation"><a href="#动机-Motivation" class="headerlink" title="动机(Motivation)"></a>动机(Motivation)</h2><p>When you use React, at a single point in time you can think of the <code>render()</code> function as creating a tree of React elements. On the next state or props update, that <code>render()</code> function will return a different tree of React elements. React then needs to figure out how to efficiently update the UI to match the most recent tree.</p>
+<p>当你使用 React 时，你可以认为 <code>render()</code> 函数创建了一个 React 元素的树。在下一次状态或属性更新的时候， <code>render()</code> 函数将返回一个不同的 React 元素树。然后 React 需要解决如何有效地更新 UI 以使其匹配最新的元素树。</p>
+<p>There are some generic solutions to this algorithmic problem of generating the minimum number of operations to transform one tree into another. However, the <a target="_blank" rel="noopener" href="http://grfia.dlsi.ua.es/ml/algorithms/references/editsurvey_bille.pdf">state of the art algorithms</a> have a complexity in the order of O(n<sup>3</sup>) where n is the number of elements in the tree.</p>
+<p>目前有一些通用的方案，可以解决用最少的操作步骤将一棵元素树转换为另一棵元素树的这样的算法问题。然而，<a target="_blank" rel="noopener" href="http://grfia.dlsi.ua.es/ml/algorithms/references/editsurvey_bille.pdf">最先进的算法</a> 也具有O(n<sup>3</sup>)的复杂度，其中 <code>n</code> 是树中元素的数量。</p>
+<p>If we used this in React, displaying 1000 elements would require in the order of one billion comparisons. This is far too expensive. Instead, React implements a heuristic O(n) algorithm based on two assumptions:</p>
+<p>1.Two elements of different types will produce different trees.<br>2.The developer can hint at which child elements may be stable across different renders with a <code>key</code> prop.</p>
+<p>如果我们在 React 中使用它，则显示 1000 个元素将需要进行 10 亿次比较，这个代价太贵了。相反，基于以下两个假设，实现了启发式的复杂度为 <code>O(n)</code> 的算法：</p>
+<p>1.两种不同类型的元素会产生不同的树。<br>2.开发人员可以通过关键属性 key 暗示哪些子元素可以在不同的渲染中保持稳定。</p>
+<p>In practice, these assumptions are valid for almost all practical use cases.</p>
+<p>实际上，这两个假设对于几乎所有的实践中都是有效的。</p>
+<h2 id="Diffing算法-The-Diffing-Algorithm"><a href="#Diffing算法-The-Diffing-Algorithm" class="headerlink" title="Diffing算法(The Diffing Algorithm)"></a>Diffing算法(The Diffing Algorithm)</h2><p>When diffing two trees, React first compares the two root elements. The behavior is different depending on the types of the root elements.</p>
+<p>在比较两棵树时，React 首先比较它们两个的根元素。根据根元素的类型而有不同行为。</p>
+<h3 id="不同类型的元素-Elements-Of-Different-Types"><a href="#不同类型的元素-Elements-Of-Different-Types" class="headerlink" title="不同类型的元素(Elements Of Different Types)"></a>不同类型的元素(Elements Of Different Types)</h3><p>Whenever the root elements have different types, React will tear down the old tree and build the new tree from scratch. Going from <code>&lt;a&gt;&lt;/a&gt;</code> to <code>&lt;img&gt;</code>, or from <code>&lt;Article&gt;</code> to <code>&lt;Comment&gt;</code>, or from <code>&lt;Button&gt;</code> to <code>&lt;div&gt;</code> - any of those will lead to a full rebuild.</p>
+<p>每当根元素具有不同的类型时，React 将会销毁旧树并从头开始构建新的树。从 <code>&lt;a&gt;</code> 到 <code>&lt;img&gt;</code>，或从 <code>&lt;Article&gt;</code> 到 <code>&lt;Comment&gt;</code>，或从 <code>&lt;Button&gt;</code> 到 <code>&lt;div&gt;</code> —— 这些都将导致元素完全重建。</p>
+<p>When tearing down a tree, old DOM nodes are destroyed. Component instances receive <code>componentWillUnmount()</code>. When building up a new tree, new DOM nodes are inserted into the DOM. Component instances receive <code>componentWillMount()</code> and then <code>componentDidMount()</code>. Any state associated with the old tree is lost.</p>
+<p>当销毁旧树时，旧的 DOM 节点被销毁。组件实例执行 <code>componentWillUnmount()</code>。在构建新树时，将新的 DOM 节点插入到 DOM 中。组件实例执行 <code>componentWillMount()</code>，然后执行 <code>componentDidMount()</code>。任何与旧树相关的状态都将丢失。</p>
+<p>Any components below the root will also get unmounted and have their state destroyed. For example, when diffing:</p>
+<p>根节点下的任何组件也将被卸载，并将其状态（state）销毁。例如，当比较：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">Counter</span> /&gt;</span></span></span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">Counter</span> /&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>This will destroy the old <code>Counter</code> and remount a new one.</p>
+<p>这将会销毁旧的 <code>Counter</code> 组件，并重新挂载一个新的 <code>Counter</code> 组件。</p>
+<h3 id="相同类型的DOM元素-DOM-Elements-Of-The-Same-Type"><a href="#相同类型的DOM元素-DOM-Elements-Of-The-Same-Type" class="headerlink" title="相同类型的DOM元素(DOM Elements Of The Same Type)"></a>相同类型的DOM元素(DOM Elements Of The Same Type)</h3><p>When comparing two React DOM elements of the same type, React looks at the attributes of both, keeps the same underlying DOM node, and only updates the changed attributes. For example:</p>
+<p>当比较类型相同的两个 React DOM 元素时，React 会查看两者的属性，保持相同的底层 DOM 节点，并只更新已修改的属性。例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;div className=<span class="string">&quot;before&quot;</span> title=<span class="string">&quot;stuff&quot;</span> /&gt;</span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;after&quot;</span> <span class="attr">title</span>=<span class="string">&quot;stuff&quot;</span> /&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>By comparing these two elements, React knows to only modify the <code>className</code> on the underlying DOM node.</p>
+<p>通过比较这两个元素， React 知道仅修改底层 DOM 节点的 <code>className</code> 属性。</p>
+<p>When updating <code>style</code>, React also knows to update only the properties that changed. For example:</p>
+<p>当更新 <code>style</code> 属性时，React 也知道仅更新发生改变的属性，例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;div style=&#123; &#123;<span class="attr">color</span>: <span class="string">&#x27;red&#x27;</span>, <span class="attr">fontWeight</span>: <span class="string">&#x27;bold&#x27;</span>&#125; &#125; /&gt;</span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;</span> &#123;<span class="attr">color:</span> &#x27;<span class="attr">green</span>&#x27;, <span class="attr">fontWeight:</span> &#x27;<span class="attr">bold</span>&#x27;&#125; &#125; /&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>When converting between these two elements, React knows to only modify the <code>color</code> style, not the <code>fontWeight</code>.</p>
+<p>在对这两个元素进行转化时，React 知道只修改 <code>color</code> 样式，而不修改 <code>fontWeight</code>。</p>
+<p>After handling the DOM node, React then recurses on the children.</p>
+<p>当处理完 DOM 节点后，React 会递归处理其子节点。</p>
+<h3 id="相同类型的组件元素-Component-Elements-Of-The-Same-Type"><a href="#相同类型的组件元素-Component-Elements-Of-The-Same-Type" class="headerlink" title="相同类型的组件元素(Component Elements Of The Same Type)"></a>相同类型的组件元素(Component Elements Of The Same Type)</h3><p>When a component updates, the instance stays the same, so that state is maintained across renders. React updates the props of the underlying component instance to match the new element, and calls <code>componentWillReceiveProps()</code> and <code>componentWillUpdate()</code> on the underlying instance.</p>
+<p>当一个组件更新时，这个实例保持不变，所以状态在整个渲染过程中保持不变。React更新底层组件实例的属性（props）以匹配新元素，并在底层实例上调用 <code>componentWillReceiveProps()</code> 和 <code>componentWillUpdate()</code> 。</p>
+<p>Next, the <code>render()</code> method is called and the diff algorithm recurses on the previous result and the new result.</p>
+<p>接下来， <code>render()</code> 方法被调用，并且 diff 算法对 <code>render()</code> 方法返回的前一个结果和新结果开始递归执行。</p>
+<h3 id="对子元素递归-Recursing-On-Children"><a href="#对子元素递归-Recursing-On-Children" class="headerlink" title="对子元素递归(Recursing On Children)"></a>对子元素递归(Recursing On Children)</h3><p>By default, when recursing on the children of a DOM node, React just iterates over both lists of children at the same time and generates a mutation whenever there’s a difference.</p>
+<p>默认情况下，在递归 DOM 节点的子元素时，React 只是同时迭代两个树的子节点列表，并且每当子节点出现差异时对其改变。</p>
+<p>For example, when adding an element at the end of the children, converting between these two trees works well:</p>
+<p>例如，当在子元素的末尾添加一个元素时，在这新旧两棵元素树之间的转化效率很高：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span>first<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span>second<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>first<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>second<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>third<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>React will match the two <code>&lt;li&gt;first&lt;/li&gt;</code> trees, match the two <code>&lt;li&gt;second&lt;/li&gt;</code> trees, and then insert the <code>&lt;li&gt;third&lt;/li&gt;</code> tree.</p>
+<p>React 将比较 <code>&lt;li&gt;first&lt;/li&gt;</code> 和 <code>&lt;li&gt;second&lt;/li&gt;</code> 两个树，然后插入 <code>&lt;li&gt;third&lt;/li&gt;</code> 树。</p>
+<p>If you implement it naively, inserting an element at the beginning has worse performance. For example, converting between these two trees works poorly:</p>
+<p>如果你在最前面插入元素的时候也这么简单的实现它，性能将变得很差。例如，这下面这两棵树之间的转换效果就很差：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span>Duke<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span>Villanova<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>Connecticut<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>Duke<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>Villanova<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>React will mutate every child instead of realizing it can keep the <code>&lt;li&gt;Duke&lt;/li&gt;</code> and <code>&lt;li&gt;Villanova&lt;/li&gt;</code> subtrees intact. This inefficiency can be a problem.</p>
+<p>React 会改变每个子元素，而不是意识到它可以保持 <code>&lt;li&gt;Duke&lt;/li&gt;</code> 和 <code>&lt;li&gt;Villanova&lt;/li&gt;</code> 两个子树不变，这种低效率的操作方式是一个问题。</p>
+<h3 id="Keys"><a href="#Keys" class="headerlink" title="Keys"></a>Keys</h3><p>In order to solve this issue, React supports a <code>key</code> attribute. When children have keys, React uses the key to match children in the original tree with children in the subsequent tree. For example, adding a <code>key</code> to our inefficient example above can make the tree conversion efficient:</p>
+<p>为了解决这个问题，React 支持一个 <code>key</code> 属性。当子元素包含有 <code>key</code> 属性的时候，React 使用 <code>key</code> 属性值来匹配原始树中的子元素和新树中的子元素。例如，为我们上面的低效率示例添加一个 <code>key</code> 可以使树的转换变得高效：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&quot;2015&quot;</span>&gt;</span>Duke<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&quot;2016&quot;</span>&gt;</span>Villanova<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&quot;2014&quot;</span>&gt;</span>Connecticut<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&quot;2015&quot;</span>&gt;</span>Duke<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&quot;2016&quot;</span>&gt;</span>Villanova<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>Now React knows that the element with key <code>&#39;2014&#39;</code> is the new one, and the elements with the keys <code>&#39;2015&#39;</code> and <code>&#39;2016&#39;</code> have just moved.</p>
+<p>现在React知道 key 为 <code>&#39;2014&#39;</code> 的元素是新元素， key 为 <code>&#39;2015&#39;</code> 和 <code>&#39;2016&#39;</code> 的元素只需要移动即可。</p>
+<p>In practice, finding a key is usually not hard. The element you are going to display may already have a unique ID, so the key can just come from your data:</p>
+<p>在实践中，找到一个 key 通常不难。你要显示的元素一般有一个唯一的 ID，所以 key 可以来自你的数据：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;li key=&#123;item.id&#125;&gt;&#123;item.name&#125;&lt;/li&gt;</span><br></pre></td></tr></table></figure>
+
+<p>When that’s not the case, you can add a new ID property to your model or hash some parts of the content to generate a key. The key only has to be unique among its siblings, not globally unique.</p>
+<p>如果并非如此，你可以将新的 ID 属性添加到模型中，或者对内容的某些部分进行哈希以生成它。关键只在于它在它的兄弟姐妹是独一无二的，而不需要在全局中唯一。</p>
+<p>As a last resort, you can pass an item’s index in the array as a key. This can work well if the items are never reordered, but reorders will be slow.</p>
+<p>作为最后的手段，你可以传递数组中的元素索引作为 key。如果列表从未重新排序，这可以很好地工作。但重新排序将会变慢。</p>
+<p>Reorders can also cause issues with component state when indexes are used as keys. Component instances are updated and reused based on their key. If the key is an index, moving an item changes it. As a result, component state for things like controlled inputs can get mixed up and updated in unexpected ways.</p>
+<p>但当使用索引用作 key 时，重新排序也会导致组件状态的问题。组件实例基于它的 key 进行更新和重用。如果 key 是索引，则移动项目会改变它的 key。因此，像受控输入之类的组件状态可能会以意想不到的方式发生混淆和被更新。</p>
+<p><a href="/redirect-to-codepen/reconciliation/index-used-as-key">Here</a> is an example of the issues that can be caused by using indexes as keys on CodePen, and <a href="/redirect-to-codepen/reconciliation/no-index-used-as-key">here</a> is a updated version of the same example showing how not using indexes as keys will fix these reordering, sorting, and prepending issues.</p>
+<p><a href="/redirect-to-codepen/reconciliation/index-used-as-key">这里</a>是 CodePen 上使用索引作为 key 可能导致的问题的一个例子，<a href="/redirect-to-codepen/reconciliation/no-index-used-as-key">这里</a> 是同一个例子的更新版本，展示了不使用索引作为 key 将解决这些排序、重新排序和潜在的问题。</p>
+<h2 id="权衡-Tradeoffs"><a href="#权衡-Tradeoffs" class="headerlink" title="权衡(Tradeoffs)"></a>权衡(Tradeoffs)</h2><p>It is important to remember that the reconciliation algorithm is an implementation detail. React could rerender the whole app on every action; the end result would be the same. Just to be clear, rerender in this context means calling <code>render</code> for all components, it doesn’t mean React will unmount and remount them. It will only apply the differences following the rules stated in the previous sections.</p>
+<p>要知道 <code>reconciliation</code> 算法仅仅是 React 的一个实现细节。 React 可以在每个操作上重新渲染整个应用程序，而最终的结果将是一样的。你需要了解，在这种情况下重新渲染意味着为所有组件调用渲染，并不意味着 React 将卸载并重新加载这些，它只会按照前面章节所述的规则进行工作。</p>
+<p>We are regularly refining the heuristics in order to make common use cases faster. In the current implementation, you can express the fact that a subtree has been moved amongst its siblings, but you cannot tell that it has moved somewhere else. The algorithm will rerender that full subtree.</p>
+<p>为了更快地创建通用用例，我们定期改进我们的启发式算法。在目前的实现中，你可以知道的是，子树已经在其兄弟姐妹之间移动，但是你不必了解它被移动到哪里。该算法将重新渲染完整的子树。</p>
+<p>Because React relies on heuristics, if the assumptions behind them are not met, performance will suffer.</p>
+<p>因为 React 依赖这个启发式，如果不满足它们背后的假设，性能将受到影响。</p>
+<ol>
+<li><p>The algorithm will not try to match subtrees of different component types. If you see yourself alternating between two component types with very similar output, you may want to make it the same type. In practice, we haven’t found this to be an issue.</p>
+</li>
+<li><p>Keys should be stable, predictable, and unique. Unstable keys (like those produced by <code>Math.random()</code>) will cause many component instances and DOM nodes to be unnecessarily recreated, which can cause performance degradation and lost state in child components.</p>
+</li>
+<li><p>该算法不会尝试匹配不同组件类型的子树。如果你发现自己在输出非常相似的两种组件之间交替转换，则应该使它们的类型相同。实际上，我们并没有发现这样的问题。</p>
+</li>
+<li><p>Keys应该是稳定的，可预测的和唯一的。不稳定的keys（如 <code>Math.random()</code> 生成的）将导致许多组件实例和 DOM 节点被不必要地重新创建，这可能会导致子组件中的性能下降和状态丢失。</p>
+</li>
+</ol>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

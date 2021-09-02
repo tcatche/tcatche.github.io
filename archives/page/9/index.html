@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>归档 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_s3wbqhahfs.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-new"></span>
+          <span class="title">目录</span>
+        </div>
+        <div class="sider-item" data-target="POSTS">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">文章标签</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper hide">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/css/">css</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/html/">html</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/js/">js</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a></li></ul>
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          
+
+  
+  
+    
+    
+    <section class="archives-wrap">
+      <div class="archives">
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-06-20T07:13:00.000Z" itemprop="datePublished">2017-06-20</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/06/object-freeze/">对象“冻结”，防止被修改</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在有些应用场合下，我们希望我们的对象是不可以被修改的，比如我们提供给外一个服务，但是不想这个服务被修改，这就需要对象能够防止被修改。
+在另外一些应用场合，比如 React 通常搭配使用的 immutable.js 采用不可变的数据结构，可以保证最大限度的降低副作用。
+对象防止被修改有三个级别：阻止扩展、密封对象、冻结对象，本章内容，针对这些，总结如何使对象数据不可变。
+阻止扩展如果一个对象可以添加新的属性，那么这个对象是可以扩展的，阻止扩展就是让这个对象不能被扩展，也就是说不能添加新的属性。
+阻止扩展主要涉及这两组函数：Object.isExtensible(obj)/Reflect.isEx…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/06/object-freeze/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-06-20
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.8k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 16mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="扩展" data-type="TAGS">扩展</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-06-19T07:19:00.000Z" itemprop="datePublished">2017-06-19</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/06/react-components-elements-and-instances/">React - Components, Elements, and Instances</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            组件（Components）、元素（Elements）和实例（Instances）之间的区别很容易被混淆，本文主要介绍了这几个概念的区别并详细说明了 React 管理 DOM 的思路。
+传统组件自己管理实例（Managing the Instances）在传统的面向对象的 UI 编程中，你需要自己手动创建和管理各种组件的实例对象，比如，一个 Form 组件想要渲染一个 Button 子组件，需要实例化这个 Button 子组件，并且手动更新他们的内容：
+class Form extends TraditionalObjectOrientedView &#123;  render() &#123…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/06/react-components-elements-and-instances/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-06-19
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.9k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 17mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-06-12T07:49:00.000Z" itemprop="datePublished">2017-06-12</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/06/request-frame-animate/">window.requestAnimationFrame</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            对于动画而言，设置一个合适的更新周期是非常重要的，更新周期越短，动画则越平滑流畅，但是，间隔时间过短，则会对系统资源的消耗增加，另一方面，大多数显示器的刷新频率是 60HZ ，更新速度超过这个数值并没有什么意义，因为显示器不会刷新，因此动画的最佳执行时间间隔是 1000ms/60 约等于 16.7ms 执行一次更加合适。
+而为 setTimeout 与 setInterval 设置这样的更新频率并不有效，它们的运行时间并不准确，如果它们之前有耗时的同步任务，则他们的执行时机会被大大的推迟，并不能做到准去的执行。
+而 HTML5 新引入的专门处理动画的定时器 requestAnimationFr…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/06/request-frame-animate/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-06-12
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.1k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 6mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="window" data-type="TAGS">window</span>
+    
+        <span class="post-tag show-super-board" data-target="BOM" data-type="TAGS">BOM</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-06-09T08:09:00.000Z" itemprop="datePublished">2017-06-09</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/06/react-children/">React - React.Children</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            如我们所了解的， this.props.children 的取值有三种情况，如果当前组件没有子组件，则返回 undefined ，如果有一个元素，则返回数据类型为 object，如果有多个元素则返回类型为 array ，这样每次都要写一大堆的判断语句，并针对不同的返回结果执行不同的操作，这样将会非常繁琐， 好在 React.Children 提供了一些工具方法处理 this.props.children 这个不透明的数据结构。
+React.Children.map
+React.Children.map(children, function[(thisArg)])
+
+遍历 children 并返…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/06/react-children/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-06-09
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 461
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 2mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-06-07T09:26:00.000Z" itemprop="datePublished">2017-06-07</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/06/react-reactdom/">React - ReactDOM</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            react-dom 包提供了可以在应用程序顶层使用的 DOM 特定方法，可以在 React 模型外使用的。大多数组件并不需要使用此模块。
+浏览器支持支持所有的现代浏览器，包括 IE9 及以上。
+不支持那些不支持 ES5 方法的旧浏览器，但是如果页面使用了 es5-shim 和 es5-sham 的 polyfills，应用仍然可以在这些旧的浏览器上运行。
+接口ReactDOM 提供了三个接口：
+
+render()
+unmountComponentAtNode()
+findDOMNode()
+
+render
+ReactDOM.render(element, container, [callbac…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/06/react-reactdom/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-06-07
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 821
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 4mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-06-07T07:49:00.000Z" itemprop="datePublished">2017-06-07</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/06/react-refs/">React - Refs</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            通常情况下， React 使用 props 和子组件进行交互，如果需要修改子组件，则通过更新子组件的 props 来重新 render 子组件，但是在有些情况下，可能想要在 props 的数据流之外修改 props ，对于这种情况， React 提供了 refs 来允许不通过 props 的数据流对子组件修改。
+Refs 应用场合refs 的几个应用场合：
+
+管理元素焦点、文本选择或者媒体播放等等；
+触发命令式动画
+与第三方的类库整合
+
+refs 是直接操作 DOM 元素的，因此在使用之前，最好考虑一下是否真的必须需要使用 refs ，是否可以使用 state 来代替使用 refs ， rea…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/06/react-refs/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-06-07
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.8k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 10mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-05-25T07:30:00.000Z" itemprop="datePublished">2017-05-25</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/05/iteritor-and-for-of/">ES6 - Iterator 与 for...of</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            概述Iterator 接口允许为所有数据结构，提供了一种统一的遍历机制，被 for...of 使用这种机制遍历这些数据结构， 一些内置类型都是内置的可遍历对象并且有默认的迭代行为, 比如 Array , 另一些类型则不是， 比如 Object 。
+为了变成可遍历解构，对象或其原型链上某个对象必须实现 @@iterator 方法，即属性名为 Symbol.iterator 。
+当该对象需要被遍历的时候（比如用于一个 for..of 循环中），它的 @@iterator 方法被调用并且无参数，然后返回一个用于在遍历中获得值的迭代器，具体过程如下：
+
+创建一个指针对象，指向当前数据结构的起始位置；
+…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/05/iteritor-and-for-of/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-05-25
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.7k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 10mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="es" data-type="TAGS">es</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-05-24T08:58:00.000Z" itemprop="datePublished">2017-05-24</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/05/array-like-object/">Array Like 对象</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            ArrayLike 对象ArrayLike（类数组/伪数组） ，就是像数组的对象，常见的 ArrayLike 对象有：NodeList 、 arguments 、 HTMLCollection 、 jQuery 对象甚至 String 等。
+ArrayLike 实际上只需要一个硬性条件：有 length 属性即可：
+var obj = &#123;length: 3&#125;[].map.call(obj, item =&gt; item);// [undefined x 4]
+
+通过数组方法访问的话，只能访问到 0 到 length-1 值为属性名的字段：
+var obj = &#123;…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/05/array-like-object/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-05-24
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 877
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 5mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-05-23T08:14:00.000Z" itemprop="datePublished">2017-05-23</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/05/react-stateless-components/">React - Stateless Function Component</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Stateless Function Component（SFC， 无状态组件） 是 React v0.14.0 引入的一种新的创建组件的方式，这个方式大大提升了“纯组件”的编写速度和便捷性，而且还能有效提升组价的性能。
+常规的组件通常情况下，我们是使用 React.createClass() 或者 class MyComponent extends React.Component 创建组件，但是很多时候，我们需要的组件仅仅是一个简单的渲染数据的模板，这种情况下，这种方式创建的组件无疑十分的繁琐，可以看一个例子：
+class Widget extends React.Component &#1…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/05/react-stateless-components/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-05-23
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.7k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 10mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-05-19T09:08:00.000Z" itemprop="datePublished">2017-05-19</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/05/react-context/">React - Context</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            注意，本文仅适用于 React16 以下的版本
+Context 是一个实验性的 Api，和 props 一样用于组件之间的数据传递，但是这个功能却很少使用，甚至不为人知。
+为何使用 Context在使用 React 开发的时候，通常通过改变 state 和 传递 props 对组件进行控制，特别是通过 props 在组件间的数据流传输，可以很容易的推断组件的状态。首先看一下常用的组件间 props 传递的例子：
+const ParentComponent = () =&gt; &#123;  const colorTheme = &quot;green&quot;;  return (    …
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/05/react-context/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-05-19
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.1k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 13mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+  </div></section>
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/archives/page/8/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/7/">7</a><a class="page-number" href="/archives/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/archives/page/10/">10</a><a class="page-number" href="/archives/page/11/">11</a><a class="page-number" href="/archives/page/12/">12</a><a class="extend next" rel="next" href="/archives/page/10/">&gt;</a>
+  </nav>
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa fa-search ins-search-icon" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="fa fa-arrow-up goto-top" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

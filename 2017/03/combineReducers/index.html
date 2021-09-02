@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>combineReducers.js 源码阅读笔记 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,redux" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-combineReducers" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        combineReducers.js 源码阅读笔记
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-03-03
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 2k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 13mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="react" data-type="TAGS">react</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="redux" data-type="TAGS">redux</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <blockquote>
+<p>The combineReducers helper function turns an object whose values are different reducing functions into a single reducing function you can pass to createStore.</p>
+</blockquote>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><blockquote>
+<p>combineReducers(reducers)</p>
+</blockquote>
+<ul>
+<li><strong>reducers (Object):</strong> <code>reducers</code> 是一个对象，它的值对应要混合的各个 reducer 。</li>
+<li><strong>return (Function):</strong> 多个独立的 <code>reducer</code> 合并后的最终的 <code>finalReducers</code>， 这个 <code>finalReducers</code> 的签名和 <code>reducer</code> 一样，接收 state 和action 做为参数，然后调用 <strong>所有 reducer 处理 action</strong> ，并把各个 reducer 处理 state 结果合成最终的新的 state ，并且返回的 state 的结构和传入的 reducers 参数对象的结构一致。</li>
+</ul>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>当应用复杂起来以后，必然要对 reducer 进行拆分，否则全部放在一起的 reducer 难以维护。<br>而拆分后的 reducer 负责维护一部分的 state。</p>
+<p><code>combineReducers</code> 的作用就是把多个 reducer 的函数合并成一个最终的 reducer 函数，然后就可以使用这个函数管理 store，先看个示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//将 reducer 拆分成两个：</span></span><br><span class="line"><span class="keyword">const</span> todoReducer = <span class="function">(<span class="params">state = [], action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;ADD_TODO&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> state.concat([action.text])</span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> counterReducer = <span class="function">(<span class="params">state = <span class="number">0</span>, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;INCREMENT&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> state + <span class="number">1</span></span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;DECREMENT&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> state - <span class="number">1</span></span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将拆分过的两个 reducer 合并</span></span><br><span class="line"><span class="keyword">const</span> combinedReducers = combineReducers(&#123;</span><br><span class="line">  <span class="attr">todos</span>:　todoReducer,</span><br><span class="line">  <span class="attr">counter</span>: counterReducer</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> store = createStore(combinedReducers)</span><br><span class="line"><span class="built_in">console</span>.log(store.getState())</span><br><span class="line"><span class="comment">//store 结构：&#123;todos: [], counter: 0&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>如上示例，我们调用 combinedReducers 得到的 store 的结构和 传递给 combinedReducers 的对象的结构一致，接下来我们修改 state：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">store.dispatch(&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&#x27;ADD_TODO&#x27;</span>,</span><br><span class="line">  <span class="attr">text</span>: <span class="string">&#x27;Use Redux&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(store.getState())</span><br><span class="line"><span class="comment">//store 结构：&#123;todos: [&#x27;Use Redux&#x27;], counter: 0&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>阅读代码后不难发现，<code>combinedReducers</code> 处理 state 可以认为是进行了以下操作：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">store.dispatch(action);</span><br><span class="line"></span><br><span class="line">store = &#123;</span><br><span class="line">  <span class="attr">todos</span>:　todoReducer(store[todos], action),</span><br><span class="line">  <span class="attr">counter</span>: todoReducer(store[counter], action),</span><br><span class="line">  ... </span><br><span class="line">  <span class="attr">others</span>: othersReducer(store[others], action)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>combineReducers</code> 对传入的 <code>reducer</code> 约定了一些必须遵守的规则：</p>
+<ul>
+<li>如果接收到的 <code>state</code> 是 <code>undefined</code> ，必须对其初始化。</li>
+<li>reducer 不允许返回 <code>undefined</code>，否则会抛出异常。</li>
+<li>如果 reducer 未匹配到传入的 action 则最好返回接收到的原始 store。</li>
+<li><code>combineReducers</code> 操作的 state 必须是普通对象，不能是其他的特殊对象，如 <code>immutable</code> 对象等。</li>
+</ul>
+<p>当然不仅仅在使用 <code>combineReducers</code> 是遵守这些规则，使用自定义的类似的 工具函数的时候最好也要遵守这些习惯。</p>
+<h2 id="源码注释"><a href="#源码注释" class="headerlink" title="源码注释"></a>源码注释</h2><p>源代码如下，加了阅读注释：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ActionTypes &#125; <span class="keyword">from</span> <span class="string">&#x27;./createStore&#x27;</span></span><br><span class="line"><span class="keyword">import</span> isPlainObject <span class="keyword">from</span> <span class="string">&#x27;lodash/isPlainObject&#x27;</span></span><br><span class="line"><span class="keyword">import</span> warning <span class="keyword">from</span> <span class="string">&#x27;./utils/warning&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//action 没有 对应处理的 reducer 时候返回的错误信息</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUndefinedStateErrorMessage</span>(<span class="params">key, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> actionType = action &amp;&amp; action.type</span><br><span class="line">  <span class="keyword">var</span> actionName = actionType &amp;&amp; <span class="string">`&quot;<span class="subst">$&#123;actionType.toString()&#125;</span>&quot;`</span> || <span class="string">&#x27;an action&#x27;</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="string">`Given action <span class="subst">$&#123;actionName&#125;</span>, reducer &quot;<span class="subst">$&#123;key&#125;</span>&quot; returned undefined. `</span> +</span><br><span class="line">    <span class="string">`To ignore an action, you must explicitly return the previous state.`</span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// state 和 reducer 检查:</span></span><br><span class="line"><span class="comment">// 1. reducers 至少有一个成员 reducer，不能使空对象</span></span><br><span class="line"><span class="comment">// 2. inputState 必须是简单对象</span></span><br><span class="line"><span class="comment">// 3. inputState 中的属性，必须在 reducers 中存在同属性名的 reducer</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUnexpectedStateShapeWarningMessage</span>(<span class="params">inputState, reducers, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> reducerKeys = <span class="built_in">Object</span>.keys(reducers)</span><br><span class="line">  <span class="keyword">var</span> argumentName = action &amp;&amp; action.type === ActionTypes.INIT ?</span><br><span class="line">    <span class="string">&#x27;preloadedState argument passed to createStore&#x27;</span> :</span><br><span class="line">    <span class="string">&#x27;previous state received by the reducer&#x27;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// combineReducers 接收的参数对象至少需要又有一个 reducer</span></span><br><span class="line">  <span class="keyword">if</span> (reducerKeys.length === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="string">&#x27;Store does not have a valid reducer. Make sure the argument passed &#x27;</span> +</span><br><span class="line">      <span class="string">&#x27;to combineReducers is an object whose values are reducers.&#x27;</span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// inputState 是否是一个简单对象</span></span><br><span class="line">  <span class="comment">// 简单对象是指 通过 &quot;&#123;&#125;&quot; 或者 &quot;new Object&quot; 创建的键值对的集合</span></span><br><span class="line">  <span class="keyword">if</span> (!isPlainObject(inputState)) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="string">`The <span class="subst">$&#123;argumentName&#125;</span> has unexpected type of &quot;`</span> +</span><br><span class="line">      (&#123;&#125;).toString.call(inputState).match(<span class="regexp">/\s([a-z|A-Z]+)/</span>)[<span class="number">1</span>] +</span><br><span class="line">      <span class="string">`&quot;. Expected argument to be an object with the following `</span> +</span><br><span class="line">      <span class="string">`keys: &quot;<span class="subst">$&#123;reducerKeys.join(<span class="string">&#x27;&quot;, &quot;&#x27;</span>)&#125;</span>&quot;`</span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//判断 inputState 中是否存在 key ，在 reducers 中不存在</span></span><br><span class="line">  <span class="keyword">var</span> unexpectedKeys = <span class="built_in">Object</span>.keys(inputState).filter(<span class="function"><span class="params">key</span> =&gt;</span> !reducers.hasOwnProperty(key))</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (unexpectedKeys.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="string">`Unexpected <span class="subst">$&#123;unexpectedKeys.length &gt; <span class="number">1</span> ? <span class="string">&#x27;keys&#x27;</span> : <span class="string">&#x27;key&#x27;</span>&#125;</span> `</span> +</span><br><span class="line">      <span class="string">`&quot;<span class="subst">$&#123;unexpectedKeys.join(<span class="string">&#x27;&quot;, &quot;&#x27;</span>)&#125;</span>&quot; found in <span class="subst">$&#123;argumentName&#125;</span>. `</span> +</span><br><span class="line">      <span class="string">`Expected to find one of the known reducer keys instead: `</span> +</span><br><span class="line">      <span class="string">`&quot;<span class="subst">$&#123;reducerKeys.join(<span class="string">&#x27;&quot;, &quot;&#x27;</span>)&#125;</span>&quot;. Unexpected keys will be ignored.`</span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// reducers 合法性检查函数，主要检查要求以下几点：</span></span><br><span class="line"><span class="comment">// 1. 调用 reducer 返回值不允许为 undefined</span></span><br><span class="line"><span class="comment">// 2. reducer 在初次调用时，即被传入类型为 ActionTypes.INIT 的 action 需要对 state 初始化</span></span><br><span class="line"><span class="comment">// 3. 不要处理 redux/* 这个命名空间下的action 直接返回 currentState，</span></span><br><span class="line"><span class="comment">// 这一点代码未做检查，但是需要注意，自定义的 action type 最好不要用这个命名空间</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">assertReducerSanity</span>(<span class="params">reducers</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">Object</span>.keys(reducers).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> reducer = reducers[key]</span><br><span class="line">    <span class="keyword">var</span> initialState = reducer(<span class="literal">undefined</span>, &#123; <span class="attr">type</span>: ActionTypes.INIT &#125;)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 此处检查 reducer 是否处理值为 undefined 的 state，如果未处理，即 reducer 返回 undefined 抛出异常</span></span><br><span class="line">    <span class="comment">// 按照约定，当传递给reducer的state为 undefined 时，通常在初始化的时候，reducer第一次被调用时，</span></span><br><span class="line">    <span class="comment">// state 为 undefined， 此时 reducer 需要给 state 一个默认值， 而不能返回 undefined。</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> initialState === <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">        <span class="string">`Reducer &quot;<span class="subst">$&#123;key&#125;</span>&quot; returned undefined during initialization. `</span> +</span><br><span class="line">        <span class="string">`If the state passed to the reducer is undefined, you must `</span> +</span><br><span class="line">        <span class="string">`explicitly return the initial state. The initial state may `</span> +</span><br><span class="line">        <span class="string">`not be undefined.`</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 声明一种随机的 action type，确保不会有人使用这种action</span></span><br><span class="line">    <span class="comment">// 使用这么奇怪的 action 是为了检查，当传入 reducer 不认识的 action type 时，reducer 会不应该返回 undefined。</span></span><br><span class="line">    <span class="comment">// 实际上，按照约定，当传入不认识的 action type 或者想要忽视的action type 时，返回 current state 即可</span></span><br><span class="line">    <span class="comment">// 同时，警告信息还指出不应该处理任何 redux/* ，命名空间下的 action，除非 current state 为 undefined 的时候，需要做初始化。</span></span><br><span class="line">    <span class="keyword">var</span> type = <span class="string">&#x27;@@redux/PROBE_UNKNOWN_ACTION_&#x27;</span> + <span class="built_in">Math</span>.random().toString(<span class="number">36</span>).substring(<span class="number">7</span>).split(<span class="string">&#x27;&#x27;</span>).join(<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> reducer(<span class="literal">undefined</span>, &#123; type &#125;) === <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">        <span class="string">`Reducer &quot;<span class="subst">$&#123;key&#125;</span>&quot; returned undefined when probed with a random type. `</span> +</span><br><span class="line">        <span class="string">`Don&#x27;t try to handle <span class="subst">$&#123;ActionTypes.INIT&#125;</span> or other actions in &quot;redux/*&quot; `</span> +</span><br><span class="line">        <span class="string">`namespace. They are considered private. Instead, you must return the `</span> +</span><br><span class="line">        <span class="string">`current state for any unknown actions, unless it is undefined, `</span> +</span><br><span class="line">        <span class="string">`in which case you must return the initial state, regardless of the `</span> +</span><br><span class="line">        <span class="string">`action type. The initial state may not be undefined.`</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Turns an object whose values are different reducer functions, into a single</span></span><br><span class="line"><span class="comment"> * reducer function. It will call every child reducer, and gather their results</span></span><br><span class="line"><span class="comment"> * into a single state object, whose keys correspond to the keys of the passed</span></span><br><span class="line"><span class="comment"> * reducer functions.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;Object&#125;</span> </span>reducers An object whose values correspond to different</span></span><br><span class="line"><span class="comment"> * reducer functions that need to be combined into one. One handy way to obtain</span></span><br><span class="line"><span class="comment"> * it is to use ES6 `import * as reducers` syntax. The reducers may never return</span></span><br><span class="line"><span class="comment"> * undefined for any action. Instead, they should return their initial state</span></span><br><span class="line"><span class="comment"> * if the state passed to them was undefined, and the current state for any</span></span><br><span class="line"><span class="comment"> * unrecognized action.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns <span class="type">&#123;Function&#125;</span> </span>A reducer function that invokes every reducer inside the</span></span><br><span class="line"><span class="comment"> * passed object, and builds a state object with the same shape.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">combineReducers</span>(<span class="params">reducers</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> reducerKeys = <span class="built_in">Object</span>.keys(reducers)</span><br><span class="line">  <span class="keyword">var</span> finalReducers = &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 把多个 reducers 合并到 finalReducers 对象中</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; reducerKeys.length; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> key = reducerKeys[i]</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> reducers[key] === <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">      finalReducers[key] = reducers[key]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> finalReducerKeys = <span class="built_in">Object</span>.keys(finalReducers)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 对 reducers 合法性进行检查</span></span><br><span class="line">  <span class="keyword">var</span> sanityError</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    assertReducerSanity(finalReducers)</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    sanityError = e</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">combination</span>(<span class="params">state = &#123;&#125;, action</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// reducers 合法性检查存在异常抛出</span></span><br><span class="line">    <span class="keyword">if</span> (sanityError) &#123;</span><br><span class="line">      <span class="keyword">throw</span> sanityError</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// state 和 reducer 检查:</span></span><br><span class="line">    <span class="comment">// 1. reducers 至少有一个成员 reducer，不能使空对象</span></span><br><span class="line">    <span class="comment">// 2. inputState 必须是简单对象</span></span><br><span class="line">    <span class="comment">// 3. inputState 中的属性，必须在 reducers 中存在同属性名的 reducer</span></span><br><span class="line">    <span class="comment">// 非生产环境下打印警告日志</span></span><br><span class="line">    <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action)</span><br><span class="line">      <span class="keyword">if</span> (warningMessage) &#123;</span><br><span class="line">        warning(warningMessage)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 最终 nextState 对象的结构和 finalReducers 的结构一致</span></span><br><span class="line">    <span class="keyword">var</span> hasChanged = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">var</span> nextState = &#123;&#125;</span><br><span class="line">    <span class="comment">// 遍历 finalReducers ，为 finalReducers 的每个成员调用 reducer(subState, action)</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; finalReducerKeys.length; i++) &#123;</span><br><span class="line">      <span class="keyword">var</span> key = finalReducerKeys[i]</span><br><span class="line">      <span class="keyword">var</span> reducer = finalReducers[key]</span><br><span class="line">      <span class="keyword">var</span> previousStateForKey = state[key]</span><br><span class="line">      <span class="keyword">var</span> nextStateForKey = reducer(previousStateForKey, action)</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> nextStateForKey === <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> errorMessage = getUndefinedStateErrorMessage(key, action)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(errorMessage)</span><br><span class="line">      &#125;</span><br><span class="line">      nextState[key] = nextStateForKey</span><br><span class="line">      hasChanged = hasChanged || nextStateForKey !== previousStateForKey</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> hasChanged ? nextState : state</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h2><p><code>Redux</code> 源码阅读笔记：</p>
+<ul>
+<li><a href="/2017/03/createStore/">createStore.js 源码阅读笔记</a></li>
+<li><a href="/2017/03/combineReducers/">combineReducers.js 源码阅读笔记</a></li>
+<li><a href="/2017/03/bindActionCreators/">bindActionCreators.js 源码阅读笔记</a></li>
+<li><a href="/2017/02/applyMiddleware/">applyMiddleware.js 源码阅读笔记</a></li>
+<li><a href="/2017/03/compose/">compose.js 源码阅读笔记</a></li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>本文阅读代码版本 <code>3.5.2</code> </p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/reactjs/redux">redux源代码</a></li>
+<li><a target="_blank" rel="noopener" href="http://redux.js.org/docs/api/combineReducers.html">redux文档</a></li>
+</ul>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

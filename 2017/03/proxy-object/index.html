@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>ES6 - Proxy 对象 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="es" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-proxy-object" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        ES6 - Proxy 对象
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-03-21
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 1.6k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 10mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="es" data-type="TAGS">es</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Proxy 对象是定义在全局对象上的一个对象的构造函数，通过对目标对象的一些基本操作进行重定义并生成新的代理对象。说起来比较绕，看如下示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Proxy</span>(&#123;&#125;, &#123;</span><br><span class="line">  <span class="function"><span class="title">set</span>(<span class="params">target, key, val</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;call setter&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.set(target, key, val);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">obj.val = <span class="number">3</span>;</span><br><span class="line"><span class="comment">// call setter</span></span><br><span class="line"><span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<p>Proxy 对象生成的新对象修改了 <code>&#123;&#125;</code> 对象的赋值方式，使用 <code>obj.val</code> 赋值，比原始行为多了一行打印日志。</p>
+<p>使用 Proxy 对象生成代理对象的语法如下：</p>
+<blockquote>
+<p>var proxyObj = new Proxy(target, handler);</p>
+</blockquote>
+<p>其中 <code>handler</code> 是拥有一系列需要更改的默认行为的方法的函数的集合，支持更改的行为和 Reflect 对象的静态函数一一对应：</p>
+<ul>
+<li><strong>apply：</strong> 拦截 Proxy 实例作为函数调用的操作，比如 <code>proxy(...args)</code>、<code>proxy.call(object, ...args)</code>、<code>proxy.apply(...)</code></li>
+<li><strong>construct：</strong> 拦截 <code>new</code> 命令，比如 <code>new proxy(...args)</code></li>
+<li><strong>defineProperty：</strong> 拦截 <code>Object.defineProperty(proxy, propKey, propDesc)</code>、<code>Object.defineProperties(proxy, propDescs)</code>，返回一个布尔值</li>
+<li><strong>deleteProperty：</strong> 拦截 <code>delete proxy[propKey]</code> 的操作，返回一个布尔值</li>
+<li><strong>get：</strong> 拦截对象属性的读取，比如 <code>proxy.foo</code> 和 <code>proxy[&#39;foo&#39;]</code>。</li>
+<li><strong>getOwnPropertyDescriptor：</strong> 拦截 <code>Object.getOwnPropertyDescriptor(proxy, propKey)</code>，返回属性的描述对象</li>
+<li><strong>getPrototypeOf：</strong> 拦截 <code>Object.getPrototypeOf(proxy)</code>、 <code>Object.prototype.__proto__</code>、 <code>Object.prototype.isPrototypeOf()</code>、 <code>Object.getPrototypeOf()</code>、 <code>Reflect.getPrototypeOf()</code>、 <code>instanceof</code> 运算符 ，返回一个对象</li>
+<li><strong>has：</strong> 拦截 <code>propKey in proxy</code> 的操作，返回一个布尔值</li>
+<li><strong>isExtensible：</strong> 拦截 <code>Object.isExtensible(proxy)</code></li>
+<li><strong>ownKeys：</strong> 拦截 <code>Object.getOwnPropertyNames(proxy)</code>、<code>Object.getOwnPropertySymbols(proxy)</code>、<code>Object.keys(proxy)</code>，返回一个数组。该方法返回目标对象所有自身的属性的属性名，而Object.keys()的返回结果仅包括目标对象自身的可遍历属性</li>
+<li><strong>preventExtensions：</strong> 拦截 <code>Object.preventExtensions(proxy)</code>，返回一个布尔值</li>
+<li><strong>set：</strong> 拦截对象属性的设置，比如 <code>proxy.foo = v</code> 或 <code>proxy[&#39;foo&#39;] = v</code></li>
+<li><strong>setPrototypeOf：</strong> 拦截 <code>Object.setPrototypeOf(proxy, proto)</code>，返回一个布尔值</li>
+</ul>
+<p>Proxy 支持修改的这些行为和 Reflect 中的行为意义一致，不再一一说明。</p>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>Proxy 顾名思义，类似于设计模式中的代理模式，通常有一下几种用途：</p>
+<h3 id="取消代理"><a href="#取消代理" class="headerlink" title="取消代理"></a>取消代理</h3><p>对于某些场合下，可能会需要收回对代理的使用，这种情况下可以使用 <code>Proxy.revocable</code>，该方法返回一个对象，对象包含两个属性，一个属性是 <code>proxy</code> 实例，另一个是取消 <code>proxy</code> 实例的方法：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> &#123;proxy, revoke&#125; = <span class="built_in">Proxy</span>.revocable(&#123;&#125;, &#123;&#125;);</span><br><span class="line"></span><br><span class="line">proxy.value = <span class="number">1</span>;</span><br><span class="line">proxy.value; <span class="comment">//1</span></span><br><span class="line"></span><br><span class="line">revoke();</span><br><span class="line">proxy.value; <span class="comment">//Uncaught TypeError: Cannot perform &#x27;get&#x27; on a proxy that has been revoked</span></span><br></pre></td></tr></table></figure>
+<h3 id="访问控制和管理"><a href="#访问控制和管理" class="headerlink" title="访问控制和管理"></a>访问控制和管理</h3><p>在 js 语法中并不存在私有属性，我们可以使用 Proxy 阻止属性被访问：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">_private</span>: <span class="string">&#x27;_private&#x27;</span>,</span><br><span class="line">  <span class="attr">public</span>: <span class="string">&#x27;public&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> proxyObj = <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, &#123;</span><br><span class="line">  <span class="function"><span class="title">get</span>(<span class="params">target, key</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 设置下划线开头的属性为私有属性</span></span><br><span class="line">    <span class="keyword">if</span> (key.indexOf(<span class="string">&#x27;_&#x27;</span>) &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="built_in">Error</span>(<span class="string">&quot;私有属性，禁止访问&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.get(target, key);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">proxyObj.public <span class="comment">// &quot;public&quot;</span></span><br><span class="line">proxyObj._private <span class="comment">// Uncaught Error: 私有属性，禁止访问</span></span><br></pre></td></tr></table></figure>
+
+<p>通过修改 obj 的 getter，将所有的下划线 _ 属性的访问拦截，并抛出异常，其他的属性正常返回值。</p>
+<p>在设置私有属性的时候最好把私有属性遍历和 setter 以及删除也禁用了：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">_private</span>: <span class="string">&#x27;_private&#x27;</span>,</span><br><span class="line">  <span class="attr">public</span>: <span class="string">&#x27;public&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> proxyObj = <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, &#123;</span><br><span class="line">  <span class="comment">// 设置读取下划线开头的属性</span></span><br><span class="line">  <span class="function"><span class="title">get</span>(<span class="params">target, propKey</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (propKey.indexOf(<span class="string">&#x27;_&#x27;</span>) &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="built_in">Error</span>(<span class="string">&quot;私有属性，禁止访问&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.get(target, propKey);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 禁止为下划线开头的属性赋值</span></span><br><span class="line">  <span class="function"><span class="title">set</span>(<span class="params">target, propKey</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (propKey.indexOf(<span class="string">&#x27;_&#x27;</span>) &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="built_in">Error</span>(<span class="string">&quot;私有属性，禁止访问&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.get(target, propKey);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 禁止删除下划线开头的属性</span></span><br><span class="line">  <span class="function"><span class="title">deleteProperty</span>(<span class="params">target, propKey</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (propKey.indexOf(<span class="string">&#x27;_&#x27;</span>) &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="built_in">Error</span>(<span class="string">&quot;私有属性，禁止删除&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.deleteProperty(target, propKey);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 获取对象成员跳过下划线开头的属性</span></span><br><span class="line">  <span class="function"><span class="title">ownerKeys</span>(<span class="params">target</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.ownerKeys(target).filter(<span class="function"><span class="params">item</span> =&gt;</span> item[<span class="number">0</span>] !== <span class="string">&#x27;_&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在进行类库编写的时候经常会有接口过期，为了过渡，通常我们不会删除该方法，但是最好能够给出警告信息：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">oldFunc</span>: <span class="function">() =&gt;</span> &#123;&#125;,</span><br><span class="line">  <span class="attr">newFunc</span>: <span class="function">() =&gt;</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, &#123;</span><br><span class="line">  <span class="function"><span class="title">get</span>(<span class="params">target, key</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (key == <span class="string">&#x27;oldFunc&#x27;</span>) &#123;</span><br><span class="line">      <span class="built_in">console</span>.warn(<span class="string">&#x27;警告！ oldFunc 已过时，请使用 newFunc 代替。&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.get(target, key);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">proxy.oldFunc(); <span class="comment">// 警告！ oldFunc 已过时，请使用 newFunc 代替。</span></span><br></pre></td></tr></table></figure>
+
+<p>同样我们也可以进行方法拦截，过滤，记录日志等操作，操作和上面类似，不再详细说明。</p>
+<h3 id="校验"><a href="#校验" class="headerlink" title="校验"></a>校验</h3><p>通过 Proxy 可以很方便的实现属性校验：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> validatorCreater = <span class="function">(<span class="params">target, validator</span>) =&gt;</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, &#123;</span><br><span class="line">  <span class="attr">_validator</span>: validator,</span><br><span class="line">  <span class="function"><span class="title">set</span>(<span class="params">target, key, value, receiver</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>._validator[key]) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!<span class="built_in">this</span>._validator[key](value)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">Error</span>(<span class="string">`<span class="subst">$&#123;value&#125;</span> is not a valid value`</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Reflect</span>.set(target, key, value, receiver);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span> <span class="built_in">Error</span>(<span class="string">`<span class="subst">$&#123;key&#125;</span> is not a valid property`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> validators = &#123;</span><br><span class="line">  <span class="function"><span class="title">name</span>(<span class="params">val</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> val === <span class="string">&#x27;string&#x27;</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">age</span>(<span class="params">val</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> val === <span class="string">&#x27;number&#x27;</span> &amp;&amp; val &gt; <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = validatorCreater(&#123;&#125;, validators);</span><br><span class="line"></span><br><span class="line">person.name = <span class="number">1</span>; <span class="comment">// Uncaught Error: name is not a valid property</span></span><br><span class="line">person.name = <span class="string">&#x27;1&#x27;</span>; <span class="comment">// &quot;1&quot;</span></span><br><span class="line"></span><br><span class="line">person.age = <span class="string">&#x27;1&#x27;</span>; <span class="comment">// Uncaught Error: 1 is not a valid value</span></span><br><span class="line">person.age = -<span class="number">1</span>; <span class="comment">// Uncaught Error: -1 is not a valid value</span></span><br><span class="line">person.age = <span class="number">12</span>; <span class="comment">// &quot;12&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="数据变化监听"><a href="#数据变化监听" class="headerlink" title="数据变化监听"></a>数据变化监听</h3><p>当数据发生改变时，能够监听到这种变化，这是数据绑定的实现基础，来看下面这个例子：</p>
+<p>实现 <code>onChange(obj, callback)</code> 函数，当 obj 变化时（新增、删除、修改、查找），调用 <code>callback</code> 函数</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onChange</span>(<span class="params">objToWatch, onChangeFunction</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> objToWatch !== <span class="string">&quot;object&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="built_in">TypeError</span>(<span class="string">&quot;objToWatch must be a object&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(objToWatch, &#123;</span><br><span class="line">    <span class="function"><span class="title">get</span>(<span class="params">target, propKey, receiver</span>)</span> &#123;</span><br><span class="line">      onChangeFunction();</span><br><span class="line">      <span class="keyword">const</span> result = <span class="built_in">Reflect</span>.get(target, propKey, receiver);</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> result === <span class="string">&quot;object&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> onChange(result, onChangeFunction);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="title">set</span>(<span class="params">target, propKey, value, receiver</span>)</span> &#123;</span><br><span class="line">      onChangeFunction();</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Reflect</span>.set(target, propKey, value, receiver);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="title">deleteProperty</span>(<span class="params">target, propKey</span>)</span> &#123;</span><br><span class="line">      onChangeFunction();</span><br><span class="line">      <span class="keyword">delete</span> target[propKey];</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">let</span> counter = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">const</span> logger = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  counter++;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> obj = &#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: &#123; <span class="attr">c</span>: &#123; <span class="attr">d</span>: <span class="string">&quot;123&quot;</span> &#125; &#125; &#125; &#125;;</span><br><span class="line"><span class="keyword">const</span> proxy = onChange(obj, logger);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(proxy.a); <span class="comment">// 访问属性</span></span><br><span class="line"><span class="built_in">console</span>.log(counter); <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(proxy.a.b.c.d); <span class="comment">// 访问多层属性，每层都会触发</span></span><br><span class="line"><span class="built_in">console</span>.log(counter); <span class="comment">// 5</span></span><br><span class="line"></span><br><span class="line">proxy.a = <span class="string">&quot;b&quot;</span>; <span class="comment">// 修改属性</span></span><br><span class="line"><span class="built_in">console</span>.log(counter); <span class="comment">// 6</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> proxy.a; <span class="comment">// 删除属性</span></span><br><span class="line"><span class="built_in">console</span>.log(counter); <span class="comment">// 7</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Decorator"><a href="#Decorator" class="headerlink" title="Decorator"></a>Decorator</h3><p><code>Proxy</code> 和 <code>Decorator</code> 在某些情况下还是挺像的，使用上可以区分为：<code>Proxy</code> 的核心作用是控制外界对被代理者内部的访问，<code>Decorator</code> 的核心作用是增强被装饰者的功能。有些功能的实现可以用<code>Proxy</code> 也可以使用 <code>Decorator</code> 。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">MDN</a></li>
+<li><a target="_blank" rel="noopener" href="http://es6.ruanyifeng.com/">ECMAScript 6 入门-阮一峰</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.keithcirkel.co.uk/metaprogramming-in-es6-part-3-proxies/">Metaprogramming in ES6: Part 3 - Proxies</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.w3cplus.com/javascript/use-cases-for-es6-proxies.html">实例解析ES6 Proxy使用场景</a></li>
+</ul>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

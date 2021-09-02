@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>WebAssembly 的现状和未来？ - Where is WebAssembly now and what’s next? | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="WebAssembly,翻译" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-where-is-webassembly-now-and-whats-next" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        WebAssembly 的现状和未来？ - Where is WebAssembly now and what’s next?
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-07-04
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 3k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 19mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="WebAssembly" data-type="TAGS">WebAssembly</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="翻译" data-type="TAGS">翻译</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>原文：<a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2017/02/where-is-webassembly-now-and-whats-next/">Where is WebAssembly now and what’s next?</a></p>
+<p>本文译自<a target="_blank" rel="noopener" href="https://twitter.com/linclark">Lin Clark</a> 关于 WebAssembly 的卡通介绍系列，渣翻译，因此附上英文原文</p>
+<ul>
+<li>概述：<ul>
+<li><a href="/2017/06/a-cartoon-intro-to-webassembly/">WebAssembly 的漫画介绍</a></li>
+</ul>
+</li>
+<li>背景：<ul>
+<li><a href="/2017/06/a-crash-course-in-just-in-time-jit-compilers/">碰撞课程：即时（JIT）编译器 </a></li>
+<li><a href="/2017/06/a-crash-course-in-assembly/">碰撞课程：汇编</a></li>
+</ul>
+</li>
+<li>现在的 WebAssembly：<ul>
+<li><a href="/2017/06/creating-and-working-with-webassembly-modules/">创建和使用 WebAssembly 模块</a></li>
+<li><a href="/2017/07/what-makes-webassembly-fast/">是什么使 WebAssembly 很快？</a></li>
+</ul>
+</li>
+<li>未来的 WebAssembly：<ul>
+<li><strong>WebAssembly 的现状和未来？</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>On February 28, the four major browsers announced their consensus that the MVP of WebAssembly is complete. This provides a stable initial version that browsers can start shipping.</p>
+</blockquote>
+<p>2月28日，四大浏览器宣布达成共识，WebAssembly 的最小可行的产品（MVP，Minimum Viable Product）已经完成。提供了一个稳定的初始版本，浏览器可以开始装备。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/logo_party01-500x169.png"></p>
+<blockquote>
+<p>This provides a stable core that browsers can ship. This core doesn’t contain all of the features that the community group is planning, but it does provide enough to make WebAssembly fast and usable.</p>
+</blockquote>
+<blockquote>
+<p>With this, developers can start shipping WebAssembly code. For earlier versions of browsers, developers can send down an <code>asm.js</code> version of the code. Because <code>asm.js</code> is a subset of JavaScript, any JS engine can run it. With <code>Emscripten</code>, you can compile the same app to both WebAssembly and <code>asm.js</code>.</p>
+</blockquote>
+<blockquote>
+<p>Even in the initial release, WebAssembly will be fast. But it should get even faster in the future, through a combination of fixes and new features.</p>
+</blockquote>
+<p>这提供了一个浏览器可以使用的稳定的核心。该核心不包含社区组织计划的所有功能，但它确实足以使 WebAssembly 快速并且可用。</p>
+<p>这样，开发人员可以开始使用 WebAssembly 代码。使用浏览器提供的早期版本，开发人员可以发送给它 <code>asm.js</code> 版本的代码。因为 <code>asm.js</code> 是 JavaScript 的一个子集，任何 JS 引擎都可以运行。 使用 <code>Emscripten</code>，你可以将同一的应用程序编译到 WebAssembly 和 <code>asm.js</code>。</p>
+<p>即使是初始版本，WebAssembly 也很快。并且通过修复和组合新功能，将来能够更快。</p>
+<h2 id="改善浏览器中的-WebAssembly-性能"><a href="#改善浏览器中的-WebAssembly-性能" class="headerlink" title="改善浏览器中的 WebAssembly 性能"></a>改善浏览器中的 WebAssembly 性能</h2><blockquote>
+<p>Some speed improvements will come as browsers improve WebAssembly support in their engines. The browser vendors are working on these issues independently.</p>
+</blockquote>
+<p>随着浏览器改进引擎中的 WebAssembly 支持，其速度将有所改善。各家浏览器厂商正在处理下面这些问题。</p>
+<h3 id="JS-和-WebAssembly-之间更快的函数调用"><a href="#JS-和-WebAssembly-之间更快的函数调用" class="headerlink" title="JS 和 WebAssembly 之间更快的函数调用"></a>JS 和 WebAssembly 之间更快的函数调用</h3><blockquote>
+<p>Currently, calling a WebAssembly function in JS code is slower than it needs to be. That’s because it has to do something called “trampolining”. The <code>JIT</code> doesn’t know how to deal directly with WebAssembly, so it has to route the WebAssembly to something that does. This is a slow piece of code in the engine itself, which does setup to run the optimized WebAssembly code.</p>
+</blockquote>
+<p>目前，在 JS 代码中调用 WebAssembly 函数比它需要的要慢。 那是因为它必须做一些叫做“蹦床”的东西。 <code>JIT</code> 不知道如何直接处理 WebAssembly，所以它必须将 WebAssembly 路由到某个地方处理。这是引擎本身中缓慢的一段代码，它会设置运行优化的 WebAssembly 代码。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/06-02-trampoline01-500x399.png"></p>
+<blockquote>
+<p>This can be up to 100x slower than it would be if the <code>JIT</code> knew how to handle it directly.</p>
+</blockquote>
+<blockquote>
+<p>You won’t notice this overhead if you’re passing a single large task off to the WebAssembly module. But if you have lots of back-and-forth between WebAssembly and JS (as you do with smaller tasks), then this overhead is noticeable.</p>
+</blockquote>
+<p>这种方式可能比 <code>JIT</code> 知道如何直接处理的速度要慢 100 倍。</p>
+<p>如果你将单个大型任务传递到 WebAssembly 模块，则不会注意到此开销。 但是如果你在 WebAssembly 和 JS 之间有很多相互交互（就像使用较小的任务一样），那么这个开销是显而易见的。</p>
+<h3 id="更快的加载时间"><a href="#更快的加载时间" class="headerlink" title="更快的加载时间"></a>更快的加载时间</h3><blockquote>
+<p><code>JIT</code>s have to manage the tradeoff between faster load times and faster execution times. If you spend more time compiling and optimizing ahead of time, that speeds up execution, but it slows down start up.</p>
+</blockquote>
+<blockquote>
+<p>There’s a lot of ongoing work to balance up-front compilation (which ensures there is no jank once the code starts running) and the basic fact that most parts of the code won’t be run enough times to make optimization worth it.</p>
+</blockquote>
+<p><code>JIT</code> 必须管理更快的加载时间和更快的执行时间之间的权衡。如果你提前花费更多时间进行编译和优化，则可以加快执行速度，但启动速度会减慢。</p>
+<p>有很多正在进行的工作来平衡前端编译（确保代码开始运行后不会有任何崩溃），而事实上，大部分代码不会运行足够多的时间使其优化值得被进行。</p>
+<blockquote>
+<p>Since WebAssembly doesn’t need to speculate what types will be used, the engines don’t have to worry about monitoring the types at runtime. This gives them more options, for example parallelizing compilation work with execution.</p>
+</blockquote>
+<blockquote>
+<p>Plus, recent additions to the JavaScript API will allow streaming compilation of WebAssembly. This means that the engine can start compiling while bytes are still being downloaded.</p>
+</blockquote>
+<blockquote>
+<p>In Firefox we’re working on a two-compiler system. One compiler will run ahead of time and do a pretty good job at optimizing the code. While that’s running code, another compiler will do a full optimization in the background. The fully-optimized version of the code will be swapped in when it’s ready.</p>
+</blockquote>
+<p>由于 WebAssembly 不需要推测将要使用什么类型，引擎不必担心在运行时监视类型。这给了它们更多的选择，例如并行编译工作与执行。</p>
+<p>此外，最新添加的 JavaScript API 将允许 WebAssembly 的流式编译。这意味着引擎可以在字节仍在下载时就开始编译。</p>
+<p>在 Firefox 中，我们正在开发一个双编译器系统。一个编译器将提前运行，并在优化代码方面做得很好。当运行代码时，另一个编译器将在后台进行完全优化。完全优化的代码版本将在准备就绪时被交换。</p>
+<h2 id="Adding-post-MVP-features-to-the-spec"><a href="#Adding-post-MVP-features-to-the-spec" class="headerlink" title="Adding post-MVP features to the spec"></a>Adding post-MVP features to the spec</h2><blockquote>
+<p>One of the goals of WebAssembly is to specify in small chunks and test along the way, rather than designing everything up front.</p>
+</blockquote>
+<blockquote>
+<p>This means there are lots of features that are expected, but haven’t been 100% thought-through yet. They will have to go through the specification process, which all of the browser vendors are active in.</p>
+</blockquote>
+<blockquote>
+<p>These features are called future features. Here are just a few.</p>
+</blockquote>
+<p>一个 WebAssembly 的目标是在小部分中设计和测试，一路发展，而不是预先设计所有内容。</p>
+<p>这意味着有许多预期的功能还没有 <code>100%</code> 的想法，它们需要经过所有浏览器供应商积极制定的规范流程。</p>
+<p>这些就是未来的功能，这里仅仅列出少数。</p>
+<h3 id="直接与DOM工作"><a href="#直接与DOM工作" class="headerlink" title="直接与DOM工作"></a>直接与DOM工作</h3><blockquote>
+<p>Currently, there’s no way to interact with the DOM. This means you can’t do something like <code>element.innerHTML</code> to update a node from WebAssembly.</p>
+</blockquote>
+<blockquote>
+<p>Instead, you have to go through JS to set the value. This can mean passing a value back to the JavaScript caller. On the other hand, it can mean calling a JavaScript function from within WebAssembly—both JavaScript and WebAssembly functions can be used as imports in a WebAssembly module.</p>
+</blockquote>
+<p>目前，没有办法与 DOM 进行交互。这意味着你不能像 <code>element.innerHTML</code> 那样从 WebAssembly 更新节点。</p>
+<p>相反，你必须通过 JS 去设置值。这可能意味着将值传回给 JavaScript 调用者。 另一方面，它也可以意味着从 WebAssembly 中调用 JavaScript 函数 —— JavaScript 和 WebAssembly 函数都可以在 WebAssembly 模块中用作导入。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/06-03-dom01-500x418.png"></p>
+<blockquote>
+<p>Either way, it is likely that going through JavaScript is slower than direct access would be. Some applications of WebAssembly may be held up until this is resolved.</p>
+</blockquote>
+<p>无论哪种方式，通过 JavaScript 可能会比直接访问 DOM 慢。一些 WebAssembly 的应用程序可能会被阻止，直到被解决。</p>
+<h3 id="共享内存并发"><a href="#共享内存并发" class="headerlink" title="共享内存并发"></a>共享内存并发</h3><blockquote>
+<p>One way to speed up code is to make it possible for different parts of the code to run at the same time, in parallel. This can sometimes backfire, though, since the overhead of communication between threads can take up more time than the task would have in the first place.</p>
+</blockquote>
+<blockquote>
+<p>But if you can share memory between threads, it reduces this overhead. To do this, WebAssembly will use JavaScript’s new <code>SharedArrayBuffer</code>. Once that is in place in the browsers, the working group can start specifying how WebAssembly should work with them.</p>
+</blockquote>
+<p>加快代码的一种方法是使代码的不同部分同时运行成为可能，也就是并行。这有时可能会起反作用，因为线程之间的通信开销可能比任务单独执行占用更多的时间。</p>
+<p>但是，如果你可以在线程之间共享内存，可以减少这种开销。 为此，WebAssembly 将使用 JavaScript 的新 <code>SharedArrayBuffer</code> 功能。 一旦 <code>SharedArrayBuffer</code> 在浏览器中可用，工作组就可以开始指定 WebAssembly 如何与它们配合使用。</p>
+<h3 id="SIMD"><a href="#SIMD" class="headerlink" title="SIMD"></a>SIMD</h3><blockquote>
+<p>If you read other posts or watch talks about WebAssembly, you may hear about <code>SIMD</code> support. The acronym stands for single instruction, multiple data. It’s another way of running things in parallel.</p>
+</blockquote>
+<blockquote>
+<p><code>SIMD</code> makes it possible to take a large data structure, like a vector of different numbers, and apply the same instruction to different parts at the same time. In this way, it can drastically speed up the kinds of complex computations you need for games or VR.</p>
+</blockquote>
+<blockquote>
+<p>This is not too important for the average web app developer. But it is very important to developers working with multimedia, such as game developers.</p>
+</blockquote>
+<p>如果你阅读其它 WebAssembly 帖子或观看介绍，你可能会听到有关 <code>SIMD</code> 的支持。<code>SIMD</code> 缩写代表单指令，多数据。 这是并行运行的另一种方式。</p>
+<p><code>SIMD</code> 使得可以采用大量的数据结构，例如不同数字的向量，同时将相同的指令应用于不同的部分。这样，它可以大大加快游戏或 <code>VR</code> 所需的各种复杂的计算。</p>
+<p>对于一般的网络应用开发人员来说，这并不重要。但对于开发多媒体的开发人员，比如游戏开发者来说，这是非常重要的。</p>
+<h3 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h3><blockquote>
+<p>Many code bases in languages like <code>C++</code> use exceptions. However, exceptions aren’t yet specified as part of WebAssembly.</p>
+</blockquote>
+<blockquote>
+<p>If you are compiling your code with <code>Emscripten</code>, it will emulate exception handling for some compiler optimization levels. This is pretty slow, though, so you may want to use the <code>DISABLE_EXCEPTION_CATCHING</code> flag to turn it off.</p>
+</blockquote>
+<blockquote>
+<p>Once exceptions are handled natively in WebAssembly, this emulation won’t be necessary.</p>
+</blockquote>
+<p>许多语言的代码库如 <code>C++</code> 使用了异常。 但是，异常还没有被指定为 WebAssembly 的一部分。</p>
+<p>如果你正在使用 <code>Emscripten</code> 编译代码，它将模拟某些编译器优化级别的异常处理。 这很慢，但是你可能希望使用 <code>DISABLE_EXCEPTION_CATCHING</code> 标志来关闭它。</p>
+<p>一旦在 WebAssembly 中原生的处理了异常，则不需要这种仿真。</p>
+<h3 id="其它改进-使开发人员更容易"><a href="#其它改进-使开发人员更容易" class="headerlink" title="其它改进 - 使开发人员更容易"></a>其它改进 - 使开发人员更容易</h3><blockquote>
+<p>Some future features don’t affect performance, but will make it easier for developers to work with WebAssembly.</p>
+<ul>
+<li><strong>First-class source-level developer tools.</strong> Currently, debugging WebAssembly in the browser is like debugging raw assembly. Very few developers can mentally map their source code to assembly, though. We’re looking at how we can improve tooling support so that developers can debug their source code.</li>
+<li><strong>Garbage collection.</strong> If you can define your types ahead of time, you should be able to turn your code into WebAssembly. So code using something like <code>TypeScript</code> should be compilable to WebAssembly. The only hitch currently, though, is that WebAssembly doesn’t know how to interact with existing garbage collectors, like the one built in to the JS engine. The idea of this future feature is to give WebAssembly first-class access to the builtin GC with a set of low-level GC primitive types and operations.</li>
+<li><strong>ES6 Module integration.</strong> Browsers are currently adding support for loading JavaScript modules using the script tag. Once this feature is added, a tag like <code>&lt;script src=url type=&quot;module&quot;&gt;</code> could work even if url points to a WebAssembly module.</li>
+</ul>
+</blockquote>
+<p>一些未来的功能不会影响性能，但会使开发人员更轻松地使用 WebAssembly。</p>
+<ul>
+<li><strong>一流的源代码开发工具。</strong> 目前，在浏览器中调试 WebAssembly 就像调试原始汇编。 正因为如此，只有很少有开发人员可以将它们的源代码在头脑中映射到汇编。 我们正在研究如何改进工具支持，以便开发人员可以调试其源代码。</li>
+<li><strong>垃圾回收。</strong> 如果您可以提前定义类型，您应该可以将代码转换为 WebAssembly。 所以使用像 <code>TypeScript</code> 这样的代码应该可以编译为 WebAssembly。 目前唯一的阻碍是 WebAssembly 不知道如何与现有的垃圾收集器（如内置在 JS 引擎的垃圾回收器）进行交互。 未来，这个功能的想法是使 WebAssembly 能够使用一组底层的 GC 原语类型和操作对内置 GC 进行访问。</li>
+<li><strong>ES6模块集成。</strong> 浏览器正在添加使用脚本标签加载 JavaScript 模块的支持。 添加此功能后，即使 url 指向 WebAssembly 模块，标签如<code>&lt;script src = url type =“module”&gt;</code>也可以工作。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<p>WebAssembly is fast today, and with new features and improvements to the implementation in browsers, it should get even faster.</p>
+</blockquote>
+<p>今天的 WebAssembly 很快，并且随着浏览器新功能的实现和改进，会更快。</p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

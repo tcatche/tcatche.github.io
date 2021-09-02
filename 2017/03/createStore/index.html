@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>createStore.js 源码阅读笔记 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,redux" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-createStore" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        createStore.js 源码阅读笔记
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-03-07
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 2.5k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 17mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="react" data-type="TAGS">react</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="redux" data-type="TAGS">redux</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><blockquote>
+<p>createStore(reducer, [preloadedState], enhancer)</p>
+</blockquote>
+<ul>
+<li><strong>reducer (Function):</strong> 接收 <code>state</code> 和 <code>action</code> 参数的函数，并返回新的 <code>state</code>。</li>
+<li><strong>[preloadedState(Any)]:</strong> 初始时的 state，可以使用空内容初始化，也可以使用保存在客户端或者服务端的 state 初始化。如果 <code>reducer</code> 是使用 <code>combinedReducers</code> 生成的，则state 只能是普通对象，不能是其他的特殊对象，如 <code>immutable</code> 对象等。</li>
+<li><strong>enhancer (Function):</strong> enhancer 是一个强化的。</li>
+<li><strong>return (Object):</strong> 返回应用的 Store ,包含几个函数的对象。</li>
+</ul>
+<h2 id="源码结构"><a href="#源码结构" class="headerlink" title="源码结构"></a>源码结构</h2><p>createStore 的代码看起来很多，内容非常简单，先看一下整体结构：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">createStore</span>(<span class="params">reducer, preloadedState, enhancer</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 获取应用当前的 state</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getState</span>(<span class="params"></span>) </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 事件监听</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">subscribe</span>(<span class="params">listener</span>) </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 事件触发</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">dispatch</span>(<span class="params">action</span>) </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 修改应用的 reducer</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">replaceReducer</span>(<span class="params">nextReducer</span>) </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">observable</span>(<span class="params"></span>) </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    dispatch,</span><br><span class="line">    subscribe,</span><br><span class="line">    getState,</span><br><span class="line">    replaceReducer,</span><br><span class="line">    [$$observable]: observable</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用 createStore 就是返回了一个对象，对象主要包括这五个函数，createStore 代码很简单，b不再一一说明，注意点直接放在下一节源码注释中：</p>
+<h2 id="源码注释"><a href="#源码注释" class="headerlink" title="源码注释"></a>源码注释</h2><p>源代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> isPlainObject <span class="keyword">from</span> <span class="string">&#x27;lodash/isPlainObject&#x27;</span></span><br><span class="line"><span class="keyword">import</span> $$observable <span class="keyword">from</span> <span class="string">&#x27;symbol-observable&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * These are private action types reserved by Redux.</span></span><br><span class="line"><span class="comment"> * For any unknown actions, you must return the current state.</span></span><br><span class="line"><span class="comment"> * If the current state is undefined, you must return the initial state.</span></span><br><span class="line"><span class="comment"> * Do not reference these action types directly in your code.</span></span><br><span class="line"><span class="comment"> * 定义一个初始化 action， 这个 action 是 redux 私有的，不应该被引用</span></span><br><span class="line"><span class="comment"> * 同时 reducer 对于未知的 action 应该返回当前的 state 不作任何处理</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">var</span> ActionTypes = &#123;</span><br><span class="line">  <span class="attr">INIT</span>: <span class="string">&#x27;@@redux/INIT&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Creates a Redux store that holds the state tree.</span></span><br><span class="line"><span class="comment"> * The only way to change the data in the store is to call `dispatch()` on it.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * There should only be a single store in your app. To specify how different</span></span><br><span class="line"><span class="comment"> * parts of the state tree respond to actions, you may combine several reducers</span></span><br><span class="line"><span class="comment"> * into a single reducer function by using `combineReducers`.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;Function&#125;</span> </span>reducer A function that returns the next state tree, given</span></span><br><span class="line"><span class="comment"> * the current state tree and the action to handle.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;any&#125;</span> </span>[preloadedState] The initial state. You may optionally specify it</span></span><br><span class="line"><span class="comment"> * to hydrate the state from the server in universal apps, or to restore a</span></span><br><span class="line"><span class="comment"> * previously serialized user session.</span></span><br><span class="line"><span class="comment"> * If you use `combineReducers` to produce the root reducer function, this must be</span></span><br><span class="line"><span class="comment"> * an object with the same shape as `combineReducers` keys.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;Function&#125;</span> </span>enhancer The store enhancer. You may optionally specify it</span></span><br><span class="line"><span class="comment"> * to enhance the store with third-party capabilities such as middleware,</span></span><br><span class="line"><span class="comment"> * time travel, persistence, etc. The only store enhancer that ships with Redux</span></span><br><span class="line"><span class="comment"> * is `applyMiddleware()`.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns <span class="type">&#123;Store&#125;</span> </span>A Redux store that lets you read the state, dispatch actions</span></span><br><span class="line"><span class="comment"> * and subscribe to changes.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">createStore</span>(<span class="params">reducer, preloadedState, enhancer</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 可省略的参数处理，如果 preloadedState 省略 则把第二个参数作为 enhancer</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> preloadedState === <span class="string">&#x27;function&#x27;</span> &amp;&amp; <span class="keyword">typeof</span> enhancer === <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">    enhancer = preloadedState</span><br><span class="line">    preloadedState = <span class="literal">undefined</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 存在 `enhancer` 则使用 `enhancer(createStore)` 创建 store， `enhancer` 通常接受 `createStore` </span></span><br><span class="line">  <span class="comment">// 做为参数，并返回一个以 `reducer` 、 `preloadedState` 为参数的 `enhanceredCreateStore` ，也就是说</span></span><br><span class="line">  <span class="comment">// 签名为 `createStore =&gt; (reducer, preloadedState) =&gt; store`。</span></span><br><span class="line">  <span class="comment">// enhancer(createStore) 通常是在 createStore 创建的 store 上做了一些修改，比如 `applyMiddleware` </span></span><br><span class="line">  <span class="comment">// 只是修改了 dispatch 方法，其他保持不变，具体可以参考 `applyMiddleware.js 源码阅读笔记`。</span></span><br><span class="line">  <span class="comment">// </span></span><br><span class="line">  <span class="comment">// 常用的 `enhancer` 比如: `applyMiddleware(...middlewares)`</span></span><br><span class="line">  <span class="comment">// 如果需要应用多个 enhancers 可以使用 `compose` 组合这些 enhancers:</span></span><br><span class="line">  <span class="comment">// createStore(reducer, preloadedState, compose(enhancer1, enhancer2, ...))。</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> enhancer !== <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> enhancer !== <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;Expected the enhancer to be a function.&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> enhancer(createStore)(reducer, preloadedState)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> reducer !== <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;Expected the reducer to be a function.&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> currentReducer = reducer</span><br><span class="line">  <span class="keyword">var</span> currentState = preloadedState</span><br><span class="line">  <span class="comment">// 当前监听的事件列表</span></span><br><span class="line">  <span class="keyword">var</span> currentListeners = []</span><br><span class="line">  <span class="comment">// 新的事件监听列表</span></span><br><span class="line">  <span class="comment">// 之所以使用两个变量保存 `listeners` 是为了防止 `dispatch` 的时候 `subscribe` 和 `unsubscribe` </span></span><br><span class="line">  <span class="comment">// 对 `listeners` 列表改变，造成不可预知的结果</span></span><br><span class="line">  <span class="keyword">var</span> nextListeners = currentListeners</span><br><span class="line">  <span class="comment">// 防止这次 dispatch 未完成即进行下一次 dispatch，造成 state 错误</span></span><br><span class="line">  <span class="keyword">var</span> isDispatching = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 如果下一个监听的事件列表等于当前的事件列表，则复制当前的事件列表。</span></span><br><span class="line"><span class="comment">   * 这个主要是保证 dispatch 执行的时候，如果 subscribe 或者 unsubscribe 事件时，不至于</span></span><br><span class="line"><span class="comment">   * 影响到当前正在执行中的事件序列。</span></span><br><span class="line"><span class="comment">   * 在每次列表变化的时候都会被调用，每次列表的改变都在下一次 dispatch 时生效</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">ensureCanMutateNextListeners</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (nextListeners === currentListeners) &#123;</span><br><span class="line">      nextListeners = currentListeners.slice()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Reads the state tree managed by the store.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@returns <span class="type">&#123;any&#125;</span> </span>The current state tree of your application.</span></span><br><span class="line"><span class="comment">   * 返回应用当前的 state</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getState</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> currentState</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Adds a change listener. It will be called any time an action is dispatched,</span></span><br><span class="line"><span class="comment">   * and some part of the state tree may potentially have changed. You may then</span></span><br><span class="line"><span class="comment">   * call `getState()` to read the current state tree inside the callback.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * You may call `dispatch()` from a change listener, with the following</span></span><br><span class="line"><span class="comment">   * caveats:</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * 1. The subscriptions are snapshotted just before every `dispatch()` call.</span></span><br><span class="line"><span class="comment">   * If you subscribe or unsubscribe while the listeners are being invoked, this</span></span><br><span class="line"><span class="comment">   * will not have any effect on the `dispatch()` that is currently in progress.</span></span><br><span class="line"><span class="comment">   * However, the next `dispatch()` call, whether nested or not, will use a more</span></span><br><span class="line"><span class="comment">   * recent snapshot of the subscription list.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * 2. The listener should not expect to see all state changes, as the state</span></span><br><span class="line"><span class="comment">   * might have been updated multiple times during a nested `dispatch()` before</span></span><br><span class="line"><span class="comment">   * the listener is called. It is, however, guaranteed that all subscribers</span></span><br><span class="line"><span class="comment">   * registered before the `dispatch()` started will be called with the latest</span></span><br><span class="line"><span class="comment">   * state by the time it exits.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param <span class="type">&#123;Function&#125;</span> </span>listener A callback to be invoked on every dispatch.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@returns <span class="type">&#123;Function&#125;</span> </span>A function to remove this change listener.</span></span><br><span class="line"><span class="comment">   * </span></span><br><span class="line"><span class="comment">   * 注意：</span></span><br><span class="line"><span class="comment">   * 1. 函数返回一个取消订阅当前监听函数的函数</span></span><br><span class="line"><span class="comment">   * 2. 每次事件列表的改变都在下一次 dispatch 时生效，如果当前正在执行 dispatch 函数，</span></span><br><span class="line"><span class="comment">   *    则新增加的事件订阅不会立即生效，取消事件订阅也是一样</span></span><br><span class="line"><span class="comment">   * 3. 事件监听不应该监听全部的 state 的变化，因为在监听的函数执行之时 state 可能会被改变多次</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">subscribe</span>(<span class="params">listener</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> listener !== <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;Expected listener to be a function.&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> isSubscribed = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">    ensureCanMutateNextListeners()</span><br><span class="line">    nextListeners.push(listener)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回一个取消订阅当前监听函数的函数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">unsubscribe</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (!isSubscribed) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      isSubscribed = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">      ensureCanMutateNextListeners()</span><br><span class="line">      <span class="comment">//从事件列表中找到刚才添加的，并删除</span></span><br><span class="line">      <span class="keyword">var</span> index = nextListeners.indexOf(listener)</span><br><span class="line">      nextListeners.splice(index, <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Dispatches an action. It is the only way to trigger a state change.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * The `reducer` function, used to create the store, will be called with the</span></span><br><span class="line"><span class="comment">   * current state tree and the given `action`. Its return value will</span></span><br><span class="line"><span class="comment">   * be considered the **next** state of the tree, and the change listeners</span></span><br><span class="line"><span class="comment">   * will be notified.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * The base implementation only supports plain object actions. If you want to</span></span><br><span class="line"><span class="comment">   * dispatch a Promise, an Observable, a thunk, or something else, you need to</span></span><br><span class="line"><span class="comment">   * wrap your store creating function into the corresponding middleware. For</span></span><br><span class="line"><span class="comment">   * example, see the documentation for the `redux-thunk` package. Even the</span></span><br><span class="line"><span class="comment">   * middleware will eventually dispatch plain object actions using this method.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param <span class="type">&#123;Object&#125;</span> </span>action A plain object representing “what changed”. It is</span></span><br><span class="line"><span class="comment">   * a good idea to keep actions serializable so you can record and replay user</span></span><br><span class="line"><span class="comment">   * sessions, or use the time travelling `redux-devtools`. An action must have</span></span><br><span class="line"><span class="comment">   * a `type` property which may not be `undefined`. It is a good idea to use</span></span><br><span class="line"><span class="comment">   * string constants for action types.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@returns <span class="type">&#123;Object&#125;</span> </span>For convenience, the same action object you dispatched.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * Note that, if you use a custom middleware, it may wrap `dispatch()` to</span></span><br><span class="line"><span class="comment">   * return something else (for example, a Promise you can await).</span></span><br><span class="line"><span class="comment">   * 注意：</span></span><br><span class="line"><span class="comment">   * 1. dispatch 默认只支持 action 作为参数，但是使用了中间件以后，比如 `redux-thunk` </span></span><br><span class="line"><span class="comment">   *    中间件，指定格式的 function 也被支持作为参数。</span></span><br><span class="line"><span class="comment">   * 2. dispatch 的默认返回值是参数中的 action， 但是如果使用了中间件，dispatch 之前和</span></span><br><span class="line"><span class="comment">   *    之后可能会执行中间件的一些操作，并且返回值也可能被修改。</span></span><br><span class="line"><span class="comment">   * </span></span><br><span class="line"><span class="comment">   * 以下情况会抛出异常：</span></span><br><span class="line"><span class="comment">   * 1. `action` 不是一个简单对象</span></span><br><span class="line"><span class="comment">   * 2. `action.type` 不存在</span></span><br><span class="line"><span class="comment">   * 3. `action` 正在 `dispatching` 然后再次 `dispatch`， 这种情况主要发生在异步 `reducer`</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">dispatch</span>(<span class="params">action</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!isPlainObject(action)) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">        <span class="string">&#x27;Actions must be plain objects. &#x27;</span> +</span><br><span class="line">        <span class="string">&#x27;Use custom middleware for async actions.&#x27;</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> action.type === <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">        <span class="string">&#x27;Actions may not have an undefined &quot;type&quot; property. &#x27;</span> +</span><br><span class="line">        <span class="string">&#x27;Have you misspelled a constant?&#x27;</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isDispatching) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;Reducers may not dispatch actions.&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      isDispatching = <span class="literal">true</span></span><br><span class="line">      <span class="comment">//更新 store 的 state</span></span><br><span class="line">      currentState = currentReducer(currentState, action)</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      isDispatching = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//保证当前执行的是最新的事件序列</span></span><br><span class="line">    <span class="keyword">var</span> listeners = currentListeners = nextListeners</span><br><span class="line">    <span class="comment">//逐个调用订阅的事件，比如 state 改变了更新ui</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; listeners.length; i++) &#123;</span><br><span class="line">      listeners[i]()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> action</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Replaces the reducer currently used by the store to calculate the state.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * You might need this if your app implements code splitting and you want to</span></span><br><span class="line"><span class="comment">   * load some of the reducers dynamically. You might also need this if you</span></span><br><span class="line"><span class="comment">   * implement a hot reloading mechanism for Redux.</span></span><br><span class="line"><span class="comment">   * </span></span><br><span class="line"><span class="comment">   * 使用新的 reducer 替代 store 当前的 reducer，主要用于一些动态加载的内容，</span></span><br><span class="line"><span class="comment">   * 比如 webpack 的代码分割功能或者 redux 的代码热更新。</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param <span class="type">&#123;Function&#125;</span> </span>nextReducer The reducer for the store to use instead.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@returns <span class="type">&#123;void&#125;</span></span></span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">replaceReducer</span>(<span class="params">nextReducer</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> nextReducer !== <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;Expected the nextReducer to be a function.&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    currentReducer = nextReducer</span><br><span class="line">    <span class="comment">//使用了新的 reducer 时，仍然会 `dispatch(&#123; type: ActionTypes.INIT &#125;)` 。</span></span><br><span class="line">    dispatch(&#123; <span class="attr">type</span>: ActionTypes.INIT &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//待补充：这部分内容研究后稍后补充</span></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Interoperability point for observable/reactive libraries.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@returns <span class="type">&#123;observable&#125;</span> </span>A minimal observable of state changes.</span></span><br><span class="line"><span class="comment">   * For more information, see the observable proposal:</span></span><br><span class="line"><span class="comment">   * https://github.com/zenparsing/es-observable</span></span><br><span class="line"><span class="comment">   * ECMAScript标准库引入了一个Observable类型的提案。 </span></span><br><span class="line"><span class="comment">   * Observable类型可用于建模基于推送的数据源，例如DOM事件，定时器间隔和 socket</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">observable</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> outerSubscribe = subscribe</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">/**</span></span><br><span class="line"><span class="comment">       * The minimal observable subscription method.</span></span><br><span class="line"><span class="comment">       * <span class="doctag">@param <span class="type">&#123;Object&#125;</span> </span>observer Any object that can be used as an observer.</span></span><br><span class="line"><span class="comment">       * The observer object should have a `next` method.</span></span><br><span class="line"><span class="comment">       * <span class="doctag">@returns <span class="type">&#123;subscription&#125;</span> </span>An object with an `unsubscribe` method that can</span></span><br><span class="line"><span class="comment">       * be used to unsubscribe the observable from the store, and prevent further</span></span><br><span class="line"><span class="comment">       * emission of values from the observable.</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">      <span class="function"><span class="title">subscribe</span>(<span class="params">observer</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> observer !== <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">&#x27;Expected the observer to be an object.&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">observeState</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="keyword">if</span> (observer.next) &#123;</span><br><span class="line">            observer.next(getState())</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        observeState()</span><br><span class="line">        <span class="keyword">var</span> unsubscribe = outerSubscribe(observeState)</span><br><span class="line">        <span class="keyword">return</span> &#123; unsubscribe &#125;</span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      [$$observable]() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// When a store is created, an &quot;INIT&quot; action is dispatched so that every</span></span><br><span class="line">  <span class="comment">// reducer returns their initial state. This effectively populates</span></span><br><span class="line">  <span class="comment">// the initial state tree.</span></span><br><span class="line">  <span class="comment">// 在createStore的时候，函数内部会dispatch(&#123; type: ActionTypes.INIT &#125;)</span></span><br><span class="line">  <span class="comment">// 对 state 进行初始化，这也就是说为什么我们的 reducer 需要在 state 为空的时候初始化，</span></span><br><span class="line">  <span class="comment">//并且能够处理不存在的 action（不要引入处理这个 ActionTypes.INIT 这个 action，而是</span></span><br><span class="line">  <span class="comment">//用默认的方式，比如 switch 语句中的 default 分支， 处理返回当前的非空的 store）</span></span><br><span class="line">  dispatch(&#123; <span class="attr">type</span>: ActionTypes.INIT &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">//返回的操作接口</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    dispatch,</span><br><span class="line">    subscribe,</span><br><span class="line">    getState,</span><br><span class="line">    replaceReducer,</span><br><span class="line">    [$$observable]: observable</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h2><p><code>Redux</code> 源码阅读笔记：</p>
+<ul>
+<li><a href="/2017/03/createStore/">createStore.js 源码阅读笔记</a></li>
+<li><a href="/2017/03/combineReducers/">combineReducers.js 源码阅读笔记</a></li>
+<li><a href="/2017/03/bindActionCreators/">bindActionCreators.js 源码阅读笔记</a></li>
+<li><a href="/2017/02/applyMiddleware/">applyMiddleware.js 源码阅读笔记</a></li>
+<li><a href="/2017/03/compose/">compose.js 源码阅读笔记</a></li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>本文阅读代码版本 <code>3.5.2</code>   </p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/reactjs/redux">redux源代码</a></li>
+<li><a target="_blank" rel="noopener" href="http://redux.js.org/docs/api/createStore.html">redux文档</a></li>
+</ul>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

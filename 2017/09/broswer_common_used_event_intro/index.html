@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>JavaScript 常用的一些事件总结 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="dom,bom,event,listener,mouse,drag,touch,click,keyboard" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-broswer_common_used_event_intro" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        JavaScript 常用的一些事件总结
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-09-13
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 3.6k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 21mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="dom" data-type="TAGS">dom</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="bom" data-type="TAGS">bom</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="event" data-type="TAGS">event</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="listener" data-type="TAGS">listener</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="mouse" data-type="TAGS">mouse</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="drag" data-type="TAGS">drag</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="touch" data-type="TAGS">touch</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="click" data-type="TAGS">click</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="keyboard" data-type="TAGS">keyboard</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>本文主要总结了在开发中经常使用的的一些浏览器事件的使用。</p>
+<h2 id="系列目录"><a href="#系列目录" class="headerlink" title="系列目录"></a>系列目录</h2><p>本文涉及内容加多，截止现在，“拖拽事件”、“触摸事件”、“手势事件” 三节尚未完成。</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="#%E9%BC%A0%E6%A0%87%E4%BA%8B%E4%BB%B6">鼠标事件</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="#%E9%94%AE%E7%9B%98%E4%BA%8B%E4%BB%B6">键盘事件</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="#%E5%8A%A0%E8%BD%BD%E5%8D%B8%E8%BD%BD%E7%8A%B6%E6%80%81%E4%BA%8B%E4%BB%B6">生命周期事件</a></li>
+<li><input disabled="" type="checkbox"> <a href="#%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6">触摸事件</a></li>
+<li><input disabled="" type="checkbox"> <a href="#%E6%89%8B%E5%8A%BF%E4%BA%8B%E4%BB%B6">手势事件</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="#%E8%A1%A8%E5%8D%95%E4%BA%8B%E4%BB%B6">表单事件</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="#%E9%94%99%E8%AF%AF%E4%BA%8B%E4%BB%B6">错误事件</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="#%E5%85%B6%E4%BB%96%E4%BA%8B%E4%BB%B6">其他事件</a></li>
+</ul>
+<h2 id="键盘事件"><a href="#键盘事件" class="headerlink" title="键盘事件"></a>键盘事件</h2><p>键盘事件最常用的是 <code>keyup</code> 和 <code>keydown</code> 两个事件，这两个事件本身很简单，不再多说，本节说一点键盘事件其他细节吧。</p>
+<p>这两个事件常配合表单使用，比如用户输入内容后校验，虽然也可以用，但是处理起来较为麻烦，需要判断组合键，非文本输入按键比如 Shift、F1 之类的等，更合适的方法是使用表单的 input 事件，将在后面表单事件说明</p>
+<h3 id="组合键"><a href="#组合键" class="headerlink" title="组合键"></a>组合键</h3><p>和鼠标事件类似，按键事件也具有这几个属性：<code>altKey</code>、<code>ctrlKey/metaKey</code>、<code>metaKey</code>ctrlKey<code>、</code>shiftKey`，具体可以参考上一节，不再详细说明。</p>
+<h3 id="e-code-和-e-key"><a href="#e-code-和-e-key" class="headerlink" title="e.code 和 e.key"></a>e.code 和 e.key</h3><p>这两个属性表示了按键的内容，是两个比较接近的内容，但是也有一点点不同。</p>
+<p><code>code</code> 表示按的是哪个键，而 <code>key</code> 则表示按键的键值，这么说比较模糊，先看个例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.onkeydown = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;The code is: &#x27;</span>, e.code);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;The key is: &#x27;</span>, e.key);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;---------&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 按下键盘左边shift</span></span><br><span class="line">The code is:  ShiftLeft</span><br><span class="line">The key is:  Shift</span><br><span class="line">---------</span><br><span class="line"></span><br><span class="line"><span class="comment">// 按下键盘右边shift</span></span><br><span class="line">---------</span><br><span class="line">The code is:  ShiftRight</span><br><span class="line">The key is:  Shift</span><br></pre></td></tr></table></figure>
+
+<p>由上述例子可以看出，<code>code</code> 是表示的具体的哪个按键被按下，所以会区分左 <code>Shift</code> 和右 <code>Shift</code>，而 <code>key</code> 则反映了按键代表的含义，再看另一个例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 按下键盘 A</span></span><br><span class="line">The code is:  KeyA</span><br><span class="line">The key is:  a</span><br><span class="line">---------</span><br><span class="line"></span><br><span class="line"><span class="comment">// 按下键盘组合键 shift + a</span></span><br><span class="line">The code is:  ShiftLeft</span><br><span class="line">The key is:  Shift</span><br><span class="line">---------</span><br><span class="line">The code is:  KeyA</span><br><span class="line">The key is:  A</span><br></pre></td></tr></table></figure>
+
+<p>忽略组合键多出来的一组按键，可以看出，此时，多了 Shift, code 值不变，是小写 <code>a</code>，而 <code>key</code> 值变成了大写的 <code>A</code>。</p>
+<p>字母键的 key 值为 <code>&quot;Key&quot; + &lt;letter&gt;</code>，数字的 key 值为 <code>&quot;Digit&quot; + &lt;number&gt;</code> ，小键盘和手机按键的 key 值通常为 <code>&quot;Numpad&quot; + &lt;number&gt;</code>，其他控制键则为其名字，更具体查看<a target="_blank" rel="noopener" href="https://www.w3.org/TR/uievents-code/#key-alphanumeric-section">Specs - Key Codes for Standard Keyboards</a>，这里不在一一说明。</p>
+<h3 id="e-keyCode"><a href="#e-keyCode" class="headerlink" title="e.keyCode"></a><del>e.keyCode</del></h3><p>使用 <code>keyCode</code> 判断按键是很常用的代码，比如判断用户输入了回车键，则直接执行操作。但是须知，这个属性已经被废弃，虽然在很多浏览器还有支持，但是不建议再使用，而是使用 <code>key</code> 或者 <code>code</code> 替代：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 不建议使用 keyCode</span></span><br><span class="line"><span class="built_in">document</span>.onkeydown = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!e) e = <span class="built_in">window</span>.event;</span><br><span class="line">  <span class="keyword">if</span> ((e.keyCode || e.which) == <span class="number">13</span>) &#123;</span><br><span class="line">    alert(<span class="string">&quot;enter&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 建议使用 key/code 替代</span></span><br><span class="line"><span class="built_in">document</span>.onkeydown = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!e) e = <span class="built_in">window</span>.event;</span><br><span class="line">  <span class="keyword">if</span> ((e.key) == <span class="string">&quot;Enter&quot;</span>) &#123;</span><br><span class="line">    alert(<span class="string">&quot;enter&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="默认行为"><a href="#默认行为" class="headerlink" title="默认行为"></a>默认行为</h3><p>一些功能键有一些默认的行为，比如：<code>Delete</code> 会删除表单域的一个字符，<code>PageDown</code> 会向下滚动，<code>Ctrl + S</code> 可以打开浏览器保存网页的对话框，这些行为都是可以取消的：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.onkeydown = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (e.code === <span class="string">&#x27;KeyS&#x27;</span> &amp;&amp; e.ctrlKey)&#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;cancel save page&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (e.code === <span class="string">&#x27;PageDown&#x27;</span>)&#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;cancel page down&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>比如上面例子取消了保存网页和翻页的默认操作，但是有些操作是无法取消的，比如操作系统的 <code>Alt + F4</code>。</p>
+<h2 id="页面生命周期事件"><a href="#页面生命周期事件" class="headerlink" title="页面生命周期事件"></a>页面生命周期事件</h2><p>和资源生命周期有关的事件主要有：<code>load</code>、<code>DOMContentLoaded</code>、 <code>abort</code>、<code>beforeunload</code>、<code>unload</code>：</p>
+<h3 id="load"><a href="#load" class="headerlink" title="load"></a>load</h3><p><strong>load</strong>：目标对象为 <code>Window</code>, <code>Document</code> 和 <code>Element</code>，当一个资源和其依赖的所有资源加载完成的时候，会触发 <code>load</code> 事件。这个资源可以是图片、CSS 文件、JS 文件、视频、<code>document</code> 和 <code>window</code> 等等。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 页面内所有的资源加载完成后执行</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;load&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;All resources finished loading!&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 图片加载完成则执行</span></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">&#x27;image&#x27;</span>).addEventListener(<span class="string">&quot;load&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;Image resource finished loading!&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="DOMContentLoaded"><a href="#DOMContentLoaded" class="headerlink" title="DOMContentLoaded"></a>DOMContentLoaded</h3><p><strong>DOMContentLoaded</strong>：目标对象为 <code>Document</code>，当初始 HTML 文档被完全加载和解析完成之后，<code>DOMContentLoaded</code> 事件被触发，而无需等待样式表、图像和子框架完成加载。所以如果想要你的网页加载完成立即执行某些脚本，使用这个事件要优于 <code>load</code> 事件的，因为 <code>load</code> 事件要等待所有内容加载完成，这样无疑是很慢的。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;onload 后输出&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">&quot;DOMContentLoaded&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;DOMContentLoaded 先输出&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &quot;DOMContentLoaded 先输出&quot;</span></span><br><span class="line"><span class="comment">// &quot;onload 后输出&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：本函数只能绑定在 <code>Document</code> 元素上，而 <code>load</code> 可以绑定到任何元素上，监听该元素的资源加载完成事件。更多关于初始化资源加载情况的监听探讨可以查看本人的另一篇文章（<a href="/2017/07/dom_load_status_events/">关于文档加载状态相关的事件探讨</a>）</p>
+<h3 id="abort"><a href="#abort" class="headerlink" title="abort"></a>abort</h3><p><strong>abort</strong>：目标对象为 <code>Window</code> 和 <code>Element</code>，当资源的加载被中止时，此事件被触发。</p>
+<h3 id="beforeunload"><a href="#beforeunload" class="headerlink" title="beforeunload"></a>beforeunload</h3><p><strong>beforeunload</strong>：目标对象为 <code>Window</code>, 当窗口，文档及其资源即将被卸载时，<code>beforeunload</code> 事件触发。如果此事件的监听器处理函数为 <code>Event</code> 对象的 <code>returnValue</code> 属性赋值非空字符串，或者函数返回非空字符串，浏览器会弹出一个对话框，来询问用户是否确定要离开当前页面。否则，该事件不做响应。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;beforeunload&quot;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> confirmationMessage = <span class="string">&quot;Are you sure to close？&quot;</span>;</span><br><span class="line"></span><br><span class="line">  (e || <span class="built_in">window</span>.event).returnValue = confirmationMessage; <span class="comment">//Gecko + IE</span></span><br><span class="line">  <span class="keyword">return</span> confirmationMessage; <span class="comment">//Gecko + Webkit, Safari, Chrome etc.</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>注意：在 chrome 51 后，<strong>不再支持</strong>用户自定义网页提示的消息文字，chrome 认为这个经常被用来欺骗用户（详情查看<a target="_blank" rel="noopener" href="https://developers.google.com/web/updates/2016/04/chrome-51-deprecations?hl=en#remove-custom-messages-in-onbeforeload-dialogs">Remove custom messages in onbeforeunload dialogs</a>）。而且 Safari 9.1+，Firefox 4+ 都不支持这个功能。</p>
+<p>注意：在实践中调用 <code>window.alert()</code>, <code>window.confirm()</code>, <code>window.prompt()</code> 会被忽略，同时该对话框只能起到提示、阻止关闭作用，如果用户选择关闭，并无法在js中获得回调值，所以，如果页面有未保存动作，可以在这个时候进行一些保存动作。</p>
+<h3 id="unload"><a href="#unload" class="headerlink" title="unload"></a>unload</h3><p><strong>unload</strong>：目标对象为 <code>Window</code>, <code>Document</code> 和 <code>Element</code>，当DOM实现从环境中删除资源（如文档）或任何依赖资源（如图像，样式表，脚本）时，会触发此事件。</p>
+<p>如果事件被绑定在 <code>document</code> 或者 <code>window</code> 对象上的时候，当此事件触发，此时文档会处于以下状态：</p>
+<ul>
+<li>所有资源仍存在 (图片, iframe 等.)</li>
+<li>对于终端用户所有资源均不可见</li>
+<li>界面交互无效 (<code>window.open</code>, <code>window.alert</code>, <code>window.confirm</code> 等.)</li>
+<li>错误不会停止卸载文档的过程</li>
+</ul>
+<p>请注意 <code>unload</code> 事件也遵循文档树：父 <code>iframe</code> 会在子 <code>iframe</code> 卸载前卸载：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Parent.html--&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Parent Frame<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="built_in">window</span>.addEventListener(<span class="string">&#x27;beforeunload&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">&#x27;I am the 1st one.&#x27;</span>);</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">      <span class="built_in">window</span>.addEventListener(<span class="string">&#x27;unload&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">&#x27;I am the 3rd one.&#x27;</span>);</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;child-frame.html&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- child-frame.html--&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Child Frame<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="built_in">window</span>.addEventListener(<span class="string">&#x27;beforeunload&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">&#x27;I am the 2nd one.&#x27;</span>);</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">      <span class="built_in">window</span>.addEventListener(<span class="string">&#x27;unload&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">&#x27;I am the 4th and last one…&#x27;</span>);</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>更具体的关于删除文档的细节查看：<a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/#prompt-to-unload-a-document">Unloading Documents — Prompt to unload a document</a></p>
+<h2 id="拖拽事件"><a href="#拖拽事件" class="headerlink" title="拖拽事件"></a>拖拽事件</h2><p>拖拽事件也是鼠标事件的变形，这里单独列出来解释。</p>
+<p>// todo</p>
+<h2 id="触摸事件"><a href="#触摸事件" class="headerlink" title="触摸事件"></a>触摸事件</h2><p>// todo</p>
+<h2 id="手势事件"><a href="#手势事件" class="headerlink" title="手势事件"></a>手势事件</h2><p>// todo</p>
+<h2 id="错误事件"><a href="#错误事件" class="headerlink" title="错误事件"></a>错误事件</h2><p>当错误发生时，触发错误事件。错误事件有两种：</p>
+<ul>
+<li>当一项资源（如 <code>&lt;img&gt;</code> 或 <code>&lt;script&gt;</code> ）加载失败，加载资源的元素会触发一个 <code>Event</code> 接口的 <code>error</code> 事件，并执行该元素上的 <code>onerror()</code> 处理函数。这些 error 事件不会向上冒泡到 <code>window</code>，不过能被单一的 <code>window.addEventListener</code> 捕获。</li>
+<li>当 JavaScript 运行时错误（包括语法错误）发生时，window 会触发一个 <code>ErrorEvent</code> 接口的 <code>error</code> 事件，并执行 <code>window.onerror()</code>。</li>
+</ul>
+<p>第一种应用场合很少，这里主要介绍一下利用第二种的事件来监控和报告发生在网页的错误。</p>
+<h3 id="window-onerror"><a href="#window-onerror" class="headerlink" title="window.onerror"></a>window.onerror</h3><blockquote>
+<p>window.onerror = function(message, source, lineNumber, columnNumber, errorObj) { … }</p>
+</blockquote>
+<p>函数参数：</p>
+<ul>
+<li><strong>message</strong>：字符串，错误信息。</li>
+<li><strong>source</strong>：字符串，发生错误的脚本URL</li>
+<li><strong>lineNumber</strong>：数字， 发生错误的行号</li>
+<li><strong>columnNumber</strong>：数字，发生错误的列号</li>
+<li><strong>errorObj</strong>：对象，Error 对象</li>
+</ul>
+<p>若该函数返回true，则阻止执行默认事件处理函数。</p>
+<p>前四个参数告诉您哪个脚本，行和列出现错误，实际上，最后一个参数 Error 对象也许是最有价值的。</p>
+<h3 id="Error-对象和-error-stack"><a href="#Error-对象和-error-stack" class="headerlink" title="Error 对象和 error.stack"></a>Error 对象和 error.stack</h3><blockquote>
+<p>new Error([message[, fileName[, lineNumber]]])</p>
+</blockquote>
+<p>Error 对象的构造函数包含3个属性：<code>message</code>，<code>fileName</code> 和 <code>lineNumber</code>。实际上这三个属性已经包含在了 <code>window.onerror</code> 提供给你的参数中。</p>
+<p>Error 对象最有价值的属性是一个非标准属性：<code>Error.prototype.stack</code>。此堆栈属性会告诉你发生错误时程序的每个帧的源位置。错误堆栈跟踪是调试的关键部分，尽管这个属性是非标准的，但是每个现代浏览器都提供此属性。</p>
+<p>这是一个堆栈追踪的示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Error</span>: foobar</span><br><span class="line">    at <span class="keyword">new</span> bar (&lt;anonymous&gt;:<span class="number">241</span>:<span class="number">11</span>)</span><br><span class="line">    at foo (&lt;anonymous&gt;:<span class="number">245</span>:<span class="number">5</span>)</span><br><span class="line">    at callFunction (&lt;anonymous&gt;:<span class="number">229</span>:<span class="number">33</span>)</span><br><span class="line">    at <span class="built_in">Object</span>.InjectedScript._evaluateOn (&lt;anonymous&gt;:<span class="number">875</span>:<span class="number">140</span>)</span><br><span class="line">    at <span class="built_in">Object</span>.InjectedScript._evaluateAndWrap (&lt;anonymous&gt;:<span class="number">808</span>:<span class="number">34</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-try…catch-的-Polyfill"><a href="#使用-try…catch-的-Polyfill" class="headerlink" title="使用 try…catch 的 Polyfill"></a>使用 try…catch 的 Polyfill</h3><p>并不是所有浏览器都支持 <code>errorObj</code> 这个参数，如果为了获得 <code>errorObj</code> 对象，可以使用 <code>try...catch</code> 手动捕获。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">invoke</span>(<span class="params">obj, method, args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> obj[method].apply(<span class="built_in">this</span>, args);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    captureError(e); <span class="comment">// report the error</span></span><br><span class="line">    <span class="keyword">throw</span> e; <span class="comment">// re-throw the error</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">invoke(<span class="built_in">Math</span>, <span class="string">&#x27;highest&#x27;</span>, [<span class="number">1</span>, <span class="number">2</span>]); <span class="comment">// throws error, no method Math.highest</span></span><br></pre></td></tr></table></figure>
+
+<p>当然，调用的每个函数都使用 <code>invoke</code> 手动包装无疑十分愚蠢。js 是单线程的，所以我们可以将 <code>try...catch</code> 代码包裹程序的入口，这样就不需要到处手动包装。</p>
+<p>这意味着你需要包装以下函数声明：</p>
+<ul>
+<li>在你的应用程序开始（例如 jquery 的 <code>$(document).ready</code>，document 的 <code>DOMContentLoaded</code> 事件） </li>
+<li>在事件处理程序中，例如 <code>addEventListener</code> 或 <code>$.fn.click</code> </li>
+<li>基于定时器的回调，例如 <code>setTimeout</code> 或 <code>requestAnimationFrame</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">wrapErrors</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// don&#x27;t wrap function more than once</span></span><br><span class="line">  <span class="keyword">if</span> (!fn.__wrapped__) &#123;</span><br><span class="line">    fn.__wrapped__ = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">      &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        captureError(e); <span class="comment">// report the error</span></span><br><span class="line">        <span class="keyword">throw</span> e; <span class="comment">// re-throw the error</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> fn.__wrapped__;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$(wrapErrors(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="comment">// application start</span></span><br><span class="line">  doSynchronousStuff1(); <span class="comment">// doesn&#x27;t need to be wrapped now.</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">setTimeout</span>(wrapErrors(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    doSynchronousStuff2(); <span class="comment">// doesn&#x27;t need to be wrapped now.</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  $(<span class="string">&#x27;.foo&#x27;</span>).click(wrapErrors(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    doSynchronousStuff3(); <span class="comment">// doesn&#x27;t need to be wrapped now.</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+<h3 id="Script-error-安全限制"><a href="#Script-error-安全限制" class="headerlink" title="Script error 安全限制"></a>Script error 安全限制</h3><p>当加载自不同域的脚本中发生错误时，为避免信息泄露，语法错误的细节将不会报告，而代之简单的<code>Script error.</code>。这种情况通常发生在使用了 CDN，或者来自其他机构提供的服务。</p>
+<p>这个问题有两种方法解决：</p>
+<ul>
+<li>让非本域网络资源设置 <code>Access-Control-Allow-Origin</code> 标头,这将允许跨域资源共享（<code>CORS</code>）。</li>
+<li>在 <code>source</code> 标签上使用新的 <code>crossorigin</code> 属性：<code>&lt;script crossorigin=&quot;anonymous&quot; src=&quot;script.js&quot;&gt;&lt;/script&gt;</code></li>
+</ul>
+<p><code>crossorigin</code> 标签有两个可能的值:</p>
+<ul>
+<li><strong>anonymous</strong>：匿名，意味着无需用户凭据来访问该文件。</li>
+<li><strong>use-credentials</strong>：如果从引用的外部 JavaScript 文件使用了 <code>Access-Control-Allow-Credentials</code> 头，则使用凭据。</li>
+</ul>
+<h2 id="其他事件"><a href="#其他事件" class="headerlink" title="其他事件"></a>其他事件</h2><h3 id="cut、-copy、-paste"><a href="#cut、-copy、-paste" class="headerlink" title="cut、 copy、 paste"></a>cut、 copy、 paste</h3><p>这些事件在剪切、复制、粘贴的时候触发，可以被取消。</p>
+<p>比如下面这个例子，我们想要用户认真填写自己的Id，禁止用户粘贴：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;id&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="built_in">document</span>.getElementById(<span class="string">&#x27;id&#x27;</span>).onpaste = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">  e.preventDefault();</span></span><br><span class="line"><span class="javascript">  <span class="comment">// 删除剪切板中的内容</span></span></span><br><span class="line"><span class="javascript">  deleteCurrentDocumentSelection();</span></span><br><span class="line"><span class="javascript">  alert(<span class="string">&quot;Not allow to copy and paste&quot;</span>);</span></span><br><span class="line"><span class="javascript">&#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>还有一个常见的例子是当用户复制的时候追加额外的文本，比如追加文章的版权说明：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">&#x27;copy&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 禁止默认行为</span></span><br><span class="line">  e.preventDefault();</span><br><span class="line">  <span class="comment">// 获取用户选中的内容，此时不包含标签。</span></span><br><span class="line">  <span class="keyword">const</span> selectedText = <span class="built_in">window</span>.getSelection().toString();</span><br><span class="line">  <span class="keyword">const</span> apptendText = <span class="string">&#x27;\n\n 著作权归作者所有，未经允许，禁止转载&#x27;</span></span><br><span class="line">  <span class="comment">// 注意，此处第一个参数是 &quot;text/plain&quot;</span></span><br><span class="line">  event.clipboardData.setData(<span class="string">&quot;text/plain&quot;</span>, selectedText + apptendText);</span><br><span class="line">  <span class="comment">// 删除剪切板中的内容</span></span><br><span class="line">  deleteCurrentDocumentSelection();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>此时选中，复制任何文本，都会在后面追加著作权的信息。</p>
+<p>这里的方案仅仅修改文本，如果想要将标签也复制进去比较麻烦：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 选中选择的文本所在的 html</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSelected</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> selectionRange = <span class="built_in">window</span>.getSelection().getRangeAt(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> selectionContents = selectionRange.cloneContents();</span><br><span class="line">  <span class="keyword">const</span> fragmentContainer = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> fragmentContainer.appendChild(selectionContents);</span><br><span class="line">  <span class="keyword">return</span> fragmentContainer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">&#x27;copy&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 禁止默认行为</span></span><br><span class="line">  e.preventDefault();</span><br><span class="line">  <span class="comment">// 获取用户选中的内容，此时不包含标签。</span></span><br><span class="line">  <span class="keyword">const</span> selectedContainer = getSelectedHtml();</span><br><span class="line">  <span class="keyword">const</span> appendHtml = <span class="string">&#x27;&lt;br/&gt;&lt;br/&gt; 著作权归作者所有，未经允许，禁止转载&#x27;</span>;</span><br><span class="line">  selectedContainer.append(appendHtml);</span><br><span class="line">  <span class="comment">// 注意，此处第一个参数是 &quot;text/html&quot;</span></span><br><span class="line">  event.clipboardData.setData(<span class="string">&quot;text/html&quot;</span>, selectedContainer.innerHtml);</span><br><span class="line">  <span class="comment">// 删除剪切板中的内容</span></span><br><span class="line">  deleteCurrentDocumentSelection();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>剪切板是系统级别的，浏览器可能会出于安全的策略限制了对系统剪切板的访问权限。</p>
+<p>剪切板事件并不常用，本文只做了简单的介绍，想要了解更多细节，<a target="_blank" rel="noopener" href="https://www.w3.org/TR/clipboard-apis/#sync-clipboard-api">查看</a></p>
+<h3 id="resize-和-scroll"><a href="#resize-和-scroll" class="headerlink" title="resize 和 scroll"></a>resize 和 scroll</h3><p>这两个事件很简单，分别是监听文档视图尺寸和页面滚动的事件，本身没有什么要说的，这里主要说的是这两个事件的触发频率比较高，建议使用 <code>requestAnimationFrame</code>，<code>setTimeout</code> 或<code>customEvent</code> 来调节事件的触发频率：</p>
+<p>使用 <code>requestAnimationFrame</code> 和 <code>customEvent</code> 优化高频率触发的事件：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> throttle = <span class="function"><span class="keyword">function</span>(<span class="params">type, name, obj</span>) </span>&#123;</span><br><span class="line">  obj = obj || <span class="built_in">window</span>;</span><br><span class="line">  <span class="keyword">var</span> running = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (running) &#123; <span class="keyword">return</span>; &#125;</span><br><span class="line">    running = <span class="literal">true</span>;</span><br><span class="line">    requestAnimationFrame(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      obj.dispatchEvent(<span class="keyword">new</span> CustomEvent(name));</span><br><span class="line">      running = <span class="literal">false</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">  obj.addEventListener(type, func);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* init - you can init any event */</span></span><br><span class="line">throttle(<span class="string">&quot;resize&quot;</span>, <span class="string">&quot;optimizedResize&quot;</span>);</span><br><span class="line"><span class="comment">/* init - you can init any event */</span></span><br><span class="line">throttle(<span class="string">&quot;scroll&quot;</span>, <span class="string">&quot;optimizedScroll&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// handle event</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;optimizedResize&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// resize to do sth;</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// handle event</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;optimizedScroll&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// scroll to do sth;</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://javascript.info/events-change-input">Events: change, input, cut, copy, paste</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3.org/TR/clipboard-apis/#sync-clipboard-api">Clipboard API</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.sentry.io/2016/01/04/client-javascript-reporting-window-onerror.html">Capture and report JavaScript errors with window.onerror</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.css88.com/archives/5014">如何捕获和分析 JavaScript Error</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6129006/get-the-raw-html-of-selected-content-using-javascript/6129327#6129327">Get the raw HTML of selected content using javascript</a></li>
+</ul>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

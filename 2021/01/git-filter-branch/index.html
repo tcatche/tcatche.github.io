@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Git 修改提交的邮箱或用户名 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="git" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-git-filter-branch" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        Git 修改提交的邮箱或用户名
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2021" data-type="ARCHIVES">
+        2021-01-26
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 1.3k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 8mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="其它" data-type="CATEGORIES">其它</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="git" data-type="TAGS">git</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="修改全局的-commit-的用户名和邮箱"><a href="#修改全局的-commit-的用户名和邮箱" class="headerlink" title="修改全局的 commit 的用户名和邮箱"></a>修改全局的 commit 的用户名和邮箱</h2><p>如果需要以后 commit 默认的用户名和邮箱为指定的内容，可以通过 <code>git config --global</code>命令:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global user.email <span class="string">&quot;global@example.com&quot;</span></span><br><span class="line">$ git config --global user.name <span class="string">&quot;example&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后编辑提交后可以看到修改已生效：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">commit d4a341f8aab5acd0468cbe3d029fc1801f62678d (HEAD -&gt; master)</span><br><span class="line">Author: example &lt;global@example.com&gt;</span><br><span class="line">Date:   Tue Jan 26 14:34:48 2021 +0800</span><br><span class="line"></span><br><span class="line">    <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="对某个仓库设置特定的用户名和邮箱"><a href="#对某个仓库设置特定的用户名和邮箱" class="headerlink" title="对某个仓库设置特定的用户名和邮箱"></a>对某个仓库设置特定的用户名和邮箱</h2><p>如果想针对某个仓库设置特定的用户名和邮箱，比如工作项目使用工作邮箱，个人项目使用个人邮箱，可以去掉 <code>--global</code> 在特定代码仓库运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> my-work-repo</span><br><span class="line">$ git config user.email <span class="string">&quot;work@example.com&quot;</span></span><br><span class="line">$ git config user.name <span class="string">&quot;work&quot;</span></span><br></pre></td></tr></table></figure>
+<p>然后重新提交 commit ,可以看到此时最新的的提交的用户名已经修改了：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">commit 65a152b75e6c3748eb086830b836d6ec18e3baee (HEAD -&gt; master)</span><br><span class="line">Author: work &lt;work@example.com&gt;</span><br><span class="line">Date:   Tue Jan 26 14:38:04 2021 +0800</span><br><span class="line"></span><br><span class="line">    test2</span><br><span class="line"></span><br><span class="line">commit d4a341f8aab5acd0468cbe3d029fc1801f62678d</span><br><span class="line">Author: example &lt;global@example.com&gt;</span><br><span class="line">Date:   Tue Jan 26 14:34:48 2021 +0800</span><br><span class="line"></span><br><span class="line">    <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<p>而全局的用户信息仍为 <code>example 和 global@example.com </code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global user.email</span><br><span class="line">global@example.com <span class="comment"># 输出</span></span><br><span class="line"></span><br><span class="line">$ git config --global user.name</span><br><span class="line">example <span class="comment"># 输出</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="修改最新提交中的用户信息"><a href="#修改最新提交中的用户信息" class="headerlink" title="修改最新提交中的用户信息"></a>修改最新提交中的用户信息</h2><p>上面的内容只针对新提交的记录，如果想要修改以前的提交中的用户信息，则上面的方式并不生效，需要采用其他方式。</p>
+<p>如果需要修改最近一次提交的信息，通常可以使用 <code>git commit --amend --author=&quot;example &lt;global@example.com&gt;&quot;</code>，此时会弹窗 vim 编辑器，可以进一步编辑其它提交信息（注意在 vim 修改用户信息并不生效。）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git commit --amend --author=<span class="string">&quot;example &lt;global@example.com&gt;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#vim 弹出提示修改 git 信息</span></span><br><span class="line">test2</span><br><span class="line"></span><br><span class="line"><span class="comment"># Please enter the commit message for your changes. Lines starting</span></span><br><span class="line"><span class="comment"># with &#x27;#&#x27; will be ignored, and an empty message aborts the commit.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Author:    example &lt;global@example.com&gt;</span></span><br><span class="line"><span class="comment"># Date:      Tue Jan 26 14:38:04 2021 +0800</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment"># Changes to be committed:</span></span><br><span class="line"><span class="comment">#       new file:   test2</span></span><br><span class="line"><span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+
+<p>如果不需要编辑其它提交信息，只需要增加个 <code>--no-edit</code> 参数即可：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git commit --amend --author=<span class="string">&quot;example &lt;global@example.com&gt;&quot;</span> --no-edit</span><br></pre></td></tr></table></figure>
+
+<h2 id="git-rebase-修改多个指定的历史提交"><a href="#git-rebase-修改多个指定的历史提交" class="headerlink" title="git rebase 修改多个指定的历史提交"></a>git rebase 修改多个指定的历史提交</h2><p>如果有多个历史提交，类似的，可以使用 <code>git rebase</code> 命令，和 rebase 操作类似，只是在 <code>git commit --amend </code> 时加上 <code>--author=&quot;example &lt;global@example.com&gt;&quot;</code>，不再详细说明。</p>
+<h2 id="使用-git-filter-branch-修改全部历史提交"><a href="#使用-git-filter-branch-修改全部历史提交" class="headerlink" title="使用 git filter-branch 修改全部历史提交"></a>使用 git filter-branch 修改全部历史提交</h2><p>git filter-branch 可以重写分支信息，如果需要修改全部的提交信息，可以使用。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git filter-branch -f --env-filter <span class="string">&quot;GIT_AUTHOR_NAME=&#x27;Example&#x27;; GIT_AUTHOR_EMAIL=&#x27;example@test.com&#x27;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">Proceeding with filter-branch...</span><br><span class="line">Rewrite d4a341f8aab5acd0468cbe3d029fc1801f62678d (1/2) (0 seconds passed, remaining 0 predicted)</span><br><span class="line">Rewrite 559892effdc205a2315589b0199fff158a2cd1f8 (2/2) (1 seconds passed, remaining 0 predicted)</span><br><span class="line">Ref <span class="string">&#x27;refs/heads/master&#x27;</span> was rewritten</span><br></pre></td></tr></table></figure>
+
+<p>运行 <code>git log</code> 可以看到，变更已经生效。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#运行</span></span><br><span class="line">$ git <span class="built_in">log</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#输出</span></span><br><span class="line">commit bf98e0e451072d9e46955e4e779fec0097a51bff (HEAD -&gt; master)</span><br><span class="line">Author: Example &lt;example@test.com&gt;</span><br><span class="line">Date:   Tue Jan 26 14:38:04 2021 +0800</span><br><span class="line"></span><br><span class="line">    test2</span><br><span class="line"></span><br><span class="line">    Author:    global &lt;global-test@example.com&gt;</span><br><span class="line">    Date:      Tue Jan 26 14:38:04 2021 +0800</span><br><span class="line"></span><br><span class="line">commit 05aa39b6ce9126ea84caa1be00d6f8b0c742ad9f</span><br><span class="line">Author: Example &lt;example@test.com&gt;</span><br><span class="line">Date:   Tue Jan 26 14:34:48 2021 +0800</span><br><span class="line"></span><br><span class="line">    <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-git-filter-branch-修改特定的历史提交"><a href="#使用-git-filter-branch-修改特定的历史提交" class="headerlink" title="使用 git filter-branch 修改特定的历史提交"></a>使用 git filter-branch 修改特定的历史提交</h2><p>可以使用脚本，增加判断，只修改特定的历史提交，如下示例：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># filter-branch.sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">git filter-branch -f --env-filter <span class="string">&#x27;</span></span><br><span class="line"><span class="string">OLD_EMAIL=&quot;example@test.com&quot;</span></span><br><span class="line"><span class="string">CORRECT_NAME=&quot;Example-New&quot;</span></span><br><span class="line"><span class="string">CORRECT_EMAIL=&quot;example-new@test.com&quot;</span></span><br><span class="line"><span class="string">if [ &quot;$GIT_COMMITTER_EMAIL&quot; = &quot;$OLD_EMAIL&quot; ]</span></span><br><span class="line"><span class="string">then</span></span><br><span class="line"><span class="string">    export GIT_COMMITTER_NAME=&quot;$CORRECT_NAME&quot;</span></span><br><span class="line"><span class="string">    export GIT_COMMITTER_EMAIL=&quot;$CORRECT_EMAIL&quot;</span></span><br><span class="line"><span class="string">if [ &quot;$GIT_AUTHOR_EMAIL&quot; = &quot;$OLD_EMAIL&quot; ]</span></span><br><span class="line"><span class="string">then</span></span><br><span class="line"><span class="string">    export GIT_AUTHOR_NAME=&quot;$CORRECT_NAME&quot;</span></span><br><span class="line"><span class="string">    export GIT_AUTHOR_EMAIL=&quot;$CORRECT_EMAIL&quot;</span></span><br><span class="line"><span class="string">fi&#x27;</span> HEAD</span><br></pre></td></tr></table></figure>
+
+<p>新提交一个 <code>commit</code> 作为区分，然后运行脚本:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 运行</span></span><br><span class="line">$ git config user.email <span class="string">&quot;example-not-change@test.com&quot;</span></span><br><span class="line">$ git commit -m <span class="string">&quot;test3&quot;</span> --allow-empty</span><br><span class="line">$ bash filter-branch.sh</span><br><span class="line">$ git <span class="built_in">log</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">commit 292062018b88641f3233efa08dfd23df04e8dc3c (HEAD -&gt; master)</span><br><span class="line">Author: work &lt;example-not-change@test.com&gt;</span><br><span class="line">Date:   Tue Jan 26 15:23:08 2021 +0800</span><br><span class="line"></span><br><span class="line">    <span class="built_in">test</span></span><br><span class="line"></span><br><span class="line">commit 4dc68a1ebfd8c2600f09ed7de307c1a4aa3acf52</span><br><span class="line">Author: Example-New &lt;example-new@test.com&gt;</span><br><span class="line">Date:   Tue Jan 26 14:38:04 2021 +0800</span><br><span class="line"></span><br><span class="line">    test2</span><br><span class="line"></span><br><span class="line">    Author:    global &lt;global-test@example.com&gt;</span><br><span class="line">    Date:      Tue Jan 26 14:38:04 2021 +0800</span><br><span class="line"></span><br><span class="line">commit b3761e99006c662cca4a8285842eeca3232f70d0</span><br><span class="line">Author: Example-New &lt;example-new@test.com&gt;</span><br><span class="line">Date:   Tue Jan 26 14:34:48 2021 +0800</span><br><span class="line"></span><br><span class="line">    <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，第一个 log 并没有修改。</p>
+<p>在使用 <code>git filter-branch</code> 时，可能会注意到控制台有个<strong>警告</strong>输出：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">WARNING: git-filter-branch has a glut of gotchas generating mangled <span class="built_in">history</span></span><br><span class="line">         rewrites.  Hit Ctrl-C before proceeding to abort, <span class="keyword">then</span> use an</span><br><span class="line">         alternative filtering tool such as <span class="string">&#x27;git filter-repo&#x27;</span></span><br><span class="line">         (https://github.com/newren/git-filter-repo/) instead.  See the</span><br><span class="line">         filter-branch manual page <span class="keyword">for</span> more details; to squelch this warning,</span><br><span class="line">         <span class="built_in">set</span> FILTER_BRANCH_SQUELCH_WARNING=1.</span><br></pre></td></tr></table></figure>
+
+<p>翻译过来就是说而且 <code>filter-branch</code> 有很多缺陷，可能会对预期的历史重写造成不明显的破坏。而且它的速度非常慢，推荐使用<a target="_blank" rel="noopener" href="https://github.com/newren/git-filter-repo/">git filter-repo</a>替代。</p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>需要注意的是，如果使用上面的方法更改历史提交的用户信息，历史提交的 commit hash，也会随之改变，如果一个仓库是多人协作的，需要慎重使用。</p>
+<blockquote>
+<p>To change the name and/or email address recorded in existing commits, you must rewrite the entire history of your Git repository.</p>
+</blockquote>
+<blockquote>
+<p>Warning: This action is destructive to your repository’s history. If you’re collaborating on a repository with others, it’s considered bad practice to rewrite published history. You should only do this in an emergency.</p>
+</blockquote>
+<p>提交后如果推动到远端，需要加上 <code>--force</code> 或 <code>-f</code>:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git push --force</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-commit">git commit</a></li>
+<li><a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-filter-branch">git filter-branch</a></li>
+</ul>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

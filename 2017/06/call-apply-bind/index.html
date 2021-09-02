@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>apply.call、call.call、call.apply、call.bind | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-call-apply-bind" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        apply.call、call.call、call.apply、call.bind
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-06-26
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 2.6k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 16mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>这三个函数都用于改变函数中 <code>this</code> 指向，但是稍有不同，可以分为两组：<code>all/apply</code> 和 <code>bind</code>。</p>
+<h2 id="call-apply"><a href="#call-apply" class="headerlink" title="call/apply"></a>call/apply</h2><p><code>call</code> 和 <code>apply</code> 具有相似的行为，只是接收参数的方式不同，<code>call</code> 方法接收若干个参数的列表，而 <code>apply</code> 接收包含多个参数的数组或类数组对象：</p>
+<blockquote>
+<p>fun.call(thisArg[, arg1[, arg2[, …]]])<br>fun.apply(thisArg, [argsArray])</p>
+</blockquote>
+<h3 id="polyfill"><a href="#polyfill" class="headerlink" title="polyfill"></a>polyfill</h3><p>为了更深一步了解这个函数，我们来尝试实现它,</p>
+<p>我们要绑定这个函数到 <code>thisArg</code> 这个很简单，直接把函数作为 <code>thisArg</code> 的属性，调用即可：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span>(<span class="params">thisArg</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> fn = <span class="built_in">this</span>;</span><br><span class="line">  thisArg.fn = fn;</span><br><span class="line">  <span class="keyword">let</span> returnVal = thisArg.fn();</span><br><span class="line">  <span class="keyword">delete</span> context.fn;</span><br><span class="line">  <span class="keyword">return</span> returnVal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不过这个实现并没有考虑传入额外的参数的情况，如果要传入额外的参数，这里我们可以使用展开运算符 <code>...</code>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span>(<span class="params">thisArg, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> fn = <span class="built_in">this</span>;</span><br><span class="line">  thisArg.fn = fn;</span><br><span class="line">  <span class="keyword">let</span> returnVal = thisArg.fn(...args);</span><br><span class="line">  <span class="keyword">delete</span> context.fn;</span><br><span class="line">  <span class="keyword">return</span> returnVal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然，如果不允许用展开运算符的话，可以用 <code>eval</code> 组装语句：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">returnVal = <span class="built_in">eval</span>(<span class="string">`thisArg[tmpKey](<span class="subst">$&#123;args.join(<span class="string">&#x27;,&#x27;</span>)&#125;</span>)`</span>);</span><br></pre></td></tr></table></figure>
+
+<p>如果熟悉 <code>Function</code> 的构造函数（<code>new Function ([arg1[, arg2[, ...argN]],] functionBody)</code>），也可以用其来实现，但是需要注意的是 <code>Function</code> 构造器生成的函数，并不会在创建它们的上下文中创建闭包；它们一般在全局作用域中被创建。当运行这些函数的时候，它们只能访问自己的本地变量和全局变量，这样当我们使用的时候必须把使用的变量（<code>thisArg</code>、<code>argNames</code>）存储到全局变量里，这样显然不是很方便，因此只是提一下这个思路：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// thisArg 和 argNames 必须存储为全局变量，否则无法访问到</span></span><br><span class="line"><span class="built_in">window</span>.thisArg = thisArg;</span><br><span class="line"><span class="built_in">window</span>.argNames = args.map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> <span class="string">&#x27;arg&#x27;</span> + index).join(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line"><span class="keyword">let</span> returnVal = <span class="keyword">new</span> <span class="built_in">Function</span>(argNames, <span class="string">&#x27;thisArg.fn(&#x27;</span> + argNames + <span class="string">&#x27;)&#x27;</span>)(...args);</span><br></pre></td></tr></table></figure>
+
+<p>这样我们就基本实现了这个功能，但是考虑到 <code>thisArg.fn = fn</code> 可能和 <code>thisArg</code> 原有的属性冲突，这里可以引入 <code>Symbol</code>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> tmpKey = <span class="built_in">Symbol</span>(<span class="string">&#x27;myCall&#x27;</span>);</span><br><span class="line">thisArg[tmpKey] = fn;</span><br></pre></td></tr></table></figure>
+
+<p>当然如果 <code>Symbol</code> 不允许使用，也可以轻松实现我们需要的不会冲突的键值：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> getUniqueKey = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> uniqueKey = <span class="string">&#x27;symbol&#x27;</span> + <span class="built_in">Math</span>.random();</span><br><span class="line">  <span class="keyword">if</span> (uniqueKey <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    uniqueKey = getUniqueProperty(obj);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> uniqueKey;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们考虑到可能会执行中出现错误，最终 <code>delete thisArg[tmpKey]</code> 没有被执行，我们可以将其放置到 <code>try...catch...finally</code> 语句中执行：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  returnVal = thisArg[tmpKey](...args);</span><br><span class="line">  <span class="comment">// 或者使用 eval 执行</span></span><br><span class="line">  <span class="comment">//returnVal = eval(`thisArg[tmpKey]($&#123;args.join(&#x27;,&#x27;)&#125;)`);</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="comment">// 把异常抛出外部处理</span></span><br><span class="line">  <span class="keyword">throw</span> e;</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">  <span class="comment">// 确保删除该属性</span></span><br><span class="line">  <span class="keyword">delete</span> thisArg[tmpKey];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样已经基本实现了，最后，我们可以为其做参数的校验，最终，实现的完整代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span>(<span class="params">thisArg, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> fn = <span class="built_in">this</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// this 不是 function 则抛出 TypeError 错误。</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> fn !== <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;TypeError.&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 值为 null 或 undefined 时，thisArg 指向全局对象</span></span><br><span class="line">  <span class="keyword">if</span> (thisArg === <span class="literal">null</span> || thisArg === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    thisArg = <span class="built_in">window</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 值为原始值（数字，字符串，布尔值），thisArg 指向该原始值的自动包装对象</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> thisArg === <span class="string">&#x27;boolean&#x27;</span> || <span class="keyword">typeof</span> thisArg === <span class="string">&#x27;number&#x27;</span> || <span class="keyword">typeof</span> thisArg === <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">    thisArg = <span class="built_in">Object</span>(thisArg);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 为 thisArg 指定一个属性指向该函数，为了避免和原有属性冲突，使用 Symbol。</span></span><br><span class="line">  <span class="keyword">let</span> returnVal, tmpKey = <span class="built_in">Symbol</span>(<span class="string">&#x27;myCall&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  thisArg[tmpKey] = fn;</span><br><span class="line">  <span class="comment">// 为了避免出现错误，将调用放到 try...catch 代码块中执行，并在 finally 中释放该属性。</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    returnVal = thisArg[tmpKey](...args);</span><br><span class="line">    <span class="comment">// 或者使用 eval 执行</span></span><br><span class="line">    <span class="comment">//returnVal = eval(`thisArg[tmpKey]($&#123;args.join(&#x27;,&#x27;)&#125;)`);</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="comment">// 把异常抛出外部处理</span></span><br><span class="line">    <span class="keyword">throw</span> e;</span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="comment">// 确保删除该属性</span></span><br><span class="line">    <span class="keyword">delete</span> thisArg[tmpKey];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> returnVal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用测试：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;obj&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;obj2&#x27;</span>,</span><br><span class="line">  <span class="attr">hello</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;hello, &#x27;</span> + <span class="built_in">this</span>.name)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj2.hello.myCall(obj);</span><br><span class="line"><span class="comment">// hello, obj</span></span><br></pre></td></tr></table></figure>
+
+<p>当然，这个实现只是一个思路，并不能适用于所有的场合，比如，当对象被密封 <code>Object.isSealed</code> 或者冻结 <code>Object.isFrozen</code> 的时候，<code>thisArg[tmpKey] = fn</code> 操作将会失败：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.seal(obj);</span><br><span class="line"><span class="comment">// Uncaught TypeError: thisArg[tmpKey] is not a function</span></span><br></pre></td></tr></table></figure>
+
+<p>不过，密封和冻结对象只针对当前对象，不影响其原型对象，可以将 <code>thisArg[tmpKey] = fn</code> 操作移动到其非密封和冻结原型对象上：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> protoObject = thisArg；</span><br><span class="line"><span class="keyword">while</span> (<span class="built_in">Object</span>.isSealed(protoObject) || <span class="built_in">Object</span>.isFrozen(protoObject)) &#123;</span><br><span class="line">  protoObject = protoObject.__proto__ || &#123;&#125;;</span><br><span class="line">&#125;</span><br><span class="line">protoObject[tmpKey] = fn;</span><br><span class="line"><span class="comment">// ...其他操作</span></span><br><span class="line"><span class="keyword">delete</span> protoObject[tmpKey];</span><br></pre></td></tr></table></figure>
+
+<p>还有，如果目标方法牵扯操作 Symbol 也可能受到影响。</p>
+<h3 id="在类数组上调用数组方法"><a href="#在类数组上调用数组方法" class="headerlink" title="在类数组上调用数组方法"></a>在类数组上调用数组方法</h3><p>常见的类数组比如 <code>arguments</code> 等，只要拥有和数组一样的结构都可以调用数组的方法</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logArgs</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log([].join.call(<span class="built_in">arguments</span>, <span class="string">&#x27;,&#x27;</span>));</span><br><span class="line">&#125;</span><br><span class="line">logArgs(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line"><span class="comment">// 1,2,3,4</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="apply-call、call-apply、apply-apply、call-call"><a href="#apply-call、call-apply、apply-apply、call-call" class="headerlink" title="apply.call、call.apply、apply.apply、call.call"></a>apply.call、call.apply、apply.apply、call.call</h3><p>之前在几个地方看到这种绕圈子的用法，绕了好久，这里以 <code>Function.prototype.apply.call(log, console, args)</code> 为例分析一下：<br>1.<code>Function.prototype.apply</code> 等价于： <code>funcApply.call(log, console, args)</code><br>2.去掉 <code>call</code> 等价于：<code>log.funcApply(console, args)</code><br>3.去掉 <code>apply</code> 等价于 <code>console.log(args)</code></p>
+<p>也就是说，起的作用是，把第一个函数参数（<code>log</code>）的 <code>this</code> 指针 绑定到第二个对象参数上，并把第三个参数作为参数传入执行。</p>
+<p>同理，<code>apply</code> 函数的第二个参数是数组，因此要这样使用：<code>Function.prototype.call.apply(log, [console, args])</code></p>
+<p>当然 <code>Function.prototype.call.call</code> 和 <code>Function.prototype.apply.apply</code> 也是这样，不再详细解释，总结如下：</p>
+<blockquote>
+<p>Function.prototype.apply.call(func, thisArg, callFuncArgs);<br>Function.prototype.call.call(func, thisArg, callFuncArgs);<br>Function.prototype.call.apply(func, [thisArg, callFuncArgs]);<br>Function.prototype.apply.apply(func, [thisArg, callFuncArgs]);</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> log = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">console</span>.log(<span class="string">&#x27;My log output: &#x27;</span> + [].slice.call(<span class="built_in">arguments</span>).join(<span class="string">&#x27;, &#x27;</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Function</span>.prototype.apply.call(log, <span class="built_in">console</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]); <span class="comment">// 第三个参数必须为数组或者省略</span></span><br><span class="line"><span class="built_in">Function</span>.prototype.call.call(log, <span class="built_in">console</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"><span class="built_in">Function</span>.prototype.call.apply(log, [<span class="built_in">console</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]); <span class="comment">// 第二个参数必须为数组或者省略</span></span><br><span class="line"><span class="built_in">Function</span>.prototype.apply.apply(log, [<span class="built_in">console</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]]); <span class="comment">// 第二个参数必须为数组或者省略,若为数组的则其二个参数也必须为数组或者省略</span></span><br></pre></td></tr></table></figure>
+
+<p>这个可以简化代码，不过大大降低了可读性，理解就好，比如，反柯里化的实现代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.unCurry = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> _fn = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Function</span>.prototype.call.apply(_fn, <span class="built_in">arguments</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> push = <span class="built_in">Array</span>.prototype.push.unCurry();</span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line">push(obj, <span class="string">&quot;a&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// Object &#123;0: &quot;a&quot;, length: 1&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>上述示例将 <code>Array</code> 的 <code>push</code> 函数推广到了对象上，在对象上调用 <code>push</code> 函数。</p>
+<h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><p>bind 同样是改变 this 指向的，和call/apply 不同点在于不会立即执行函数，而是提供了一个绑定了新的this值的函数。</p>
+<h3 id="polyfill-1"><a href="#polyfill-1" class="headerlink" title="polyfill"></a>polyfill</h3><p>可以直接使用 <code>apply</code> 方法实现：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="built_in">Function</span>.prototype.bind) &#123;</span><br><span class="line">  <span class="built_in">Function</span>.prototype.bind = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> fn = <span class="built_in">this</span>, presetArgs = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="keyword">var</span> context = presetArgs.shift();</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> fn.apply(context, presetArgs.concat([].slice.call(<span class="built_in">arguments</span>)));</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>但是考虑到可能作为构造函数使用，需要做一个改进：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="built_in">Function</span>.prototype.bind) &#123;</span><br><span class="line">  <span class="built_in">Function</span>.prototype.bind = <span class="function"><span class="keyword">function</span> (<span class="params">oThis</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">this</span> !== <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">      <span class="comment">// closest thing possible to the ECMAScript 5</span></span><br><span class="line">      <span class="comment">// internal IsCallable function</span></span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">&quot;Function.prototype.bind - what is trying to be bound is not callable&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> aArgs = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>),</span><br><span class="line">        fToBind = <span class="built_in">this</span>,</span><br><span class="line">        fNOP = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;,</span><br><span class="line">        fBound = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="comment">// this instanceof fNOP ? this : oThis || this</span></span><br><span class="line">          <span class="comment">// 当作为构造函数时，this 指向当前对象，避免绑定到错误对象，</span></span><br><span class="line">          <span class="keyword">return</span> fToBind.apply(<span class="built_in">this</span> <span class="keyword">instanceof</span> fNOP ? <span class="built_in">this</span> : oThis || <span class="built_in">this</span>,</span><br><span class="line">                               aArgs.concat(<span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>)));</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 避免 new 调用的时候无法得到原函数的原型属性</span></span><br><span class="line">    <span class="comment">// 修改 fBound 的原型指向原有函数的原型的复制，避免修改新函数的原型影响到原有的函数的原型</span></span><br><span class="line">    fNOP.prototype = <span class="built_in">this</span>.prototype;</span><br><span class="line">    fBound.prototype = <span class="keyword">new</span> fNOP();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> fBound;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里解释下其中的几个要点：<br>1.<code>typeof this !== &quot;function&quot;</code> 检查保证要绑定的是个函数，否则抛出异常。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">this</span> !== <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">  <span class="comment">// closest thing possible to the ECMAScript 5</span></span><br><span class="line">  <span class="comment">// internal IsCallable function</span></span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">&quot;Function.prototype.bind - what is trying to be bound is not callable&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.<code>bind</code> 函数要求当函数被作为构造器的时候，忽略提供的 <code>this</code> 值，因此这里做一个检测，当 <code>this instanceof fNOP</code> 此时 <code>this</code> 指向的是 <code>fBound</code> 的原型，这种情况说明函数被作为构造函数调用，因此此时让 <code>this</code> 指向自身。仅当 <code>this is not instanceof fNOP</code> 才起作用.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">fBound = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// this instanceof fNOP ? this : oThis || this</span></span><br><span class="line">  <span class="comment">// 当作为构造函数时，this 指向当前对象，避免绑定到错误对象，</span></span><br><span class="line">  <span class="keyword">return</span> fToBind.apply(<span class="built_in">this</span> <span class="keyword">instanceof</span> fNOP ? <span class="built_in">this</span> : oThis || <span class="built_in">this</span>,</span><br><span class="line">                        aArgs.concat(<span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>)));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>3.之前的函数可能存在原型所以需要为新函数增加原型，但是为了避免修改新函数，设置原型为之前函数原型对象的拷贝：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 避免 new 调用的时候无法得到原函数的原型属性</span></span><br><span class="line"><span class="comment">// 修改 fBound 的原型指向原有函数的原型的复制，避免修改新函数的原型影响到原有的函数的原型</span></span><br><span class="line">fNOP.prototype = <span class="built_in">this</span>.prototype;</span><br><span class="line">fBound.prototype = <span class="keyword">new</span> fNOP();</span><br></pre></td></tr></table></figure>
+
+<p>当然这个实现并不完善，主要问题有：函数存在 prototype 属性、函数的length 不正确。</p>
+<h3 id="配合回调函数"><a href="#配合回调函数" class="headerlink" title="配合回调函数"></a>配合回调函数</h3><p>在一些回调函数中，如 setTimeout 中，this 关键字会指向全局对象，这个时候可以使用 bind 函数提前绑定 this 指向。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;obj&#x27;</span>,</span><br><span class="line">  <span class="attr">sayHello</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;hello, &#x27;</span> + <span class="built_in">this</span>.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> name=<span class="string">&quot;window&quot;</span>;</span><br><span class="line"><span class="built_in">setTimeout</span>(obj.sayHello, <span class="number">100</span>);</span><br><span class="line"><span class="comment">// hello, window</span></span><br><span class="line"><span class="built_in">setTimeout</span>(obj.sayHello.bind(obj), <span class="number">100</span>);</span><br><span class="line"><span class="comment">// hello, obj</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="call-bind、bind-call、apply-bind、bind-apply"><a href="#call-bind、bind-call、apply-bind、bind-apply" class="headerlink" title="call.bind、bind.call、apply.bind、bind.apply"></a>call.bind、bind.call、apply.bind、bind.apply</h3><p>与上面类似，用于把更改函数参数的 <code>this</code> 指针，<code>Function.prototype.call.bind(func)</code> 实际上等价于 <code>func.call</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arrayLikeToArray = <span class="built_in">Function</span>.prototype.call.bind(<span class="built_in">Array</span>.prototype.slice);</span><br><span class="line"><span class="keyword">var</span> arrLike = &#123;<span class="number">0</span>:<span class="string">&quot;a&quot;</span>, <span class="number">1</span>:<span class="string">&quot;b&quot;</span>, <span class="number">2</span>:<span class="string">&quot;c&quot;</span>, <span class="attr">length</span>:<span class="number">3</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = arrayLikeToArray(arrLike);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(arr)) <span class="comment">// &quot;[object Array]&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>同样的 <code>Function.prototype.apply.bind</code> 功能类似，不再说明。</p>
+<p>这里再看一下 <code>Function.prototype.bind.call</code>，先看个例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.bind.call(log, <span class="built_in">console</span>)(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//这等价于</span></span><br><span class="line">log.bind(<span class="built_in">console</span>)(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+
+<p>可以改变一个函数的 <code>this</code> 到特定的对象上，并获得在这个对象执行这个操作的函数，如上述的 <code>push</code> 示例也可以这样改造成一个 <code>obj</code> 的专有 <code>push</code> 方法：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> pushToObj = <span class="built_in">Function</span>.prototype.bind.call(<span class="built_in">Array</span>.prototype.push, obj);</span><br><span class="line">pushToObj(<span class="string">&quot;a&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// Object &#123;0: &quot;a&quot;, length: 1&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">MDN-Function.prototype.bind</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.jianshu.com/p/6a1bc149b598">可能遇到假的面试题：不用call和apply方法模拟实现ES5的bind方法</a></li>
+</ul>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

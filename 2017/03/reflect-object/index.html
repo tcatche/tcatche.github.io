@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>ES6 - Reflect 对象 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="es" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-reflect-object" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        ES6 - Reflect 对象
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-03-16
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 2.6k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 16mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="es" data-type="TAGS">es</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>Reflect 对象是 ES6 提供的一个内置的用于操作对象的的全局对象。但和其他的全局对象不同，Reflect 对象没有构造函数，不能使用 new关键字 创建对象。</p>
+<h2 id="Reflect-静态方法"><a href="#Reflect-静态方法" class="headerlink" title="Reflect 静态方法"></a>Reflect 静态方法</h2><p>Reflect 对象提供以下静态函数，大部分与 Object 对象上同名方法的作用一样，同时将一些命令式的语法函数化。</p>
+<h3 id="Reflect-apply"><a href="#Reflect-apply" class="headerlink" title="Reflect.apply"></a>Reflect.apply</h3><p>静态方法 Reflect.apply() 通过指定的参数列表发起对目标函数的调用，类似于 <code>Function.prototype.apply.call(target, thisArgument, argumentsList)</code></p>
+<blockquote>
+<p>Reflect.apply(target, thisArgument, argumentsList)</p>
+</blockquote>
+<ul>
+<li><strong>target:</strong> 目标函数</li>
+<li><strong>thisArgument:</strong> 绑定的 this 对象</li>
+<li><strong>argumentsList:</strong> target函数调用时传入的实参列表，该参数应该是一个类数组的对象</li>
+<li><strong>throws:</strong> 如果 <code>target</code> 不可被调用抛出 <code>TypeError</code> 异常</li>
+</ul>
+<p>一般来说，若需要绑定函数的 this 对象通常可以 <code>func.apply(obj, args)</code> 但是有时候函数可能自定义了 <code>apply</code> 方法，为了方便，我们可能需要写成 <code>Function.prototype.apply.call(func, obj, args)</code>，而采用 Reflect.apply，可以简化操作，并且更容易理解：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 除非确认 func.apply 未被其他人定义或改写，方可使用</span></span><br><span class="line">func.apply(obj, args)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 保险方式，稍显冗余</span></span><br><span class="line"><span class="built_in">Function</span>.prototype.apply.call(func, obj, args);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 保险方式，更加直观</span></span><br><span class="line"><span class="built_in">Reflect</span>.apply(func, obj, args); </span><br></pre></td></tr></table></figure>
+
+<h3 id="Reflect-construct"><a href="#Reflect-construct" class="headerlink" title="Reflect.construct"></a>Reflect.construct</h3><p>对构造函数进行 new 操作，相当于执行 new target(…args)，提供了一种不使用new，来调用构造函数的方法。</p>
+<blockquote>
+<p>Reflect.construct(target, argumentsList[, newTarget])</p>
+</blockquote>
+<ul>
+<li><strong>target:</strong> 目标对象</li>
+<li><strong>argumentsList:</strong> 参数列表</li>
+<li><strong>[newTarget[Function]]:</strong> 可省略，类似于 <code>new.target</code> 操作符，指向构造方法或函数的引用</li>
+<li><strong>throws:</strong> 如果 <code>target</code> 或者 <code>newTarget</code> 不是构造函数，抛出 <code>TypeError</code> 异常</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.val = val;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// new</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="keyword">new</span> Foo(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Reflect.construct</span></span><br><span class="line"><span class="keyword">var</span> foo1 = <span class="built_in">Reflect</span>.construct(Foo, [<span class="number">1</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>newTarget</code> 参数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">newTarget</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> result = <span class="built_in">Reflect</span>.construct(<span class="built_in">Array</span>, [], newTarget);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Reflect</span>.getPrototypeOf(result); <span class="comment">// newTarget.prototype</span></span><br><span class="line"><span class="built_in">Reflect</span>.getPrototypeOf(result) === newTarget.prototype <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Array</span>.isArray(result); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>顺便提下，在普通的函数调用中（和作为构造函数来调用相对），<code>new.target</code> 的值是 <code>undefined</code>，因此可以用来检测是否将构造函数作为普通函数调用：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="keyword">new</span>.target) </span><br><span class="line">    <span class="keyword">throw</span> <span class="string">&quot;Foo() must be called with new&quot;</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;Foo instantiated with new&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Foo(); <span class="comment">// throws &quot;Foo() must be called with new&quot;</span></span><br><span class="line"><span class="keyword">new</span> Foo(); <span class="comment">// logs &quot;Foo instantiated with new&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Reflect-defineProperty"><a href="#Reflect-defineProperty" class="headerlink" title="Reflect.defineProperty"></a>Reflect.defineProperty</h3><p>精确添加或修改对象上的属性，和 <code>Object.defineProperty</code> 类似。</p>
+<blockquote>
+<p>Reflect.defineProperty(target, propertyKey, attributes)</p>
+</blockquote>
+<p><code>Object.defineProperty</code> 返回结果为第一个参数对象，而 <code>Reflect.defineProperty</code> 返回结果为布尔型，表示操作是否成功，两者检查操作结果方式如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Object.defineProperty</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(obj, name, desc);</span><br><span class="line">  <span class="comment">// success</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="comment">// failure</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Reflect.defineProperty</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">Reflect</span>.defineProperty(obj, name, desc)) &#123;</span><br><span class="line">  <span class="comment">// success</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// failure</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reflect-deleteProperty"><a href="#Reflect-deleteProperty" class="headerlink" title="Reflect.deleteProperty"></a>Reflect.deleteProperty</h3><p>删除对象的某个属性，类似于执行 delete target[name]，区别在于一个是操作符，一个是函数调用。</p>
+<blockquote>
+<p>Reflect.deleteProperty(target, propertyKey)</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用 delete</span></span><br><span class="line"><span class="keyword">delete</span> &#123;<span class="attr">foo</span>: <span class="number">1</span>&#125;.foo; <span class="comment">// true；</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 Reflect.deleteProperty</span></span><br><span class="line"><span class="built_in">Reflect</span>.deleteProperty(&#123;<span class="attr">foo</span>: <span class="number">1</span>&#125;, <span class="string">&quot;foo&quot;</span>); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//freeze object</span></span><br><span class="line"><span class="keyword">delete</span> <span class="built_in">Object</span>.freeze(&#123;<span class="attr">foo</span>: <span class="number">1</span>&#125;).foo; <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Reflect</span>.deleteProperty(<span class="built_in">Object</span>.freeze(&#123;<span class="attr">foo</span>: <span class="number">1</span>&#125;), <span class="string">&quot;foo&quot;</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Reflect-enumerate"><a href="#Reflect-enumerate" class="headerlink" title="Reflect.enumerate"></a>Reflect.enumerate</h3><p><strong>已过时</strong></p>
+<h3 id="Reflect-get"><a href="#Reflect-get" class="headerlink" title="Reflect.get"></a>Reflect.get</h3><p>获取对象上某个属性的值，类似于 target[propertyKey]。</p>
+<blockquote>
+<p>Reflect.get(target, propertyKey[, receiver])</p>
+</blockquote>
+<ul>
+<li><strong>target:</strong> 目标对象</li>
+<li><strong>propertyKey:</strong> 需要获取的值的键值</li>
+<li><strong>[receiver]:</strong> 可省略，如果遇到 <code>getter</code>，则 <code>getter</code> 中 <code>this</code> 指向的上下文为 <code>receiver</code> 。</li>
+<li><strong>return[Any]:</strong> 任意类型</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Reflect</span>.get(&#123;<span class="attr">x</span>: <span class="number">1</span>, <span class="attr">y</span>: <span class="number">2</span>&#125;, x) <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">Reflect</span>.get([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="number">0</span>) <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Reflect</span>.get(<span class="string">&quot;asdf&quot;</span>, <span class="number">0</span>) <span class="comment">// TypeError。参数 target 类型只能是 Object</span></span><br><span class="line"><span class="built_in">Reflect</span>.get(<span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&quot;asdf&quot;</span>), <span class="number">0</span>) <span class="comment">// a</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong>第三个参数表示使用指定的 <code>receiver</code>，表示指定的 <code>getter</code> 中存在的 <code>this</code> 指向的上下文:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">_val</span> : <span class="string">&#x27;foo&#x27;</span>,</span><br><span class="line">  <span class="keyword">get</span> <span class="title">val</span>() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&#x27;value: &#x27;</span> + <span class="built_in">this</span>._val;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bar = &#123;</span><br><span class="line">  <span class="attr">_val</span> : <span class="string">&#x27;bar&#x27;</span>,</span><br><span class="line">  <span class="keyword">get</span> <span class="title">val</span>() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&#x27;value: &#x27;</span> + <span class="built_in">this</span>._val;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Reflect</span>.get(foo, <span class="string">&quot;val&quot;</span>)); <span class="comment">// value: foo</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Reflect</span>.get(foo, <span class="string">&quot;val&quot;</span>, bar)); <span class="comment">// value: bar,foo.val() 中的 this 指向 bar</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Reflect-set"><a href="#Reflect-set" class="headerlink" title="Reflect.set"></a>Reflect.set</h3><p>设置对象身上某个属性的值，类似于 target[name] = val。</p>
+<blockquote>
+<p>Reflect.set(target, propertyKey, value[, receiver])</p>
+</blockquote>
+<ul>
+<li><strong>target:</strong> 目标对象</li>
+<li><strong>propertyKey:</strong> 需要获取的值的键值</li>
+<li><strong>[receiver]:</strong> 可省略，如果遇到 <code>setter</code>，则 <code>setter</code> 中 <code>this</code> 指向的上下文为 <code>receiver</code> 。</li>
+<li><strong>return[Boolean]:</strong> 任意类型</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">val</span>: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.val <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Reflect</span>.set(obj, <span class="string">&#x27;val&#x27;</span>, <span class="number">2</span>);</span><br><span class="line">obj.val <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Reflect</span>.set(obj, <span class="string">&#x27;setval&#x27;</span>, <span class="number">3</span>);</span><br><span class="line">obj.val <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong>第三个参数表示使用指定的 <code>receiver</code>，表示指定的 <code>setter</code> 中存在的 <code>this</code> 指向的上下文:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">val</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="keyword">set</span> <span class="title">setval</span>(<span class="params">value</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.val = value;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bar = &#123;</span><br><span class="line">  <span class="attr">val</span>: <span class="number">2</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo.val <span class="comment">// 1</span></span><br><span class="line">bar.val <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Reflect</span>.set(foo, <span class="string">&#x27;setval&#x27;</span>, <span class="number">3</span>, bar);</span><br><span class="line"></span><br><span class="line">foo.val <span class="comment">// 1</span></span><br><span class="line">bar.val <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<p>如果第一个参数不是对象，<code>Reflect.set</code> 会报错。</p>
+<h3 id="Reflect-getOwnPropertyDescriptor"><a href="#Reflect-getOwnPropertyDescriptor" class="headerlink" title="Reflect.getOwnPropertyDescriptor"></a>Reflect.getOwnPropertyDescriptor</h3><p>如果属性在对象中存在，则返回给定的属性的属性描述符，否则返回 <code>undefined</code>。类似于 <code>Object.getOwnPropertyDescriptor()</code>，唯一不同在于 <code>Object</code> 对非对象参数会进行强制类型转换，<code>Reflect</code> 会抛出 <code>TypeError</code> 异常。</p>
+<blockquote>
+<p>Reflect.getOwnPropertyDescriptor(target, propertyKey)</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Reflect</span>.getOwnPropertyDescriptor(&#123;<span class="attr">x</span>: <span class="string">&quot;hello&quot;</span>&#125;, <span class="string">&quot;x&quot;</span>);</span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(&#123;<span class="attr">x</span>:<span class="string">&quot;1&quot;</span>&#125;, <span class="string">&quot;x&quot;</span>);</span><br><span class="line"><span class="comment">// 都返回 Object &#123;value: &quot;hello&quot;, writable: true, enumerable: true, configurable: true&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>这两个的区别是 <code>Object.getOwnPropertyDescriptor</code> 会包装非对象参数，将其强制转换为对象， <code>Reflect.getOwnPropertyDescriptor</code> 会抛出 <code>TypeError</code> 异常：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Reflect</span>.getOwnPropertyDescriptor(<span class="string">&quot;x&quot;</span>, <span class="number">0</span>); </span><br><span class="line"><span class="comment">//抛出异常: Uncaught TypeError: Reflect.getOwnPropertyDescriptor called on non-object</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(<span class="string">&quot;x&quot;</span>, <span class="number">0</span>); </span><br><span class="line"><span class="comment">//返回 Object &#123;value: &quot;x&quot;, writable: false, enumerable: true, configurable: false&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Reflect-getPrototypeOf"><a href="#Reflect-getPrototypeOf" class="headerlink" title="Reflect.getPrototypeOf"></a>Reflect.getPrototypeOf</h3><p>返回指定对象的原型。类似于 <code>Object.getPrototypeOf</code>，唯一不同在于 <code>Object</code> 对非对象参数会进行强制类型转换，<code>Reflect</code> 会抛出 <code>TypeError</code> 异常。</p>
+<blockquote>
+<p>Reflect.getPrototypeOf(target)</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> proto = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(proto);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(obj) === proto; <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Reflect</span>.getPrototypeOf(obj) === proto; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>如果参数为非对象，将抛出 TypeError 异常，而 Object.isExtensible 会将其强制转换为一个对象：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.isExtensible(<span class="number">1</span>); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Reflect</span>.isExtensible(<span class="number">1</span>); </span><br><span class="line"><span class="comment">// Uncaught TypeError: Reflect.isExtensible called on non-object</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Reflect-setPrototypeOf"><a href="#Reflect-setPrototypeOf" class="headerlink" title="Reflect.setPrototypeOf"></a>Reflect.setPrototypeOf</h3><p>给对象设置原型， 即更改对象的 <code>__proto__</code> 属性。类似于 Object.setPrototypeOf()。</p>
+<blockquote>
+<p>Reflect.setPrototypeOf(target, prototype)</p>
+</blockquote>
+<p><strong>注意：</strong>如果第一个非对象参数 <code>Object</code> 会对直接返回该参数，<code>Reflect</code> 会抛出 <code>TypeError</code> 异常：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.setPrototypeOf(<span class="number">1</span>, &#123;&#125;); <span class="comment">//1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Reflect</span>.setPrototypeOf(<span class="number">1</span>, &#123;&#125;);</span><br><span class="line"><span class="comment">// Uncaught TypeError: Reflect.setPrototypeOf called on non-object</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong>prototype 只能为 <code>Object</code> 或者 <code>null</code>，否则也会抛出 <code>TypeError</code> 异常：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.setPrototypeOf(&#123;&#125;, <span class="number">1</span>);</span><br><span class="line"><span class="comment">// Uncaught TypeError: Object prototype may only be an Object or null</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Reflect</span>.setPrototypeOf(&#123;&#125;, <span class="number">1</span>);</span><br><span class="line"><span class="comment">// Uncaught TypeError: Object prototype may only be an Object or null</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Reflect-has"><a href="#Reflect-has" class="headerlink" title="Reflect.has"></a>Reflect.has</h3><p>判断一个对象是否存在某个属性，和 <code>in 操作符</code> 的功能相同</p>
+<blockquote>
+<p>Reflect.has(target, propertyKey)</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">foo</span>: <span class="string">&#x27;foo&#x27;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 in 操作符</span></span><br><span class="line"><span class="string">&#x27;foo&#x27;</span> <span class="keyword">in</span> obj <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 Reflect.has</span></span><br><span class="line"><span class="built_in">Reflect</span>.has(obj, <span class="string">&#x27;foo&#x27;</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Reflect-isExtensible"><a href="#Reflect-isExtensible" class="headerlink" title="Reflect.isExtensible"></a>Reflect.isExtensible</h3><p>判断一个对象是否可以扩展。类似于 <code>Object.isExtensible</code>，唯一不同在于 <code>Object</code> 对非对象参数会进行强制类型转换，<code>Reflect</code> 会抛出 <code>TypeError</code> 异常。</p>
+<blockquote>
+<p>Reflect.isExtensible(target)</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.isExtensible(obj); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Reflect</span>.isExtensible(obj); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 阻止对象扩展</span></span><br><span class="line"><span class="built_in">Reflect</span>.preventExtensions(obj); </span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.isExtensible(obj); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Reflect</span>.isExtensible(obj); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 被冻结的对象不可扩展</span></span><br><span class="line">obj = <span class="built_in">Object</span>.freeze(&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.isExtensible(obj); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Reflect</span>.isExtensible(obj); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 被密封的对象不可扩展</span></span><br><span class="line">obj = <span class="built_in">Object</span>.seal(&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.isExtensible(obj); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Reflect</span>.isExtensible(obj); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Reflect-ownKeys"><a href="#Reflect-ownKeys" class="headerlink" title="Reflect.ownKeys"></a>Reflect.ownKeys</h3><p>返回一个包含所有自身属性（不包含继承属性）的数组。Object 对象不存在这个方法，而是提供两个独立的方法：<code>getOwnPropertyNames</code> 和 <code>getOwnPropertySymbols</code> 。<code>Reflect.ownKeys</code> 返回值等同于 <code>Object.getOwnPropertyNames(target).concat(Object.getOwnPropertySymbols(target))</code>。</p>
+<blockquote>
+<p>Reflect.ownKeys(target)</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="number">1</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="number">2</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="attr">a</span>: <span class="string">&#x27;a&#x27;</span>,</span><br><span class="line">  <span class="attr">b</span>: <span class="string">&#x27;b&#x27;</span>,</span><br><span class="line">  [<span class="built_in">Symbol</span>(<span class="string">&#x27;c&#x27;</span>)]: <span class="string">&#x27;c&#x27;</span>,</span><br><span class="line">  [<span class="built_in">Symbol</span>(<span class="string">&#x27;d&#x27;</span>)]: <span class="string">&#x27;d&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyNames(obj).concat(<span class="built_in">Object</span>.getOwnPropertySymbols(obj));</span><br><span class="line"><span class="comment">// [&quot;1&quot;, &quot;2&quot;, &quot;a&quot;, &quot;b&quot;, Symbol(c), Symbol(d)]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Reflect</span>.ownKeys(obj);</span><br><span class="line"><span class="comment">// [&quot;1&quot;, &quot;2&quot;, &quot;a&quot;, &quot;b&quot;, Symbol(c), Symbol(d)]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Reflect-preventExtensions"><a href="#Reflect-preventExtensions" class="headerlink" title="Reflect.preventExtensions"></a>Reflect.preventExtensions</h3><p>用于让一个对象变为不可扩展，返回布尔值，表示是否操作成功，类似于 Object.preventExtensions， <code>Object</code> 对非对象参数会进行强制类型转换，<code>Reflect</code> 会抛出 <code>TypeError</code> 异常。</p>
+<blockquote>
+<p>Reflect.preventExtensions(target)</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Reflect</span>.isExtensible(obj); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Reflect</span>.preventExtensions(obj); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Reflect</span>.isExtensible(obj); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>这两个函数都只能阻止一个对象不能再添加新的自身属性，仍然可以为该对象的原型添加属性:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> proto = &#123;&#125;</span><br><span class="line">obj.a = <span class="string">&quot;a&quot;</span>;</span><br><span class="line">obj.__proto__ = proto;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Reflect</span>.preventExtensions(obj); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">obj.b = <span class="string">&quot;b&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj.b); <span class="comment">// undefined</span></span><br><span class="line">proto.b = <span class="string">&quot;b&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.b); <span class="comment">// b</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong>使用 <code>Object.defineProperty</code> 或 <code>Reflect.defineProperty</code> 方法为一个不可扩展的对象添加新属性会抛出异常：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">removable</span>: <span class="literal">true</span> &#125;;</span><br><span class="line"><span class="built_in">Reflect</span>.preventExtensions(obj);</span><br><span class="line"><span class="built_in">Reflect</span>.defineProperty(obj, <span class="string">&quot;new&quot;</span>, &#123; <span class="attr">value</span>: <span class="number">1</span> &#125;); <span class="comment">// 抛出TypeError异常</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">&quot;new&quot;</span>, &#123; <span class="attr">value</span>: <span class="number">1</span> &#125;); <span class="comment">// 抛出TypeError异常</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong>在严格模式下，为不可扩展对象添加新属性会抛出TypeError异常：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">removable</span>: <span class="literal">true</span> &#125;;</span><br><span class="line"><span class="built_in">Reflect</span>.preventExtensions(obj);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fail</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">  &quot;use strict&quot;</span>;</span><br><span class="line">  obj.newProperty = <span class="string">&quot;FAIL&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">fail(); <span class="comment">// throws a TypeError</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Reflect 上的几乎所有操作都是原本存在的操作， Reflect 对其做了统一的整合，具有以下优点：</p>
+<h3 id="将对象上的操作函数化"><a href="#将对象上的操作函数化" class="headerlink" title="将对象上的操作函数化"></a>将对象上的操作函数化</h3><p>过去的某些对象上的操作是命令式的，如 <code>name in obj</code>、 <code>delete obj[name]</code>, Reflect 将这些操作统一为函数调用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">name <span class="keyword">in</span> obj</span><br><span class="line"><span class="comment">// 使用 Reflect</span></span><br><span class="line"><span class="built_in">Reflect</span>.has(obj, <span class="string">&#x27;name&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> obj[name]</span><br><span class="line"><span class="comment">// 使用 Reflect</span></span><br><span class="line"><span class="built_in">Reflect</span>.deleteProperty(obj, <span class="string">&#x27;name&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="更有用的返回值"><a href="#更有用的返回值" class="headerlink" title="更有用的返回值"></a>更有用的返回值</h3><p>Reflect 上有好些方法和 Object 上的一样，但是修改了返回的结果，比如 <code>Object.defineProperty</code> 在无法定义属性时，会抛出错误， Reflect 则返回 false</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Object.defineProperty</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(obj, name, desc);</span><br><span class="line">  <span class="comment">// success</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="comment">// failure</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Reflect.defineProperty</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">Reflect</span>.defineProperty(obj, name, desc)) &#123;</span><br><span class="line">  <span class="comment">// success</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// failure</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其他相似的方法如 <code>Reflect.deleteProperty</code>、 <code>Reflect.preventExtensions</code>、 <code>Relect.set</code> 、 <code>Reflect.setPrototypeOf</code> 也是如此。</p>
+<h3 id="控制访问器中-this-的绑定"><a href="#控制访问器中-this-的绑定" class="headerlink" title="控制访问器中 this 的绑定"></a>控制访问器中 this 的绑定</h3><p><code>Reflect.get</code> 和 <code>Reflect.set</code> 通过提供额外的第三个参数 <code>receiver</code> 可以方便的控制访问器 <code>getter</code> 和 <code>setter</code> 中的 <code>this</code> 的指向，比如在访问器中不想使用自己的属性或方法，而是使用包装器的属性或方法：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    <span class="keyword">set</span> <span class="title">foo</span>(<span class="params">value</span>) &#123; <span class="keyword">return</span> <span class="built_in">this</span>.bar(); &#125;,</span><br><span class="line">    <span class="attr">bar</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;obj&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> wrapper = &#123;</span><br><span class="line">    <span class="attr">bar</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;wrapper&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Reflect</span>.set(obj, <span class="string">&quot;foo&quot;</span>, <span class="string">&quot;value&quot;</span>, wrapper);</span><br></pre></td></tr></table></figure>
+
+<h3 id="提供和-Proxy-一一对应的方法"><a href="#提供和-Proxy-一一对应的方法" class="headerlink" title="提供和 Proxy 一一对应的方法"></a>提供和 Proxy 一一对应的方法</h3><p>Proxy 对象支持的所有方法都可以在 Reflect 上找到，Proxy 对象可以方便地调用对应的 Reflect 方法，执行基础的操作。同时，不论 Proxy 做了怎样的修改，都可以通过 Reflect 获取原始行为。</p>
+<h2 id="浏览器兼容性"><a href="#浏览器兼容性" class="headerlink" title="浏览器兼容性"></a>浏览器兼容性</h2><table>
+<thead>
+<tr>
+<th>Chrome</th>
+<th>Edge</th>
+<th>Firefox</th>
+<th>IE</th>
+<th>Opera</th>
+<th>Safari</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>49.0</td>
+<td>Yes</td>
+<td>42.0</td>
+<td>未实现</td>
+<td>未实现</td>
+<td>10</td>
+</tr>
+</tbody></table>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect">MDN</a></li>
+<li><a target="_blank" rel="noopener" href="http://es6.ruanyifeng.com/#docs/reflect">ECMAScript 6 入门-阮一峰</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.keithcirkel.co.uk/metaprogramming-in-es6-part-2-reflect/">Metaprogramming in ES6: Part 2 - Reflect</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tvcutsem/harmony-reflect/wiki#reflect">Here are a number of reasons why the Reflect object is useful</a></li>
+</ul>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

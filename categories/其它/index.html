@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>分类: 其它 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_s3wbqhahfs.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-new"></span>
+          <span class="title">目录</span>
+        </div>
+        <div class="sider-item" data-target="POSTS">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">文章标签</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper hide">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/css/">css</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/html/">html</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/js/">js</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a></li></ul>
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          
+
+  
+  
+    
+    
+    <section class="archives-wrap">
+      <div class="archives">
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-06-22T08:06:00.000Z" itemprop="datePublished">2021-06-22</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/06/git_switch/">Git switch - 切换分支</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发中，通常会使用 git checkout 进行分支切换和变更撤销，checkout 是一个比较复杂的命令，承载了很多功能有点臃肿，因此引入了两个新的命令 git switch 和 git restore 用来拆分 git checkout 命令，本文介绍如何使用 git switch 进行分支切换。
+使用这个命令比较简单，下面简单列一下各种使用方式，就不详细介绍了
+切换分支git switch &lt;branch&gt;
+创建并切换分支git switch -c &lt;branch&gt;
+从指定的位置创建分支git switch -c &lt;branch&gt; &lt;star…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/06/git_switch/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-06-22
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 292
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 1mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="其它" data-type="CATEGORIES">其它</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="git" data-type="TAGS">git</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-06-02T06:54:00.000Z" itemprop="datePublished">2021-06-02</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/06/git_restore/">Git restore - 撤销操作</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发中，通常会使用 git checkout 进行分支切换和变更撤销，checkout 是一个比较复杂的命令，承载了很多功能有点臃肿，因此引入了两个新的命令 git switch 和 git restore 用来拆分 git checkout 命令，本文介绍如何使用 git restore 进行变更撤销。
+介绍git restore 命令会将指定文件的变更给撤销，先来看下面的示例：
+在 git 仓库里有三个文件变更 restore.md、restore2.md、restore3.md，restore.md 的变更已经通过 git add 加入暂存区，restore2.md 变更未加入暂存区，…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/06/git_restore/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-06-02
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 759
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 4mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="其它" data-type="CATEGORIES">其它</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="git" data-type="TAGS">git</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-05-27T02:05:00.000Z" itemprop="datePublished">2021-05-27</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/05/git_reflog/">Git reflog - 介绍</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发中，有时候需要紧急退回某个线上版本修复问题，特别是 reset 操作回滚之前的版本，如果操作不注意会发现新的一些工作的提交历史丢失了，这个时候 git reflog 会很有帮助。
+git reflog 和 git log 功能很相近，都是记录日志的，和 git log 不同在于 git reflog 记录了 HEAD 指针的变更历史。
+介绍首先使用准备好的分支来看一下：
+$ git log --oneline  aea03a0 (HEAD -&gt; reflog) version5  1abb498 version4  97697e6 version3  d421d76 version…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/05/git_reflog/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-05-27
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 725
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 4mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="其它" data-type="CATEGORIES">其它</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="git" data-type="TAGS">git</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-05-26T06:09:00.000Z" itemprop="datePublished">2021-05-26</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/05/git_revert/">Git revert - 回滚操作</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发过程中，有些时候会出现一些错误的提交，这个时候可以用 git revert 命令把这些错误的提交给回滚了。
+介绍git revert 命令用来将指定的 commit 回滚。
+回滚原理是通过新建一个指定的提交的反操作的提交。
+下面以上面的例子介绍 revert 的使用，假设当前的分支状态如下图所示：
+featureA - featureB - featureC - featureD
+
+想要在主分支应用 featureC 特性，可以进行如下的操作：
+$ git revert featureC
+
+现在的分支状态变成了下面的结构：
+featureA - featureB - featureC -…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/05/git_revert/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-05-26
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 708
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 4mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="其它" data-type="CATEGORIES">其它</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="git" data-type="TAGS">git</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-05-11T07:42:00.000Z" itemprop="datePublished">2021-05-11</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/05/git_cherry_pick/">Git cherry-pick 操作</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在开发过程中，切换分支和合并代码是常用的操作，想想一种场景，在一个分支上进行了新版本开发，开发了若干新特性 featureD、featureE 等等，但是需要变更，这个开发被搁置了，但是又想引入新的 featureD 特性，这个时候 cherry-pick 就是一个很有用的操作了。
+介绍git cherry-pick 命令用来将指定的 commit 应用到其它的分支。
+下面以上面的例子介绍 cherry-pick 的使用，假设当前的分支状态如下图所示：
+a - b   #Main      \        D - E #Feature
+
+想要在主分支应用 featureD 特性，可以进行如下…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/05/git_cherry_pick/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-05-11
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 633
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 3mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="其它" data-type="CATEGORIES">其它</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="git" data-type="TAGS">git</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-05-11T07:04:00.000Z" itemprop="datePublished">2021-05-11</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/05/git_stash/">Git stash - 暂存操作</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            当正在进行某项开发任务过程中，突然有另一件紧急的事情需要处理，比如有线上问题，这个时候，当前代码并没有开发完成不想提交， git stash 命令就是一个解决此问题的方法。
+stash 命令可以把当前未提交的内容给暂存起来，还原到上次提交的状态，然后可以在任意合适的时刻，以及任意分支，把这些变动给还原回来。
+本文看一下 git stash 相关的命令。注意，本文中示例 $ 开头的表示执行的命令，其他内容为命令的输出。
+git stashgit stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]2     [-u|--incl…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/05/git_stash/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-05-11
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.8k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 12mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="其它" data-type="CATEGORIES">其它</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="git" data-type="TAGS">git</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-05-08T05:31:00.000Z" itemprop="datePublished">2021-05-08</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/05/git_tag/">Git tag - 打标签操作</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Git 可以给仓库里的分支打上标签做标记，比如在代码发布后经常会打上V1.0，V2.0 这样的标签，本文看一下这些打标签相关的操作。
+本文中示例 $ 开头的表示执行的命令，其他内容为命令的输出。
+创建标签通过 git tag 即可很容易的创建标签：
+为当前提交创建标签
+git tag 
+
+示例：
+$ git tag v1.0
+
+使用 git log  也能看到打的标签。
+$ git logcommit c5c2f2749577b998c4aff65663b40190dc4072a3 (HEAD -&gt; master, tag: v1.0)Author: tcatche &lt;tcatch…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/05/git_tag/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-05-08
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 906
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 6mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="其它" data-type="CATEGORIES">其它</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="git" data-type="TAGS">git</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-01-26T06:28:00.000Z" itemprop="datePublished">2021-01-26</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/01/git-filter-branch/">Git 修改提交的邮箱或用户名</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            修改全局的 commit 的用户名和邮箱如果需要以后 commit 默认的用户名和邮箱为指定的内容，可以通过 git config --global命令:
+$ git config --global user.email &quot;global@example.com&quot;$ git config --global user.name &quot;example&quot;
+
+然后编辑提交后可以看到修改已生效：
+$ git log# 输出commit d4a341f8aab5acd0468cbe3d029fc1801f62678d (HEAD -&gt; master)Author: …
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/01/git-filter-branch/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-01-26
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.3k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 8mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="其它" data-type="CATEGORIES">其它</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="git" data-type="TAGS">git</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2021-01-26T06:28:00.000Z" itemprop="datePublished">2021-01-26</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2021/01/git_modify_history_commit_author/">Git 修改提交的邮箱或用户名</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            修改全局的 commit 的用户名和邮箱如果需要以后 commit 默认的用户名和邮箱为指定的内容，可以通过 git config --global命令:
+git config --global user.email &quot;global@example.com&quot;git config --global user.name &quot;example&quot;
+
+然后编辑提交后可以看到修改已生效：
+git log# 输出commit d4a341f8aab5acd0468cbe3d029fc1801f62678d (HEAD -&gt; master)Author: exampl…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2021/01/git_modify_history_commit_author/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2021-01-26
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.3k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 8mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="其它" data-type="CATEGORIES">其它</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="git" data-type="TAGS">git</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+    
+      </div></section>
+    
+    
+    <section class="archives-wrap">
+      <div class="archives">
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2020-08-03T06:20:00.000Z" itemprop="datePublished">2020-08-03</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2020/08/win10-global-hot-key-use/">Windows 下查看全局快捷键占用情况</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            之前使用的截图工具快捷键无效了，后来发现快捷键被其它程序全局注册了，然后尝试找出被哪个注册了，尝试在搜索引擎中找了一圈，发现搜索出来的好多工具不能用了，比如 Windows Hotkey Explorer 现在会把所有的快捷键都打开一遍，效果极其酸爽。还有推荐 PCHunter 这个作者已经停止维护了，有网友反馈 win10 1709、1903 版本都不支持。
+经过一番踩坑，发现一个工具还比较好用：OpenArk。其文档是这么介绍自己的：
+
+OpenArk是一款Windows平台上的开源Ark工具. Ark是Anti-Rootkit（对抗恶意程序）的简写, OpenArk目标成为逆向工程师、编…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2020/08/win10-global-hot-key-use/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2020-08-03
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 258
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 1mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="其它" data-type="CATEGORIES">其它</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="快捷键" data-type="TAGS">快捷键</span>
+    
+        <span class="post-tag show-super-board" data-target="工具" data-type="TAGS">工具</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+  </div></section>
+
+
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/categories/%E5%85%B6%E5%AE%83/page/2/">2</a><a class="extend next" rel="next" href="/categories/%E5%85%B6%E5%AE%83/page/2/">&gt;</a>
+  </nav>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa fa-search ins-search-icon" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="fa fa-arrow-up goto-top" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

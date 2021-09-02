@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>碰撞课程：ArrayBuffers 和 SharedArrayBuffers - A cartoon intro to ArrayBuffers and SharedArrayBuffers | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="内存管理,WebAssembly" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-a-cartoon-intro-to-arraybuffers-and-sharedarraybuffers" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        碰撞课程：ArrayBuffers 和 SharedArrayBuffers - A cartoon intro to ArrayBuffers and SharedArrayBuffers
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-06-28
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 3k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 19mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="内存管理" data-type="TAGS">内存管理</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="WebAssembly" data-type="TAGS">WebAssembly</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>原文：<a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2017/06/a-cartoon-intro-to-arraybuffers-and-sharedarraybuffers/">A cartoon intro to ArrayBuffers and SharedArrayBuffers</a></p>
+<p>这是系列内三篇文章的第二篇：</p>
+<ol>
+<li><a href="/2017/06/a-crash-course-in-memory-management/">内存管理</a></li>
+<li><strong>ArrayBuffers 和 SharedArrayBuffers 的卡通介绍</strong></li>
+<li><a href="/2017/07/avoiding-race-conditions-in-sharedarraybuffers-with-atomics/">使用 Atom 避免 ArrayBuffers 中的竞态条件</a> </li>
+</ol>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>In the <a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2017/06/a-crash-course-in-memory-management/">last article</a>, I explained how memory-managed languages like JavaScript work with memory. I also explained how manual memory management works in languages like C.</p>
+<p>在<a href="/2017/06/a-crash-course-in-memory-management/">上一篇文章</a>中，我解释了像 <code>JavaScript</code> 这样的内存管理语言是如何工作的。我还解释了手动内存管理（比如 <code>C</code> 语言）如何工作。</p>
+<p>Why is this important when we’re talking about ArrayBuffers and SharedArrayBuffers?</p>
+<p>It’s because ArrayBuffers give you a way to handle some of your data manually, even though you’re working in JavaScript, which has automatic memory management.</p>
+<p>为什么这很重要，当我们谈论 <code>ArrayBuffers</code> 和 <code>SharedArrayBuffers</code> 时？</p>
+<p>因为 <code>ArrayBuffers</code> 为你提供了手动处理某些数据的方法，即使你使用的是自动内存管理的 <code>JavaScript</code>。</p>
+<p>Why is this something that you would want to do?</p>
+<p>As we talked about in the last article, there’s a trade-off with automatic memory management. It is easier for the developer, but it adds some overhead. In some cases, this overhead can lead to performance problems.</p>
+<p>为什么要这样做？</p>
+<p>正如我们在上一篇文章中谈到的那样，自动内存管理有这样的选择：对于开发人员更容易使用，但增加了一些开销，而在某些情况下，这种开销可能会导致性能问题。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/02_01-500x285.png"></p>
+<p>For example, when you create a variable in JS, the engine has to guess what kind of variable this is and how it should be represented in memory. Because it’s guessing, the JS engine will usually reserve more space than it really needs for a variable. Depending on the variable, the memory slot may be 2–8 times larger than it needs to be, which can lead to lots of wasted memory.</p>
+<p>Additionally, certain patterns of creating and using JS objects can make it harder to collect garbage. If you’re doing manual memory management, you can choose an allocation and de-allocation strategy that’s right for the use case that you’re working on.</p>
+<p>比如，当你在 <code>JS</code> 中创建变量时，<code>JS</code> 引擎必须猜测这是什么类型的变量，以及如何在内存中表示。这种猜测导致 <code>JS</code> 引擎通常会比为变量准备更多的空间。根据变量，内存占据的可能比需要大 <code>2-8</code> 倍，这会导致浪费大量的内存。</p>
+<p>此外，创建和使用 <code>JS</code> 对象的某些模式，可能会使收集垃圾更难进行。如果你使用手动内存管理，则可以选择适用于你的情况的内存分配和释放策略。</p>
+<p>Most of the time, this isn’t worth the trouble. Most use cases aren’t so performance sensitive that you need to worry about manual memory management. And for common use cases, manual memory management may even be slower.</p>
+<p>But for those times when you need to work at a low-level to make your code as fast as possible, ArrayBuffers and SharedArrayBuffers give you an option.</p>
+<p>大多数时候，这不是个麻烦。大多数情况下对性能的要求并不敏感到需要手动内存管理。甚至对于一些常见情况下，手动内存管理可能会更慢。</p>
+<p>但是对于那些需要在底层工作以使代码尽可能快的时候，<code>ArrayBuffers</code> 和 <code>SharedArrayBuffers</code> 为你提供了另一个选择。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/02_02-500x285.png"></p>
+<h2 id="ArrayBuffer-如何工作呢？"><a href="#ArrayBuffer-如何工作呢？" class="headerlink" title="ArrayBuffer 如何工作呢？"></a>ArrayBuffer 如何工作呢？</h2><p>It’s basically like working with any other JavaScript array. Except, when using an ArrayBuffer, you can’t put any JavaScript types into it, like objects or strings. The only thing that you can put into it are bytes (which you can represent using numbers).</p>
+<p><code>ArrayBuffer</code> 基本上就像使用任何其他 <code>JavaScript</code> 数组。除了使用 <code>ArrayBuffer</code> 时，你不能将任何 <code>JavaScript</code> 类型放入其中，例如对象或字符串。唯一可以放入的是二进制字节（可以使用数字表示）。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/02_03-500x377.png"></p>
+<p>One thing I should make clear here is that you aren’t actually adding this byte directly to the ArrayBuffer. By itself, this ArrayBuffer doesn’t know how big the byte should be, or how different kinds of numbers should be converted to bytes.</p>
+<p>The ArrayBuffer itself is just a bunch of zeros and ones all in a line. The ArrayBuffer doesn’t know where the division should be between the first element and the second element in this array.</p>
+<p>有一点我需要明确指出，你并不能将这个字节直接添加到 <code>ArrayBuffer</code> 中。<code>ArrayBuffer</code> 本身不知道字节应该有多大，或者不同类型的数字如何转换成字节。</p>
+<p><code>ArrayBuffer</code> 本身就是一堆 <code>0</code> 和 <code>1</code> 全部放在一行。它并不知道这个数组中的第一个元素和第二个元素如何区分。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/02_05-500x177.png"></p>
+<p>To provide context, to actually break this up into boxes, we need to wrap it in what’s called a view. These views on the data can be added with typed arrays, and there are lots of different kinds of typed arrays they can work with.</p>
+<p>For example, you could have an Int8 typed array which would break this up into 8-bit bytes.</p>
+<p>为了提供上下文，实际上将其分成多个盒子（注：就是把这一整行的 01 分割成多个分组），我们需要将它包装在视图中。这些数据视图可以添加为类型化的数组，并且有很多不同类型的类型数组可以使用。</p>
+<p>例如，你可以使用 <code>Int8</code> 类型的数组，将其分解为 <code>8</code> 位一组。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/02_05-500x177.png"></p>
+<p>Or you could have an unsigned Int16 array, which would break it up into 16-bit bites, and also handle this as if it were an unsigned integer.</p>
+<p>或者你可以使用无符号的 <code>Int16</code> 数组，它可以将其分解成 <code>16</code> 位一组，这样即使是无符号整数也可以处理。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/02_06-500x153.png"></p>
+<p>You can even have multiple views on the same base buffer. Different views will give you different results for the same operations.</p>
+<p>甚至可以在同一个基本 <code>buffer</code> 上拥有多个视图。在不同的仕途上执行相同的操作结果也不同。</p>
+<p>For example, if we get elements 0 &amp; 1 from the Int8 view on this ArrayBuffer, it will give us different values than element 0 in the Uint16 view, even though they contain exactly the same bits.</p>
+<p>例如，如果我们从这个 <code>ArrayBuffer</code> 的 <code>Int8</code> 视图可以获取元素 <code>0</code> 和 <code>1</code>，那么，在 <code>Uint16</code> 视图下，元素 <code>0 </code>将会返回不同的值，即使它们拥有完全相同的 bits。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/02_07-500x262.png"></p>
+<p>In this way, the ArrayBuffer basically acts like raw memory. It emulates the kind of direct memory access that you would have in a language like C.</p>
+<p>You may be wondering why don’t we just give programmers direct access to memory instead of adding this layer of abstraction. Giving direct access to memory would open up some security holes. I will explain more about this in a future article.</p>
+<p>这样，<code>ArrayBuffer</code> 基本上类似于原始内存，它可以模拟像 <code>C</code> 语言的直接的内存访问。</p>
+<p>你可能会想，为什么我们不让程序员直接访问内存，而是添加这一层抽象。这是因为直接访问内存将会造成一些安全漏洞。我将在以后的文章对此解释更多。</p>
+<h2 id="什么是-SharedArrayBuffer？"><a href="#什么是-SharedArrayBuffer？" class="headerlink" title="什么是 SharedArrayBuffer？"></a>什么是 SharedArrayBuffer？</h2><p>To explain SharedArrayBuffers, I need to explain a little bit about running code in parallel and JavaScript.</p>
+<p>要介绍 <code>SharedArrayBuffers</code>，我需要介绍一下并行运行代码和 <code>JavaScript</code>。</p>
+<p>You would run code in parallel to make your code run faster, or to make it respond faster to user events. To do this, you need to split up the work.</p>
+<p>In a typical app, the work is all taken care of by a single individual—the main thread. I’ve talked about this before… the main thread is like a full-stack developer. It’s in charge of JavaScript, the DOM, and layout.</p>
+<p>Anything you can do to remove work from the main thread’s workload helps. And under certain circumstances, ArrayBuffers can reduce the amount of work that the main thread has to do.</p>
+<p>并行运行代码会使代码运行速度更快，或者使其对用户事件的响应更快。要做到这一点，你需要分离工作。</p>
+<p>在典型的应用程序中，所有的工作都由单个人： 主线程来处理。主线程就像一个全栈开发者，它负责 <code>JavaScript</code>，<code>DOM</code> 和布局。</p>
+<p>从主线程的工作负载中删除任何工作都会有帮助，在某些情况下，ArrayBuffers 可以减少主线程所需的工作量。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/02_08-500x350.png"></p>
+<p>But there are times when reducing the main thread’s workload isn’t enough. Sometimes you need to bring in reinforcements… you need to split up the work.</p>
+<p>但有时减少主线程的工作量是不够的。有时你需要引进援助，你需要分离工作。</p>
+<p>In most programming languages, the way you usually split up the work is by using something called a thread. This is basically like having multiple people working on a project. If you have tasks that are pretty independent of each other, you can give them to different threads. Then, both those threads can be working on their separate tasks at the same time.</p>
+<p>In JavaScript, the way you do this is using something called a web worker. These web workers are slightly different than the threads you use in other languages. By default they don’t share memory.</p>
+<p>在大多数编程语言中，分割工作的方式是使用线程，这就像有多个人在一个项目上工作。如果你有相互独立的任务，你可以分配给不同的线程。然后，这些线程就可以同时处理独立的任务。</p>
+<p>在 <code>JavaScript</code> 中，你可以使用 <code>web workers</code> 做这些事。<code>web workers</code> 与其他语言中使用的线程略有不同，默认情况下，它们不共享内存。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/02_09-500x360.png"></p>
+<p>This means if you want to share some data with the other thread, you have to copy it over. This is done with the function postMessage.</p>
+<p>postMessage takes whatever object you put into it, serializes it, sends it over to the other web worker, where it’s deserialized and put in memory.</p>
+<p>这意味着如果要与其他线程共享数据，则必须复制，这是通过 <code>postMessage</code> 函数完成的。</p>
+<p><code>postMessage</code> 会把你放入的任何对象序列化，发送到其他 <code>web worker</code>，然后其他 <code>web worker</code> 反序列化并放入内存中。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/02_10-500x355.png"></p>
+<p>That’s a pretty slow process.</p>
+<p>For some kinds of data, like ArrayBuffers, you can do what is called transferring memory. That means moving that specific block of memory over so that the other web worker has access to it.</p>
+<p>But then the first web worker doesn’t have access to it anymore.</p>
+<p>这是一个很慢的过程。</p>
+<p>对于一些类型的数据，像 <code>ArrayBuffers</code> ，你可以移动内存，这意味着移动该内存块，以便其他 <code>web worker</code> 可以访问它，但是第一个 <code>web worker</code> 将不能访问它了。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/02_11-500x360.png"></p>
+<p>That works for some use cases, but for many use cases where you want to have this kind of high performance parallelism, what you really need is to have shared memory.</p>
+<p>This is what SharedArrayBuffers give you.</p>
+<p>这适用于一些情况，但是对于想要具有高性能的并行，你真正需要的是共享内存。这正是 <code>SharedArrayBuffers</code> 可以提供的。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/02_12-500x349.png"></p>
+<p>With the SharedArrayBuffer, both web workers, both threads, can be writing data and reading data from the same chunk of memory.</p>
+<p>This means they don’t have the communication overhead and delays that you would have with postMessage. Both web workers have immediate access to the data.</p>
+<p>There is some danger in having this immediate access from both threads at the same time though. It can cause what are called race conditions.</p>
+<p>使用 <code>SharedArrayBuffer</code> ，这些 <code>web workers</code> ，线程都可以从同一块内存中写入数据和读取数据。这意味着不再有 <code>PostMessage</code> 通信的开销和延迟， <code>web workers</code> 可以立即访问数据。</p>
+<p>这两个线程的同时访问内存会有一些危险，它可能引起竞争条件的问题。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/02_13-500x201.png"></p>
+<p>I’ll explain more about those in the next article.</p>
+<p>我将会在下一篇文章解释这个问题。</p>
+<h2 id="SharedArrayBuffers-现状怎样？"><a href="#SharedArrayBuffers-现状怎样？" class="headerlink" title="SharedArrayBuffers 现状怎样？"></a>SharedArrayBuffers 现状怎样？</h2><p>SharedArrayBuffers will be in all of the major browsers soon.</p>
+<p><code>SharedArrayBuffers</code> 即将在所有主流浏览器中。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/02_14-500x169.png"></p>
+<p>They’ve already shipped in Safari (in Safari 10.1). Both Firefox and Chrome will be shipping them in their July/August releases. And Edge plans to ship them in their fall Windows update.</p>
+<p>它们已经在 <code>Safari</code> 中运行（<code>Safari 10.1</code>中）。 <code>Firefox</code> 和 <code>Chrome</code> 都将在7月、8月发行。而 <code>Edge</code> 计划在他们秋天的 <code>Windows</code> 更新中发布。</p>
+<p>Even once they are available in all major browsers, we don’t expect application developers to be using them directly. In fact, we recommend against it. You should be using the highest level of abstraction available to you.</p>
+<p>What we do expect is that JavaScript library developers will create libraries that give you easier and safer ways to work with SharedArrayBuffers.</p>
+<p>In addition, once SharedArrayBuffers are built into the platform, WebAssembly can use them to implement support for threads. Once that’s in place, you’d be able to use the concurrency abstractions of a language like Rust, which has fearless concurrency as one of its main goals.</p>
+<p>In the <a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2017/06/avoiding-race-conditions-in-sharedarraybuffers-with-atomics/">next article</a>, we’ll look at the tools (Atomics) that these library authors would use to build up these abstractions while avoiding race conditions.</p>
+<p>即使在所有主流浏览器都可用，我们也不希望应用程序开发人员直接使用它们。实际上，我们建议不要直接使用，应当使用它们的最高级别的抽象封装库。</p>
+<p>我们希望 <code>JavaScript</code> 库的开发人员创建可以使你可以更轻松，更安全地使用 <code>SharedArrayBuffers</code> 的库。</p>
+<p>在<a href="/2017/07/avoiding-race-conditions-in-sharedarraybuffers-with-atomics/">下一篇文章</a>中，我们将介绍这些库作者建立的避免竞争条件的抽象的工具（<code>Atomics</code>）。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/02_15-500x335.png"></p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>归档 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_s3wbqhahfs.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-new"></span>
+          <span class="title">目录</span>
+        </div>
+        <div class="sider-item" data-target="POSTS">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">文章标签</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper hide">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/css/">css</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/html/">html</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/js/">js</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a></li></ul>
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          
+
+  
+  
+    
+    
+    <section class="archives-wrap">
+      <div class="archives">
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2018-03-13T09:32:00.000Z" itemprop="datePublished">2018-03-13</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2018/03/dom_native_elements_and_node_modify/">Javascript 原生创建和修改 DOM 节点的方法</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            本文总结了常用的 js 进行 DOM 修改的操作，主要总结节点的创建、修改和元素属性的管理的一些相关的操作。
+节点创建常用的和节点创建有关的接口主要有：document.createElement、document.createTextNode 、document.createDocumentFragment 、 document.createAttribute 、document.adoptNode 、document.importNode 、node.cloneNode。 
+document.createElementdocument.createElement(tagName) 这是我们…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2018/03/dom_native_elements_and_node_modify/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2018-03-13
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 5.1k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 32mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="DOM" data-type="TAGS">DOM</span>
+    
+        <span class="post-tag show-super-board" data-target="node" data-type="TAGS">node</span>
+    
+        <span class="post-tag show-super-board" data-target="element" data-type="TAGS">element</span>
+    
+        <span class="post-tag show-super-board" data-target="HTML" data-type="TAGS">HTML</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2018-03-07T02:48:00.000Z" itemprop="datePublished">2018-03-07</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2018/03/evolving-patterns-in-react/">Evolving Patterns in React - React 中的模式演化</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            翻译自：Evolving Patterns in React
+Let’s take a closer look at some of the patterns that are emerging in the React ecosystem. These patterns improve readability, code clarity, and push your code towards composition and reusability.
+让我们仔细看看出现在 React 生态系统中的一些模式。这些模式可提高你的代码的可读性和清晰度，更加的可组合性和可复用性。
+I started …
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2018/03/evolving-patterns-in-react/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2018-03-07
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 3.8k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 25mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="js" data-type="TAGS">js</span>
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+        <span class="post-tag show-super-board" data-target="翻译" data-type="TAGS">翻译</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2018-02-06T02:40:00.000Z" itemprop="datePublished">2018-02-06</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2018/02/dom_native_elements_and_node_query/">Javascript 原生查询 DOM 节点或元素的方法</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            最近在重新学习基础知识，本文对常用的 js 进行 DOM 查询的操作进行整理。
+基本查询本节主要介绍在文档中通过 id、class、name、css选择器直接进行查询的方式。
+id 选择器使用 document.getElementById，根据 id 返回元素，返回值是 Element，如果不存在，则返回 null。
+这个接口很简单，只有几点需要注意：
+
+字母 d 小写，这里容易出错。
+元素的 id 是大小写敏感的。
+如果存在多个 id 一致（这样是不规范的），则返回第一个查找到的元素。
+该方法不会搜索不在文档中的元素，当创建了一个新元素，必须插入文档中才能被查询到。
+
+类选择器使用 doc…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2018/02/dom_native_elements_and_node_query/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2018-02-06
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 3.2k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 19mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="DOM" data-type="TAGS">DOM</span>
+    
+        <span class="post-tag show-super-board" data-target="query" data-type="TAGS">query</span>
+    
+        <span class="post-tag show-super-board" data-target="selector" data-type="TAGS">selector</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2018-01-25T07:26:00.000Z" itemprop="datePublished">2018-01-25</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2018/01/broswer_common_mouse_event/">JavaScript 常用事件之鼠标事件</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            鼠标事件是目前最常用的事件，与鼠标操作相关的事件主要有： mousedown, mouseup, click, dblclick, contextmenu, mousemove, mouseover, mouseout。
+mousedown, mouseup, click用户点击元素触发的事件顺序为：
+
+mousedown，用户在该元素按下鼠标按钮；
+mouseup，用户在此元素上释放按下的鼠标按钮；
+click，在此元素上检测到一个 mousedown 和一个 mouseup；
+
+注意，有时用户使用鼠标执行某些操作，但并不会触发 click 事件。例如用户在链接上按下鼠标按钮，然后将鼠标从链…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2018/01/broswer_common_mouse_event/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2018-01-25
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.2k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 13mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="dom" data-type="TAGS">dom</span>
+    
+        <span class="post-tag show-super-board" data-target="bom" data-type="TAGS">bom</span>
+    
+        <span class="post-tag show-super-board" data-target="event" data-type="TAGS">event</span>
+    
+        <span class="post-tag show-super-board" data-target="事件" data-type="TAGS">事件</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2018-01-24T06:55:00.000Z" itemprop="datePublished">2018-01-24</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2018/01/broswer_common_form_event/">JavaScript 常用事件之表单事件</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            和表单元素相关的事件有：change、input、compositionstart/compositionupdate/compositionend、focusin/focus、focusout/blur、submit。
+changechange 事件可以被 &lt;input&gt;、&lt;textarea&gt;、&lt;select&gt;、checkbox/radio 元素触发,.
+注意，对于文本输入内容的改变，也就是说在文本域（input、textarea）输入内容时候，该事件不会触发，直到当文本元素失去焦点 时，触发该事件。
+对于 &lt;select&gt;、checkbox/…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2018/01/broswer_common_form_event/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2018-01-24
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.4k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 8mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="dom" data-type="TAGS">dom</span>
+    
+        <span class="post-tag show-super-board" data-target="bom" data-type="TAGS">bom</span>
+    
+        <span class="post-tag show-super-board" data-target="event" data-type="TAGS">event</span>
+    
+        <span class="post-tag show-super-board" data-target="事件" data-type="TAGS">事件</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2018-01-11T09:26:00.000Z" itemprop="datePublished">2018-01-11</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2018/01/react-reconciliation/">React - Reconciliation</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+原文：Reconciliation
+
+React provides a declarative API so that you don’t have to worry about exactly what changes on every update. This makes writing applications a lot easier, but it might not be obvious how this is implemented within React. This article explains the choices we made in React’s “diffi…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2018/01/react-reconciliation/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2018-01-11
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 3.4k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 22mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+        <span class="post-tag show-super-board" data-target="翻译" data-type="TAGS">翻译</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2018-01-10T09:13:00.000Z" itemprop="datePublished">2018-01-10</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2018/01/a-blank-must-set-rel-noopener/">关于 rel=&#34;noopener noreferrer&#34;</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在使用 ESlint 的时候发现，当使用新标签打开外部链接时候（target=&quot;_black&quot;）， eslint-plugin-react 插件报出了错误：
+Prevent usage of unsafe target=&#x27;_blank&#x27; (react/jsx-no-target-blank)
+
+查了下发现这是一个一直被忽视的很严重的安全问题。
+危险的 target=”_blank”假设在我们的这个页面（www.me.com）引入了外部的打开了外部的一个网页（www.out.com）：
+&lt;!-- www.me.com --&gt;&lt;html l…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2018/01/a-blank-must-set-rel-noopener/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2018-01-10
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 524
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 3mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="js" data-type="TAGS">js</span>
+    
+        <span class="post-tag show-super-board" data-target="安全" data-type="TAGS">安全</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2018-01-10T06:35:00.000Z" itemprop="datePublished">2018-01-10</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2018/01/react-fragments/">React - Fragment</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            问题描述在 React16 以前的版本，组件渲染的返回值必须为一个子元素，而不允许是一个子元素的列表，我们经常需要为其包括一层 div 或者 span 等：
+// 对于：Some text.&lt;h2&gt;A heading&lt;/h2&gt;More text.&lt;h2&gt;Another heading&lt;/h2&gt;Even more text.// React 16 以前需要包裹一层额外的 divrender() &#123;  return (    &lt;div&gt;      Some text.      &lt;h2&gt;A heading&lt;/h…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2018/01/react-fragments/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2018-01-10
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 755
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 4mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+    
+      </div></section>
+    
+    
+    <section class="archives-wrap">
+      <div class="archives">
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-12-05T08:42:00.000Z" itemprop="datePublished">2017-12-05</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/12/react-portals/">React - Protals</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            通常情况下，我们的组件结构如下：
+&lt;div id=&quot;app&quot;&gt;  &lt;RootComponent&gt;    &lt;ParentComponent&gt;      &lt;ModalComponent&gt;        // modal text      &lt;/ModalComponent&gt;    &lt;/ParentComponent&gt;    &lt;ParentSblingsComponent&gt;      // come text    &lt;/ParentSblingsComponent&gt;  &lt;/Roo…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/12/react-portals/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-12-05
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.1k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 7mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="react" data-type="TAGS">react</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-09-13T06:58:00.000Z" itemprop="datePublished">2017-09-13</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/09/broswer_common_used_event_intro/">JavaScript 常用的一些事件总结</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            本文主要总结了在开发中经常使用的的一些浏览器事件的使用。
+系列目录本文涉及内容加多，截止现在，“拖拽事件”、“触摸事件”、“手势事件” 三节尚未完成。
+
+ 鼠标事件
+ 键盘事件
+ 生命周期事件
+ 触摸事件
+ 手势事件
+ 表单事件
+ 错误事件
+ 其他事件
+
+键盘事件键盘事件最常用的是 keyup 和 keydown 两个事件，这两个事件本身很简单，不再多说，本节说一点键盘事件其他细节吧。
+这两个事件常配合表单使用，比如用户输入内容后校验，虽然也可以用，但是处理起来较为麻烦，需要判断组合键，非文本输入按键比如 Shift、F1 之类的等，更合适的方法是使用表单的 input 事件，将在后面表单事件…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/09/broswer_common_used_event_intro/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-09-13
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 3.6k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 21mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="dom" data-type="TAGS">dom</span>
+    
+        <span class="post-tag show-super-board" data-target="bom" data-type="TAGS">bom</span>
+    
+        <span class="post-tag show-super-board" data-target="event" data-type="TAGS">event</span>
+    
+        <span class="post-tag show-super-board" data-target="listener" data-type="TAGS">listener</span>
+    
+        <span class="post-tag show-super-board" data-target="mouse" data-type="TAGS">mouse</span>
+    
+        <span class="post-tag show-super-board" data-target="drag" data-type="TAGS">drag</span>
+    
+        <span class="post-tag show-super-board" data-target="touch" data-type="TAGS">touch</span>
+    
+        <span class="post-tag show-super-board" data-target="click" data-type="TAGS">click</span>
+    
+        <span class="post-tag show-super-board" data-target="keyboard" data-type="TAGS">keyboard</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+  </div></section>
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/archives/page/4/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/archives/page/6/">6</a><a class="page-number" href="/archives/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/12/">12</a><a class="extend next" rel="next" href="/archives/page/6/">&gt;</a>
+  </nav>
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa fa-search ins-search-icon" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="fa fa-arrow-up goto-top" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

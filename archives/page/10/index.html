@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>归档 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_s3wbqhahfs.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-new"></span>
+          <span class="title">目录</span>
+        </div>
+        <div class="sider-item" data-target="POSTS">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">文章标签</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper hide">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/css/">css</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/html/">html</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/js/">js</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a></li></ul>
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          
+
+  
+  
+    
+    
+    <section class="archives-wrap">
+      <div class="archives">
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-05-18T06:33:00.000Z" itemprop="datePublished">2017-05-18</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/05/decorator/">ES6 - 装饰器：Decorator</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            装饰器是 ES7 的一个新提案，本质上是 Object.defineProperty(obj, prop, descriptor) 的语法糖，用于动态的修改类的行为，相比较集成的方式而言，这种方式无疑更加的灵活。
+装饰器的使用装饰器用于类和类的成员上，但是不能用于函数，因为存在着函数提升。
+作用于类的装饰器装饰器作用于类上的时候，它的第一个参数 target 则是被装饰的类的本身，签名如下：
+
+function(target)
+
+const sayHello = target =&gt; &#123;  target.sayHello = () =&gt; console.log(&quot;…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/05/decorator/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-05-18
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 6mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="es" data-type="TAGS">es</span>
+    
+        <span class="post-tag show-super-board" data-target="Decorator" data-type="TAGS">Decorator</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-05-16T08:54:00.000Z" itemprop="datePublished">2017-05-16</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/05/css-variables/">CSS 变量</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在任何一门语言中，变量的存在都是必不可少的，使用变量可以很方便的复用很多信息，比如网页的配色方案，使用方案只需要修改几个变量值即可完成对整个页面的配色的修改。而且变量本身包含了语义信息，更容易理解，比如 main-text-color 相对 #333 更容易理解。以前只能通过预处理器 Sass 、Less 等使用变量，而现在原生 css 终于也添加了变量的引入。
+首先看一下 css 变量的兼容性：
+
+从兼容性表格可以看出，css 变量的兼容性已经非常好了，主流浏览器 Chrome 、Safari 、Firefox 的支持度都挺高的。接下来开始使用：
+变量声明和使用变量的声明使用两个连词线 --…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/05/css-variables/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-05-16
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.1k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 6mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="css" data-type="CATEGORIES">css</span>
+    
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-04-27T03:09:00.000Z" itemprop="datePublished">2017-04-27</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/04/symbol-base-type/">ES6 - Symbol 类型</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            概述Symbol 类型是一种特殊的、不可变的数据类型，主要用于解决名称冲突的问题，是 es6 引入的第七种原始数据类型，其他六种分别是：null 、 undefined 、 boolean 、 string 、 number 、 object 。
+创建 Symbol
+Symbol([description])创建一个全新的 Symbol ，description 是对 Symbol 实例的描述，先来看几个示例：
+
+var s0 = Symbol();var s1 = Symbol(&quot;desc&quot;);var s2 = Symbol(&quot;desc&quot;);conso…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/04/symbol-base-type/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-04-27
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.5k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 16mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="es" data-type="TAGS">es</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-04-21T06:51:00.000Z" itemprop="datePublished">2017-04-21</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/04/function-program-curry-function/">函数式编程-柯里化和反柯里化</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            柯里化 curry柯里化，是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术。
+var add = (x, y) =&gt; x + y;var curriedAdd = x =&gt; y =&gt; x + y;var addOne = curriedAdd(1);var addTen = curriedAdd(10);addOne(5);// 6addTen(5);// 15
+
+上述示例，将原本接收两个参数的 add 改造成了接收一个参数的 addOne 和 addTen 函数，每个函数都具有独立的语义。
+这种方式…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/04/function-program-curry-function/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-04-21
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.5k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 8mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="function" data-type="TAGS">function</span>
+    
+        <span class="post-tag show-super-board" data-target="函数式" data-type="TAGS">函数式</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-04-13T10:31:00.000Z" itemprop="datePublished">2017-04-13</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/04/function-program-pure-function/">函数式编程-纯函数</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            定义实际上纯函数的定义更近似于数学上的函数的定义，数学上的函数定义如下：
+
+设A，B是非空的数集，如果按照某种确定的对应关系f，使对于集合 A 中的任意一个数 x，在集合B中都有唯一确定的数 y 和它对应，那么就称 f:A-&gt;B 为从集合A 到集合B 的一个函数。
+
+而纯函数的定义为：
+
+纯函数定义为这样一种函数：对于相同的输入，其输出的结果永远是相同的，而且没有可见的副作用。
+
+从定义上可以看出，纯函数和数学上的函数都有要求：对于任意相同输入，其输出结果都是 唯一确定 的，不存在一个输入对应于多个输出结果的情况。
+纯函数和非纯函数很经常看到，比如数组的 slice 和 splice 函…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/04/function-program-pure-function/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-04-13
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.1k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 6mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="function" data-type="TAGS">function</span>
+    
+        <span class="post-tag show-super-board" data-target="函数式" data-type="TAGS">函数式</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-04-12T07:38:00.000Z" itemprop="datePublished">2017-04-12</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/04/some-awasome-site/">一些有趣的网站</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            这里收集了一些有趣的好玩的网站
+Unsplash
+Unsplash 是一个真免费提供高质量照片的网站，照片都是真实的摄影，照片分辨率也很大，该照片网站每10天更新10张照片。
+但是我要介绍的是它的一个获取随机图片的api [https://source.unsplash.com/](https://source.unsplash.com/) 支持多种方式的随机图片获取：
+
+从指定分类中随机获取图片
+从指定用户随机获取图片
+从指定用户喜欢的图片
+从指定图片集随机获取图片
+从一个分类中随机获取图片
+从一个关键字随机获取图片
+
+还支持js、php等api，详细可以查看其页面，不再多言。
+WebGra…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/04/some-awasome-site/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-04-12
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 396
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 2mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="其它" data-type="CATEGORIES">其它</span>
+    
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-04-11T07:06:00.000Z" itemprop="datePublished">2017-04-11</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/04/generator-and-async-function/">ES6 - Generator 函数和 Async 函数</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Generator 函数Generator （生成器）函数是 ES6 提供的新的解决异步回调嵌套的特性，先看个实例：
+function* test()&#123;  yield 1; //执行顺序：3  yield 2; //执行顺序：6  return 3; //执行顺序：9&#125;var g = test(); //执行顺序：1var rt;rt = g.next(); //执行顺序：2console.log(rt); // 执行顺序：4 输出：Object &#123;value: 1, done: false&#125;rt = g.next(); //执行顺序：5console.…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/04/generator-and-async-function/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-04-11
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.8k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 18mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="function" data-type="TAGS">function</span>
+    
+        <span class="post-tag show-super-board" data-target="es" data-type="TAGS">es</span>
+    
+        <span class="post-tag show-super-board" data-target="异步" data-type="TAGS">异步</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-03-24T03:39:00.000Z" itemprop="datePublished">2017-03-24</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/03/debounce-throttle/">Debounce 和 Throttle</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            在一些应用场合下，由于事件被频繁的触发，导致为事件绑定的函数被频繁的调用，因为斌烦的执行大量无意义的DOM操作、Ajax请求等行为，造成页面的抖动和资源的大量消耗甚至错误的数据加载。常见的导致这些情况出现的事件主要这些：
+
+window 对象的 resize、scroll 事件
+鼠标拖拽的 mousemove 事件
+输入文本时的绑定的用于进行自动完成或自动加载的操作的 keyup 事件
+
+对于这些情况通常可以延迟函数的执行时机，来进行优化，根据延迟的策略不同，有 debounce 和 throttle 两种解决办法：
+DebounceDebounce 就是强制一个函数在某个动作结束 n 毫秒后…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/03/debounce-throttle/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-03-24
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 781
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 4mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="优化" data-type="TAGS">优化</span>
+    
+        <span class="post-tag show-super-board" data-target="function" data-type="TAGS">function</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-03-21T09:38:00.000Z" itemprop="datePublished">2017-03-21</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/03/proxy-object/">ES6 - Proxy 对象</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            概述Proxy 对象是定义在全局对象上的一个对象的构造函数，通过对目标对象的一些基本操作进行重定义并生成新的代理对象。说起来比较绕，看如下示例：
+var obj = new Proxy(&#123;&#125;, &#123;  set(target, key, val) &#123;    console.log(&#x27;call setter&#x27;);    return Reflect.set(target, key, val);  &#125;&#125;);obj.val = 3;// call setter// 3
+
+Proxy 对象生成的新对象修改了 &#123;&#1…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/03/proxy-object/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-03-21
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 1.6k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 10mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="es" data-type="TAGS">es</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+  
+  
+  
+  <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <span class="meta-block">
+            <i class="icon fa fa-calendar"></i>
+            <time datetime="2017-03-16T07:24:00.000Z" itemprop="datePublished">2017-03-16</time>
+        </span>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/03/reflect-object/">ES6 - Reflect 对象</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Reflect 对象是 ES6 提供的一个内置的用于操作对象的的全局对象。但和其他的全局对象不同，Reflect 对象没有构造函数，不能使用 new关键字 创建对象。
+Reflect 静态方法Reflect 对象提供以下静态函数，大部分与 Object 对象上同名方法的作用一样，同时将一些命令式的语法函数化。
+Reflect.apply静态方法 Reflect.apply() 通过指定的参数列表发起对目标函数的调用，类似于 Function.prototype.apply.call(target, thisArgument, argumentsList)
+
+Reflect.apply(targ…
+        </p>
+        <div class="article-meta">
+            <div class="article-count">
+                <a href="/2017/03/reflect-object/" class="article-date hide">
+    <i class="icon fa fa-calendar"></i>
+    2017-03-16
+</a>
+                
+    <span class="word-count">
+      <i class="icon fa fa-file-text"></i>
+      字数: 2.6k
+    </span>
+    <span class="word-count">
+      <i class="icon fa fa-clock-o"></i>
+      阅读时长: 16mins
+    </span>
+
+            </div>
+            <div class="article-dir hide">
+                
+    <div class="article-category">
+    <i class="icon fa fa-list-ul"></i>
+    
+    
+        <span class="post-category show-super-board" data-target="js" data-type="CATEGORIES">js</span>
+    
+    </div>
+
+                
+    
+    
+        <span class="post-tag show-super-board" data-target="es" data-type="TAGS">es</span>
+    
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+  </div></section>
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/archives/page/9/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/8/">8</a><a class="page-number" href="/archives/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/archives/page/11/">11</a><a class="page-number" href="/archives/page/12/">12</a><a class="extend next" rel="next" href="/archives/page/11/">&gt;</a>
+  </nav>
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa fa-search ins-search-icon" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="fa fa-arrow-up goto-top" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

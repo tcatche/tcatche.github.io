@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Canvas 实例之绘制时钟 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="canvas,canvas clock, canvas 时钟,canvas,canvas 绘图,canvas 实例" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-canvas_example_clock" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        Canvas 实例之绘制时钟
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2021" data-type="ARCHIVES">
+        2021-08-19
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 1.2k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 7mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="canvas" data-type="TAGS">canvas</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>这里总结下使用 canvas 绘制时钟的步骤。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tcatche/images/blogs/canvas_example_clock.gif" alt="效果图"></p>
+<p>下面来拆分一下绘制步骤：</p>
+<ol>
+<li>绘制时钟的表框和刻度；</li>
+<li>绘制时钟的指针；</li>
+<li>使用定时器动态更新时间。</li>
+</ol>
+<p>根据以上步骤可以写出绘制的主要代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">draw</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> drawClock = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.ctx.clearRect(-<span class="number">150</span>, -<span class="number">150</span>, <span class="number">300</span>, <span class="number">300</span>); <span class="comment">// 清除画布</span></span><br><span class="line">    <span class="built_in">this</span>.drawCircle(); <span class="comment">// 绘制时钟的表框</span></span><br><span class="line">    <span class="built_in">this</span>.drawCalibration(); <span class="comment">// 绘制时钟的刻度</span></span><br><span class="line">    <span class="built_in">this</span>.drawPoints(); <span class="comment">// 绘制时钟的指针</span></span><br><span class="line">    <span class="built_in">window</span>.requestAnimationFrame(drawClock);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">window</span>.requestAnimationFrame(drawClock); <span class="comment">// 添加定时器</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="核心语法"><a href="#核心语法" class="headerlink" title="核心语法"></a>核心语法</h2><p>涉及到的核心语法主要有以下几个：</p>
+<ul>
+<li><strong><code>ctx.translate</code></strong> 更改 canvas 的原点，本例设置为多边形的中心点。</li>
+<li><strong><code>ctx.rotate</code></strong> 旋转 casvas，本例通过旋转每次只需要绘制固定坐标 <code>[width, 0]</code> 可以有效降低计算坐标的复杂度；</li>
+<li><strong><code>ctx.save</code></strong> 保存 canvas 全部状态，由于每次绘制都会进行旋转，每次绘制前保存状态，避免多次旋转后角度错乱导致错位；</li>
+<li><strong><code>ctx.restore</code></strong> 还原上次保存的状态，每次绘制结束后进行还原；</li>
+<li><strong><code>ctx.beginPath/ctx.closePath</code></strong> 用来关闭路径，避免不同的路径进行交叉；</li>
+<li><strong><code>ctx.moveTo/ctx.lineTo</code></strong> 用来绘制一段直线。</li>
+</ul>
+<p>下面看一下各个步骤的绘制过程：</p>
+<h2 id="绘制圆框"><a href="#绘制圆框" class="headerlink" title="绘制圆框"></a>绘制圆框</h2><p>绘制圆用到的方法为 <code>ctx.arc</code> 。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">drawCircle</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; ctx &#125; = <span class="built_in">this</span>;</span><br><span class="line">  ctx.save();</span><br><span class="line">  ctx.beginPath();</span><br><span class="line">  ctx.arc(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">2</span> * <span class="built_in">Math</span>.PI); <span class="comment">// 绘制圆形，半径为100，度数为360度</span></span><br><span class="line">  ctx.lineWidth = <span class="number">5</span>; <span class="comment">// 设置线的宽度</span></span><br><span class="line">  ctx.strokeStyle = <span class="string">&#x27;#00B0F0&#x27;</span>;</span><br><span class="line">  ctx.closePath();</span><br><span class="line">  ctx.stroke();</span><br><span class="line">  ctx.restore();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 <code>ctx.lineWidth</code> 用来设定线的宽度。</p>
+<p>注意，在绘制图形前后使用 <code>ctx.beginPath</code>，<code>ctx.closePath</code>，避免下次绘制图形时出现连线链接上次绘制的图形。</p>
+<h2 id="绘制刻度"><a href="#绘制刻度" class="headerlink" title="绘制刻度"></a>绘制刻度</h2><p>经过观察，时钟共计12个代表小时的刻度，它们之间又平均分布着4个表示分钟的刻度，出现很有规律，很容易写出如下代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">drawCalibration</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; ctx &#125; = <span class="built_in">this</span>;</span><br><span class="line">  ctx.save();</span><br><span class="line">  <span class="keyword">const</span> rotateStep = <span class="built_in">Math</span>.PI * <span class="number">2</span> / <span class="number">60</span>; <span class="comment">// 共计60个刻度，计算每次绘制需要旋转的弧度</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">60</span>; i ++) &#123;</span><br><span class="line">    ctx.beginPath()</span><br><span class="line">    <span class="keyword">if</span> (i % <span class="number">5</span> === <span class="number">0</span>) &#123; <span class="comment">// 此次轮到“小时”的刻度</span></span><br><span class="line">      ctx.moveTo(<span class="number">0</span>, -<span class="number">80</span>);</span><br><span class="line">      ctx.strokeStyle = <span class="string">&#x27;#00B0F0&#x27;</span>;</span><br><span class="line">      ctx.lineWidth = <span class="number">3</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">// 此次绘制“分钟”的刻度</span></span><br><span class="line">      ctx.moveTo(<span class="number">0</span>, -<span class="number">85</span>);</span><br><span class="line">      ctx.strokeStyle = <span class="string">&#x27;#000&#x27;</span>;</span><br><span class="line">      ctx.lineWidth = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ctx.lineTo(<span class="number">0</span>, -<span class="number">90</span>)；</span><br><span class="line">    ctx.closePath()；</span><br><span class="line">    ctx.stroke()；</span><br><span class="line">    ctx.rotate(rotateStep)；</span><br><span class="line">  &#125;</span><br><span class="line">  ctx.restore();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/tcatche/images/blogs/canvas_example_clock_1.png" alt="效果图"></p>
+<h2 id="绘制时钟指针"><a href="#绘制时钟指针" class="headerlink" title="绘制时钟指针"></a>绘制时钟指针</h2><p>这里的要点是计算每个指针需要旋转的角度：</p>
+<p>秒针很容易计算，旋转的角度等于 <code>秒数 / 60</code>。<br>同样的，分针旋转角度等于 <code>分钟数 / 60</code> ，但为了过度平滑，每一秒的变化都应该导致分钟的角度变化，最终可以计算出分钟平滑的旋转角度为 <code>分钟数 / 60 + 秒针角度 / 60</code>。<br>同样的，时针也是如此，可以写出如下的代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">drawPoints</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">  <span class="keyword">let</span> hour = now.getHours() % <span class="number">12</span>;</span><br><span class="line">  <span class="keyword">let</span> minute = now.getMinutes();</span><br><span class="line">  <span class="keyword">let</span> second = now.getSeconds();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 计算指针旋转角度</span></span><br><span class="line">  <span class="keyword">const</span> secondRotate = second * (<span class="number">2</span> * <span class="built_in">Math</span>.PI / <span class="number">60</span>);</span><br><span class="line">  <span class="keyword">const</span> minuteRotate = minute * (<span class="number">2</span> * <span class="built_in">Math</span>.PI / <span class="number">60</span>) + secondRotate / <span class="number">60</span>;</span><br><span class="line">  <span class="keyword">const</span> hourRotate = hour * (<span class="number">2</span> * <span class="built_in">Math</span>.PI / <span class="number">12</span>) + minuteRotate / <span class="number">12</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 绘制指针</span></span><br><span class="line">  <span class="built_in">this</span>.drawHourPoint(hourRotate, hour);</span><br><span class="line">  <span class="built_in">this</span>.drawMinutePoint(minuteRotate, minute);</span><br><span class="line">  <span class="built_in">this</span>.drawSecondPoint(secondRotate, second);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时钟指针有三个，只要计算出旋转的角度，它们的绘制方法和刻度很类似，可以很容易写出以下代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 绘制小时的指针</span></span><br><span class="line"><span class="function"><span class="title">drawHourPoint</span>(<span class="params">rotate, hour</span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; ctx &#125; = <span class="built_in">this</span>;</span><br><span class="line">  ctx.save();</span><br><span class="line">  ctx.rotate(rotate);</span><br><span class="line">  ctx.beginPath();</span><br><span class="line">  ctx.moveTo(<span class="number">0</span>, <span class="number">10</span>);</span><br><span class="line">  ctx.lineTo(<span class="number">0</span>, -<span class="number">30</span>);</span><br><span class="line">  ctx.closePath();</span><br><span class="line">  ctx.strokeStyle = <span class="string">&#x27;#00B0F0&#x27;</span>;</span><br><span class="line">  ctx.lineWidth = <span class="number">8</span>;</span><br><span class="line">  ctx.stroke();</span><br><span class="line">  ctx.restore();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 绘制分钟的指针</span></span><br><span class="line"><span class="function"><span class="title">drawMinutePoint</span>(<span class="params">rotate, minute</span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; ctx &#125; = <span class="built_in">this</span>;</span><br><span class="line">  ctx.save();</span><br><span class="line">  ctx.rotate(rotate);</span><br><span class="line">  ctx.beginPath();</span><br><span class="line">  ctx.moveTo(<span class="number">0</span>, <span class="number">10</span>);</span><br><span class="line">  ctx.lineTo(<span class="number">0</span>, -<span class="number">50</span>);</span><br><span class="line">  ctx.closePath();</span><br><span class="line">  ctx.strokeStyle = <span class="string">&#x27;#00B0F0&#x27;</span>;</span><br><span class="line">  ctx.lineWidth = <span class="number">4</span>;</span><br><span class="line">  ctx.stroke();</span><br><span class="line">  ctx.restore();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 绘制秒的指针</span></span><br><span class="line"><span class="function"><span class="title">drawSecondPoint</span>(<span class="params">rotate, minute</span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; ctx &#125; = <span class="built_in">this</span>;</span><br><span class="line">  ctx.save();</span><br><span class="line">  ctx.rotate(rotate);</span><br><span class="line">  <span class="comment">// 绘制个小圆圈作为装饰</span></span><br><span class="line">  ctx.beginPath();</span><br><span class="line">  ctx.arc(<span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">2</span> * <span class="built_in">Math</span>.PI);</span><br><span class="line">  ctx.closePath();</span><br><span class="line">  ctx.fillStyle = <span class="string">&#x27;red&#x27;</span>;</span><br><span class="line">  ctx.fill();</span><br><span class="line">  <span class="comment">// 绘制指针</span></span><br><span class="line">  ctx.beginPath();</span><br><span class="line">  ctx.moveTo(<span class="number">0</span>, <span class="number">10</span>);</span><br><span class="line">  ctx.lineTo(<span class="number">0</span>, -<span class="number">70</span>);</span><br><span class="line">  ctx.closePath();</span><br><span class="line">  ctx.strokeStyle = <span class="string">&#x27;red&#x27;</span>;</span><br><span class="line">  ctx.lineWidth = <span class="number">1</span>;</span><br><span class="line">  ctx.stroke();</span><br><span class="line">  ctx.restore();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/tcatche/images/blogs/canvas_example_clock_2.png" alt="效果图"></p>
+<h2 id="使用定时器动态更新时间"><a href="#使用定时器动态更新时间" class="headerlink" title="使用定时器动态更新时间"></a>使用定时器动态更新时间</h2><p>这里使用 <code>requestAnimationFrame</code> 而不是使用 <code>setInterval</code>, <code>setInterval</code> 的时效性无法保证。</p>
+<p>具体代码</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">draw</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> drawClock = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.ctx.clearRect(-<span class="number">150</span>, -<span class="number">150</span>, <span class="number">300</span>, <span class="number">300</span>); <span class="comment">// 清除画布</span></span><br><span class="line">    <span class="built_in">this</span>.drawCircle(); <span class="comment">// 绘制时钟的表框</span></span><br><span class="line">    <span class="built_in">this</span>.drawCalibration(); <span class="comment">// 绘制时钟的刻度</span></span><br><span class="line">    <span class="built_in">this</span>.drawPoints(); <span class="comment">// 绘制时钟的指针</span></span><br><span class="line">    <span class="built_in">window</span>.requestAnimationFrame(drawClock);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">window</span>.requestAnimationFrame(drawClock); <span class="comment">// 添加定时器</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意，每次绘制前使用 <code>ctx.save()</code> 保存当前状态，绘制完成后使用 <code>ctx.restore()</code> 恢复保存的状态，这样可以避免绘制几次后找不到初始的状态。上面的每个绘制都是如此操作的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tcatche/images/blogs/canvas_example_clock.gif" alt="效果图"></p>
+<h2 id="完整代码和演示"><a href="#完整代码和演示" class="headerlink" title="完整代码和演示"></a>完整代码和演示</h2><p><a target="_blank" rel="noopener" href="https://codepen.io/tcatche/pen/GRmbagY?editors=0010">点击查看完整代码</a></p>
+<p>演示：</p>
+<p class="codepen" data-height="300" data-default-tab="js,result" data-slug-hash="GRmbagY" data-user="tcatche" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a target="_blank" rel="noopener" href="https://codepen.io/tcatche/pen/GRmbagY">
+  </a> by tcatche (<a target="_blank" rel="noopener" href="https://codepen.io/tcatche">@tcatche</a>)
+  on <a target="_blank" rel="noopener" href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

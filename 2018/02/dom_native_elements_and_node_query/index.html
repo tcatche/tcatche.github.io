@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Javascript 原生查询 DOM 节点或元素的方法 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="DOM,query,selector" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-dom_native_elements_and_node_query" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        Javascript 原生查询 DOM 节点或元素的方法
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2018" data-type="ARCHIVES">
+        2018-02-06
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 3.2k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 19mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="DOM" data-type="TAGS">DOM</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="query" data-type="TAGS">query</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="selector" data-type="TAGS">selector</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>最近在重新学习基础知识，本文对常用的 js 进行 DOM 查询的操作进行整理。</p>
+<h2 id="基本查询"><a href="#基本查询" class="headerlink" title="基本查询"></a>基本查询</h2><p>本节主要介绍在文档中通过 id、class、name、css选择器直接进行查询的方式。</p>
+<h3 id="id-选择器"><a href="#id-选择器" class="headerlink" title="id 选择器"></a>id 选择器</h3><p>使用 <code>document.getElementById</code>，根据 <code>id</code> 返回元素，返回值是 <code>Element</code>，如果不存在，则返回 null。</p>
+<p>这个接口很简单，只有几点需要注意：</p>
+<ul>
+<li>字母 <code>d</code> 小写，这里容易出错。</li>
+<li>元素的 <code>id</code> 是大小写敏感的。</li>
+<li>如果存在多个 <code>id</code> 一致（这样是不规范的），则返回第一个查找到的元素。</li>
+<li>该方法不会搜索不在文档中的元素，当创建了一个新元素，必须插入文档中才能被查询到。</li>
+</ul>
+<h3 id="类选择器"><a href="#类选择器" class="headerlink" title="类选择器"></a>类选择器</h3><p>使用 <code>document.getElementsByClassName</code>，根据 class 查找元素，返回值是 <code>HTMLCollection</code>，如果不存在，则返回 null。</p>
+<p>这个函数也很简单，看几个例子：</p>
+<p>获取所有 <code>class</code> 中同时包括 ‘red’ 和 ‘test’ 的元素：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 空格隔开多个 class</span></span><br><span class="line"><span class="built_in">document</span>.getElementsByClassName(<span class="string">&#x27;red test&#x27;</span>);</span><br><span class="line"><span class="comment">// 类似于 jQuery 的</span></span><br><span class="line">$(<span class="string">&#x27;.red.test&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>id</code> 为 ‘main’ 的元素的子节点中，获取所有 <code>class</code> 为’test’的元素</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">&#x27;main&#x27;</span>).getElementsByClassName(<span class="string">&#x27;test&#x27;</span>);</span><br><span class="line"><span class="comment">// 类似于 jQuery 的</span></span><br><span class="line">$(<span class="string">&#x27;#main .test&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><code>HTMLCollection</code> 是一个<a href="/2017/05/array-like-object/">类数组对象</a>，可以通过 <code>call、apply</code> 使用数组的一些方法，下面是一个查找所有 <code>class</code> 属性为 ‘test’ 的 div 元素的例子:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> testElements = <span class="built_in">document</span>.getElementsByClassName(<span class="string">&#x27;test&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> testDivs = <span class="built_in">Array</span>.prototype.filter.call(testElements, <span class="function"><span class="keyword">function</span>(<span class="params">testElement</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> testElement.nodeName === <span class="string">&#x27;DIV&#x27;</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以使用下文的 css 选择器查询</span></span><br><span class="line"><span class="keyword">var</span> testDivs = <span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;div.test&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签选择器"><a href="#标签选择器" class="headerlink" title="标签选择器"></a>标签选择器</h3><p>使用 <code>document.getElementsByTagName</code>，根据标签名查找元素，返回值是 <code>HTMLCollection</code>（ W3C 规范说明这些元素是 <code>HTMLCollection</code>，然而这个方法在 WebKit 内核的浏览器中返回一个 <code>NodeList</code>），如果不存在，则返回 null。</p>
+<p>该方法类似于 <code>document.getElementsByClassName</code> 不再详细说明。</p>
+<h3 id="name-选择器"><a href="#name-选择器" class="headerlink" title="name 选择器"></a>name 选择器</h3><p><code>document.getElementsByName</code> 根据元素的 <code>name</code> 属性来查找元素，返回值是 <code>NodeList</code>，如果不存在，则返回 null。</p>
+<p>对于不存在 <code>name</code> 属性的 HTML 元素，如果为其设置 <code>name</code> 属性，则该元素也能被选择到，最常见的比如 div 元素。</p>
+<p><strong>注意</strong>，这个选择器在不同浏览器的效果是不同的，比如在 IE 和 Opera 浏览器下，这个方法也会返回 <code>id</code> 属性为这个值的元素。在使用的时候，应该小心使用，尽量保证 <code>name</code> 不和其他元素的 <code>id</code> 一致。</p>
+<h3 id="css-选择器"><a href="#css-选择器" class="headerlink" title="css 选择器"></a>css 选择器</h3><p>常用的选择器如 id、class、属性选择器 都可以使用 <code>document.querySelector</code> 或 <code>document.querySelectorAll</code> 进行查找，如果没有找到匹配的元素，则返回 null。他们的区别在于 <code>document.querySelector</code> 返回第一个匹配选择器的元素，而 <code>document.querySelectorAll</code> 返回所有匹配的元素（NodeList）。</p>
+<p>这个接口使用深度优先的先序遍历文档的节点进行查找：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;test&quot;</span>&gt;</span>first find.<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/div&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;test&quot;</span>&gt;</span>second find.<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.querySelectorAll(<span class="string">&quot;.test&quot;</span>).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(item.innerText);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// &quot;first find.&quot;</span></span><br><span class="line"><span class="comment">// &quot;second find.&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>参数也可以是一系列逗号分隔的多个 css 选择器字符串，搜索的元素顺序和选择器的顺序无关：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;test1&quot;</span>&gt;test1.&lt;/div&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;test2&quot;</span>&gt;</span>test2.<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.querySelectorAll(<span class="string">&quot;.test1, .test2&quot;</span>).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(item.innerText);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// &quot;test1.&quot;</span></span><br><span class="line"><span class="comment">// &quot;test2.&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>该方法也可以用在元素上：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;test&quot;</span>&gt;<span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;test1&quot;</span>&gt;</span>test.test1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>&lt;/div&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;test1&quot;</span>&gt;</span>root.test1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ele = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.test&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(ele.querySelector(<span class="string">&#x27;.test1&#x27;</span>).innerText);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &quot;test.test1&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>但是，在查看 <a target="_blank" rel="noopener" href="https://www.w3.org/TR/selectors-api/#examples0">Selectors API 规范</a> 的时候注意到:</p>
+<blockquote>
+<p>Even though the method is invoked on an element, selectors are still evaluated in the context of the entire document.</p>
+</blockquote>
+<p>这段话的意思是说，即使在元素上调用函数，选择器仍然是在整个文档的上下文环境进行选择，如下示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;test&quot;</span>&gt;<span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;test1&quot;</span>&gt;</span>test.test1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>&lt;/div&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;test1&quot;</span>&gt;</span>root.test1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ele = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.test&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(ele.querySelector(<span class="string">&#x27;body .test1&#x27;</span>).innerText);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &quot;test.test1&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>选择器 <code>body .test1</code> 并不在 <code>test</code> 的上下文环境中，但是仍然选中了，它的运行模式更像在整个文档中选择，然后过滤出属于该元素子元素的内容，这样做无疑性能很差。</p>
+<p>如果指定的选择器不合法，会抛出 <code>SYNTAX_ERR</code> 异常，所以对于不确定的选择器，需要使用 <code>try...catch</code> 处理异常:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="built_in">document</span>.querySelectorAll(<span class="string">&quot;##&quot;</span>)</span><br><span class="line">&#125; <span class="keyword">catch</span>(err) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;error selector.&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// &quot;error selector.&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>，本方法返回的 <code>NodeList</code> 是静态的，也即不会随着文档树的变化而更新，而其他接口（如 <code>document.getElementsByName</code>、<code>document.getElementsByClassName</code>） 返回的 <code>HTMLCollection</code> 和 <code>NodeList</code> 都是动态的，内容会随着元素的更新而更新。</p>
+<p>使用 CSS 伪类不会返回任何元素。最后再说一次，这个 api 性能不怎么好，如果条件允许，优先使用上面提到的选择器。</p>
+<h3 id="Element-matches-selector"><a href="#Element-matches-selector" class="headerlink" title="Element.matches(selector)"></a>Element.matches(selector)</h3><p>如果元素匹配被指定的选择器字符串(selector)，<code>matches</code> 方法返回 true， 否则返回 false。</p>
+<p>有一些浏览器使用前缀, 在非标准名称 <code>matchesSelector()</code> 下实现了这个方法，因此可以实现这个 Polyfill：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!Element.prototype.matches) &#123;</span><br><span class="line">  Element.prototype.matches = </span><br><span class="line">    Element.prototype.matchesSelector || </span><br><span class="line">    Element.prototype.mozMatchesSelector ||</span><br><span class="line">    Element.prototype.msMatchesSelector || </span><br><span class="line">    Element.prototype.oMatchesSelector || </span><br><span class="line">    Element.prototype.webkitMatchesSelector ||</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> [].indexOf.call(<span class="built_in">document</span>.querySelectorAll(s), <span class="built_in">this</span>) !== -<span class="number">1</span>;       </span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="关系查询"><a href="#关系查询" class="headerlink" title="关系查询"></a>关系查询</h2><p>除了上面的基本查询，还存在一些常用的比如查找父元素，查找兄弟元素，查找子元素等操作，这一节看一下这些已知某个元素查找其相关操作。</p>
+<h3 id="查询子孙元素"><a href="#查询子孙元素" class="headerlink" title="查询子孙元素"></a>查询子孙元素</h3><p>首先，节点存在的一些属性就可以做到一些基本的查询：</p>
+<ul>
+<li><code>childElementCount</code> 返回给定 Node 的子元素数。</li>
+<li><code>children</code> 返回 Node 的子元素，是一个动态更新的 <code>HTMLCollection</code>。</li>
+<li><code>childNodes</code> 返回给定 Node 的子节点，是一个动态更新的 <code>NodeList</code>，与 <code>children</code> 不同点在于，子节点可能会包含文本节点，注释节点等。</li>
+<li><code>firstChild</code> 返回给定 Node 的第一个子节点。</li>
+<li><code>lastChild</code> 返回给定 Node 的最后一个子节点。</li>
+</ul>
+<p>一些查询可能使用的方法：</p>
+<ul>
+<li><code>node.contains(otherNode)</code> 返回 <code>otherNode</code> 是否是 node 的后代节点或是 node 节点本身</li>
+<li><code>node.hasChildNodes()</code> 返回一个布尔值，表明当前节点是否包含有子节点。</li>
+<li><code>node.isEqualNode(otherNode)</code> 返回一个布尔值，表明两个节点是否相等。当两个节点的类型相同，定义特征相同（对元素来说，即 id，孩子节点的数量等等），属性一致等，这两个节点就是相等的。</li>
+<li><code>node.isSameNode(otherNode)</code> 返回一个布尔值，表明两个节点是否为同一个节点。</li>
+</ul>
+<p>接下来我们使用这些属性和函数来实现一些常见的查询操作：</p>
+<h4 id="查询第一个或者最后一个子元素"><a href="#查询第一个或者最后一个子元素" class="headerlink" title="查询第一个或者最后一个子元素"></a>查询第一个或者最后一个子元素</h4><p>前面提到了 <code>firstChild</code> 和 <code>lastChild</code> 返回的结果是 Node 的第一个或者最后一个节点，但是并不能直接使用，因为它们可能返回的是一个被填充的文本节点，比如下面的 示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;p id=<span class="string">&quot;para-01&quot;</span>&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span>First span<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span>Middle span<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span>Last span<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">&lt;/p&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p01 = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;para-01&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(p01.firstChild.nodeName)</span><br><span class="line"><span class="built_in">console</span>.log(p01.firstChild.nodeType)</span><br><span class="line"></span><br><span class="line"><span class="comment">// &quot;#text&quot;</span></span><br><span class="line"><span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<p>之所以出现这种情况，是因为在 <code>&lt;p&gt;</code> 标签和 <code>&lt;span&gt;</code> 标签之前，有一个换行符和多个空格充当了一个文本节点。在浏览器中,任意多个的空白符都将导致文本节点的插入，包括一个到多个空格符、换行符、制表符等等。</p>
+<p>这种情况下我们获得的元素实际上并不是我们想要的元素，需要稍微改写一下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Determine whether a node&#x27;s text content is entirely whitespace.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Throughout, whitespace is defined as one of the characters</span></span><br><span class="line"><span class="comment"> *  &quot;\t&quot; TAB \u0009</span></span><br><span class="line"><span class="comment"> *  &quot;\n&quot; LF  \u000A</span></span><br><span class="line"><span class="comment"> *  &quot;\r&quot; CR  \u000D</span></span><br><span class="line"><span class="comment"> *  &quot; &quot;  SPC \u0020</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param </span>node  A node implementing the |CharacterData| interface (i.e.,</span></span><br><span class="line"><span class="comment"> *             a |Text|, |Comment|, or |CDATASection| node</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return     </span>True if all of the text content of |nod| is whitespace,</span></span><br><span class="line"><span class="comment"> *             otherwise false.</span></span><br><span class="line"><span class="comment"> * This does not use Javascript&#x27;s &quot;\s&quot; because that includes non-breaking</span></span><br><span class="line"><span class="comment"> * spaces (and also some other characters).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isAllWhiteSpace</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Use ECMA-262 Edition 3 String and RegExp features</span></span><br><span class="line">  <span class="keyword">return</span> !(<span class="regexp">/[^\t\n\r ]/</span>.test(node.textContent));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Determine if a node should be ignored by the iterator functions.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param </span>node  An object implementing the DOM1 |Node| interface.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return     </span>true if the node is:</span></span><br><span class="line"><span class="comment"> *                1) A |Text| node that is all whitespace</span></span><br><span class="line"><span class="comment"> *                2) A |Comment| node</span></span><br><span class="line"><span class="comment"> *             and otherwise false.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIgnorable</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> isComment = node.nodeType === <span class="number">8</span>; <span class="comment">// A comment node</span></span><br><span class="line">  <span class="keyword">var</span> isWhiteSpace = node.nodeType === <span class="number">3</span> &amp;&amp; isAllWhiteSpace(node); <span class="comment">// a text node and all whitespace</span></span><br><span class="line">  <span class="keyword">return</span> isComment || isWhiteSpace;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFirstChild</span>(<span class="params">parent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> res = parent.firstChild;</span><br><span class="line">  <span class="keyword">while</span> (res) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!isIgnorable(res)) <span class="keyword">return</span> res;</span><br><span class="line">    res = res.nextSibling;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getLastChild</span>(<span class="params">parent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> res = parent.lastChild;</span><br><span class="line">  <span class="keyword">while</span> (res) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!isIgnorable(res)) <span class="keyword">return</span> res;</span><br><span class="line">    res = res.previousSibling;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(getFirstChild(p01).textContent);</span><br><span class="line"><span class="built_in">console</span>.log(getLastChild(p01).textContent);</span><br><span class="line"><span class="comment">// &quot;&lt;span&gt;First span&lt;/span&gt;&quot;</span></span><br><span class="line"><span class="comment">// &quot;&lt;span&gt;Last span&lt;/span&gt;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>以 <code>getFirstChild</code> 为例，判断 <code>firstChild</code> 是否为注释节点，如果是则跳过，然后判断是否是内容为空、为制表符的文本节点，如果是则跳过，判断下一个节点。</p>
+<p>当然也可以换个思路：使用 <code>childNodes</code> 获取一个元素的所有子节点，并过滤掉注释节点和内容为空、为制表符的文本节点：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getMeaningNodes</span>(<span class="params">parent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> [].filter.call(parent.childNodes, <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> !isIgnorable(node);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFirstChild</span>(<span class="params">parent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> nodes = getMeaningNodes(parent);</span><br><span class="line">  <span class="keyword">return</span> nodes[<span class="number">0</span>] || <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getLastChild</span>(<span class="params">parent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> nodes = getMeaningNodes(parent);</span><br><span class="line">  <span class="keyword">return</span> nodes.length &gt; <span class="number">0</span> ? nodes[nodes.length - <span class="number">1</span>] : <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(getFirstChild(p01).textContent);</span><br><span class="line"><span class="built_in">console</span>.log(getLastChild(p01).textContent);</span><br><span class="line"><span class="comment">// &quot;&lt;span&gt;First span&lt;/span&gt;&quot;</span></span><br><span class="line"><span class="comment">// &quot;&lt;span&gt;Last span&lt;/span&gt;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>当然一些像 jQuery 的类库会忽略掉文本节点，那么直接使用 <code>ele.children</code> 即可，也不需要再过滤 <code>childNodes</code> 了。</p>
+<h4 id="查询第-n-个子节点"><a href="#查询第-n-个子节点" class="headerlink" title="查询第 n 个子节点"></a>查询第 n 个子节点</h4><p>这里我们可以使用上一节的 <code>getMeaningNodes</code> 方法返回的 node 列表直接查询：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getTheNChild</span>(<span class="params">parent, number</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> nodes = getMeaningNodes(parent);</span><br><span class="line">  <span class="keyword">return</span> nodes.length &gt; number ? nodes[number] : <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(getTheNChild(p01, <span class="number">0</span>).textContent);</span><br><span class="line"><span class="built_in">console</span>.log(getTheNChild(p01, <span class="number">1</span>).textContent);</span><br><span class="line"><span class="built_in">console</span>.log(getTheNChild(p01, <span class="number">2</span>).textContent);</span><br><span class="line"><span class="built_in">console</span>.log(getTheNChild(p01, <span class="number">3</span>).textContent);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &quot;First span&quot;</span></span><br><span class="line"><span class="comment">// &quot;Middle span&quot;</span></span><br><span class="line"><span class="comment">// &quot;Last span&quot;</span></span><br><span class="line"><span class="comment">// null</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="查找指定类型的子元素或节点"><a href="#查找指定类型的子元素或节点" class="headerlink" title="查找指定类型的子元素或节点"></a>查找指定类型的子元素或节点</h4><p>可以在元素上使用上面提到的 <code>getElementsByTagName</code>、<code>getElementsByName</code>、<code>getElementsByClassName</code> 以及 <code>querySelector</code> 前面已经详细介绍过，不再详细说明。</p>
+<h3 id="查找兄弟元素或节点"><a href="#查找兄弟元素或节点" class="headerlink" title="查找兄弟元素或节点"></a>查找兄弟元素或节点</h3><h4 id="查找上一个或者下一个兄弟元素或节点"><a href="#查找上一个或者下一个兄弟元素或节点" class="headerlink" title="查找上一个或者下一个兄弟元素或节点"></a>查找上一个或者下一个兄弟元素或节点</h4><p>和兄弟元素有关的属性和方法如下：</p>
+<ul>
+<li><code>nextSibling</code> 返回当前节点的下一个兄弟节点，没有则返回 null。</li>
+<li><code>nextElementSibling</code> 返回当前元素在其父元素的子元素节点中的上一个元素节点，没有则返回 null。</li>
+<li><code>previousSibling</code> 返回当前节点的前一个兄弟节点，没有则返回 null。</li>
+<li><code>previousElementSibling</code> 返回当前元素在其父元素的子元素节点中的后一个元素节点，没有则返回 null。</li>
+</ul>
+<p>这四个属性差不多，区别在于节点可能是注释节点和文本节点，而元素可能会忽略一个文本元素，这个看应用场景，比如 jQuery 就会忽略文本元素：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// previous</span></span><br><span class="line">$ele.prev();</span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line">ele.previousElementSibling;</span><br><span class="line"></span><br><span class="line"><span class="comment">// next</span></span><br><span class="line">$ele.next();</span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line">ele.nextElementSibling;</span><br></pre></td></tr></table></figure>
+
+<h4 id="查找全部兄弟元素或节点"><a href="#查找全部兄弟元素或节点" class="headerlink" title="查找全部兄弟元素或节点"></a>查找全部兄弟元素或节点</h4><p>查找兄弟元素可以选择其父节点的全部子元素，并过滤掉自己：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// jQuery</span></span><br><span class="line">$ele.siblings();</span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSiblings</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> children = ele.parentNode.children;</span><br><span class="line">  <span class="keyword">return</span> [].filter.call(children, <span class="function"><span class="keyword">function</span>(<span class="params">child</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> child !== ele;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查找兄弟节点则可以使用父节点的 <code>childNodes</code> 并过滤一下节点，操作和上面类似不再说明。</p>
+<h3 id="查找父节点以及祖先节点"><a href="#查找父节点以及祖先节点" class="headerlink" title="查找父节点以及祖先节点"></a>查找父节点以及祖先节点</h3><p>和父节点以及祖先节点有关的属性有：</p>
+<ul>
+<li><code>parentElement</code> 返回指定的节点的父元素节点。如果该元素没有父节点，或者父节点不是一个元素节点，则返回 null。</li>
+<li><code>parentNode</code> 返回指定的节点在 DOM 树中的父节点。一个元素节点的父节点可能是一个元素(Element)节点,也可能是一个文档(Document)节点,或者是个文档片段(DocumentFragment)节点。如果没有父节点，也返回 null。</li>
+</ul>
+<p><code>Document</code> 和 <code>DocumentFragment</code> 节点没有父节点，因此也返回 null。如果当前节点刚刚被建立，还没有被插入到DOM树中，则该节点的 parentNode 属性也返回 null。</p>
+<p>匹配特定选择器且离当前元素最近的祖先元素，即 <code>closest</code> 的实现：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// jQuery</span></span><br><span class="line">$ele.closest(selectors);</span><br><span class="line"></span><br><span class="line"><span class="comment">// in Chrome 41+ and firefox 35+</span></span><br><span class="line">element.closest(selectors);</span><br><span class="line"></span><br><span class="line"><span class="comment">// polyfill</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">closest</span>(<span class="params">ele, seector</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> matches = ele.matches || ele.webkitMatchesSelector || ele.mozMatchesSelector || ele.msMatchesSelector;</span><br><span class="line">  <span class="keyword">if</span> (matches) &#123;</span><br><span class="line">    <span class="keyword">while</span> (ele) &#123;</span><br><span class="line">      <span class="keyword">if</span> (matches.call(ele, selector)) &#123;</span><br><span class="line">        <span class="keyword">return</span> ele;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ele = ele.parentElement;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3.org/TR/selectors-api/#selector-string">W3C Selectors API Level 1</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Document">MDN Document</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Whitespace_in_the_DOM">Whitespace in the DOM</a></li>
+</ul>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

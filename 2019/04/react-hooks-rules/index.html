@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>React Hooks 文档翻译 - 5 - Rules of Hooks（Hooks 的使用规则） | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,翻译,hooks" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-react-hooks-rules" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        React Hooks 文档翻译 - 5 - Rules of Hooks（Hooks 的使用规则）
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2019" data-type="ARCHIVES">
+        2019-04-08
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 1.2k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 7mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="react" data-type="TAGS">react</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="翻译" data-type="TAGS">翻译</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="hooks" data-type="TAGS">hooks</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><strong>翻译自：<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-rules.html">https://reactjs.org/docs/hooks-rules.html</a></strong></p>
+<p>Hooks 是 React 16.8 新增的功能。它允许你在不编写类的情况下使用状态和其他 React 特性。</p>
+<p>Hooks 是 JavaScript 函数，但在使用时需要遵循两个规则。我们提供了一个<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/eslint-plugin-react-hooks">linter 插件</a> 来自动检查这些规则：</p>
+<h3 id="Only-Call-Hooks-at-the-Top-Level"><a href="#Only-Call-Hooks-at-the-Top-Level" class="headerlink" title="Only Call Hooks at the Top Level"></a>Only Call Hooks at the Top Level</h3><p>只在顶层调用 Hooks</p>
+<p><strong>不要在循环语句，条件语句或嵌套函数中调用 Hook</strong>。而是在 React 函数的顶层使用 Hooks。遵循此规则，可以确保组件每次渲染时都以相同的顺序调用 Hook。这是 React 能够在多次的 <code>useState</code> 和 <code>useEffect</code> 调用后正确保留 Hooks 状态的原因。（如果你很好奇这是为什么，我们将在后面<a href="#explanation">深入解释</a>。）</p>
+<h3 id="Only-Call-Hooks-from-React-Functions"><a href="#Only-Call-Hooks-from-React-Functions" class="headerlink" title="Only Call Hooks from React Functions"></a>Only Call Hooks from React Functions</h3><p>只在 React 函数组件中调用 Hooks</p>
+<p><strong>不要在普通的 JavaScript 函数中调用 Hooks。</strong> 相反，你可以：</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 在 React 函数组件中调用 Hooks。</li>
+<li><input checked="" disabled="" type="checkbox"> 在自定义的 Hooks 中调用 Hooks（我们将在<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-custom.html">下一页</a>了解它们）。</li>
+</ul>
+<p>遵循这两条规则，可以确保组件中的所有的状态逻辑在源码中很清晰。</p>
+<h2 id="ESLint-Plugin"><a href="#ESLint-Plugin" class="headerlink" title="ESLint Plugin"></a>ESLint Plugin</h2><p>我们发布了一个名为 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/eslint-plugin-react-hooks"><code>eslint-plugin-react-hooks</code></a> 的 ESLint 插件，来强制执行这两个规则。如果你想尝试，可以添加到项目中：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install eslint-plugin-react-hooks@next</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Your ESLint configuration</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;plugins&quot;</span>: [</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="string">&quot;react-hooks&quot;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&quot;rules&quot;</span>: &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="string">&quot;react-hooks/rules-of-hooks&quot;</span>: <span class="string">&quot;error&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>将来，我们打算将此插件包含在 Create React App 和类似的脚手架中。</p>
+<p><strong>你可以直接跳到下一页，查看如何编写<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-custom.html">自己的 Hooks</a>。</strong> 我们将在本文继续解释这些规则背后的原因。</p>
+<h2 id="Explanation"><a href="#Explanation" class="headerlink" title="Explanation"></a>Explanation</h2><p>如<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-state.html#tip-using-multiple-state-variables">前文所述</a>，我们可以在一个组件中使用多个 State 或 Effect Hook：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Form</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 1. Use the name state variable</span></span><br><span class="line">  <span class="keyword">const</span> [name, setName] = useState(<span class="string">&#x27;Mary&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 2. Use an effect for persisting the form</span></span><br><span class="line">  useEffect(<span class="function"><span class="keyword">function</span> <span class="title">persistForm</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">localStorage</span>.setItem(<span class="string">&#x27;formData&#x27;</span>, name);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 3. Use the surname state variable</span></span><br><span class="line">  <span class="keyword">const</span> [surname, setSurname] = useState(<span class="string">&#x27;Poppins&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 4. Use an effect for updating the title</span></span><br><span class="line">  useEffect(<span class="function"><span class="keyword">function</span> <span class="title">updateTitle</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.title = name + <span class="string">&#x27; &#x27;</span> + surname;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>那么 React 如何知道哪个状态对应于哪个 <code>useState</code> 的调用？答案是** React 依赖于调用 Hooks 的顺序。 **我们的示例之所以可以工作，因为 Hooks 被调用的顺序在每次渲染都是相同的：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ------------</span></span><br><span class="line"><span class="comment">// First render</span></span><br><span class="line"><span class="comment">// ------------</span></span><br><span class="line">useState(<span class="string">&#x27;Mary&#x27;</span>)           <span class="comment">// 1. Initialize the name state variable with &#x27;Mary&#x27;</span></span><br><span class="line">useEffect(persistForm)     <span class="comment">// 2. Add an effect for persisting the form</span></span><br><span class="line">useState(<span class="string">&#x27;Poppins&#x27;</span>)        <span class="comment">// 3. Initialize the surname state variable with &#x27;Poppins&#x27;</span></span><br><span class="line">useEffect(updateTitle)     <span class="comment">// 4. Add an effect for updating the title</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// -------------</span></span><br><span class="line"><span class="comment">// Second render</span></span><br><span class="line"><span class="comment">// -------------</span></span><br><span class="line">useState(<span class="string">&#x27;Mary&#x27;</span>)           <span class="comment">// 1. Read the name state variable (argument is ignored)</span></span><br><span class="line">useEffect(persistForm)     <span class="comment">// 2. Replace the effect for persisting the form</span></span><br><span class="line">useState(<span class="string">&#x27;Poppins&#x27;</span>)        <span class="comment">// 3. Read the surname state variable (argument is ignored)</span></span><br><span class="line">useEffect(updateTitle)     <span class="comment">// 4. Replace the effect for updating the title</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+
+<p>只要 Hooks 调用的顺序在多次渲染时都是相同的，React 就可以将其本地状态与它们关联起来。但是如果我们在条件语句中调用 Hook （例如，<code>persistForm</code> effect）会发生什么？</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 🔴 We&#x27;re breaking the first rule by using a Hook in a condition</span></span><br><span class="line"><span class="keyword">if</span> (name !== <span class="string">&#x27;&#x27;</span>) &#123;</span><br><span class="line">  useEffect(<span class="function"><span class="keyword">function</span> <span class="title">persistForm</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">localStorage</span>.setItem(<span class="string">&#x27;formData&#x27;</span>, name);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>条件 <code>name !== &#39;&#39;</code> 在第一次渲染时为 <code>true</code>，因此运行此 Hook。但是，在下一次渲染时，用户可能会清除表单，使条件值为 <code>false</code> 。此时的渲染过程中将跳过此 Hook，Hooks 被调用的顺序将变得和之前不同：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">useState(<span class="string">&#x27;Mary&#x27;</span>)           <span class="comment">// 1. Read the name state variable (argument is ignored)</span></span><br><span class="line"><span class="comment">// useEffect(persistForm)  // 🔴 This Hook was skipped!</span></span><br><span class="line">useState(<span class="string">&#x27;Poppins&#x27;</span>)        <span class="comment">// 🔴 2 (but was 3). Fail to read the surname state variable</span></span><br><span class="line">useEffect(updateTitle)     <span class="comment">// 🔴 3 (but was 4). Fail to replace the effect</span></span><br></pre></td></tr></table></figure>
+
+
+<p>React 不知道第二个 <code>useState</code> Hook调用返回什么。React 期望此组件中的第二个 Hook 对应 <code>persistForm</code> effect，就像上次渲染时一样，但它已不再存在。此时，在我们跳过的 Hook 之后的每个 Hook 调用也被移动，结果导致错误。</p>
+<p><strong>这就是必须在我们组件的顶层调用 Hooks 的原因。</strong>如果想要在条件语句下运行一个 effect，可以把这个条件放在 Hook 中：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">useEffect(<span class="function"><span class="keyword">function</span> <span class="title">persistForm</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 👍 We&#x27;re not breaking the first rule anymore</span></span><br><span class="line">  <span class="keyword">if</span> (name !== <span class="string">&#x27;&#x27;</span>) &#123;</span><br><span class="line">    <span class="built_in">localStorage</span>.setItem(<span class="string">&#x27;formData&#x27;</span>, name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>请注意，如果使用了<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/eslint-plugin-react-hooks">提供的 lint 规则</a>，则无需担心此问题。</strong> 不过现在你知道了<em>为什么</em> Hooks 以这种方式工作，以及这些规则可以阻止了哪些问题。</p>
+<h2 id="Next-Steps"><a href="#Next-Steps" class="headerlink" title="Next Steps"></a>Next Steps</h2><p>Finally, we’re ready to learn about <a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-custom.html">writing your own Hooks</a>! Custom Hooks let you combine Hooks provided by React into your own abstractions, and reuse common stateful logic between different components.</p>
+<p>最后，我们已经准备好去了解<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-custom.html">编写自己的Hooks</a>！Custom Hooks 允许你将 React 提供的 Hooks 组合到你的抽象中，并在不同组件之间重用常见的状态逻辑。</p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

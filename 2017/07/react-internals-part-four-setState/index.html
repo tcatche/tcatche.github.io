@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>React 内部原理，第四部分：setState | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,翻译" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-react-internals-part-four-setState" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        React 内部原理，第四部分：setState
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-07-27
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 4.5k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 30mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="react" data-type="TAGS">react</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="翻译" data-type="TAGS">翻译</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <blockquote>
+<p>原文：<a target="_blank" rel="noopener" href="http://www.mattgreer.org/articles/react-internals-part-four-setState/">React Internals, Part Four: setState</a></p>
+</blockquote>
+<p>In part four of this series we finally add <code>setState</code> to our little React clone. <code>setState</code> is a beast, so grab your favorite beverage and get comfortable!</p>
+<h2 id="The-series"><a href="#The-series" class="headerlink" title="The series"></a>The series</h2><ul>
+<li><a href="/articles/react-internals-part-one-basic-rendering">part one: basic rendering</a></li>
+<li><a href="/articles/react-internals-part-two-componentWillMount-and-componentDidMount/">part two: componentWillMount and componentDidMount</a></li>
+<li><a href="/articles/react-internals-part-three-basic-updating">part three: basic updating</a></li>
+<li><strong>part four: setState</strong> &lt;- you are here</li>
+<li><a target="_blank" rel="noopener" href="http://www.mattgreer.org/articles/react-internals-part-five-transactions/">part five: transactions</a></li>
+</ul>
+<p>全部译文：</p>
+<ul>
+<li><a href="/2017/07/react-internals-part-one-basic-rendering/">第一部分：基础渲染</a></li>
+<li><a href="/2017/07/react-internals-part-two-componentWillMount-and-componentDidMount/">第二部分：componentWillMount and componentDidMount</a></li>
+<li><a href="/2017/07/react-internals-part-three-basic-updating/">第三部分：基本更新</a></li>
+<li><strong>第四部分：setState</strong> &lt;- 当前位置</li>
+<li><a href="/2017/08/react-internals-part-five-transactions/">第五部分：事务</a></li>
+</ul>
+<h2 id="为-Feact-添加-State（Adding-state-to-Feact）"><a href="#为-Feact-添加-State（Adding-state-to-Feact）" class="headerlink" title="为 Feact 添加 State（Adding state to Feact）"></a>为 Feact 添加 State（Adding state to Feact）</h2><p>State and props are very similar in that they are both data and both influence how and when a component renders. The core difference is props come from an outside source, where state is entirely internal to the component. So far Feact only supports props, so before we can implement <code>setState</code> we need to add the notion of state itself to the framework.</p>
+<p>state 和 props 非常相似，因为它们都是影响组件渲染的时间和方式的数据。核心区别是 props 来自组件外部，而状态完全在组件内部。到目前为止，Feact 只支持 props，所以在我们可以实现 <code>setState</code> 之前，我们需要在框架中添加 state 的概念。</p>
+<h3 id="getInitialState"><a href="#getInitialState" class="headerlink" title="getInitialState"></a>getInitialState</h3><p>When mounting a fresh component, we need to set up its initial state, that’s where this lifecycle method comes in. It’s just called when a component is getting instantiated, so we need to hook into this method in the constructor function that <code>Feact.createClass</code> creates</p>
+<p>当挂载新的组件时，我们需要设置它的初始状态，这是生命周期方法开始的地方。当组件被实例化时，它被调用，所以我们需要在 <code>Feact.createClass</code> 创建的构造函数中执行这个方法。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Feact = &#123;</span><br><span class="line">  <span class="function"><span class="title">createClass</span>(<span class="params">spec</span>)</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Constructor</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">this</span>.props = props;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// new lines added for state</span></span><br><span class="line">      <span class="keyword">const</span> initialState = <span class="built_in">this</span>.getInitialState ?</span><br><span class="line">        <span class="built_in">this</span>.getInitialState() :</span><br><span class="line">        <span class="literal">null</span>;</span><br><span class="line">      <span class="built_in">this</span>.state = initialState;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Constructor.prototype =</span><br><span class="line">      <span class="built_in">Object</span>.assign(Constructor.prototype, spec);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Constructor;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Just like props, we set the state on the instance.</p>
+<p>就像 props 一样，我们在实例上设置 state。 </p>
+<blockquote>
+<p>Notice if the component does not have <code>getInitialState</code> defined, the initial state will be <code>null</code>? React won’t default initial state to an empty object, so if you want to use state, chances are you need to implement this method and return an object, otherwise your first render will blow up if it tries to do <code>this.state.foo</code></p>
+</blockquote>
+<p>注意，如果组件没有定义 <code>getInitialState</code>，初始状态将为 <code>null</code>？ React 不会将默认初始状态设置为空对象，所以如果要使用状态，则可能需要实现此方法并返回一个对象，否则，如果尝试执行 <code>this.state.foo</code>，您的第一个渲染将会错误。</p>
+<p>Now with <code>getInitialState</code> defined, Feact components can start using <code>this.state</code> whenever they’d like.</p>
+<p>现在 <code>getInitialState</code> 已经定义，Feact 组件可以随时开始使用 this.state。</p>
+<h2 id="添加一个简单的（Adding-a-simple-setState-）"><a href="#添加一个简单的（Adding-a-simple-setState-）" class="headerlink" title="添加一个简单的（Adding a simple setState()）"></a>添加一个简单的（Adding a simple setState()）</h2><p>Whenever a component wants to update, it needs to tell Feact “hey, I’d like to render again!”, and <code>this.setState()</code> is the primary way to accomplish that. <code>setState</code> updates <code>this.state</code>, and triggers a render, which will send the component through the lifecycle methods <code>shouldComponentUpdate</code> -&gt; <code>componentWillUpdate</code> -&gt; <code>render</code> -&gt; <code>componentDidUpdate</code> (which Feact doesn’t have, but of course React does). </p>
+<p>每当一个组件想要更新，它需要告诉 Feact “嘿，我想再次渲染”，而 <code>this.setState()</code> 是完成这个的主要方式。<code>setState</code> 更新 <code>this.state</code>，并触发一个渲染，它将通过生命周期方法 <code>shouldComponentUpdate</code> -&gt; <code>componentWillUpdate</code> -&gt; <code>render</code> -&gt; <code>componentDidUpdate</code>（该 Feact没有，但是 React 有）发送组件。 </p>
+<h3 id="在组件上定义-setState（Defining-setState-on-the-component）"><a href="#在组件上定义-setState（Defining-setState-on-the-component）" class="headerlink" title="在组件上定义 setState（Defining setState on the component）"></a>在组件上定义 setState（Defining setState on the component）</h3><p>Again we need to tweak <code>Feact.createClass</code> to get <code>setState</code> in place. To do this, we’ll give all classes created this way a prototype, and this prototype will have <code>setState</code> defined</p>
+<p>我们需要再次调整 <code>Feact.createClass</code> 来获取 <code>setState</code>。为此，我们将给出所有以这种方式创建的类一个原型，而这个原型上定义了 <code>setState</code>。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">FeactComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">FeactComponent.prototype.setState = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// to be implemented later</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mixSpecIntoComponent</span>(<span class="params">Constructor, spec</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> proto = Constructor.prototype;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> spec) &#123;</span><br><span class="line">    proto[key] = spec[key];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Feact = &#123;</span><br><span class="line">  <span class="function"><span class="title">createClass</span>(<span class="params">spec</span>)</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Constructor</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">this</span>.props = props;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// new lines added for state</span></span><br><span class="line">      <span class="keyword">const</span> initialState = <span class="built_in">this</span>.getInitialState ? <span class="built_in">this</span>.getInitialState() : <span class="literal">null</span>;</span><br><span class="line">      <span class="built_in">this</span>.state = initialState;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Constructor.prototype = <span class="keyword">new</span> FeactComponent();</span><br><span class="line"></span><br><span class="line">    mixSpecIntoComponent(Constructor, spec);</span><br><span class="line">    <span class="keyword">return</span> Constructor;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Prototypical inheritance in action. <code>mixSpecIntoComponent</code> in React is more complicated (and robust), dealing with things like mixins and making sure users don’t accidentally clobber a React method.</p>
+<p>原型继承在起作用。<code>mixSpecIntoComponent</code> 在 React 中更复杂（强大），处理像 mixins 这样的事情，确保用户不会意外地破坏 React 方法。 </p>
+<h3 id="将-setState-绑定到-updateComponent（Threading-setState-over-to-updateComponent）"><a href="#将-setState-绑定到-updateComponent（Threading-setState-over-to-updateComponent）" class="headerlink" title="将 setState 绑定到 updateComponent（Threading setState over to updateComponent）"></a>将 setState 绑定到 updateComponent（Threading setState over to updateComponent）</h3><p>Back in <a href="/articles/react-internals-part-three-basic-updating">part three</a> we updated a component by calling <code>FeactCompositeComponentWrapper#receiveComponent</code>, which in turn called <code>updateComponent</code>. It makes sense to not repeat ourselves, so we should thread state updates through <code>updateComponent</code> too. We need to get all the way from <code>FeactComponent.prototype.setState</code> to <code>FeactCompositeComponentWrapper#updateComponent</code>. Currently Feact has no means of accomplishing this.</p>
+<p>回到第三部分，我们通过调用 <code>FeactCompositeComponentWrapper#receiveComponent</code> 来更新一个组件，它又反过来调用 <code>updateComponent</code>。没必要再重复一遍，所以我们也应该通过 <code>updateComponent</code> 进行状态更新。我们需要从 <code>FeactComponent.prototype.setState</code> 到<code>FeactCompositeComponentWrapper#updateComponent</code>。目前，无法 Feact 完成这项工作。 </p>
+<p>In React, there is the notion of “public instances” and “internal instances”. Public instances are the objects that get created from the classes defined with <code>createClass</code>, and internal instances are the objects that React internally creates. In this scenario the internal instance is the <code>FeactCompositeComponentWrapper</code> that the framework created. The internal instance knows about the public instance, since it wraps it. But the relationship doesn’t go in the opposite direction, yet now it needs to. Here <code>setState</code> is the public instance attempting to communicate with the internal instance, so with that in mind, let’s take a stab at implementing <code>setState</code></p>
+<p>在 React 中，存在“公共实例”和“内部实例”的概念。公共实例是从使用 <code>createClass</code> 定义的类创建的对象，内部实例是 React 内部创建的对象。在这种情况下，内部实例是框架创建的 <code>FeactCompositeComponentWrapper</code> 。内部实例知道公共实例，因为它包装的公共实例。但是，这种关系是单向的，现在需要双向的关系，也就是说我们需要公共示例知道内部示例。这里的 <code>setState</code> 是尝试与内部实例进行通信的公共实例，所以考虑到这一点，我们来强制实现 <code>setState</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">FeactComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">FeactComponent.prototype.setState = <span class="function"><span class="keyword">function</span>(<span class="params">partialState</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> internalInstance = getMyInternalInstancePlease(<span class="built_in">this</span>);</span><br><span class="line"></span><br><span class="line">  internalInstance._pendingPartialState = partialState;</span><br><span class="line"></span><br><span class="line">  FeactReconciler.performUpdateIfNecessary(internalInstance);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>React solves the “get my internal instance” problem with an instance map, which really just stores the internal instance on the public instance</p>
+<p>React使用实例映射解决了“获取我的内部实例”的问题，它实际上只是将内部实例存储在公共实例上。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> FeactInstanceMap = &#123;</span><br><span class="line">  <span class="function"><span class="title">set</span>(<span class="params">key, value</span>)</span> &#123;</span><br><span class="line">    key.__feactInternalInstance = value;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">get</span>(<span class="params">key</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> key.__feactInternalInstance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>We’ll set up this relationship while mounting</p>
+<p>我们将在组件挂载时建立这种关系。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FeactCompositeComponentWrapper</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="title">mountComponent</span>(<span class="params">container</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> Component = <span class="built_in">this</span>._currentElement.type;</span><br><span class="line">    <span class="keyword">const</span> componentInstance = <span class="keyword">new</span> Component(<span class="built_in">this</span>._currentElement.props);</span><br><span class="line">    <span class="built_in">this</span>._instance = componentInstance;</span><br><span class="line"></span><br><span class="line">    FeactInstanceMap.set(componentInstance, <span class="built_in">this</span>);</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>We have one other unimplemented method, <code>FeactReconciler.performUpdateIfNecessary</code>, but just like other reconciler methods, it will just delegate to the instance</p>
+<p>我们有一个其他未实现的方法，<code>FeactReconciler.performUpdateIfNecessary</code>，但是像其他 reconciler 方法一样，它将只是委托给实例。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> FeactReconciler = &#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="title">performUpdateIfNecessary</span>(<span class="params">internalInstance</span>)</span> &#123;</span><br><span class="line">    internalInstance.performUpdateIfNecessary();</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FeactCompositeComponentWrapper</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="title">performUpdateIfNecessary</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.updateComponent(<span class="built_in">this</span>._currentElement, <span class="built_in">this</span>._currentElement);</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Finally, we are calling <code>updateComponent</code>! Notice we seem to be cheating a little bit. We are saying to update the component, but with the same element being used as both previous and next. Whenever <code>updateComponent</code> is called with the same element, then React knows only state is getting updated, otherwise props are updating. React will decide whether to call <code>componentWillReceiveProps</code> based on <code>prevElement !== nextElement</code>, so let’s go ahead and throw that into Feact too</p>
+<p>最后我们调用 <code>updateComponent</code> ！请注意，我们似乎在隐瞒了一点。我们说要更新组件，但是使用相同的元素作为上一个和下一个更新的组件。每当使用相同的元素调用 <code>updateComponent</code> 时，React 只知道 state 正在更新，否则 props 正在更新。 React 会决定是否根据 <code>prevElement !== nextElement</code> 调用 <code>componentWillReceiveProps</code>，所以让我们继续把它转换成 Feact</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FeactCompositeComponentWrapper</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="title">updateComponent</span>(<span class="params">prevElement, nextElement</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> nextProps = nextElement.props;</span><br><span class="line">    <span class="keyword">const</span> inst = <span class="built_in">this</span>._instance;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> willReceive = prevElement !== nextElement;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (willReceive &amp;&amp; inst.componentWillReceiveProps) &#123;</span><br><span class="line">      inst.componentWillReceiveProps(nextProps);</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>That isn’t the entirety of <code>updateComponent</code>, (check the fiddle at the end of the article for all the code), just enough to show that calling <code>setState()</code> does not cause <code>componentWillReceiveProps</code> to get called before the render happens. Which does make sense, <code>setState</code> has no means of influencing props, just state.</p>
+<p>这并不是完整的 <code>updateComponent</code> （在文章底部的 fiddle 获得所有代码），但足以显示调用 <code>setState()</code> 不会导致 <code>componentWillReceiveProps</code> 在渲染发生之前被调用。这是有道理的， <code>setState</code> 没有办法影响 props，只是影响 state。 </p>
+<blockquote>
+<p>If you want a heads up on every render, whether caused by prop changes or state changes, then implement <code>componentWillUpdate</code> in your component. We won’t add it to Feact since this blog series is already too long, but it’s called right before a render, no matter what caused the render. The only exception is the first render, where you can hook into <code>componentWillMount</code> instead.</p>
+</blockquote>
+<blockquote>
+<p>如果您想考虑每个渲染上是否发生，无论是由 props 更改或 state 更改引起的，请在组件中实现 <code>componentWillUpdate</code>。我们不会将它添加到 Feact中，因为这个博客系列已经太长了，但是无论什么导致了渲染，它都将在渲染之前就被调用。唯一的例外是第一次渲染，但这种情况下您也可以在 <code>componentWillMount</code>钩子中执行一些操作。 </p>
+</blockquote>
+<h3 id="用新的-state-更新（Updating-with-the-new-state）"><a href="#用新的-state-更新（Updating-with-the-new-state）" class="headerlink" title="用新的 state 更新（Updating with the new state）"></a>用新的 state 更新（Updating with the new state）</h3><p>If you trace through the code we’ve written so far, you’ll see we’re now hanging out in <code>updateComponent</code>, and the internal instance has the pending partial state waiting to be used at <code>internalInstance._pendingPartialState</code>. Now all we need to do is have the component render again – this time with state –, then from there actually getting the update all the way into the DOM is the same procedure as done back in part three</p>
+<p>如果您浏览到目前为止写的代码，您将看到我们现在在 <code>updateComponent</code> 中进行操作，并且在内部实例有等待在 <code>internalInstance._pendingPartialState</code> 中使用的部分状态。现在我们需要做的是使组件再次渲染，这次与状态有关，然后实际更新到 DOM 的方式是完全和第三部分中相同的过程。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FeactCompositeComponentWrapper</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="title">updateComponent</span>(<span class="params">prevElement, nextElement</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> nextProps = nextElement.props;</span><br><span class="line">    <span class="keyword">const</span> inst = <span class="built_in">this</span>._instance;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> willReceive = prevElement !== nextElement;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (willReceive &amp;&amp; inst.componentWillReceiveProps) &#123;</span><br><span class="line">      inst.componentWillReceiveProps(nextProps);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> shouldUpdate = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">const</span> nextState =</span><br><span class="line">      <span class="built_in">Object</span>.assign(&#123;&#125;, inst.state, <span class="built_in">this</span>._pendingPartialState);</span><br><span class="line">    <span class="built_in">this</span>._pendingPartialState = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (inst.shouldComponentUpdate) &#123;</span><br><span class="line">      shouldUpdate =</span><br><span class="line">        inst.shouldComponentUpdate(nextProps, nextState);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (shouldUpdate) &#123;</span><br><span class="line">      <span class="built_in">this</span>._performComponentUpdate(</span><br><span class="line">        nextElement, nextProps, nextState</span><br><span class="line">      );</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      inst.props = nextProps;</span><br><span class="line">      inst.state = nextState;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">_performComponentUpdate</span>(<span class="params">nextElement, nextProps, nextState</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>._currentElement = nextElement;</span><br><span class="line">    <span class="keyword">const</span> inst = <span class="built_in">this</span>._instance;</span><br><span class="line"></span><br><span class="line">    inst.props = nextProps;</span><br><span class="line">    inst.state = nextState;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>._updateRenderedComponent();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">_updateRenderedComponent</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> prevComponentInstance = <span class="built_in">this</span>._renderedComponent;</span><br><span class="line">    <span class="keyword">const</span> inst = <span class="built_in">this</span>._instance;</span><br><span class="line">    <span class="keyword">const</span> nextRenderedElement = inst.render();</span><br><span class="line"></span><br><span class="line">    FeactReconciler.receiveComponent(</span><br><span class="line">      prevComponentInstance,</span><br><span class="line">      nextRenderedElement</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This updating of the component is almost identical to part three, with the exception of the added state of course. Since state just sits on the public instance at <code>this.state</code>, <code>_performComponentUpdate</code> only had a one line change and <code>_updateRenderedComponent</code> had no change at all. The real key change was in the middle of <code>updateComponent</code> where we merge the previous state with the new partial state, and this partial state originated way back in <code>this.setState()</code>.</p>
+<p>组件的更新几乎与第三部分相同，当然,除了新添加的 state。由于 state 只是在公共实例的 <code>this.state</code> 上，<code>_performComponentUpdate</code> 只有一行更改，而 <code>_updateRenderedComponent</code> 根本没有改变。真正的关键变化是在 <code>updateComponent</code>，我们将先前的 state 与新的局部 state 来自 <code>this.setState()</code> 的 state 进行合并。 全做完了！</p>
+<h3 id="全做完了！-…-对吗？（All-done-…-right-）"><a href="#全做完了！-…-对吗？（All-done-…-right-）" class="headerlink" title="全做完了！ … 对吗？（All done! … right?）"></a>全做完了！ … 对吗？（All done! … right?）</h3><p>Phew, we now have <code>setState</code>! Here is a fiddle of what we have so far</p>
+<p>现在我们已经有了 <code>setState</code> ，这里是迄今为止的完整代码：</p>
+<p><a target="_blank" rel="noopener" href="https://jsfiddle.net/city41/jth636nz/2/">fiddle</a></p>
+<p>But Feact’s setState is a bit simple, not performant and could even be a little surprising. The main problem is every distinct call to <code>setState</code> causes the component to render. This forces the user to either figure out how to fit all their changes into one call, or accept that each call will render. It’d be better if the programmer could call <code>setState</code> when it’s convenient, and let the framework batch the calls when it can, resulting in fewer renders.</p>
+<p>但是，Feact 的 setState 有点简单，没有性能，甚至有点令人惊讶。主要的问题是每个不同的调用 setState 导致组件呈现。这将迫使用户确定如何将其所有更改合并为一次调用，或接受每次调用都将渲染。如果程序员可以在方便的时候调用 <code>setState</code>，那么这个框架会更好，让框架在调用时可以批量调用，从而产生更少的渲染。 </p>
+<h2 id="批处理-setState-调用（Batching-setState-calls）"><a href="#批处理-setState-调用（Batching-setState-calls）" class="headerlink" title="批处理 setState 调用（Batching setState calls）"></a>批处理 setState 调用（Batching setState calls）</h2><p>If you take a look at Feact’s render lifecycle, you can see we call <code>componentWillReceiveProps</code> just before we’re about to render. What if inside <code>componentWillReceiveProps</code> the user was to call <code>setState</code>? Currently in Feact, that’d cause it to go ahead and start a second render, while in the middle of the first render! That doesn’t sound good. Not to mention, responding to incoming props by updating your state is a common need. It makes sense to expect your state update and the new props to all flow into the same render, otherwise you’d get an intermediate render with only the state change, then the final render with both state and props change, which would probably be unexpected.</p>
+<p>如果您看看 Feact 的渲染生命周期，可以看到我们在渲染之前调用 <code>componentWillReceiveProps</code>。如果用户在 <code>componentWillReceiveProps</code> 内部要调用 setState 怎么办？目前在 Feact 中，这将导致它继续执行，并在第一个渲染的中间开始第二个渲染！这听起来不好，更不要说，通过响应传入的 state 来更新 props 是一个常见的需求。期望你的 state 更新和新的 props 流入同一渲染是有道理的，否则你会得到只有 state 改变的中间渲染，然后 state 和 props 同时改变的最终渲染，可能是不可预期的。</p>
+<blockquote>
+<p>Here is a fiddle that demonstrates this (<a target="_blank" rel="noopener" href="https://jsfiddle.net/city41/62edejvz/2/">fiddle</a>). Depending on your browser, you might not be able to see the second render. But if you open the debugger and place a <code>debugger;</code> statement in <code>FeactDOMComponent#_updateTextContent</code>, you should be able to see how Feact naively does three renders when it should have been just two.</p>
+</blockquote>
+<blockquote>
+<p>这是一个 fiddle 的演示（<a target="_blank" rel="noopener" href="https://jsfiddle.net/city41/62edejvz/2/">fiddle</a> ）。根据您的浏览器，您可能无法看到第二次渲染。但是如果您打开调试器并放置断点在 <code>FeactDOMComponent#_updateTextContent</code> 中，您应该能够看到三次呈现，Feact 如何天真地做了三次渲染，而本应该只是两次渲染的。 </p>
+</blockquote>
+<h3 id="批量步骤一，存放批量状态变化的地方（batching-step-one-a-place-to-store-the-batched-state-changes）"><a href="#批量步骤一，存放批量状态变化的地方（batching-step-one-a-place-to-store-the-batched-state-changes）" class="headerlink" title="批量步骤一，存放批量状态变化的地方（batching step one, a place to store the batched state changes）"></a>批量步骤一，存放批量状态变化的地方（batching step one, a place to store the batched state changes）</h3><p>We need a place to store more than one state update, so we will change <code>_pendingPartialState</code> into an array</p>
+<p>我们需要一个存储多个状态更新的地方，所以我们将 <code>_pendingPartialState</code> 更改为一个数组。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">FeactComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">FeactComponent.prototype.setState = <span class="function"><span class="keyword">function</span>(<span class="params">partialState</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> internalInstance = FeactInstanceMap.get(<span class="built_in">this</span>);</span><br><span class="line"></span><br><span class="line">  internalInstance._pendingPartialState =</span><br><span class="line">    internalInstance._pendingPartialState || [];</span><br><span class="line"></span><br><span class="line">  internalInstance._pendingPartialState.push(partialState);</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Over in <code>updateComponent</code>, let’s pull the state processing out into its own method</p>
+<p>在 <code>updateComponent</code> 中，我们将状态处理拉出到自己的方法中。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FeactCompositeComponentWrapper</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="title">updateComponent</span>(<span class="params">prevElement, nextElement</span>)</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">const</span> nextState = <span class="built_in">this</span>._processPendingState();</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">_processPendingState</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> inst = <span class="built_in">this</span>._instance;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">this</span>._pendingPartialState) &#123;</span><br><span class="line">      <span class="keyword">return</span> inst.state;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> nextState = inst.state;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="built_in">this</span>._pendingPartialState.length; ++i) &#123;</span><br><span class="line">      nextState =</span><br><span class="line">        <span class="built_in">Object</span>.assign(nextState, <span class="built_in">this</span>._pendingPartialState[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>._pendingPartialState = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> nextState;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="批量步骤二，将状态更改合为一个渲染（batching-step-two-batching-up-the-state-changes-into-one-render）"><a href="#批量步骤二，将状态更改合为一个渲染（batching-step-two-batching-up-the-state-changes-into-one-render）" class="headerlink" title="批量步骤二，将状态更改合为一个渲染（batching step two, batching up the state changes into one render）"></a>批量步骤二，将状态更改合为一个渲染（batching step two, batching up the state changes into one render）</h3><blockquote>
+<p>The batching mechanism we’re about to add to Feact is very simple and not at all what React does. The point is to just show the general idea of how batching works (and later, show why it can make <code>setState</code> tricky).</p>
+</blockquote>
+<blockquote>
+<p>我们即将添加到“快乐”中的配料机制非常简单，而且还没有反应。关键是要显示批处理如何工作的一般想法（后来，显示为什么它可以使setState变得棘手）。</p>
+</blockquote>
+<p>For Feact, we will batch updates while rendering, otherwise, we won’t batch them. So during <code>updateComponent</code>, we just set a flag that tells the world we are rendering, then unset it at the end. If <code>setState</code> sees we are rendering, it will set the pending state, but not cause a new render, as it knows the current render that is going on will pick up this state change</p>
+<p>对于 Feact，我们将在渲染时批量更新，否则我们不会批量更新。所以在 <code>updateComponent</code> 期间，我们只是设置一个标志告诉世界我们正在渲染，然后在渲染的最后取消设置。如果 <code>setState</code> 看到我们正在渲染，它将设置待处理状态，但不会导致新的渲染，因为它知道当前正在执行的渲染将会接收到该状态更改。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FeactCompositeComponentWrapper</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="title">updateComponent</span>(<span class="params">prevElement, nextElement</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>._rendering = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// entire rest of the method</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>._rendering = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">FeactComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">FeactComponent.prototype.setState = <span class="function"><span class="keyword">function</span>(<span class="params">partialState</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> internalInstance = FeactInstanceMap.get(<span class="built_in">this</span>);</span><br><span class="line"></span><br><span class="line">  internalInstance._pendingPartialState = internalInstance._pendingPartialState || [];</span><br><span class="line"></span><br><span class="line">  internalInstance.push(partialState);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!internalInstance._rendering) &#123;</span><br><span class="line">    FeactReconciler.performUpdateIfNecessary(internalInstance);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="包装起来（wrapping-it-up）"><a href="#包装起来（wrapping-it-up）" class="headerlink" title="包装起来（wrapping it up）"></a>包装起来（wrapping it up）</h2><p>Here is a fiddle that contains the final version of Feact：</p>
+<p>这是一个包含最终版本的 Feact 的 fiddle：</p>
+<p><a target="_blank" rel="noopener" href="https://jsfiddle.net/city41/fbw81p5e/5/">fiddle</a></p>
+<p>It contains the simple batching, so it will only render twice (whereas the previous fiddle above rendered three times).</p>
+<p>它包含简单的批处理，所以它只会渲染两次（而上一个 fiddle 渲染三次）。</p>
+<h3 id="setState-陷阱（setState-pitfalls）"><a href="#setState-陷阱（setState-pitfalls）" class="headerlink" title="setState 陷阱（setState pitfalls）"></a>setState 陷阱（setState pitfalls）</h3><p>Now that we understand how setState works and the overall concept on how batching works, we can see there are some pitfalls in <code>setState</code>. The problem is it takes several steps to update a component’s state, as each pending partial state needs to get applied one by one. That means using <code>this.state</code> when setting state is dangerous</p>
+<p>现在我们了解了 <code>setState</code> 的工作原理以及批处理如何工作的总体概念，我们可以看到 <code>setState</code> 有一些陷阱。问题是需要几个步骤更新组件的状态，因为每个待处理的部分状态需要逐个应用。这意味着在设置状态的时候使用 <code>this.state</code> 是很危险的。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">componentWillReceiveProps</span>(<span class="params">nextProps</span>)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.setState(&#123; <span class="attr">counter</span>: <span class="built_in">this</span>.state.counter + <span class="number">1</span> &#125;);</span><br><span class="line">  <span class="built_in">this</span>.setState(&#123; <span class="attr">counter</span>: <span class="built_in">this</span>.state.counter + <span class="number">1</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This contrived example shows what I mean. You might expect counter to get 2 added to it, but since states are being batched up, the second call to <code>setState</code> has the same values for <code>this.state</code> as the first call, so counter will only get incremented once.</p>
+<p>React solves this problem by allowing a callback to be passed into <code>setState</code></p>
+<p>这个例子显示了我的意思。您可能希望计数器可以添加2，但是由于状态正在被批量化，所以第二次调用 <code>this.state</code> <code>this.state</code> 的值与第一次调用 <code>this.state</code> 的值相同，所以计数器只会增加一次。 React 通过允许将回调函数传递给 <code>this.state</code> 来解决这个问题</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">componentWillReceiveProps</span>(<span class="params">nextProps</span>)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.setState(<span class="function">(<span class="params">currentState</span>) =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">counter</span>: currentState.counter + <span class="number">1</span></span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="built_in">this</span>.setState(<span class="function">(<span class="params">currentState</span>) =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">counter</span>: currentState.counter + <span class="number">1</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>By using the callback flavor of <code>setState</code>, you get access to the intermediate values state works through. If Feact were to implement this, it’d look like</p>
+<p>通过使用  <code>setState</code> 的回调函数，您可以访问工作中的 state 值。如果 Feact 要实现这一点，看起来就像：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">_processPendingState</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> inst = <span class="built_in">this</span>._instance;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">this</span>._pendingPartialState) &#123;</span><br><span class="line">    <span class="keyword">return</span> inst.state;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> nextState = inst.state;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="built_in">this</span>._pendingPartialState.length; ++i) &#123;</span><br><span class="line">    <span class="keyword">const</span> partialState = <span class="built_in">this</span>._pendingPartialState[i];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> partialState === <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">      nextState = partialState(nextState);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      nextState = <span class="built_in">Object</span>.assign(nextState, patialState);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">this</span>._pendingPartialState = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">return</span> nextState;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>You can see how the callback gets access to the intermediate values of <code>nextState</code> as we work our way through all the pending changes.</p>
+<p>你可以看到回调函数如何访问 <code>nextState</code> 的中间值，当我们我们正在等待完成所有待处理的更改。</p>
+<h2 id="下一步（Up-Next）"><a href="#下一步（Up-Next）" class="headerlink" title="下一步（Up Next）"></a>下一步（Up Next）</h2><p>If you’ve read this far then holy cow, thanks! Feel free to <a href="mailto:matt.e.greer@gmail.com">email me</a> if you have any feedback.</p>
+<p>Part five is just around the corner. It will go over React’s transactions and wrap the whole shebang up. Stay tuned.</p>
+<p>Here is the final fiddle for Feact one more time:</p>
+<p><a target="_blank" rel="noopener" href="https://jsfiddle.net/city41/fbw81p5e/5/">fiddle</a></p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

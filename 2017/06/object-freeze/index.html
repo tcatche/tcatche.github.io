@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>对象“冻结”，防止被修改 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="扩展" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-object-freeze" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        对象“冻结”，防止被修改
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-06-20
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 2.8k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 16mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="扩展" data-type="TAGS">扩展</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>在有些应用场合下，我们希望我们的对象是不可以被修改的，比如我们提供给外一个服务，但是不想这个服务被修改，这就需要对象能够防止被修改。</p>
+<p>在另外一些应用场合，比如 <code>React</code> 通常搭配使用的 <code>immutable.js</code> 采用不可变的数据结构，可以保证最大限度的降低副作用。</p>
+<p>对象防止被修改有三个级别：阻止扩展、密封对象、冻结对象，本章内容，针对这些，总结如何使对象数据不可变。</p>
+<h2 id="阻止扩展"><a href="#阻止扩展" class="headerlink" title="阻止扩展"></a>阻止扩展</h2><p>如果一个对象可以添加新的属性，那么这个对象是可以扩展的，阻止扩展就是让这个对象不能被扩展，也就是说不能添加新的属性。</p>
+<p>阻止扩展主要涉及这两组函数：<code>Object.isExtensible(obj)/Reflect.isExtensible(obj)</code>、<code>Object.preventExtensions(obj)/Reflect.preventExtensions(obj)</code>，前一组用于判断对象是否可以扩展，后一组用于阻止对象扩展。</p>
+<h3 id="Object-isExtensible-obj-Reflect-isExtensible-obj"><a href="#Object-isExtensible-obj-Reflect-isExtensible-obj" class="headerlink" title="Object.isExtensible(obj)/Reflect.isExtensible(obj)"></a>Object.isExtensible(obj)/Reflect.isExtensible(obj)</h3><p>这两个函数都可以检查对象是否可以扩展：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> empty = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.isExtensible(empty); <span class="comment">// true </span></span><br><span class="line"><span class="built_in">Reflect</span>.isExtensible(empty); <span class="comment">// true </span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(empty); </span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.isExtensible(empty); <span class="comment">// false </span></span><br><span class="line"><span class="built_in">Reflect</span>.isExtensible(empty); <span class="comment">// false </span></span><br></pre></td></tr></table></figure>
+
+<p>这两种方法的不同点在于，如果参数不是对象，<code>Object.isExtensible</code> 会进行强制的类型转换，而 <code>Reflect.isExtensible</code> 会报错：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Reflect</span>.isExtensible(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// TypeError: 1 is not an object</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.isExtensible(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Object-preventExtensions-Reflect-preventExtensions"><a href="#Object-preventExtensions-Reflect-preventExtensions" class="headerlink" title="Object.preventExtensions/Reflect.preventExtensions"></a>Object.preventExtensions/Reflect.preventExtensions</h3><p>这两个函数用于将对象变的不可扩展，并返回原对象。</p>
+<p>但是需要注意的是，<strong>不可扩展对象的属性可以被修改和删除，只是不能添加新的属性</strong>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">a</span>: <span class="string">&#x27;a&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(obj);</span><br><span class="line"><span class="built_in">Object</span>.isExtensible(obj); </span><br><span class="line"><span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">obj.a = <span class="string">&#x27;b&#x27;</span>; </span><br><span class="line"><span class="comment">// Object &#123;a: &quot;b&quot;&#125;</span></span><br><span class="line"><span class="keyword">delete</span> obj.a </span><br><span class="line"><span class="comment">// Object &#123;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>还有，<code>preventExtensions</code> 只能阻止对象被添加自身属性，但可以为其原型添加属性，不过不允许将其原型重新指向另一个对象：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fixed = <span class="built_in">Object</span>.preventExtensions(&#123;&#125;);</span><br><span class="line">fixed.__proto__.a = <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(fixed.a); </span><br><span class="line"><span class="comment">// a</span></span><br><span class="line"></span><br><span class="line">fixed.__proto__ = &#123;&#125;</span><br><span class="line"><span class="comment">// TypeError: #&lt;Object&gt; is not extensible</span></span><br></pre></td></tr></table></figure>
+
+<p>同样的，如果参数不是对象，<code>Reflect.preventExtensions</code> 会报错，<code>Object.preventExtensions</code> 会进行强制的类型转换：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Reflect</span>.preventExtensions(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// TypeError: 1 is not an object</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>在非严格模式下，为一个不可扩展对象的新属性赋值会静默失败，而严格模式下抛出 <code>TypeError</code> 异常：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> nonExtensible = <span class="built_in">Object</span>.preventExtensions(&#123;&#125;);</span><br><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">fail</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">  &quot;use strict&quot;</span>;</span><br><span class="line">  nonExtensible.newProperty = <span class="string">&quot;FAIL&quot;</span>;</span><br><span class="line">&#125;());</span><br><span class="line"><span class="comment">// TypeError: Cannot add property newProperty, object is not extensible</span></span><br></pre></td></tr></table></figure>
+
+<p>使用Object.defineProperty方法为一个不可扩展的对象添加新属性会抛出异常:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperty(nonExtensible, <span class="string">&quot;new&quot;</span>, &#123; <span class="attr">value</span>: <span class="number">1</span> &#125;);</span><br><span class="line"><span class="comment">// TypeError: Cannot define property new, object is not extensible</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="密封对象"><a href="#密封对象" class="headerlink" title="密封对象"></a>密封对象</h2><p>密封对象就是让对象不能添加新的属性，并且已有的属性不能被配置，也就是说不能删除已有属性，不能修改已有属性的可枚举性、可配置性、可写性，但 <strong>可能</strong> 可以修改已有属性的值的对象。密封对象主要涉及两个函数：<code>Object.seal()</code>、<code>Object.isSealed()</code>。</p>
+<h3 id="Object-isSealed"><a href="#Object-isSealed" class="headerlink" title="Object.isSealed"></a>Object.isSealed</h3><p>本方法判断一个对象是否被密封：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 新建的对象默认不是密封的.</span></span><br><span class="line"><span class="keyword">var</span> empty = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.isSealed(empty); <span class="comment">// === false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果你把一个空对象变的不可扩展,则它同时也会变成个密封对象.</span></span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(empty);</span><br><span class="line"><span class="built_in">Object</span>.isSealed(empty); <span class="comment">// === true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 但如果这个对象不是空对象,则它不会变成密封对象,因为密封对象的所有自身属性必须是不可配置的.</span></span><br><span class="line"><span class="keyword">var</span> hasProp = &#123; <span class="attr">fee</span>: <span class="string">&quot;fie foe fum&quot;</span> &#125;;</span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(hasProp);</span><br><span class="line"><span class="built_in">Object</span>.isSealed(hasProp); <span class="comment">// === false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果把这个属性变的不可配置,则这个对象也就成了密封对象.</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(hasProp, <span class="string">&quot;fee&quot;</span>, &#123; <span class="attr">configurable</span>: <span class="literal">false</span> &#125;);</span><br><span class="line"><span class="built_in">Object</span>.isSealed(hasProp); <span class="comment">// === true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 一个密封对象同时也必然是不可扩展的.</span></span><br><span class="line"><span class="built_in">Object</span>.isExtensible(sealed); <span class="comment">// === false</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，在 <code>ES5</code> 中，如果参数不是一个对象类型（原始类型），将抛出一个 <code>TypeError</code> 异常。在 <code>ES6</code> 中， 非对象参数将被视为一个密封的普通对象，因此会返回 <code>true</code>。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ES5 code</span></span><br><span class="line"><span class="built_in">Object</span>.isSealed(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// TypeError: 1 is not an object </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6 code</span></span><br><span class="line"><span class="built_in">Object</span>.isSealed(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// true                          </span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Object-seal"><a href="#Object-seal" class="headerlink" title="Object.seal"></a>Object.seal</h3><p>密封一个对象会让这个对象变的不能添加新属性，且所有已有属性会变的不可配置，即属性不可被删除，数据属性不能被重新定义为访问其属性，但是值可能允许被修改：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">foo</span>: <span class="string">&quot;foo&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">Object</span>.seal(obj);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 仍然可以修改密封对象上的属性的值.</span></span><br><span class="line">obj.foo = <span class="string">&quot;bar&quot;</span>; </span><br><span class="line"><span class="comment">// Object &#123;foo: &quot;bar&quot;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 但你不能把一个数据属性重定义成访问器属性.</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">&quot;foo&quot;</span>, &#123; <span class="attr">get</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="string">&quot;g&quot;</span>; &#125; &#125;); </span><br><span class="line"><span class="comment">// 抛出TypeError异常</span></span><br></pre></td></tr></table></figure>
+
+<p>为密封对象添加属性或者删除属性会静默失败，在严格模式下会抛出 <code>TypeError</code> 异常：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">foo</span>: <span class="string">&quot;foo&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">Object</span>.seal(obj);</span><br><span class="line"></span><br><span class="line">obj.bar = <span class="string">&quot;bar&quot;</span>; <span class="comment">// 静默失败,新属性没有成功添加</span></span><br><span class="line"><span class="keyword">delete</span> obj.foo; <span class="comment">// 静默失败,属性没有删除成功</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// Object &#123;foo: &quot;bar&quot;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ...在严格模式中,会抛出TypeError异常</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">fail</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">  &quot;use strict&quot;</span>;</span><br><span class="line">  <span class="keyword">delete</span> obj.foo; <span class="comment">// TypeError: Cannot delete property &#x27;foo&#x27; of #&lt;Object&gt;</span></span><br><span class="line">&#125;());</span><br><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">fail</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">  &quot;use strict&quot;</span>;</span><br><span class="line">  obj.bar = <span class="string">&quot;bar&quot;</span>; <span class="comment">// TypeError: Cannot add property bar, object is not extensible</span></span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+
+<p>密封对象不会影响从原型链上继承的属性，但原型属性的值也会不能修改。</p>
+<h2 id="冻结对象"><a href="#冻结对象" class="headerlink" title="冻结对象"></a>冻结对象</h2><p>冻结对象的所有属性都不能被修改，任何尝试修改的操作都会失败，也就是说被冻结的对象是不可扩展（<code>not extensible</code>），不可配置（<code>not configurable</code>），并且所有的数据属性都不可写（<code>not writable</code>），换言之，这个对象是不可变的。</p>
+<p>同样的，冻结操作也包含两个函数： <code>Object.isFrozen()</code>、<code>Object.freeze()</code> 。</p>
+<h3 id="Object-isFrozen"><a href="#Object-isFrozen" class="headerlink" title="Object.isFrozen"></a>Object.isFrozen</h3><p>看几个例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 一个对象默认是可扩展的,所以它也是非冻结的.</span></span><br><span class="line">assert(<span class="built_in">Object</span>.isFrozen(&#123;&#125;) === <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一个不可扩展的空对象同时也是一个冻结对象.</span></span><br><span class="line"><span class="keyword">var</span> vacuouslyFrozen = <span class="built_in">Object</span>.preventExtensions(&#123;&#125;);</span><br><span class="line">assert(<span class="built_in">Object</span>.isFrozen(vacuouslyFrozen) === <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一个非空对象默认也是非冻结的.</span></span><br><span class="line"><span class="keyword">var</span> oneProp = &#123; <span class="attr">p</span>: <span class="number">42</span> &#125;;</span><br><span class="line">assert(<span class="built_in">Object</span>.isFrozen(oneProp) === <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 让这个对象变的不可扩展,并不意味着这个对象变成了冻结对象,</span></span><br><span class="line"><span class="comment">// 因为p属性仍然是可以配置的(而且可写的).</span></span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(oneProp);</span><br><span class="line">assert(<span class="built_in">Object</span>.isFrozen(oneProp) === <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...如果删除了这个属性,则它会成为一个冻结对象.</span></span><br><span class="line"><span class="keyword">delete</span> oneProp.p;</span><br><span class="line">assert(<span class="built_in">Object</span>.isFrozen(oneProp) === <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一个不可扩展的对象,拥有一个不可写但可配置的属性,则它仍然是非冻结的.</span></span><br><span class="line"><span class="keyword">var</span> nonWritable = &#123; <span class="attr">e</span>: <span class="string">&quot;plep&quot;</span> &#125;;</span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(nonWritable);</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(nonWritable, <span class="string">&quot;e&quot;</span>, &#123; <span class="attr">writable</span>: <span class="literal">false</span> &#125;); <span class="comment">// 变得不可写</span></span><br><span class="line">assert(<span class="built_in">Object</span>.isFrozen(nonWritable) === <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把这个属性改为不可配置,会让这个对象成为冻结对象.</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(nonWritable, <span class="string">&quot;e&quot;</span>, &#123; <span class="attr">configurable</span>: <span class="literal">false</span> &#125;); <span class="comment">// 变得不可配置</span></span><br><span class="line">assert(<span class="built_in">Object</span>.isFrozen(nonWritable) === <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一个不可扩展的对象,拥有一个不可配置但可写的属性,则它仍然是非冻结的.</span></span><br><span class="line"><span class="keyword">var</span> nonConfigurable = &#123; <span class="attr">release</span>: <span class="string">&quot;the kraken!&quot;</span> &#125;;</span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(nonConfigurable);</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(nonConfigurable, <span class="string">&quot;release&quot;</span>, &#123; <span class="attr">configurable</span>: <span class="literal">false</span> &#125;);</span><br><span class="line">assert(<span class="built_in">Object</span>.isFrozen(nonConfigurable) === <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把这个属性改为不可写,会让这个对象成为冻结对象.</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(nonConfigurable, <span class="string">&quot;release&quot;</span>, &#123; <span class="attr">writable</span>: <span class="literal">false</span> &#125;);</span><br><span class="line">assert(<span class="built_in">Object</span>.isFrozen(nonConfigurable) === <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一个不可扩展的对象,值拥有一个访问器属性,则它仍然是非冻结的.</span></span><br><span class="line"><span class="keyword">var</span> accessor = &#123; <span class="keyword">get</span> <span class="title">food</span>() &#123; <span class="keyword">return</span> <span class="string">&quot;yum&quot;</span>; &#125; &#125;;</span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(accessor);</span><br><span class="line">assert(<span class="built_in">Object</span>.isFrozen(accessor) === <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...但把这个属性改为不可配置,会让这个对象成为冻结对象.</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(accessor, <span class="string">&quot;food&quot;</span>, &#123; <span class="attr">configurable</span>: <span class="literal">false</span> &#125;);</span><br><span class="line">assert(<span class="built_in">Object</span>.isFrozen(accessor) === <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用Object.freeze是冻结一个对象最方便的方法.</span></span><br><span class="line"><span class="keyword">var</span> frozen = &#123; <span class="number">1</span>: <span class="number">81</span> &#125;;</span><br><span class="line">assert(<span class="built_in">Object</span>.isFrozen(frozen) === <span class="literal">false</span>);</span><br><span class="line"><span class="built_in">Object</span>.freeze(frozen);</span><br><span class="line">assert(<span class="built_in">Object</span>.isFrozen(frozen) === <span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<p>上述示例看起来有点绕，总结起来也就是说如果一个对象不可扩展，并且其所有属性都是不可配置的，那么这个对象是被密封的，如果同时，所有属性都是不可写的，那么这个对象同时是被冻结的。</p>
+<p>一个冻结对象也是一个密封对象，当然，也是一个不可扩展的对象：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 一个冻结对象也是一个密封对象.</span></span><br><span class="line">assert(<span class="built_in">Object</span>.isSealed(frozen) === <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当然,更是一个不可扩展的对象.</span></span><br><span class="line">assert(<span class="built_in">Object</span>.isExtensible(frozen) === <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<p>同样的，在 <code>ES5</code> 中，如果参数不是一个对象类型，将抛出一个 <code>TypeError</code> 异常。在 <code>ES6</code> 中，非对象参数将被视为一个冻结的普通对象，因此会返回 <code>true</code>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ES5 code</span></span><br><span class="line"><span class="built_in">Object</span>.isFrozen(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// TypeError: 1 is not an object </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6 code</span></span><br><span class="line"><span class="built_in">Object</span>.isFrozen(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// true   </span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Object-freeze"><a href="#Object-freeze" class="headerlink" title="Object.freeze"></a>Object.freeze</h3><p>Object.freeze() 方法可以冻结一个对象，</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">prop</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">  <span class="attr">foo</span>: <span class="string">&quot;bar&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以添加新的属性,已有的属性可以被修改或删除</span></span><br><span class="line">obj.foo = <span class="string">&quot;baz&quot;</span>;</span><br><span class="line">obj.lumpy = <span class="string">&quot;woof&quot;</span>;</span><br><span class="line"><span class="keyword">delete</span> obj.prop;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> o = <span class="built_in">Object</span>.freeze(obj);</span><br><span class="line"></span><br><span class="line">assert(<span class="built_in">Object</span>.isFrozen(obj) === <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 现在任何修改操作都会失败</span></span><br><span class="line">obj.foo = <span class="string">&quot;quux&quot;</span>; <span class="comment">// 静默失败</span></span><br><span class="line">obj.quaxxor = <span class="string">&quot;the friendly duck&quot;</span>; <span class="comment">// 静默失败,并没有成功添加上新的属性</span></span><br></pre></td></tr></table></figure>
+
+<p>同样的，对象被冻结后，任何尝试修改该对象的操作都会失败，非严格模式下静默失败，严格模式下会抛出异常，不再举例。</p>
+<h3 id="深冻结"><a href="#深冻结" class="headerlink" title="深冻结"></a>深冻结</h3><p>如果对象的一个属性的值是个对象，则这个对象中的属性是可以修改的，除非它也是个冻结对象，<code>Object.freeze</code> 只能“浅冻结”一个对象：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">obj = &#123;</span><br><span class="line">  <span class="attr">internal</span> : &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.freeze(obj);</span><br><span class="line">obj.internal.a = <span class="string">&quot;aValue&quot;</span>;</span><br><span class="line"></span><br><span class="line">obj.internal.a; <span class="comment">// &quot;aValue&quot;</span></span><br><span class="line"><span class="built_in">Object</span>.isFrozen(obj.internal);<span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>如果想让一个对象变的完全冻结，也就是对象的属性为对象的时候也冻结它，称之为“深冻结”可以使用下面函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepFreeze</span> (<span class="params">o</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> prop, propKey;</span><br><span class="line">  <span class="built_in">Object</span>.freeze(o); <span class="comment">// 首先冻结第一层对象.</span></span><br><span class="line">  <span class="keyword">for</span> (propKey <span class="keyword">in</span> o) &#123;</span><br><span class="line">    prop = o[propKey];</span><br><span class="line">    <span class="keyword">if</span> (!o.hasOwnProperty(propKey) || !(<span class="keyword">typeof</span> prop === <span class="string">&quot;object&quot;</span>) || <span class="built_in">Object</span>.isFrozen(prop)) &#123;</span><br><span class="line">      <span class="comment">// 跳过原型链上的属性和已冻结的对象.</span></span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    deepFreeze(prop); <span class="comment">//递归调用.</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj2 = &#123;</span><br><span class="line">  <span class="attr">internal</span> : &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">deepFreeze(obj2);</span><br><span class="line">obj2.internal.a = <span class="string">&quot;anotherValue&quot;</span>;</span><br><span class="line">obj2.internal.a; <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">Object</span>.isFrozen(obj2.internal) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这里综合比较一下三种冻结的特性：</p>
+<ul>
+<li>阻止扩展 （不可被扩展，属性可以被修改、删除，不能添加）<ul>
+<li><code>Object.isExtensible/Object.isExtensible</code></li>
+<li><code>Object.preventExtensions/Object.preventExtensions</code> </li>
+</ul>
+</li>
+<li>密封 （不可被扩展，属性不可被配置，属性可能允许修改，不能添加、删除）<ul>
+<li><code>Object.isSealed</code></li>
+<li><code>Object.seal</code></li>
+</ul>
+</li>
+<li>冻结 （不可被扩展，属性不可被配置，不可被修改、添加、删除）<ul>
+<li><code>Object.isFrozen</code></li>
+<li><code>Object.freeze</code></li>
+</ul>
+</li>
+</ul>
+<p>这三种阻止扩展的方法是层层加强的：</p>
+<blockquote>
+<p>seal = configurable: false + preventExtensions<br>freeze = writable: false + configurable: false + preventExtensions<br>freeze = writable: false + seal</p>
+</blockquote>
+<p>总而言之，如果一个对象不可扩展，并且其所有属性都是不可配置的，那么这个对象是被密封的，如果同时，所有属性都是不可写的，那么这个对象同时是被冻结的。</p>
+<p>还有，需要注意的是，冻结操作一点被使用，则无法撤销。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>本文示例和内容大量参考了各个接口的 MDN 的相关文档，不再一一列举。</p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

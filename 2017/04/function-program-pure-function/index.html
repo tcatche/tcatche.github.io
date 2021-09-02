@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>函数式编程-纯函数 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="function,函数式" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-function-program-pure-function" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        函数式编程-纯函数
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-04-13
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 1.1k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 6mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="function" data-type="TAGS">function</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="函数式" data-type="TAGS">函数式</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>实际上纯函数的定义更近似于数学上的函数的定义，数学上的函数定义如下：</p>
+<blockquote>
+<p>设A，B是非空的数集，如果按照某种确定的对应关系f，使对于集合 A 中的任意一个数 x，在集合B中都有唯一确定的数 y 和它对应，那么就称 f:A-&gt;B 为从集合A 到集合B 的一个函数。</p>
+</blockquote>
+<p>而纯函数的定义为：</p>
+<blockquote>
+<p>纯函数定义为这样一种函数：对于相同的输入，其输出的结果永远是相同的，而且没有可见的副作用。</p>
+</blockquote>
+<p>从定义上可以看出，纯函数和数学上的函数都有要求：对于任意相同输入，其输出结果都是 <strong>唯一确定</strong> 的，不存在一个输入对应于多个输出结果的情况。</p>
+<p>纯函数和非纯函数很经常看到，比如数组的 <code>slice</code> 和 <code>splice</code> 函数，一个是纯函数，一个就是非纯函数：</p>
+<p><code>slice</code> 函数是纯函数，执行结果是可预计的、可靠的，每次输入相同的参数，执行操作的结果都一致：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 纯函数的示例：</span></span><br><span class="line">arr.slice(<span class="number">0</span>, <span class="number">2</span>);</span><br><span class="line"><span class="comment">// [1, 2]</span></span><br><span class="line"></span><br><span class="line">arr.slice(<span class="number">0</span>, <span class="number">2</span>);</span><br><span class="line"><span class="comment">// [1, 2]</span></span><br></pre></td></tr></table></figure>
+
+<p>而 <code>splice</code> 函数不是纯函数，输入相同的参数，每次操作的结果都不一致：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 非纯函数的示例：</span></span><br><span class="line">arr.splice(<span class="number">0</span>, <span class="number">2</span>);</span><br><span class="line"><span class="comment">// [1, 2]</span></span><br><span class="line"></span><br><span class="line">arr.splice(<span class="number">0</span>, <span class="number">2</span>);</span><br><span class="line"><span class="comment">// [3， 4]</span></span><br><span class="line"></span><br><span class="line">arr.splice(<span class="number">0</span>, <span class="number">2</span>);</span><br><span class="line"><span class="comment">// []</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="副作用"><a href="#副作用" class="headerlink" title="副作用"></a>副作用</h2><p>前面提到纯函数不存在副作用，副作用的影响是这样的：</p>
+<blockquote>
+<p>副作用表示在运算过程中，系统状态的改变或者与外部进行的可观察的交互。如果一个函数与外部的可变状态发生了交互，则认为函数是有副作用的。</p>
+</blockquote>
+<p>可以看个例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> minAge = <span class="number">21</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 存在副作用的函数</span></span><br><span class="line"><span class="keyword">var</span> checkAge = <span class="function"><span class="params">age</span> =&gt;</span> age &gt; minAge;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 不存在副作用的函数</span></span><br><span class="line"><span class="keyword">var</span> checkAge = <span class="function"><span class="params">age</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">var</span> minAge = <span class="number">21</span>;</span><br><span class="line">  <span class="keyword">return</span> age &gt; minAge;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从以上示例可以看到，对于同一个输入，第一个函数存在副作用，这个函数的行为不光取决于函数的参数，而且依赖外部变量 <code>minAge</code> ，如果外部修改了 <code>minAge</code> 的值，函数的执行结果可能发生改变，这种改变是不可预期的，而第二个函数不存在副作用，没有使用或修改任何的外部变量，因此可以保证它的输出结果始终是不会发生改变的。</p>
+<p>对于一个系统而言，依赖外部系统环境的状态会造成额外的复杂度，而使用纯函数可以有效降低系统的复杂度，而且还有一些其他的特性：</p>
+<h2 id="纯函数的特性"><a href="#纯函数的特性" class="headerlink" title="纯函数的特性"></a>纯函数的特性</h2><p>纯函数具有很多可靠的特性：</p>
+<h3 id="可缓存性"><a href="#可缓存性" class="headerlink" title="可缓存性"></a>可缓存性</h3><p>因为纯函数的输出结果是确定的，只和输入有关，因此对于复杂运算可以将结果存储起来，下次直接使用。</p>
+<p>如下定义了一个非常耗时的操作：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> complexFunc = <span class="function">(<span class="params">val</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 耗时的操作</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">100000000</span>; i ++) &#123;&#125;</span><br><span class="line">  <span class="keyword">return</span> val ++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">&#x27;timer&#x27;</span>);</span><br><span class="line">complexFunc(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">&#x27;timer&#x27;</span>);</span><br><span class="line"><span class="comment">// timer: 257ms</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 重复调用，函数重新运行，运行时间没有怎么发生变化。</span></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">&#x27;timer&#x27;</span>);</span><br><span class="line">complexFunc(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">&#x27;timer&#x27;</span>);</span><br><span class="line"><span class="comment">// timer: 227ms</span></span><br></pre></td></tr></table></figure>
+
+<p>这个操作执行较慢，每次都要花费大量时间，但是这是个纯函数，每次执行的结果是可预期的，因此，可以对其执行结果进行缓存：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//一个缓存函数结果的简单的实现</span></span><br><span class="line"><span class="keyword">var</span> memoize = <span class="function"><span class="keyword">function</span>(<span class="params">f</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> _cache = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> argsStr = <span class="built_in">JSON</span>.stringify(<span class="built_in">arguments</span>);</span><br><span class="line">    _cache[argsStr] = _cache.hasOwnProperty(argsStr) ? _cache[argsStr] : f(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="keyword">return</span> _cache[argsStr];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> memoizedFunc = memoize(complexFunc);</span><br></pre></td></tr></table></figure>
+
+<p>然后再次执行这个函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 第一次执行未缓存</span></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">&#x27;timer&#x27;</span>);</span><br><span class="line">memoizedFunc(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">&#x27;timer&#x27;</span>);</span><br><span class="line"><span class="comment">// timer: 250ms</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 此时运行结果已经被缓存，运行速度大幅增加。</span></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">&#x27;timer&#x27;</span>);</span><br><span class="line">memoizedFunc(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">&#x27;timer&#x27;</span>);</span><br><span class="line"><span class="comment">// timer: 0.0149ms</span></span><br></pre></td></tr></table></figure>
+
+<p>通过将执行结果缓存起来，虽然第一次调用的执行时间人就很长，但是当函数第二次被调用的时候，可以直接从缓存的数据中读取结果，函数的时间大大缩短。</p>
+<h3 id="可并行化"><a href="#可并行化" class="headerlink" title="可并行化"></a>可并行化</h3><p>因为纯函数不需要访问共享数据，不会受外部状态影响而进行资源竞争，纯函数可以很容易的实行并行代码或者并行操作。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/MostlyAdequate/mostly-adequate-guide/blob/master/ch3.md">mostly-adequate-guide</a></li>
+</ul>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

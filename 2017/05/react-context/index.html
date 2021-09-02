@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>React - Context | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-react-context" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        React - Context
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-05-19
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 2.1k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 13mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="react" data-type="TAGS">react</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><strong>注意，本文仅适用于 React16 以下的版本</strong></p>
+<p><code>Context</code> 是一个实验性的 Api，和 <code>props</code> 一样用于组件之间的数据传递，但是这个功能却很少使用，甚至不为人知。</p>
+<h2 id="为何使用-Context"><a href="#为何使用-Context" class="headerlink" title="为何使用 Context"></a>为何使用 Context</h2><p>在使用 <code>React</code> 开发的时候，通常通过改变 <code>state</code> 和 传递 <code>props</code> 对组件进行控制，特别是通过 <code>props</code> 在组件间的数据流传输，可以很容易的推断组件的状态。首先看一下常用的组件间 <code>props</code> 传递的例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> ParentComponent = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> colorTheme = <span class="string">&quot;green&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">MiddleChildComponent</span> <span class="attr">color</span>=<span class="string">&#123;colorTheme&#125;</span> /&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MiddleChildComponent = <span class="function">(<span class="params">&#123;color, ...props&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// doSth(props)</span></span><br><span class="line">  <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">LeafChildComponent</span> <span class="attr">color</span>=<span class="string">&#123;color&#125;</span> /&gt;</span></span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> LeafChildComponent = <span class="function">(<span class="params">&#123;color&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// doSth(props)</span></span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;</span> &#123;<span class="attr">background:</span> <span class="attr">color</span>&#125; &#125;&gt;</span>LeafChildComponent<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个例子是 <code>React</code> 经典的单向数据传递的结构，数据的流向是：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ParentComponent</span><br><span class="line">    --(props)--&gt; MiddleChildComponent</span><br><span class="line">         --(props)--&gt; LeafChildComponent</span><br></pre></td></tr></table></figure>
+
+<p><code>React</code> 的这个结构也使得代码非常容易进行调试和维护，当代码出现问题的时候，只需要沿着这条路径进行追踪即可。</p>
+<p>但是，当应用变大的时候，这个中间层次可能会变多，这样当传递某个特殊的 <code>prop</code> 的时候，需要穿越非常多的中间组件层级，而这些中间的组件并不会用到，设置根本不知道这个 <code>prop</code> 的存在，这样写起来无疑非常的繁琐，在这种情况下，可以考虑使用 <code>Context Api</code> ，使用 <code>Context</code> 可以不必再中间组件传递 <code>props</code> ，而能让后代获取到数据：</p>
+<h2 id="使用-Context"><a href="#使用-Context" class="headerlink" title="使用 Context"></a>使用 Context</h2><p>使用 Context 需要增加以下属性和方法：</p>
+<ul>
+<li>在父组件中定义方法 <code>getChildContext</code> ，方法返回子组件接收的 <code>conext</code> 对象。</li>
+<li>在父组件中定义属性 <code>childContextType</code> ， 该属性指定了 <code>getChildContext</code> 方法返回的对象的数据类型 。</li>
+<li>在想要获取 <code>context</code> 的子组件定义属性 <code>contextTypes</code> 即可获取 <code>context</code> ，如果未定义该属性，则 <code>context</code> 是一个空对象。</li>
+<li>在子组件使用 <code>this.context</code> 获取 <code>Context</code> ，如果是无状态的 <code>SFC</code> 组件，则第二个参数传入 <code>Context</code>。</li>
+</ul>
+<p>使用 <code>Context</code> 重新改写上面的例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ParentComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> childContextTypes = &#123;</span><br><span class="line">    <span class="attr">color</span>: React.PropTypes.string</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 定义 context</span></span><br><span class="line">  <span class="function"><span class="title">getChildContext</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">color</span>: <span class="string">&#x27;green&#x27;</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">MiddleChildComponent</span>/&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 未指定 contextTypes ，context 为空</span></span><br><span class="line"><span class="keyword">const</span> MiddleChildComponent = <span class="function">(<span class="params">props, context</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;MiddleChildComponent context is: &quot;</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(context);</span><br><span class="line">  <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">LeafChildComponent</span> /&gt;</span></span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> LeafChildComponent = <span class="function">(<span class="params">props, context</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;LeafChildComponent context is: &quot;</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(context);</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;</span> &#123;<span class="attr">background:</span> <span class="attr">context.color</span>&#125; &#125;&gt;</span>LeafChildComponent<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为要获取 context 的组件指定属性 contextTypes</span></span><br><span class="line">LeafChildComponent.contextTypes = &#123;</span><br><span class="line">  <span class="attr">color</span>: React.PropTypes.string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">ParentComponent</span> /&gt;</span></span>,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">&#x27;app&#x27;</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// MiddleChildComponent context is:</span></span><br><span class="line"><span class="comment">// Object &#123;&#125;</span></span><br><span class="line"><span class="comment">// LeafChildComponent context is:</span></span><br><span class="line"><span class="comment">// Object &#123;color: &quot;green&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>当 <code>props</code> 或者 <code>state</code> 改变的时候，父组件就会调用 <code>getChildContext</code> 方法更新 <code>context</code>。</p>
+<h2 id="组件的生命周期函数"><a href="#组件的生命周期函数" class="headerlink" title="组件的生命周期函数"></a>组件的生命周期函数</h2><p>如果为一个组件定义了 <code>contentTypes</code> 属性获取父组件的 <code>contentTypes</code>， 则以下几个生命周期函数会被传入一个额外的参数，即 <code>context</code> 对象：</p>
+<ul>
+<li>constructor(props, context)</li>
+<li>componentWillReceiveProps(nextProps, nextContext)</li>
+<li>shouldComponentUpdate(nextProps, nextState, nextContext)</li>
+<li>componentWillUpdate(nextProps, nextState, nextContext)</li>
+<li>componentDidUpdate(prevProps, prevState, prevContext)</li>
+<li></li>
+</ul>
+<h2 id="Context-的缺陷"><a href="#Context-的缺陷" class="headerlink" title="Context 的缺陷"></a>Context 的缺陷</h2><p>事实上，绝大多数的应用都用不到 context ，使用 <code>context</code> 有以下问题：</p>
+<h3 id="这是一个实验性的-api"><a href="#这是一个实验性的-api" class="headerlink" title="这是一个实验性的 api"></a>这是一个实验性的 api</h3><p>这是一个实验性的 api 这就意味着这个 api 未来可能发生变动，甚至会被删除，将进一步影响到使用这个 api 的应用和组件，因此最好避免使用它。</p>
+<h3 id="和特定的父组件耦合"><a href="#和特定的父组件耦合" class="headerlink" title="和特定的父组件耦合"></a>和特定的父组件耦合</h3><p>如果一个组件使用了 <code>context</code> ， 这就意味着这个组合使用的时候就必须和一个能提供所需 context 的父组件耦合在一起，这样就限制了组件的应用范围，组件很难被复用。</p>
+<h3 id="context-更新被阻断"><a href="#context-更新被阻断" class="headerlink" title="context 更新被阻断"></a>context 更新被阻断</h3><p>当父组件的 <code>state</code> 或者 <code>pros</code> 变化的时候，父组件的 <code>getChildContext</code> 会被调用更新 <code>context</code>，同时父组件会更新其自身和并引发其子组件的更新，而子组件接收到的 <code>context</code> 也会被改变，这一点到不会引起问题，在某些情况下子组件可以依赖于 <code>context</code> 更新自身。</p>
+<p>但是当中间组件使用了 <code>shouldComponentUpdate</code> 禁止更新，这样则子组件不会被更新，子组件则不会被渲染，此时父组件更新的值无法被应用，看下面代码：</p>
+<p>父组件 <code>ParentComponent</code> 加载完成后修改 <code>state</code> 和 <code>context</code>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ParentComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> childContextTypes = &#123;</span><br><span class="line">    <span class="attr">color</span>: React.PropTypes.string</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  state = &#123;</span><br><span class="line">    <span class="attr">color</span>:　<span class="string">&#x27;green&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">getChildContext</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">color</span>: <span class="built_in">this</span>.state.color &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123;<span class="attr">color</span>: <span class="string">&#x27;red&#x27;</span>&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">MiddleChildComponent</span>/&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MiddleChildComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">LeafChildComponent</span> /&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> LeafChildComponent = <span class="function">(<span class="params">props, context</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;LeafChildComponent context is: &quot;</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(context);</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;</span> &#123;<span class="attr">background:</span> <span class="attr">context.color</span>&#125; &#125;&gt;</span>LeafChildComponent<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为要获取 context 的组件指定属性 contextTypes</span></span><br><span class="line">LeafChildComponent.contextTypes = &#123;</span><br><span class="line">  <span class="attr">color</span>: React.PropTypes.string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">ParentComponent</span> /&gt;</span></span>,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">&#x27;app&#x27;</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// LeafChildComponent context is:</span></span><br><span class="line"><span class="comment">// Object &#123;color: &quot;green&quot;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// LeafChildComponent context is:</span></span><br><span class="line"><span class="comment">// Object &#123;color: &quot;red&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>从上面的 log 可以看到 <code>context</code> 是正确更新的，这次设置中间组件禁止更新：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MiddleChildComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">shouldComponentUpdate</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">LeafChildComponent</span> /&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// LeafChildComponent context is:</span></span><br><span class="line"><span class="comment">// Object &#123;color: &quot;green&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>从执行结果可以看到，第二次的 <code>context</code> 更新被中间组件阻断，依赖 <code>context</code> 进行组件的更新是有风险的。</p>
+<h3 id="难以维护"><a href="#难以维护" class="headerlink" title="难以维护"></a>难以维护</h3><p>当维护别人的组件的时候，如果一些组件使用了 <code>context</code> 这样就非常的困难了，需要从大量的组件中找到要使用的组件，当项目比较大的时候无疑是非常困难的。而如果采用了 <code>props</code> 就可以沿着调用的方向向上找，很容易就找到定义的位置。</p>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p><a target="_blank" rel="noopener" href="https://twitter.com/dan_abramov">Dan Abramov</a> 设计了一些明智的规则关于使用 context：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shouldIUseReactContextFeature</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 类库作者 或者 向下传递很深的层级</span></span><br><span class="line">    <span class="keyword">if</span> (amIALibraryAuthor() &amp;&amp; doINeedToPassSomethingDownDeeply()) &#123;</span><br><span class="line">        <span class="comment">// 很乐意处理 api 修改和 bug</span></span><br><span class="line">        <span class="comment">// A custom &lt;Option&gt; component might want to talk to its &lt;Select&gt;.</span></span><br><span class="line">        <span class="comment">// This is OK but note that context is experimental API and doesn&#x27;t update</span></span><br><span class="line">        <span class="comment">// correctly in some cases so you might want to roll your own subscriptions.</span></span><br><span class="line">        <span class="keyword">return</span> amIFineWith(API_CHANGES &amp;&amp; BUGGY_UPDATES);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 主题 或 本地化场景</span></span><br><span class="line">    <span class="keyword">if</span> (myUseCase === <span class="string">&#x27;theming&#x27;</span> || myUseCase === <span class="string">&#x27;localization&#x27;</span>) &#123;</span><br><span class="line">        <span class="comment">// Context 可以用以存放全局变量或者很少改变的内容</span></span><br><span class="line">        <span class="comment">// 如果坚持使用的话可以用在 HOC 组件中，而不是直接使用 this.context ，这样当接口改变</span></span><br><span class="line">        <span class="comment">// 的时候可以很容易的只修改一个地方</span></span><br><span class="line">        <span class="comment">// In apps, context can be used for &quot;global&quot; variables that rarely change.</span></span><br><span class="line">        <span class="comment">// If you insist on using it, provide a higher order component.</span></span><br><span class="line">        <span class="comment">// This way when we change the API, you will only need to update one place.</span></span><br><span class="line">        <span class="keyword">return</span> iPromiseToWriteHOCInsteadOfUsingItDirectly();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (libraryAsksMeToUseContext()) &#123;</span><br><span class="line">        <span class="comment">// Ask them to provide a higher order component!</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;File an issue with this library.&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Good luck.</span></span><br><span class="line">    <span class="keyword">return</span> yolo();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面基本已经说明了应用场景：类库作者、全局级别的信息（主题、语言、环境、用户信息等），并且在使用的时候要考虑 api 在后面版本发生修改等问题，当然也有使用 context 非常出色的类库： <a target="_blank" rel="noopener" href="https://github.com/ReactTraining/react-router/">react-router</a>、 <a target="_blank" rel="noopener" href="https://github.com/reactjs/react-redux/blob/master/src/components/Provider.js#L23">react-redux</a>。</p>
+<p>本文最后自定义一个路由管理组件 <code>Router</code> 作为练习。<code>Router 组件包含两个子组件 </code>Router<code>和</code>Route<code> 。</code>Router<code> 组建包括整个应用，</code>Route` 用于匹配路径到组件。</p>
+<p>首先定义 <code>Router</code> ，它提供了 <code>Route</code> 组件需要的几个操作，</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Component, PropTypes &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Router</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">getChildContext</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="function"><span class="title">register</span>(<span class="params">url</span>)</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;registered route!&#x27;</span>, url)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> location = location.href;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">router</span>: &#123;</span><br><span class="line">        register,</span><br><span class="line">        location</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;this.props.children&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Router.childContextTypes = &#123;</span><br><span class="line">  <span class="attr">router</span>: PropTypes.object.isRequired,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后 <code>Route</code> 组件需要使用 <code>context</code> 中 <code>router</code>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Route</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">componentWillMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.context.router.register(<span class="built_in">this</span>.props.path)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">match</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.context.router.location === <span class="built_in">this</span>.props.path;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`I am the route for <span class="subst">$&#123;<span class="built_in">this</span>.props.path&#125;</span>`</span>)</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;&#123;<span class="built_in">this</span>.match()? <span class="built_in">this</span>.props.children: <span class="literal">null</span>&#125;&lt;/p&gt;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">Route.contextTypes = &#123;</span><br><span class="line">  <span class="attr">router</span>: PropTypes.object.isRequired,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以在 <code>app</code> 入口开始使用 <code>Router</code> 组件：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> App = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Router</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/foo&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/bar&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/baz&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">Router</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>使用这种方式的优点在于，只要保证 <code>Route</code> 组件被嵌套在 <code>Router</code> 组件之内，<code>Route</code> 可以放在任意的位置，任意嵌套，都能正常使用。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://facebook.github.io/react/docs/context.html">React-Docs</a></li>
+<li><a target="_blank" rel="noopener" href="http://javascriptplayground.com/blog/2017/02/context-in-reactjs-applications/">Context in ReactJS Applications</a></li>
+</ul>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

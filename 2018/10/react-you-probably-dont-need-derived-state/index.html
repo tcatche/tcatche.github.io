@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>You Probably Don&#39;t Need Derived State(也许，你并不需要派生 state) | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,翻译" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-react-you-probably-dont-need-derived-state" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        You Probably Don&#39;t Need Derived State(也许，你并不需要派生 state)
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2018" data-type="ARCHIVES">
+        2018-10-18
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 6.6k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 43mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="react" data-type="TAGS">react</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="翻译" data-type="TAGS">翻译</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>翻译自：<a target="_blank" rel="noopener" href="https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#preferred-solutions"> React Docs: You Probably Don’t Need Derived State</a></p>
+<blockquote>
+<p>React 16.4 included a <a href="/blog/2018/05/23/react-v-16-4.html#bugfix-for-getderivedstatefromprops">bugfix for getDerivedStateFromProps</a> which caused some existing bugs in React components to reproduce more consistently. If this release exposed a case where your application was using an anti-pattern and didn’t work properly after the fix, we’re sorry for the churn. In this post, we will explain some common anti-patterns with derived state and our preferred alternatives.</p>
+<p>React 16.4 包含了 <a href="/blog/2018/05/23/react-v-16-4.html#bugfix-for-getderivedstatefromprops">getDerivedStateFromProps</a> 的错误修正，这导致了 React 组件中的一些现有错误更加一致地出现。如果你的应用程序使用了反模式，在 Bugs 修复后无法正常工作，我们很抱歉。在这篇文章中，我们将解释一些常见的使用了派生状态的反模式以及我们推荐的首选替代方案。</p>
+</blockquote>
+<p>For a long time, the lifecycle <code>componentWillReceiveProps</code> was the only way to update state in response to a change in props without an additional render. In version 16.3, <a href="/blog/2018/03/29/react-v-16-3.html#component-lifecycle-changes">we introduced a replacement lifecycle, <code>getDerivedStateFromProps</code></a> to solve the same use cases in a safer way. At the same time, we’ve realized that people have many misconceptions about how to use both methods, and we’ve found anti-patterns that result in subtle and confusing bugs. The <code>getDerivedStateFromProps</code> bugfix in 16.4 <a target="_blank" rel="noopener" href="https://github.com/facebook/react/issues/12898">makes derived state more predictable</a>, so the results of misusing it are easier to notice.</p>
+<p>长期以来， <code>componentWillReceiveProps</code> 生命周期方法是唯一能够根据 props 的改变更新 state，且没有额外渲染过程的方法。在版本 16.3 中，我们引入了替换的生命周期 <code>getDerivedStateFromProps</code> 以更安全的方式解决这样的用例。与此同时，我们意识到人们对如何使用这两种方法存在许多误解，并且我们发现反模式会导致细微而混乱的错误。在 16.4 中的 Bug 修正 <a target="_blank" rel="noopener" href="https://github.com/facebook/react/issues/12898">使派生状态更加可预测</a> ，这也使得滥用它的结果更容易被注意到。</p>
+<blockquote>
+<p>Note</p>
+<p>All of the anti-patterns described in this post apply to both the older <code>componentWillReceiveProps</code> and the newer <code>getDerivedStateFromProps</code>.</p>
+<p>本文中描述的所有反模式都适用于旧的 <code>componentWillReceiveProps</code> 和新的<code>getDerivedStateFromProps</code> 方法。</p>
+</blockquote>
+<p>This blog post will cover the following topics:</p>
+<p>本文主要包含以下主题：</p>
+<ul>
+<li>When to use derived state（什么时候使用派生状态）</li>
+<li>Common bugs when using derived state（使用派生状态常见的 Bugs）<ul>
+<li>Anti-pattern: Unconditionally copying props to state（反模式：当 props 变化时擦除 state）</li>
+<li>Anti-pattern: Erasing state when props change（反模式：当 props 变化时擦除 state）</li>
+</ul>
+</li>
+<li>Preferred solutions(首选解决方案)</li>
+<li>What about memoization?（什么是 memoization）</li>
+</ul>
+<h2 id="When-to-Use-Derived-State（什么时候使用派生状态）"><a href="#When-to-Use-Derived-State（什么时候使用派生状态）" class="headerlink" title="When to Use Derived State（什么时候使用派生状态）"></a>When to Use Derived State（什么时候使用派生状态）</h2><p><code>getDerivedStateFromProps</code> exists for only one purpose. It enables a component to update its internal state as the result of <strong>changes in props</strong>. Our previous blog post provided some examples, like <a href="/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props">recording the current scroll direction based on a changing offset prop</a> or <a href="/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data-when-props-change">loading external data specified by a source prop</a>.</p>
+<p><code>getDerivedStateFromProps</code> 仅被设计用于一个目的：组件能够根据 <strong>props 的改变</strong> 更新其内部维护的 state。我们之前的博客文章提供了一些示例，例如 <a href="/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props">根据传入的 offset props 的变化更新滚动的方向</a> 和 <a href="/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data-when-props-change">根据 props 指定的数据源加载外部数据</a>。</p>
+<p>We did not provide many examples, because as a general rule, <strong>derived state should be used sparingly</strong>. All problems with derived state that we have seen can be ultimately reduced to either (1) unconditionally updating state from props or (2) updating state whenever props and state don’t match. (We’ll go over both in more detail below.)</p>
+<p>我们没有提供很多示例，因为一般来说，<strong>派生状态应该被谨慎的使用</strong>。我们所看到的派生状态的所有问题最终可以简化为（1）无条件地从根据 props 更新 state 或（2）即使 props 变化和 state 不匹配也更新状态。（我们将在下面详细介绍这两点。）</p>
+<ul>
+<li>If you’re using derived state to memoize some computation based only on the current props, you don’t need derived state. See <a href="#what-about-memoization">What about memoization?</a> below.</li>
+<li>如果你使用的派生状态仅需要根据当前 props 记录计算结果，则不需要派生状态。请参阅后面的 <a href="#what-about-memoization">What about memoization?</a> 一节。</li>
+<li>If you’re updating derived state unconditionally or updating it whenever props and state don’t match, your component likely resets its state too frequently. Read on for more details.</li>
+<li>如果你无条件地更新派生状态不管 props 和 state 是否匹配，则组件可能会过于频繁地重置其状态。继续往下阅读以了解更多。</li>
+</ul>
+<h2 id="Common-Bugs-When-Using-Derived-State（使用派生状态常见的-Bugs）"><a href="#Common-Bugs-When-Using-Derived-State（使用派生状态常见的-Bugs）" class="headerlink" title="Common Bugs When Using Derived State（使用派生状态常见的 Bugs）"></a>Common Bugs When Using Derived State（使用派生状态常见的 Bugs）</h2><p>The terms <a href="/docs/forms.html#controlled-components">“controlled”</a> and <a href="/docs/uncontrolled-components.html">“uncontrolled”</a> usually refer to form inputs, but they can also describe where any component’s data lives. Data passed in as props can be thought of as <strong>controlled</strong> (because the parent component <em>controls</em> that data). Data that exists only in internal state can be thought of as <strong>uncontrolled</strong> (because the parent can’t directly change it).</p>
+<p>术语 <a href="/docs/forms.html#controlled-components">“受控”</a> 和 <a href="/docs/uncontrolled-components.html">“不受控制”</a> 通常用于表单输入的元素，但它们也可以被用来描述组件的数据存在位置。作为 props 被传入组件的数据可以被认为是<strong>受控</strong>的（因为父组件控制该数据）。仅存在于组件内部 state 中的数据可以被认为是<strong>不受控制</strong>的（因为父级不能直接更改它）。</p>
+<p>The most common mistake with derived state is mixing these two; when a derived state value is also updated by <code>setState</code> calls, there isn’t a single source of truth for the data. The <a href="/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data-when-props-change">external data loading example</a> mentioned above may sound similar, but it’s different in a few important ways. In the loading example, there is a clear source of truth for both the “source” prop and the “loading” state. When the source prop changes, the loading state should <strong>always</strong> be overridden. Conversely, the state is overridden only when the prop <strong>changes</strong> and is otherwise managed by the component.</p>
+<p>派生 state 最常见的错误是混合这两个点，即派生 state 的值也会被 setState 的调用更新，即数据没有单一的事实来源。上面提到的 <a href="/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data-when-props-change">外部数据加载示例</a> 看起来与之很相似，但是有几个很重要的不同点。在 “<a href="/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data-when-props-change">外部数据加载示例</a> ” 的示例中，“source” props 和 “loading” state 这两个字段都有明确的来源。当 “source” props 改变时，“loading” state 始终应被复写。而且，“loading” state 只有在 “source” props 改变时才被修改，而不是由组件管理 “loading” state 的变化。</p>
+<p>Problems arise when any of these constraints are changed. This typically comes in two forms. Let’s take a look at both.</p>
+<p>当上面提到的约束被改变时，就会出现问题。通常有两种形式的错误。我们来看看。</p>
+<h3 id="Anti-pattern-Unconditionally-copying-props-to-state（反模式：无条件的使用-props-更新状态）"><a href="#Anti-pattern-Unconditionally-copying-props-to-state（反模式：无条件的使用-props-更新状态）" class="headerlink" title="Anti-pattern: Unconditionally copying props to state（反模式：无条件的使用 props 更新状态）"></a>Anti-pattern: Unconditionally copying props to state（反模式：无条件的使用 props 更新状态）</h3><p>A common misconception is that <code>getDerivedStateFromProps</code> and <code>componentWillReceiveProps</code> are only called when props “change”. These lifecycles are called any time a parent component rerenders, regardless of whether the props are “different” from before. Because of this, it has always been unsafe to <em>unconditionally</em> override state using either of these lifecycles. <strong>Doing so will cause state updates to be lost.</strong></p>
+<p>一个常见的误解是，仅当 props “更改” 时，才会调用 <code>getDerivedStateFromProps</code> 和<code>componentWillReceiveProps</code>。实际上，这两个生命周期方法都会在父组件重新渲染时被调用，无论 props 是否和之前<strong>不同</strong>。因此，始终在这两个生命周期方法中无条件地覆盖 state 是不安全的。<strong>这样做会导致状态更新丢失</strong>。</p>
+<p>Let’s consider an example to demonstrate the problem. Here is a <code>EmailInput</code> component that “mirrors” an email prop in state:</p>
+<p>让我们看一个例子来证明这个问题。这里有一个 <code>EmailInput</code> 组件，用于“克隆” email props 到 state 中：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EmailInput</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  state = &#123; <span class="attr">email</span>: <span class="built_in">this</span>.props.email &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">onChange</span>=<span class="string">&#123;this.handleChange&#125;</span> <span class="attr">value</span>=<span class="string">&#123;this.state.email&#125;</span> /&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  handleChange = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123; <span class="attr">email</span>: event.target.value &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentWillReceiveProps</span>(<span class="params">nextProps</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// This will erase any local state updates!</span></span><br><span class="line">    <span class="comment">// Do not do this.</span></span><br><span class="line">    <span class="comment">// 这会擦除本地修改的 state ，不要这样做</span></span><br><span class="line">    <span class="built_in">this</span>.setState(&#123; <span class="attr">email</span>: nextProps.email &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>At first, this component might look okay. State is initialized to the value specified by props and updated when we type into the <code>&lt;input&gt;</code>. But if our component’s parent rerenders, anything we’ve typed into the <code>&lt;input&gt;</code> will be lost! (<a target="_blank" rel="noopener" href="https://codesandbox.io/s/m3w9zn1z8x">See this demo for an example.</a>) This holds true even if we were to compare <code>nextProps.email !== this.state.email</code> before resetting.</p>
+<p>最开始，这个组件可能看起来没问题。State 被初始化为 props 指定的值，并当我们在 <code>&lt;input&gt;</code> 中输入内容时改变。但是如果组件的父级重新渲染，那么我们输入到  <code>&lt;input&gt;</code> 中的任何内容都将丢失！（<a target="_blank" rel="noopener" href="https://codesandbox.io/s/m3w9zn1z8x">查看此演示</a>）即使我们在设置 state 之前比较了 <code>nextProps.email !== this.state.email</code> 也是如此。</p>
+<p>In this simple example, adding <code>shouldComponentUpdate</code> to rerender only when the email prop has changed could fix this. However in practice, components usually accept multiple props; another prop changing would still cause a rerender and improper reset. Function and object props are also often created inline, making it hard to implement a <code>shouldComponentUpdate</code> that reliably returns true only when a material change has happened. <a target="_blank" rel="noopener" href="https://codesandbox.io/s/jl0w6r9w59">Here is a demo that shows that happening.</a> As a result, <code>shouldComponentUpdate</code> is best used as a performance optimization, not to ensure correctness of derived state.</p>
+<p>在这个例子中，添加 <code>shouldComponentUpdate</code> 在 email props 改变时才重新渲染可以解决上面提到的问题。然而实际上，组件通常接受多个 props ，另一个 prop 的改变仍然会导致组件的重新渲染和不正确的重置 state。函数和对象的 props 也经常被内联的创建，这使得实现一个只有发生 props 更改时才能可靠地返回 true 的 <code>shouldComponentUpdate</code> 很难。<a target="_blank" rel="noopener" href="https://codesandbox.io/s/jl0w6r9w59">这个演示展示了 state 更新被 props 的改变重置</a>。因此， <code>shouldComponentUpdate</code> 最好用来进行性能优化，而不是确保派生 state 的正确性。</p>
+<p>Hopefully it’s clear by now why <strong>it is a bad idea to unconditionally copy props to state</strong>. Before reviewing possible solutions, let’s look at a related problematic pattern: what if we were to only update the state when the email prop changes?</p>
+<p>希望你现在很清楚为什么<strong>无条件地将 props 复制到 state 是一个坏主意</strong>。在回顾可能的解决方案之前，我们来看看一个相关的问题模式：如果我们只是在 email prop 更改时更新 state 会怎样？</p>
+<h3 id="Anti-pattern-Erasing-state-when-props-change（反模式：当-props-变化时擦除-state）"><a href="#Anti-pattern-Erasing-state-when-props-change（反模式：当-props-变化时擦除-state）" class="headerlink" title="Anti-pattern: Erasing state when props change（反模式：当 props 变化时擦除 state）"></a>Anti-pattern: Erasing state when props change（反模式：当 props 变化时擦除 state）</h3><p>Continuing the example above, we could avoid accidentally erasing state by only updating it when <code>props.email</code> changes:</p>
+<p>继续上面的例子，我们可以通过仅在 <code>props.email</code> 更变化时更新它，避免意外地删除 state：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EmailInput</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    <span class="attr">email</span>: <span class="built_in">this</span>.props.email</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentWillReceiveProps</span>(<span class="params">nextProps</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// Any time props.email changes, update state.</span></span><br><span class="line">    <span class="keyword">if</span> (nextProps.email !== <span class="built_in">this</span>.props.email) &#123;</span><br><span class="line">      <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">        <span class="attr">email</span>: nextProps.email</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Note</p>
+<p>Even though the example above shows <code>componentWillReceiveProps</code>, the same anti-pattern applies to <code>getDerivedStateFromProps</code>.</p>
+<p>尽管上面的示例使用了 <code>componentWillReceiveProps</code>，但相同的反模式也适用于<code>getDerivedStateFromProps</code>。</p>
+</blockquote>
+<p>We’ve just made a big improvement. Now our component will erase what we’ve typed only when the props actually change.</p>
+<p>我们刚刚做了很大的改进。现在我们的组件将只有在 props 实际发生改变时才会删除我们输入的内容。</p>
+<p>There is still a subtle problem. Imagine a password manager app using the above input component. When navigating between details for two accounts with the same email, the input would fail to reset. This is because the prop value passed to the component would be the same for both accounts! This would be a surprise to the user, as an unsaved change to one account would appear to affect other accounts that happened to share the same email. (<a target="_blank" rel="noopener" href="https://codesandbox.io/s/mz2lnkjkrx">See demo here.</a>)</p>
+<p>还有一个小问题。想象一个使用上述输入组件的密码管理器。当在使用了同一个邮件的两个帐户的详细信息之间导航时，输入的内容将无法被重置。这是因为传递给组件的 props 对于两个帐户都是相同的！这对用户来说很惊奇，因为对一个帐户的未保存更改似乎会影响碰巧使用同一电子邮件的其他帐户（<a target="_blank" rel="noopener" href="https://codesandbox.io/s/mz2lnkjkrx">查看这里的演示</a>）。</p>
+<p>This design is fundamentally flawed, but it’s also an easy mistake to make. (<a target="_blank" rel="noopener" href="https://twitter.com/brian_d_vaughn/status/959600888242307072">I’ve made it myself!</a>) Fortunately there are two alternatives that work better. The key to both is that <strong>for any piece of data, you need to pick a single component that owns it as the source of truth, and avoid duplicating it in other components.</strong> Let’s take a look at each of the alternatives.</p>
+<p>这种设计存在根本缺陷，但这也是一个容易犯的错误（<a target="_blank" rel="noopener" href="https://twitter.com/brian_d_vaughn/status/959600888242307072">我自己也犯错了</a>）。幸运的是，有两种选择更好。它们的关键是，<strong>对于任何数据，你需要选择一个组件作为数据的事实来源，并避免在其他组件中重复修改它</strong>。我们来看看每个替代方案。</p>
+<h2 id="preferred-solutions-首选解决方案"><a href="#preferred-solutions-首选解决方案" class="headerlink" title="preferred-solutions(首选解决方案)"></a>preferred-solutions(首选解决方案)</h2><h3 id="Recommendation-Fully-controlled-component-建议：完全控制组件"><a href="#Recommendation-Fully-controlled-component-建议：完全控制组件" class="headerlink" title="Recommendation: Fully controlled component(建议：完全控制组件)"></a>Recommendation: Fully controlled component(建议：完全控制组件)</h3><p>One way to avoid the problems mentioned above is to remove state from our component entirely. If the email address only exists as a prop, then we don’t have to worry about conflicts with state. We could even convert <code>EmailInput</code> to a lighter-weight function component:</p>
+<p>避免上述问题的一种方法是完全从组件中删除状态。如果 email 仅做为 props 存在，那么我们不必担心与 state 的冲突。我们甚至可以将 <code>EmailInput</code> 转换为更轻量级的函数式组件：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">EmailInput</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">onChange</span>=<span class="string">&#123;props.onChange&#125;</span> <span class="attr">value</span>=<span class="string">&#123;props.email&#125;</span> /&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>This approach simplifies the implementation of our component, but if we still want to store a draft value, the parent form component will now need to do that manually. (<a target="_blank" rel="noopener" href="https://codesandbox.io/s/7154w1l551">Click here to see a demo of this pattern.</a>)</p>
+<p>这种方法简化了组件的实现，但如果我们仍想存储中间编辑的草稿值，则父表单组件现在需要手动执行（<a target="_blank" rel="noopener" href="https://codesandbox.io/s/7154w1l551">点击此处查看此模式的演示</a>）。</p>
+<h3 id="Recommendation-Fully-uncontrolled-component-with-a-key（建议：带-key-的完全不受控的组件）"><a href="#Recommendation-Fully-uncontrolled-component-with-a-key（建议：带-key-的完全不受控的组件）" class="headerlink" title="Recommendation: Fully uncontrolled component with a key（建议：带 key 的完全不受控的组件）"></a>Recommendation: Fully uncontrolled component with a <code>key</code>（建议：带 <code>key</code> 的完全不受控的组件）</h3><p>Another alternative would be for our component to fully own the “draft” email state. In that case, our component could still accept a prop for the <em>initial</em> value, but it would ignore subsequent changes to that prop:</p>
+<p>另一种选择是我们的组件完全拥有 email state 的 “草稿” 值。在这种情况下，我们的组件仍然可以接受一个 <strong>初始值</strong> 的 prop，但它会忽略该 prop 的后续变化：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EmailInput</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  state = &#123; <span class="attr">email</span>: <span class="built_in">this</span>.props.defaultEmail &#125;;</span><br><span class="line"></span><br><span class="line">  handleChange = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123; <span class="attr">email</span>: event.target.value &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">onChange</span>=<span class="string">&#123;this.handleChange&#125;</span> <span class="attr">value</span>=<span class="string">&#123;this.state.email&#125;</span> /&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>In order to reset the value when moving to a different item (as in our password manager scenario), we can use the special React attribute called <code>key</code>. When a <code>key</code> changes, React will <a target="_blank" rel="noopener" href="https://reactjs.org/docs/reconciliation.html#keys"><em>create</em> a new component instance rather than <em>update</em> the current one</a>. Keys are usually used for dynamic lists but are also useful here. In our case, we could use the user ID to recreate the email input any time a new user is selected:</p>
+<p>为了在移动到不同的项目时重置值（如在我们的密码管理器场景中），我们可以使用一个名为 key 的特殊 React 属性。当 key 更改时，React 将 <a href="/docs/reconciliation.html#keys"><em>创建</em>一个新的组件实例，而不是 <em>更新</em> 当前的组件实例</a>。Keys 通常被用于动态列表，但在此处也很有用。在我们的例子中，我们可以在选择新用户时使用用户 ID 重新创建<code>EmailInput</code>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;EmailInput</span><br><span class="line">  defaultEmail=&#123;<span class="built_in">this</span>.props.user.email&#125;</span><br><span class="line">  key=&#123;<span class="built_in">this</span>.props.user.id&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>Each time the ID changes, the <code>EmailInput</code> will be recreated and its state will be reset to the latest <code>defaultEmail</code> value. (<a target="_blank" rel="noopener" href="https://codesandbox.io/s/6v1znlxyxn">Click here to see a demo of this pattern.</a>) With this approach, you don’t have to add <code>key</code> to every input. It might make more sense to put a <code>key</code> on the whole form instead. Every time the key changes, all components within the form will be recreated with a freshly initialized state.</p>
+<p>每次 ID 更改时，都会重新创建 <code>EmailInput</code>，并将其状态重置为最新的 <code>defaultEmail</code>值（<a target="_blank" rel="noopener" href="https://codesandbox.io/s/6v1znlxyxn">单击此处查看此模式的演示</a>）。使用此方法，你不必为每个输入添加 <code>key</code>。将 <code>key</code> 放在整个表单上可能更有意义。每次 <code>key</code> 更改时，表单中的所有组件都将以新初始化状态重新创建。</p>
+<p>In most cases, this is the best way to handle state that needs to be reset.</p>
+<p>在大多数情况下，这是处理需要重置的状态的最佳方法。</p>
+<blockquote>
+<p>Note</p>
+<p>While this may sound slow, the performance difference is usually insignificant. Using a key can even be faster if the components have heavy logic that runs on updates since diffing gets bypassed for that subtree.</p>
+<p>虽然这可能听起来很慢，但性能差异通常是微不足道的。如果组件具有繁重的更新逻辑，则使用 <code>key</code> 甚至可以更快，因为该子树可能会绕过了差异比较。</p>
+</blockquote>
+<h4 id="Alternative-1-Reset-uncontrolled-component-with-an-ID-prop（备选-1：使用-ID-prop-重置不受控组件）"><a href="#Alternative-1-Reset-uncontrolled-component-with-an-ID-prop（备选-1：使用-ID-prop-重置不受控组件）" class="headerlink" title="Alternative 1: Reset uncontrolled component with an ID prop（备选 1：使用 ID prop 重置不受控组件）"></a>Alternative 1: Reset uncontrolled component with an ID prop（备选 1：使用 ID prop 重置不受控组件）</h4><p>If <code>key</code> doesn’t work for some reason (perhaps the component is very expensive to initialize), a workable but cumbersome solution would be to watch for changes to “userID” in <code>getDerivedStateFromProps</code>:</p>
+<p>如果 <code>key</code> 由于某种原因不起作用（可能组件的初始化代价非常昂贵），一个可行但很麻烦的解决方案是在 <code>getDerivedStateFromProps</code> 中监视 <code>userID</code> 的更改：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EmailInput</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    <span class="attr">email</span>: <span class="built_in">this</span>.props.defaultEmail,</span><br><span class="line">    <span class="attr">prevPropsUserID</span>: <span class="built_in">this</span>.props.userID</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> <span class="function"><span class="title">getDerivedStateFromProps</span>(<span class="params">props, state</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// Any time the current user changes,</span></span><br><span class="line">    <span class="comment">// Reset any parts of state that are tied to that user.</span></span><br><span class="line">    <span class="comment">// In this simple example, that&#x27;s just the email.</span></span><br><span class="line">    <span class="keyword">if</span> (props.userID !== state.prevPropsUserID) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">prevPropsUserID</span>: props.userID,</span><br><span class="line">        <span class="attr">email</span>: props.defaultEmail</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>This also provides the flexibility to only reset parts of our component’s internal state if we so choose. (<a target="_blank" rel="noopener" href="https://codesandbox.io/s/rjyvp7l3rq">Click here to see a demo of this pattern.</a>)</p>
+<p>如果愿意，这还可以灵活地仅重置组件内部状态的一部分（<a target="_blank" rel="noopener" href="https://codesandbox.io/s/rjyvp7l3rq">点击此处查看此模式的演示</a>）。</p>
+<blockquote>
+<p>Note</p>
+<p>Even though the example above shows <code>getDerivedStateFromProps</code>, the same technique can be used with <code>componentWillReceiveProps</code>.</p>
+<p>尽管上面的示例使用了 <code>getDerivedStateFromProps</code>作为演示，但是 <code>componentWillReceiveProps</code> 也可以使用同样的模式。</p>
+</blockquote>
+<h4 id="Alternative-2-Reset-uncontrolled-component-with-an-instance-method（备选-2：使用实例方法重置不受控组件）"><a href="#Alternative-2-Reset-uncontrolled-component-with-an-instance-method（备选-2：使用实例方法重置不受控组件）" class="headerlink" title="Alternative 2: Reset uncontrolled component with an instance method（备选 2：使用实例方法重置不受控组件）"></a>Alternative 2: Reset uncontrolled component with an instance method（备选 2：使用实例方法重置不受控组件）</h4><p>More rarely, you may need to reset state even if there’s no appropriate ID to use as <code>key</code>. One solution is to reset the key to a random value or autoincrementing number each time you want to reset. One other viable alternative is to expose an instance method to imperatively reset the internal state:</p>
+<p>更少见的是，即使没有适当的 ID 用作<code>key</code>，你也可以重置状态。一种解决方案是每次要重置时将<code>key</code>重置为随机值或自动递增数字。另一个可行的替代方法是使用实例方法以强制重置内部状态：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EmailInput</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    <span class="attr">email</span>: <span class="built_in">this</span>.props.defaultEmail</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">resetEmailForNewUser</span>(<span class="params">newEmail</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123; <span class="attr">email</span>: newEmail &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>The parent form component could then <a href="/docs/glossary.html#refs">use a <code>ref</code> to call this method</a>. (<a target="_blank" rel="noopener" href="https://codesandbox.io/s/l70krvpykl">Click here to see a demo of this pattern.</a>)</p>
+<p>然后，父表单组件可以<a target="_blank" rel="noopener" href="https://reactjs.org/docs/glossary.html#refs">使用<code>ref</code> 来调用此方法</a> （ <a target="_blank" rel="noopener" href="https://codesandbox.io/s/l70krvpykl">点击此处查看此模式的演示</a>）。</p>
+<p>Refs can be useful in certain cases like this one, but generally we recommend you use them sparingly. Even in the demo, this imperative method is nonideal because two renders will occur instead of one.</p>
+<p><code>Refs</code> 在某些情况下非常有用，但通常我们建议你谨慎使用它们。即使在演示中，这种命令式方法也是不理想的，因为会出现两次渲染而不是一次。</p>
+<h3 id="Recap（概括）"><a href="#Recap（概括）" class="headerlink" title="Recap（概括）"></a>Recap（概括）</h3><p>To recap, when designing a component, it is important to decide whether its data will be controlled or uncontrolled.</p>
+<p>总而言之，在设计组件时，确定其数据是受控还是不受控是很重要的。</p>
+<p>Instead of trying to <strong>“mirror” a prop value in state</strong>, make the component <strong>controlled</strong>, and consolidate the two diverging values in the state of some parent component. For example, rather than a child accepting a “committed” <code>props.value</code> and tracking a “draft” <code>state.value</code>, have the parent manage both <code>state.draftValue</code> and <code>state.committedValue</code> and control the child’s value directly. This makes the data flow more explicit and predictable.</p>
+<p>与试图 <strong>“拷贝” prop 的值到 state</strong>相比，让组件变成受控组件是更好地想法，并在某个父组件的 state 中合并两个不同的值。例如，不让子孙组件接受 “已提交”状态的 <code>props.value</code> 同时跟踪“草稿状态的” <code>state.value</code>，而是让父组件管理 <code>state.draftValue</code> 和 <code>state.committedValue</code> 并直接控制其子孙组件的值。这会使数据流更加明确和可预测。</p>
+<p>For <strong>uncontrolled</strong> components, if you’re trying to reset state when a particular prop (usually an ID) changes, you have a few options:</p>
+<p>对于<strong>不受控</strong>的组件，如果你需要再特定 props（通常是 ID）发生变化时重置其状态，则可以选择以下几种方法：</p>
+<ul>
+<li><strong>Recomendation: To reset <em>all internal state</em>, use the <code>key</code> attribute.</strong></li>
+<li><strong>推荐：要重置所有内部状态，请使用 key 属性。</strong></li>
+<li>Alternative 1: To reset <em>only certain state fields</em>, watch for changes in a special property (e.g. <code>props.userID</code>).</li>
+<li>备选 1：要<em>仅重置某些状态</em>字段，请注意特殊属性（例如 <code>props.userID</code> ）中的变化。</li>
+<li>Alternative 2: You can also consider fall back to an imperative instance method using refs.</li>
+<li>备选 2：你还可以考虑使用 refs 回退到调用命令式的实例方法。</li>
+</ul>
+<h2 id="What-about-memoization-（什么是-memoization）"><a href="#What-about-memoization-（什么是-memoization）" class="headerlink" title="What about memoization?（什么是 memoization）"></a>What about memoization?（什么是 memoization）</h2><p>We’ve also seen derived state used to ensure an expensive value used in <code>render</code> is recomputed only when the inputs change. This technique is known as <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Memoization">memoization</a>.</p>
+<p>我们还看到派生 state 用于确保在输入改变时重新计算渲染中使用的昂贵值。这种技术称为<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Memoization">memoization</a>。</p>
+<p>Using derived state for memoization isn’t necessarily bad, but it’s usually not the best solution. There is inherent complexity in managing derived state, and this complexity increases with each additional property. For example, if we add a second derived field to our component state then our implementation would need to separately track changes to both.</p>
+<p>使用派生的 state 进行 memoization 并不一定是坏事，但它通常不是最佳解决方案。管理派生 state 存在固有的复杂性，并且这种复杂性随着每个附加属性而增加。例如，如果我们向组件的 state 添加第二个派生字段，那么我们需要单独跟踪对两者的更改。</p>
+<p>Let’s look at an example of one component that takes one prop—a list of items—and renders the items that match a search query entered by the user. We could use derived state to store the filtered list:</p>
+<p>让我们看一个组件的示例，该组件接收一个 prop ，一个项目列表 ，并呈现与用户输入的搜索查询匹配的项目。我们可以使用派生 state 来存储过滤后的列表：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    <span class="attr">filterText</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// *******************************************************</span></span><br><span class="line">  <span class="comment">// <span class="doctag">NOTE:</span> this example is NOT the recommended approach.</span></span><br><span class="line">  <span class="comment">// See the examples below for our recommendations instead.</span></span><br><span class="line">  <span class="comment">// 注意，这个示例是不推荐的方法，下一个示例是我们推荐使用方法</span></span><br><span class="line">  <span class="comment">// *******************************************************</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> <span class="function"><span class="title">getDerivedStateFromProps</span>(<span class="params">props, state</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// Re-run the filter whenever the list array or filter text change.</span></span><br><span class="line">    <span class="comment">// 每当 list 数组和过滤文本改变时都需要重新运行过滤器</span></span><br><span class="line">    <span class="comment">// Note we need to store prevPropsList and prevFilterText to detect changes.</span></span><br><span class="line">    <span class="comment">// 注意到我们需要存储之前的 prevPropsList 和 prevFilterText 用于探测改变</span></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      props.list !== state.prevPropsList ||</span><br><span class="line">      state.prevFilterText !== state.filterText</span><br><span class="line">    ) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">prevPropsList</span>: props.list,</span><br><span class="line">        <span class="attr">prevFilterText</span>: state.filterText,</span><br><span class="line">        <span class="attr">filteredList</span>: props.list.filter(<span class="function"><span class="params">item</span> =&gt;</span> item.text.includes(state.filterText))</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  handleChange = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123; <span class="attr">filterText</span>: event.target.value &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">Fragment</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">onChange</span>=<span class="string">&#123;this.handleChange&#125;</span> <span class="attr">value</span>=<span class="string">&#123;this.state.filterText&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span>&#123;this.state.filteredList.map(item =&gt; <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;item.id&#125;</span>&gt;</span>&#123;item.text&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span>)&#125;<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">Fragment</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>This implementation avoids recalculating <code>filteredList</code> more often than necessary. But it is more complicated than it needs to be, because it has to separately track and detect changes in both props and state in order to properly update the filtered list. In this example, we could simplify things by using <code>PureComponent</code> and moving the filter operation into the render method:</p>
+<p>这种实现需要更频繁地重新计算过滤列表。它比我们的需求更复杂，因为它必须单独跟踪和检测 props 和 state 的变化，以便正确更新过滤后的列表。在这个例子中，我们可以通过使用 <code>PureComponent</code> 并将过滤器操作移动到 <code>render</code> 方法来简化操作：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// PureComponents only rerender if at least one state or prop value changes.</span></span><br><span class="line"><span class="comment">// PureComponents仅在至少一个 state 或道 prop 值发生变化时才会重新渲染。</span></span><br><span class="line"><span class="comment">// Change is determined by doing a shallow comparison of state and prop keys.</span></span><br><span class="line"><span class="comment">// 通过对 state 和 prop 进行浅层比较来确定更改。</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</span><br><span class="line">  <span class="comment">// State only needs to hold the current filter text value:</span></span><br><span class="line">  state = &#123;</span><br><span class="line">    <span class="attr">filterText</span>: <span class="string">&quot;&quot;</span></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  handleChange = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123; <span class="attr">filterText</span>: event.target.value &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="comment">// The render method on this PureComponent is called only if</span></span><br><span class="line">    <span class="comment">// props.list or state.filterText has changed.</span></span><br><span class="line">    <span class="comment">// PureComponent 的渲染方法只会在 props.list 或 state.filterText 改变时被调用</span></span><br><span class="line">    <span class="keyword">const</span> filteredList = <span class="built_in">this</span>.props.list.filter(</span><br><span class="line">      <span class="function"><span class="params">item</span> =&gt;</span> item.text.includes(<span class="built_in">this</span>.state.filterText)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">Fragment</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">onChange</span>=<span class="string">&#123;this.handleChange&#125;</span> <span class="attr">value</span>=<span class="string">&#123;this.state.filterText&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span>&#123;filteredList.map(item =&gt; <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;item.id&#125;</span>&gt;</span>&#123;item.text&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span>)&#125;<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">Fragment</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>The above approach is much cleaner and simpler than the derived state version. Occasionally, this won’t be good enough—filtering may be slow for large lists, and <code>PureComponent</code> won’t prevent rerenders if another prop were to change. To address both of these concerns, we could add a memoization helper to avoid unnecessarily re-filtering our list:</p>
+<p>上述方法比派生的 state 版本的代码更清晰，更简单。这仍然不够好——对于大型列表来说可能会很慢，如果另一个 prop 发生变化，<code>PureComponent</code> 也不会阻止重新渲染。为了解决这两个问题，我们可以添加一个 memoization 工具，以避免不必要地重复运行过滤列表的操作：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> memoize <span class="keyword">from</span> <span class="string">&quot;memoize-one&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="comment">// State only needs to hold the current filter text value:</span></span><br><span class="line">  state = &#123; <span class="attr">filterText</span>: <span class="string">&quot;&quot;</span> &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Re-run the filter whenever the list array or filter text changes:</span></span><br><span class="line">  filter = memoize(</span><br><span class="line">    <span class="function">(<span class="params">list, filterText</span>) =&gt;</span> list.filter(<span class="function"><span class="params">item</span> =&gt;</span> item.text.includes(filterText))</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  handleChange = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123; <span class="attr">filterText</span>: event.target.value &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="comment">// Calculate the latest filtered list. If these arguments haven&#x27;t changed</span></span><br><span class="line">    <span class="comment">// since the last render, `memoize-one` will reuse the last return value.</span></span><br><span class="line">    <span class="keyword">const</span> filteredList = <span class="built_in">this</span>.filter(<span class="built_in">this</span>.props.list, <span class="built_in">this</span>.state.filterText);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">Fragment</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">onChange</span>=<span class="string">&#123;this.handleChange&#125;</span> <span class="attr">value</span>=<span class="string">&#123;this.state.filterText&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span>&#123;filteredList.map(item =&gt; <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;item.id&#125;</span>&gt;</span>&#123;item.text&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span>)&#125;<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">Fragment</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>This is much simpler and performs just as well as the derived state version!</p>
+<p>这更简单，并且与派生的 state 版本的代码一样好！</p>
+<p>When using memoization, remember a couple of constraints:</p>
+<p>使用 memoization 时，请记住几个约束：</p>
+<ol>
+<li>In most cases, you’ll want to <strong>attach the memoized function to a component instance</strong>. This prevents multiple instances of a component from resetting each other’s memoized keys. 在大多数情况下，你需要<strong>将 memoized 函数附加到组件实例</strong>。这可以防止组件的多个实例彼此重置影响其他实例。</li>
+<li>Typically you’ll want to use a memoization helper with a <strong>limited cache size</strong> in order to prevent memory leaks over time. (In the example above, we used <code>memoize-one</code> because it only caches the most recent arguments and result.) 通常，你需要使用<strong>有限制的缓存</strong> 的 memoization 工具，以防止内存泄漏。（在上面的例子中，我们使用了 <code>memoize-one</code> ，因为它只缓存了最新的参数和结果。）</li>
+<li>None of the implementations shown in this section will work if <code>props.list</code> is recreated each time the parent component renders. But in most cases, this setup is appropriate. 如果每次父组件渲染时都重新创建 <code>props.list</code>，则本节中的任何实现都不起作用。但在大多数情况下，这种设置是合适的。</li>
+</ol>
+<h2 id="In-closing（结束语）"><a href="#In-closing（结束语）" class="headerlink" title="In closing（结束语）"></a>In closing（结束语）</h2><p>In real world applications, components often contain a mix of controlled and uncontrolled behaviors. This is okay! If each value has a clear source of truth, you can avoid the anti-patterns mentioned above.</p>
+<p>在实际应用中，组件通常包含受控和不受控的行为。这没关系！如果每个值都有明确的真正来源，你可以避免上面提到的反模式。</p>
+<p>It is also worth re-iterating that <code>getDerivedStateFromProps</code> (and derived state in general) is an advanced feature and should be used sparingly because of this complexity. If your use case falls outside of these patterns, please share it with us on <a target="_blank" rel="noopener" href="https://github.com/reactjs/reactjs.org/issues/new">GitHub</a> or <a target="_blank" rel="noopener" href="https://twitter.com/reactjs">Twitter</a>!</p>
+<p>值得重新考虑的是，<code>getDerivedStateFromProps</code>（以及一般的派生状态）是一种高级功能，因为其复杂性应该谨慎使用。如果你的用例不在这些模式范围之内，请在 <a target="_blank" rel="noopener" href="https://github.com/reactjs/reactjs.org/issues/new">GitHub</a> 或 <a target="_blank" rel="noopener" href="https://twitter.com/reactjs">Twitter</a> 上与我们分享！</p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

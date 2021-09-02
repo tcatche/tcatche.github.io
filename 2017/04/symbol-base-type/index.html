@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>ES6 - Symbol 类型 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="es" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-symbol-base-type" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        ES6 - Symbol 类型
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-04-27
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 2.5k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 16mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="es" data-type="TAGS">es</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><code>Symbol</code> 类型是一种特殊的、不可变的数据类型，主要用于解决名称冲突的问题，是 es6 引入的第七种原始数据类型，其他六种分别是：<code>null</code> 、 <code>undefined</code> 、 <code>boolean</code> 、 <code>string</code> 、 <code>number</code> 、 <code>object</code> 。</p>
+<h3 id="创建-Symbol"><a href="#创建-Symbol" class="headerlink" title="创建 Symbol"></a>创建 Symbol</h3><blockquote>
+<p>Symbol([description])<br>创建一个全新的 <code>Symbol</code> ，<code>description</code> 是对 Symbol 实例的描述，先来看几个示例：</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s0 = <span class="built_in">Symbol</span>();</span><br><span class="line"><span class="keyword">var</span> s1 = <span class="built_in">Symbol</span>(<span class="string">&quot;desc&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> s2 = <span class="built_in">Symbol</span>(<span class="string">&quot;desc&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(s0) <span class="comment">// Symbol()</span></span><br><span class="line"><span class="built_in">console</span>.log(s1) <span class="comment">// Symbol(desc)</span></span><br><span class="line"><span class="keyword">typeof</span> s1; <span class="comment">// &quot;symbol&quot;</span></span><br><span class="line">s1 === s2 <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>从上述示例可以看出，即使传递给 Symbol 同样的 “描述” ，得到的 Symbol 也都是独立的。</p>
+<h3 id="Symbol-for"><a href="#Symbol-for" class="headerlink" title="Symbol.for"></a>Symbol.for</h3><p>在某些场合下可能希望复用之前所创建的 Symbol，使用 <code>Symbol.for</code> 创建的 Symbol 可以做到这一点：</p>
+<blockquote>
+<p>Symbol.for([key])</p>
+</blockquote>
+<p>用 <code>Symbol.for()</code> 方法创建的的 <code>symbol</code> 会被放入一个全局 symbol 注册表中, <code>Symbol.for(key)</code> 方法并不是每次都会创建一个新的 <code>symbol</code> ，它会首先检查给定的 <code>key</code> 是否已经在注册表中了。假如是，则会直接返回上次存储的那个，否则，新建一个与该 <code>key</code> 关联的 <code>symbol</code> ，并放入全局 <code>symbol</code> 注册表中。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>); <span class="comment">// 创建一个 symbol 并放入 symbol 注册表中， key 为 &quot;foo&quot;</span></span><br><span class="line"><span class="keyword">var</span> s2 = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>); <span class="comment">// 从 symbol 注册表中读取 key 为&quot;foo&quot;的 symbol</span></span><br><span class="line"></span><br><span class="line">s1 === s2 <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Symbol-keyFor"><a href="#Symbol-keyFor" class="headerlink" title="Symbol.keyFor"></a>Symbol.keyFor</h3><blockquote>
+<p>Symbol.keyFor(symbol);</p>
+</blockquote>
+<p>该方法用于从 <code>symbol</code> 注册表中获取与某个 <code>symbol</code> 关联的键：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建一个 symbol 并放入 Symbol 注册表，key 为 &quot;foo&quot;</span></span><br><span class="line"><span class="keyword">var</span> globalSym = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>); </span><br><span class="line"><span class="built_in">Symbol</span>.keyFor(globalSym); <span class="comment">// &quot;foo&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个 symbol，但不放入 symbol 注册表中</span></span><br><span class="line"><span class="keyword">var</span> localSym = <span class="built_in">Symbol</span>(); </span><br><span class="line"><span class="built_in">Symbol</span>.keyFor(localSym); <span class="comment">// undefined，所以是找不到 key 的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// well-known symbol 们并不在 symbol 注册表中</span></span><br><span class="line"><span class="built_in">Symbol</span>.keyFor(<span class="built_in">Symbol</span>.iterator) <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Symbol-属性名遍历"><a href="#Symbol-属性名遍历" class="headerlink" title="Symbol 属性名遍历"></a>Symbol 属性名遍历</h2><p>使用 Symbol 作为对象的属性名是，无论使用 <code>for...in</code> 、<code>for...of</code> 循环或者 <code>Object.keys()</code> 、<code>Object.getOwnPropertyNames()</code> 方法均不会被遍历到，当然有一个<code>Object.getOwnPropertySymbols</code> 方法，可以获取指定对象的所有 <code>Symbol</code> 属性名：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line">obj.a = <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">obj[<span class="built_in">Symbol</span>(<span class="string">&#x27;b&#x27;</span>)] = <span class="string">&#x27;b&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> obj) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// a</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> v <span class="keyword">in</span> obj) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(v);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// a</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(obj)); <span class="comment">// [&quot;a&quot;]</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(obj)); <span class="comment">// [&quot;a&quot;]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertySymbols(obj)); <span class="comment">// [Symbol(b)]</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面代码中，<code>Object.getOwnPropertySymbols</code> 可以获取 <code>Symbol</code> 键名，但是无法获取到非 <code>Symbol</code> 键名，如果在需要遍历所有键名的场合可以尝试 <code>Reflect.ownKeys</code> :</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line">obj.a = <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">obj[<span class="built_in">Symbol</span>(<span class="string">&#x27;b&#x27;</span>)] = <span class="string">&#x27;b&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Reflect</span>.ownKeys(obj)); <span class="comment">// [&quot;a&quot;, Symbol(b)]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Symbol-的内置属性"><a href="#Symbol-的内置属性" class="headerlink" title="Symbol 的内置属性"></a>Symbol 的内置属性</h2><p>除了可以定义自己使用的 Symbol 以外，JavaScript 还内建了一些在 ES5 之前没有暴露给开发者的符号，指向内部语言行为。这些符号可以使用以下属性访问：</p>
+<h3 id="Symbol-hasInstance"><a href="#Symbol-hasInstance" class="headerlink" title="Symbol.hasInstance"></a>Symbol.hasInstance</h3><p>对象的 <code>Symbol.hasInstance</code> 属性指向一个函数，该函数用于判断某对象是否为某构造器的实例，即当调用 <code>instanceof</code> 运算符的时候实际上是调用对象的 <code>Symbol.hasInstance</code> 的属性对应的函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyArray</span> </span>&#123;  </span><br><span class="line">  <span class="keyword">static</span> (instance) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Array</span>.isArray(instance);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log([] <span class="keyword">instanceof</span> MyArray); <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 等价于：</span></span><br><span class="line"><span class="built_in">console</span>.log(MyArray[<span class="built_in">Symbol</span>.hasInstance]([])); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Symbol-isConcatSpreadable"><a href="#Symbol-isConcatSpreadable" class="headerlink" title="Symbol.isConcatSpreadable"></a>Symbol.isConcatSpreadable</h3><p>对象的 <code>Symbol.isConcatSpreadable</code> 属性指向一个布尔值，该函数用于配置某对象作为 <code>Array.prototype.concat()</code> 方法的参数时是否展开其数组元素。</p>
+<p>首先对于数组而言，<code>Symbol.isConcatSpreadable</code> 属性默认为 <code>true</code> ， 可以展开：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> b = [<span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a.concat(b)); <span class="comment">// [1, 2, 3, 4, 5]</span></span><br></pre></td></tr></table></figure>
+
+<p>设置 数组 <code>b</code> 的 <code>Symbol.isConcatSpreadable</code> 值为 <code>false</code> ：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> b = [<span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line">b[<span class="built_in">Symbol</span>.isConcatSpreadable] = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a.concat(b)); <span class="comment">// [1, 2, 3, [4, 5]]</span></span><br></pre></td></tr></table></figure>
+
+<p>类似数组的对象也可以展开，但它的 <code>Symbol.isConcatSpreadable</code> 属性默认为 <code>false</code> ：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> b = &#123;  </span><br><span class="line">  <span class="attr">length</span>: <span class="number">2</span>, </span><br><span class="line">  <span class="number">0</span>: <span class="number">4</span>, </span><br><span class="line">  <span class="number">1</span>: <span class="number">5</span> </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a.concat(b)); <span class="comment">// [1, 2, 3, Object]</span></span><br><span class="line"></span><br><span class="line">b[<span class="built_in">Symbol</span>.isConcatSpreadable] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a.concat(b)); <span class="comment">// [1, 2, 3, 4, 5]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Symbol-iterator"><a href="#Symbol-iterator" class="headerlink" title="Symbol.iterator"></a>Symbol.iterator</h3><p>对象的 <code>Symbol.iterator</code> 属性为对象定义了默认的迭代器。该迭代器可以被 <code>for...of</code> 循环结构使用。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> myIterable = &#123;&#125;</span><br><span class="line">myIterable[<span class="built_in">Symbol</span>.iterator] = <span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">[...myIterable] <span class="comment">// [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Symbol-match、Symbol-search、Symbol-replace-、-Symbol-split"><a href="#Symbol-match、Symbol-search、Symbol-replace-、-Symbol-split" class="headerlink" title="Symbol.match、Symbol.search、Symbol.replace 、 Symbol.split"></a>Symbol.match、Symbol.search、Symbol.replace 、 Symbol.split</h3><p>这四个属性代表的行为类似，这里以 <code>Symbol.match</code> 属性为例说明：</p>
+<p>对象的 <code>Symbol.match</code> 属性，指向一个函数。当执行 <code>String.prototype.match()</code> 时，如果该属性存在，会调用它。也就是说 <code>str.match(obj)</code> 等价于调用 <code>obj[Symbol.match](str)</code> ：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;&#125;;</span><br><span class="line"><span class="string">&quot;Hello, world!&quot;</span>.match(a); <span class="comment">// null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = &#123;</span><br><span class="line">  <span class="attr">value</span>: <span class="string">&#x27;world&#x27;</span>,</span><br><span class="line">  [<span class="built_in">Symbol</span>.match](string) &#123;</span><br><span class="line">    <span class="keyword">return</span> string.match(<span class="built_in">this</span>.value);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="string">&quot;Hello, world!&quot;</span>.match(b); <span class="comment">// [&quot;world&quot;, index: 7, input: &quot;Hello, world!&quot;]</span></span><br></pre></td></tr></table></figure>
+
+<p>同样的，执行 <code>str.search(obj)</code> 、 <code>str.replace(obj, replaceStr)</code> 、 <code>str.split(obj, limit)</code> 等价于执行 <code>obj[Symbol.search](str)</code> 、 <code>obj[Symbol.replace](str, replaceStr)</code> 、 <code>obj[Symbol.split](str, limit)</code> ：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">  <span class="attr">value</span>: <span class="string">&#x27;world&#x27;</span>,</span><br><span class="line">  [<span class="built_in">Symbol</span>.search](string) &#123;</span><br><span class="line">    <span class="keyword">return</span> string.indexOf(<span class="built_in">this</span>.value);</span><br><span class="line">  &#125;,</span><br><span class="line">  [<span class="built_in">Symbol</span>.replace](string, replaceStr) &#123;</span><br><span class="line">    <span class="keyword">return</span> string.replace(<span class="built_in">this</span>.value, replaceStr);</span><br><span class="line">  &#125;,</span><br><span class="line">  [<span class="built_in">Symbol</span>.split](string, limit) &#123;</span><br><span class="line">    <span class="keyword">return</span> string.split(<span class="built_in">this</span>.value, limit);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;Hello, world!&quot;</span>.search(a); <span class="comment">// 7</span></span><br><span class="line"><span class="string">&quot;Hello, world!&quot;</span>.replace(a, <span class="string">&#x27;Beijing&#x27;</span>); <span class="comment">// &quot;Hello, Beijing!&quot;</span></span><br><span class="line"><span class="string">&quot;Hello, world!&quot;</span>.split(a); <span class="comment">// [&quot;Hello, &quot;, &quot;!&quot;]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Symbol-species"><a href="#Symbol-species" class="headerlink" title="Symbol.species"></a>Symbol.species</h3><p>对象的 <code>Symbol.species</code> 属性，指向一个构造函数。创建实例的时候，会使用这个方法的返回值作为构造函数，来创建新的对象</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyArray1</span> <span class="keyword">extends</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a1 = <span class="keyword">new</span> MyArray1(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line"><span class="keyword">var</span> mapped1 = a1.map(<span class="function"><span class="params">x</span> =&gt;</span> x * x);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(mapped1 <span class="keyword">instanceof</span> MyArray1); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(mapped1 <span class="keyword">instanceof</span> <span class="built_in">Array</span>);   <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyArray2</span> <span class="keyword">extends</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 覆盖 species 到父级的 Array 构造函数上</span></span><br><span class="line">  <span class="keyword">static</span> get [<span class="built_in">Symbol</span>.species]() &#123; <span class="keyword">return</span> <span class="built_in">Array</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a2 = <span class="keyword">new</span> MyArray2(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line"><span class="keyword">var</span> mapped2 = a2.map(<span class="function"><span class="params">x</span> =&gt;</span> x * x);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(mapped2 <span class="keyword">instanceof</span> MyArray2); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(mapped2 <span class="keyword">instanceof</span> <span class="built_in">Array</span>);   <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>在ES5 中 <code>Array.prototype.map</code> 等函数实现类似如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.map = <span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> returnValue = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="built_in">this</span>.length);</span><br><span class="line">  <span class="built_in">this</span>.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item, index, array</span>) </span>&#123;</span><br><span class="line">    returnValue[index] = callback(item, index, array);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> returnValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在ES6 中，<code>Array.prototype.map</code> 等函数实现奖创建对象升级为使用 <code>Symbol.species</code> 属性，其实现类似如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.map = <span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> Species = <span class="built_in">this</span>.constructor[<span class="built_in">Symbol</span>.species];</span><br><span class="line">  <span class="keyword">var</span> returnValue = <span class="keyword">new</span> Species(<span class="built_in">this</span>.length);</span><br><span class="line">  <span class="built_in">this</span>.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item, index, array</span>) </span>&#123;</span><br><span class="line">    returnValue[index] = callback(item, index, array);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> returnValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种修改可以保证在自定义的数组的子类上执行这些函数，可以让返回的结果的类型能够回归到 <code>Array</code> 类型，否则，直接执行这些函数返回的类型是 <code>MyArray</code> 子类型。数组的 <code>slice</code> ，<code>filter</code> ，<code>splice</code> ，<code>concat</code> 方法都是这样。</p>
+<h3 id="Symbol-toPrimitive"><a href="#Symbol-toPrimitive" class="headerlink" title="Symbol.toPrimitive"></a>Symbol.toPrimitive</h3><p>对象的 <code>Symbol.toPrimitive</code> 属性，指向一个函数。当此对象被转为原始类型的值时，会调用这个方法。</p>
+<p>比如，当执行 <code>+object</code> 的时候，实际上会调用 <code>object[Symbol.toPrimitive](&#39;number&#39;)</code> ，当执行 <code>&#39;&#39;+object</code> ，实际上会调用 <code>object[Symbol.toPrimitive](&#39;string&#39;)</code> ， 执行 <code>if(object)</code> 实际上会调用 <code>object[Symbol.toPrimitive](&#39;default&#39;)</code> ， 通过 <code>Symbol.toPrimitive</code> 可以自由改变对象被类型转换的返回结果：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 没有 Symbol.toPrimitive 属性的对象</span></span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(+obj1);     <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;obj1&#125;</span>`</span>); <span class="comment">// &quot;[object Object]&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(obj1 + <span class="string">&quot;&quot;</span>); <span class="comment">// &quot;[object Object]&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 拥有 Symbol.toPrimitive 属性的对象</span></span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;</span><br><span class="line">  [<span class="built_in">Symbol</span>.toPrimitive](hint) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`hint is <span class="subst">$&#123;hint&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">if</span> (hint === <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (hint === <span class="string">&#x27;number&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">3</span>; </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(+obj2);</span><br><span class="line"><span class="comment">// hint is number</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;obj2&#125;</span>`</span>);</span><br><span class="line"><span class="comment">// hint is string</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj2 + <span class="string">&quot;&quot;</span>);</span><br><span class="line"><span class="comment">// hint is default</span></span><br><span class="line"><span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，<code>hint</code> 的取值只有 <code>number</code> 、 <code>string</code> 和 <code>default</code> 三种，当在进行类型转换的时候，如果 <code>hint === &#39;number&#39;</code> 分支的返回结果不能转换为数字，则会返回 <code>NAN</code> 。</p>
+<h3 id="Symbol-toStringTag"><a href="#Symbol-toStringTag" class="headerlink" title="Symbol.toStringTag"></a>Symbol.toStringTag</h3><p>对象的 <code>Symbol.toStringTag</code> 属性，指向一个函数，当对象被调用 <code>Object.prototype.toString</code> 方法的时候，这个函数的返回标签会出现在 <code>toString</code> 方法返回的字符串中：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line">obj.toString(); <span class="comment">// &quot;[object Object]&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  get [<span class="built_in">Symbol</span>.toStringTag]() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Obj&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.toString(); <span class="comment">// &quot;[object Obj]&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><h3 id="存储对象的基础属性"><a href="#存储对象的基础属性" class="headerlink" title="存储对象的基础属性"></a>存储对象的基础属性</h3><p><code>Symbol</code> 唯一的特性可以保证作为对象的属性名，其属性值不会被误修改：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Symbol</span>(<span class="string">&#x27;foo&#x27;</span>) === <span class="built_in">Symbol</span>(<span class="string">&#x27;foo&#x27;</span>); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> foo1 = <span class="built_in">Symbol</span>(<span class="string">&#x27;foo&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> foo2 = <span class="built_in">Symbol</span>(<span class="string">&#x27;foo&#x27;</span>);</span><br><span class="line">obj[foo1] = <span class="number">1</span>;</span><br><span class="line">obj[foo2] = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">obj[foo1] === <span class="number">1</span> <span class="comment">// true</span></span><br><span class="line">obj[foo2] === <span class="number">2</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>由于外界拿不到 <code>foo1</code> 和 <code>foo2</code> 的引用，就可以保证了 它们对应的属性值不会被修改。</p>
+<p>但是，这只能防止被误修改，但是实际上还是能被修改的：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  [<span class="built_in">Symbol</span>(<span class="string">&#x27;foo&#x27;</span>)]: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// Object &#123;Symbol(foo): 1&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> symbolKeys = <span class="built_in">Object</span>.getOwnPropertySymbols(obj);</span><br><span class="line">obj[symbolKeys[<span class="number">0</span>]] = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// Object &#123;Symbol(foo): 2&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>因此，这种存储方式并不是完全私有的，可以存放一些不想被误修改的数据又不介意被修改的数据。</p>
+<h3 id="替代标识用的静态变量"><a href="#替代标识用的静态变量" class="headerlink" title="替代标识用的静态变量"></a>替代标识用的静态变量</h3><p>比如当记录日志的时候，通常会有多个日志的级别：<code>debug</code> 、 <code>info</code> 、 <code>warn</code> ，以前通常是这么写的：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> levels = &#123;</span><br><span class="line">    <span class="attr">DEBUG</span>: <span class="string">&#x27;debug&#x27;</span>,</span><br><span class="line">    <span class="attr">INFO</span>: <span class="string">&#x27;info&#x27;</span>,</span><br><span class="line">    <span class="attr">WARN</span>: <span class="string">&#x27;warn&#x27;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line"><span class="keyword">var</span> levels = &#123;</span><br><span class="line">    <span class="attr">DEBUG</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">INFO</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="attr">WARN</span>: <span class="number">4</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这样写也可以工作，但是这些值并不唯一，可能会和其他值冲突。而实际上这些值取什么并无意义，只需要确保不会和其他值冲突即可。因此，完全可以使用 <code>Symbol</code> 替代：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> levels = &#123;</span><br><span class="line">    <span class="attr">DEBUG</span>: <span class="built_in">Symbol</span>(<span class="string">&#x27;debug&#x27;</span>),</span><br><span class="line">    <span class="attr">INFO</span>: <span class="built_in">Symbol</span>(<span class="string">&#x27;info&#x27;</span>),</span><br><span class="line">    <span class="attr">WARN</span>: <span class="built_in">Symbol</span>(<span class="string">&#x27;warn&#x27;</span>),</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(levels.DEBUG, <span class="string">&#x27;debug message&#x27;</span>); <span class="comment">// Symbol(debug) &quot;debug message&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(levels.INFO, <span class="string">&#x27;info message&#x27;</span>); <span class="comment">// Symbol(info) &quot;info message&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="提供一个修改的钩子"><a href="#提供一个修改的钩子" class="headerlink" title="提供一个修改的钩子"></a>提供一个修改的钩子</h3><p>比如之前提到的 <code>Symbol.toStringTag</code> 等就是一个 <code>toString</code> 方法的钩子，使用这个可以改变自定义的对象的显示名称，这在开发工具函数也很有用：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> inspect = <span class="built_in">Symbol</span>(<span class="string">&#x27;inspect&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> log = <span class="function">(<span class="params">obj</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (obj[inspect]) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(obj[inspect]);</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(obj);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;&#125;;</span><br><span class="line">log(obj1); <span class="comment">// Object &#123;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;</span><br><span class="line">  [inspect]: <span class="string">&quot;This is object2&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line">log(obj2); <span class="comment">// This is object2</span></span><br></pre></td></tr></table></figure>
+
+<p>如上述例子，编写了一个增强的 <code>log</code> ，默认使用 <code>console.log</code> 直接打印对象，但是如果对象存在 <code>inspect</code> 这个属性值 则打印这个属性值的内容，这个属性值就是提供的一个改变函数行为的钩子。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol">MDN</a></li>
+<li><a target="_blank" rel="noopener" href="http://es6.ruanyifeng.com/">ECMAScript 6 入门-阮一峰</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.keithcirkel.co.uk/metaprogramming-in-es6-symbols/">Metaprogramming in ES6: Symbols and why they’re awesome</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.codes51.com/article/detail_285692_1.html">ES6学习——类语法：Symbolspecies在实例创建中的应用</a></li>
+</ul>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

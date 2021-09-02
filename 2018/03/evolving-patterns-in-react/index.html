@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Evolving Patterns in React - React 中的模式演化 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="js,react,翻译" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-evolving-patterns-in-react" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        Evolving Patterns in React - React 中的模式演化
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2018" data-type="ARCHIVES">
+        2018-03-07
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 3.8k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 25mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="js" data-type="TAGS">js</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="react" data-type="TAGS">react</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="翻译" data-type="TAGS">翻译</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>翻译自：<a target="_blank" rel="noopener" href="https://medium.freecodecamp.org/evolving-patterns-in-react-116140e5fe8f">Evolving Patterns in React</a></p>
+<p>Let’s take a closer look at some of the patterns that are emerging in the React ecosystem. These patterns improve readability, code clarity, and push your code towards composition and reusability.</p>
+<p>让我们仔细看看出现在 React 生态系统中的一些模式。这些模式可提高你的代码的可读性和清晰度，更加的可组合性和可复用性。</p>
+<p>I started working with <a target="_blank" rel="noopener" href="https://reactjs.org/"><strong>React</strong></a> roughly about 3 years ago. At that time, there were no established practices from which to learn in order to leverage its capabilities.</p>
+<p>大约3年前我开始使用 React 工作，那个时候，还没有一个成熟的可以参考的模式。</p>
+<p>It took about 2 years for the community to settle around a few ideas. We shifted from <code>React.createClass</code> to the ES6 <code>class</code> and pure functional components. We dropped mixins and <a target="_blank" rel="noopener" href="https://reactjs.org/blog/2016/04/07/react-v15.html">we simplified our APIs</a>.</p>
+<p>社区花了大约2年的时间才解决一些想法。我们从 <code>React.createClass</code> 转移到 ES6 类和纯函数组件。我们放弃了mixin，并<a target="_blank" rel="noopener" href="https://reactjs.org/blog/2016/04/07/react-v15.html">简化了 API</a></p>
+<p>Now as the community is larger than ever, we’re starting to see a couple of nice patterns <strong>evolving</strong>.</p>
+<p>现在，社区比以往更大，我们开始看到一些不错的模式 <strong>演变</strong> 出来。</p>
+<p>In order to understand these patterns you need a basic understanding of the <strong>React</strong> concepts and its ecosystem. Please note, however, that I will not cover them in this article.</p>
+<p>为了理解这些模式，你需要对 React 的概念及其生态系统有一个基本的了解。请注意，我不会在这篇文章中介绍它们。</p>
+<p>So let’s begin!</p>
+<h2 id="Conditional-Render（条件渲染）"><a href="#Conditional-Render（条件渲染）" class="headerlink" title="Conditional Render（条件渲染）"></a>Conditional Render（条件渲染）</h2><p>I’ve seen the following scenario in a lot of projects.</p>
+<p>我在很多项目都看到过以下场景。</p>
+<p>When people think of <strong>React</strong> and <strong>JSX</strong>, they still think in terms of <strong>HTML</strong> and <strong>JavaScript</strong>.</p>
+<p>当人们想到 <strong>React</strong> 和 <strong>JSX</strong> 时，他们心里仍然把它们当做 <strong>HTML</strong> 和 <strong>JavaScript</strong>。</p>
+<p>So the natural step is to <strong>separate</strong> the conditional logic from the actual return code.</p>
+<p>所以自然而然的，会把条件逻辑与实际的返回代码 <strong>分开</strong>。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> condition = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> innerContent = condition ? (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Show me<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>Description<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  ) : <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>This is always visible<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">      &#123; innerContent &#125;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>This tends to get out of control, with multiple <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator">ternaries</a> at the beginning of each <code>render</code> function. You constantly have to jump inside the function to understand when a certain element is rendered or not.</p>
+<p>在每个 <code>render</code> 函数的开始处有多个<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator">三元运算符</a>，这往往会失去控制。你必须不断地跳到函数内部来理解某个元素何时被渲染。</p>
+<p>As an alternative, try the following pattern, where you benefit from the execution model of the language.</p>
+<p>相反，可以尝试以下模式替代，从语言的执行模型中受益。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> condition = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>This is always visible<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">    &#123;</span></span><br><span class="line"><span class="xml">      condition &amp;&amp; (</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Show me<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">p</span>&gt;</span>Description<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      )</span></span><br><span class="line"><span class="xml">    &#125;</span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>If <code>condition</code> is false, the second operand of the <code>&amp;&amp;</code> operator is not evaluated. If it is true, the second operand —<strong>or the JSX we wish to render</strong> is returned.</p>
+<p>如果 <code>condition</code> 为 false，则 <code>&amp;&amp;</code> 运算符的第二个操作数不会被运算。如果它为 true，则返回第二个操作数或我们想要呈现的JSX。</p>
+<p>This allows us to <strong>mix</strong> UI logic with the actual UI elements in a <strong>declarative</strong> way!</p>
+<p>这使我们能够以 <strong>声明</strong> 的方式将 UI 逻辑与实际的 UI 元素 <strong>混合</strong> 在一起！</p>
+<p>Treat JSX like it’s an integral part of your code! After all, it’s just <strong>JavaScript</strong>.</p>
+<p>将 JSX 视为代码的一部分！毕竟，它就是 JavaScript。</p>
+<h2 id="Passing-Down-Props（向下传递-Props）"><a href="#Passing-Down-Props（向下传递-Props）" class="headerlink" title="Passing Down Props（向下传递 Props）"></a>Passing Down Props（向下传递 Props）</h2><p>When your application grows, you have smaller components that act as containers for other components.</p>
+<p>当你的应用程序增长时，会有更小的组件作为其他组件的容器。</p>
+<p>As this happens, you need to pass down a good chunk of props through a component. The component doesn’t need them, but its children do.</p>
+<p>这时，你需要通过组件传递大量 props。该组件不需要它们，但它的子组件可能需要。</p>
+<p>A good way of bypassing this is to use <strong>props destructuring</strong> together with <strong>JSX spread</strong>, as you can see here:</p>
+<p>一个好的绕过它方法就是对传递给 JSX 的属性使用 <strong>属性解构</strong>，如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Details = <span class="function">(<span class="params"> &#123; name, language &#125; </span>) =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123; name &#125; works with &#123; language &#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Layout = <span class="function">(<span class="params"> &#123; title, ...props &#125; </span>) =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123; title &#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Details</span> &#123; <span class="attr">...props</span> &#125; /&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">Layout</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">title</span>=<span class="string">&quot;I&#x27;m here to stay&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">language</span>=<span class="string">&quot;JavaScript&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">name</span>=<span class="string">&quot;Alex&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  /&gt;</span></span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>So now, you can change the props needed for <code>Details</code> and be sure that those props are not referenced in multiple components.</p>
+<p>所以现在，你可以改变 <code>Details</code> 所需要的 Props ，并确保那些 props 没有在其他组件中被多余的引用。</p>
+<h2 id="Destructuring-Props（解构-Props）"><a href="#Destructuring-Props（解构-Props）" class="headerlink" title="Destructuring Props（解构 Props）"></a>Destructuring Props（解构 Props）</h2><p>An app changes over time, and so do your components. A component you wrote two years ago might be stateful, but now it can be transformed into a stateless one. The other way around also happens a lot of times!</p>
+<p>随着时间的推移，你的应用程序和组件也会变化。你两年前写的一个组件可能是有状态的，但现在它可以转化为无状态组件。反之，也会发生！</p>
+<p>Since we talked about props destructuring, here’s a good trick I use to make my life easier on the long run. You can destructure your props in a similar manner for both types of components, as you can see below:</p>
+<p>之前，我们讨论了属性解构，从长远来看，这是一个让我的生活更轻松的好方法。你可以按照类似的方式为两种不同类型的组件解构属性，如下所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Details = <span class="function">(<span class="params"> &#123; name, language &#125; </span>) =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123; name &#125; works with &#123; language &#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Details</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; name, language &#125; = <span class="built_in">this</span>.props;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123; name &#125; works with &#123; language &#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Notice that lines <code>2–4</code> and <code>11–13</code> are <strong>identical.</strong> Transforming components is much easier using this pattern. Also, you limit the usage of <code>this</code> inside the component.</p>
+<p>注意第 <code>2-4</code> 行和第 <code>11-13</code> 行是 <strong>等价</strong> 的。使用这种模式可以更轻松地转换组件。此外，还可以限制组件内部 <code>this</code> 的使用。</p>
+<h2 id="Provider-Pattern-Provider-模式"><a href="#Provider-Pattern-Provider-模式" class="headerlink" title="Provider Pattern(Provider 模式)"></a>Provider Pattern(Provider 模式)</h2><p>We looked at an example where props need to be sent down through another component. But what if you have to send it down 15 components?</p>
+<p>前面，我们看了一个例子，Props 需要通过另一个组件传递。但是如果你不得不将它传递给 15 个组件呢？</p>
+<p>Enter <a target="_blank" rel="noopener" href="https://reactjs.org/docs/context.html">React Context</a>!</p>
+<p>This is not necessarily the most recommended feature of React, but it gets the job done when needed.</p>
+<p>查看 <a target="_blank" rel="noopener" href="https://reactjs.org/docs/context.html">React Context</a>！这不一定是 React 最推荐的功能，但它可以在需要时完成工作。</p>
+<p>It was <a target="_blank" rel="noopener" href="https://twitter.com/acdlite/status/956390180637650944">recently announced</a> that the Context is getting a new API, which implements the <strong>provider pattern</strong> out of the box.</p>
+<p>最近 <a target="_blank" rel="noopener" href="https://twitter.com/acdlite/status/956390180637650944">React 宣布</a> Context 正在更新一个新的 API，它实现了开箱即用的 <strong>provider 模式</strong>。</p>
+<p>If you are using things like <a target="_blank" rel="noopener" href="https://github.com/reactjs/react-redux">React Redux</a> or <a target="_blank" rel="noopener" href="https://github.com/apollographql/react-apollo">Apollo</a>, you might be familiar with the pattern.</p>
+<p>如果你正在使用的 <a target="_blank" rel="noopener" href="https://github.com/reactjs/react-redux">React Redux</a> 或 <a target="_blank" rel="noopener" href="https://github.com/apollographql/react-apollo">Apollo</a>，你可能会非常熟悉这种模式。</p>
+<p>Seeing how it works with today’s API will help you understand the new API as well. You can play around with the following sandbox.</p>
+<p>我们来看看它如何与现有的 API 协同工作，这将有助于你理解新的 Context API。你可以在 <a target="_blank" rel="noopener" href="https://codesandbox.io/s/rww6k3mq94?from-embed">sandbox</a> 中运行它。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; render &#125; <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> PropTypes <span class="keyword">from</span> <span class="string">&#x27;prop-types&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MousePositionProvider</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>();</span><br><span class="line">    <span class="built_in">this</span>.state = &#123; &#125;;</span><br><span class="line">    <span class="built_in">this</span>.onMouseMove = <span class="built_in">this</span>.onMouseMove.bind( <span class="built_in">this</span> );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">getChildContext</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">posX</span>: <span class="built_in">this</span>.state.posX,</span><br><span class="line">      <span class="attr">posY</span>: <span class="built_in">this</span>.state.posY</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.addEventListener( <span class="string">&quot;mousemove&quot;</span>, <span class="built_in">this</span>.onMouseMove );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onMouseMove</span>(<span class="params"> e </span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123; <span class="attr">posX</span>: e.clientX, <span class="attr">posY</span>: e.clientY &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.props.children</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MousePositionProvider.childContextTypes = &#123;</span><br><span class="line">  <span class="attr">posX</span>: PropTypes.number,</span><br><span class="line">  <span class="attr">posY</span>: PropTypes.number</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MousePositionConsumer</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Your position is ( &#123;this.context.posX&#125;,&#123;this.context.posY&#125; )<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MousePositionConsumer.contextTypes = &#123;</span><br><span class="line">  <span class="attr">posX</span>: PropTypes.number,</span><br><span class="line">  <span class="attr">posY</span>: PropTypes.number</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">MousePositionProvider</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">MousePositionConsumer</span> /&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">MousePositionConsumer</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">MousePositionProvider</span>&gt;</span></span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">render(<span class="xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>The top level component——called <strong>Provider</strong>——sets some values on the context. The child components——called <strong>Consumers</strong>——will grab those values from the context.</p>
+<p>顶级组件（<code>Provider</code>），在 <code>Context</code> 中设置了一些值。子组件（<code>Consumers</code>），从 <code>Context</code> 中获取这些值。</p>
+<p>The current context syntax is a bit strange, but the upcoming version is implementing this exact pattern.</p>
+<p>目前的 <code>Context</code> 的语法有点奇怪，但即将推出的新版本正在按照这种模式实现。</p>
+<h2 id="High-Order-Components（高阶组件）"><a href="#High-Order-Components（高阶组件）" class="headerlink" title="High Order Components（高阶组件）"></a>High Order Components（高阶组件）</h2><p>Let’s talk about reusability. Together with dropping the old <code>React.createElement()</code> factory, the React team also dropped the support for <a target="_blank" rel="noopener" href="https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html">mixins</a>. They were, at some point, the standard way of composing components through plain object composition.</p>
+<p>我们来谈谈可重用性。像被丢弃的旧的 <code>React.createElement()</code> 工厂方法一样，React 团队也放弃了对 <a target="_blank" rel="noopener" href="https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html">mixins</a> 的支持。在某种程度上来说，复合组件的标准方式是通过简单对象的组合。</p>
+<p><a target="_blank" rel="noopener" href="https://reactjs.org/docs/higher-order-components.html">High Order Components</a>—HOCs from now on—went out to fill the need for reusing behavior across multiple components.</p>
+<p><a target="_blank" rel="noopener" href="https://reactjs.org/docs/higher-order-components.html">高阶组件</a> - 现在开始的 HOC - 能够满足跨多个组件重用行为的需求。</p>
+<p>A HOC is a function that takes an input component and returns an <strong>enhanced/modified</strong> version of that component. You will find HOCs under different names, but I like to think of them as <strong>decorators</strong>.</p>
+<p>HOC 是一个接收输入组件并返回该组件的 <strong>增强或修改</strong> 版本的函数。你会发现 HOC 有不同的名称，但我喜欢把它们看作 <strong>装饰器</strong>。</p>
+<p>If you are using Redux, you will recognize that the <code>connect</code> function is a HOC—takes your component and adds a bunch of <code>props</code> to it.</p>
+<p>如果你使用 <code>Redux</code>，你会发现 <code>connect</code> 函数就是一个 HOC –接收你的组件，并为它添加一堆 <code>Props</code>。</p>
+<p>Let’s implement a basic HOC that can add props to existing components.</p>
+<p>我们来实现一个基本的 HOC，它可以为现有的组件添加额外的属性。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> withProps = <span class="function">(<span class="params"> newProps </span>) =&gt;</span> <span class="function">(<span class="params"> WrappedComponent </span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> ModifiedComponent = <span class="function">(<span class="params"> ownProps </span>) =&gt;</span> ( <span class="comment">// the modified version of the component</span></span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">WrappedComponent</span> &#123; <span class="attr">...ownProps</span> &#125; &#123; <span class="attr">...newProps</span> &#125; /&gt;</span></span> <span class="comment">// original props + new props</span></span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ModifiedComponent;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Details = <span class="function">(<span class="params"> &#123; name, title, language &#125; </span>) =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123; title &#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123; name &#125; works with &#123; language &#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newProps = &#123; <span class="attr">name</span>: <span class="string">&quot;Alex&quot;</span> &#125;; <span class="comment">// this is added by the hoc</span></span><br><span class="line"><span class="keyword">const</span> ModifiedDetails = withProps( newProps )( Details ); <span class="comment">// hoc is curried for readability</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">ModifiedDetails</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">title</span>=<span class="string">&quot;I&#x27;m here to stay&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">language</span>=<span class="string">&quot;JavaScript&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  /&gt;</span></span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>If you like functional programming, you will love working with high order components. <a target="_blank" rel="noopener" href="https://github.com/acdlite/recompose">Recompose</a> is a great package that gives you all these nice utility HOCs like <code>withProps</code>, <code>withContext</code>, <code>lifecycle</code>, and so on.</p>
+<p>如果你喜欢函数式编程，你将会喜欢使用高阶组件。<a target="_blank" rel="noopener" href="https://github.com/acdlite/recompose">Recompose</a> 是一个很好的软件包，可以为你提供所有这些好用的HOC，例如<code>withProps</code>, <code>withContext</code>, <code>lifecycle</code> 等等。</p>
+<p>Let’s have a look at a very useful example of <strong>reusing functionality</strong>.</p>
+<p>让我们来看一个很有用的 <strong>功能复用</strong> 的例子。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">withAuthentication</span>(<span class="params">WrappedComponent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> ModifiedComponent = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!props.isAuthenticated) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Redirect</span> <span class="attr">to</span>=<span class="string">&quot;/login&quot;</span> /&gt;</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">WrappedComponent</span> &#123; <span class="attr">...props</span> &#125; /&gt;</span></span>);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> mapStateToProps = <span class="function">(<span class="params">state</span>) =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">isAuthenticated</span>: state.session.isAuthenticated</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> connect(mapStateToProps)(ModifiedComponent);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>You can use <code>withAuthentication</code> when you want to render sensitive content inside a route. That content will only be available to logged-in users.</p>
+<p>当你想要在一个路由内展示敏感的内容时，你可以使用 <code>withAuthentication</code> ，该内容将只对登录的用户可用。</p>
+<p>This is a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross-cutting_concern">cross-cutting concern</a> of your application implemented in a single place and reusable across the entire app.</p>
+<p>这是一个<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross-cutting_concern">cross-cutting concern</a>，实现一次，并可以整个应用程序中重用。</p>
+<p>However, there is a downside to HOCs. Each HOC will introduce an additional React Component in your DOM/vDOM structure. This can lead to potential performance problems as your application scales.</p>
+<p>但是，HOC 有一个缺点。每个 HOC 将在你的 <code>DOM/vDOM</code> 结构中引入一个额外的 React 组件。随着应用程序的扩展，这可能会导致潜在的性能问题。</p>
+<p>Some additional problems with HOCs are summarized in <a target="_blank" rel="noopener" href="https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce">this great article</a> by <a target="_blank" rel="noopener" href="https://twitter.com/mjackson">Michael Jackson</a>. He advocates replacing HOCs with the pattern we’ll be talking about next.</p>
+<p><a target="_blank" rel="noopener" href="https://twitter.com/mjackson">Michael Jackson</a> 在<a target="_blank" rel="noopener" href="https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce">这篇不错的文章</a>中总结了 HOC 的一些其他问题，他主张用我们接下来要讨论的模式来取代 HOC。</p>
+<h2 id="Render-Props"><a href="#Render-Props" class="headerlink" title="Render Props"></a>Render Props</h2><p>While it is true that <strong>render props</strong> and <strong>HOCs</strong> are interchangeable, I don’t favor one over another. Both patterns are used to improve reusability and code clarity.</p>
+<p>尽管 <strong>render props</strong> 和 <strong>HOCs</strong> 是可以互换的，但我并不赞成使用一个替换另一个，这两种模式都用于提高代码可复用性和清晰度。</p>
+<p>The idea is that you <strong>yield</strong> the control of your render function to another component that then passes you back the control through a function prop.</p>
+<p>这个想法是，你将渲染函数的控制权<strong>转让</strong>给另一个组件，然后另一个组件通过函数的 prop 传回给你。</p>
+<p>Some people prefer to use a <strong>dynamic prop</strong> for this, some just use <code>**this.props.children**</code>.</p>
+<p>有些人只是使用 <code>**this.props.children**</code>，而有些人更喜欢使用<strong>动态的 prop</strong>。</p>
+<p>I know, it’s still very confusing, but let’s see a simple example.</p>
+<p>这样听起来仍然很混乱，我们来看一个简单的例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ScrollPosition</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>();</span><br><span class="line">    <span class="built_in">this</span>.state = &#123; <span class="attr">position</span>: <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="built_in">this</span>.updatePosition = <span class="built_in">this</span>.updatePosition.bind(<span class="built_in">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.addEventListener( <span class="string">&quot;scroll&quot;</span>, <span class="built_in">this</span>.updatePosition );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">updatePosition</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState( &#123; <span class="attr">position</span>: <span class="built_in">window</span>.pageYOffset &#125; )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.props.children( <span class="built_in">this</span>.state.position )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">ScrollPosition</span>&gt;</span></span></span><br><span class="line"><span class="xml">      &#123; ( position ) =&gt; (</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">p</span>&gt;</span>You are at &#123; position &#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      ) &#125;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">ScrollPosition</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>Here we are using <code>children</code> as the render prop. Inside the <code>&lt;ScrollPosition&gt;</code> component we will send a function which receives the <code>position</code> as a parameter.</p>
+<p>我们在这里使用 <code>children</code> 作为渲染道具。在 <code>&lt;ScrollPosition&gt;</code> 组件中，我们将传递一个接收 <code>position</code> 作为参数的函数。</p>
+<p>Render props can be used in situations where you need some reusable logic <strong>inside</strong> the component and you don’t want to wrap your component in a HOC.</p>
+<p>渲染道具可用于在组件<strong>内部</strong>需要一些可重用逻辑，并且你不希望将组件包装在 HOC 中的情况。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/chenglou/react-motion">React-Motion</a> is one of the libraries that offer some great examples of using render props.</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/chenglou/react-motion">React-Motion</a>是一个提供了很好的使用了  <strong>render props</strong> 例子的库。</p>
+<p>Finally, let’s look at how we can integrate <strong>async</strong> flows with render props. Here’s a nice example of creating a reusable <code>Fetch</code> component.</p>
+<p>最后，我们来看看我们如何将 <strong>异步</strong> 流程与 <strong>render props</strong> 进行整合。这是一个很好的创建可重用的 <code>Fetch</code> 组件的例子。</p>
+<p>I’m sharing a sandbox link so you can play with it and see the results.</p>
+<p>我分享一个 sandbox 链接，以便你可以使用它并查看运行结果。</p>
+<p><a target="_blank" rel="noopener" href="https://codesandbox.io/s/myv3nywvp?from-embed">点击查看可运行示例</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; render &#125; <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fetch</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>();</span><br><span class="line">    <span class="built_in">this</span>.state = &#123;</span><br><span class="line">      <span class="attr">content</span>: <span class="string">&quot;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123; <span class="attr">content</span>: <span class="built_in">this</span>.props.loading() &#125;)</span><br><span class="line">    fetch(<span class="built_in">this</span>.props.url)</span><br><span class="line">      .then(<span class="function"><span class="params">res</span> =&gt;</span> res.json())</span><br><span class="line">      .then(</span><br><span class="line">        <span class="function"><span class="params">res</span> =&gt;</span> <span class="built_in">this</span>.setState(&#123; <span class="attr">content</span>: <span class="built_in">this</span>.props.done(res) &#125;),</span><br><span class="line">        <span class="function"><span class="params">res</span> =&gt;</span> <span class="built_in">this</span>.setState(&#123; <span class="attr">content</span>: <span class="built_in">this</span>.props.error() &#125;)</span><br><span class="line">      )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.state.content;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">Fetch</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">url</span>=<span class="string">&quot;https://www.booknomads.com/api/v0/isbn/9789029538237&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">loading</span>=<span class="string">&#123;()</span> =&gt;</span> (</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>Loading ... <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    )&#125;</span></span><br><span class="line"><span class="xml">    done=&#123;(book) =&gt; (</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>You asked for: &#123; book.Authors[0].Name &#125; - &#123;book.Title&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    )&#125;</span></span><br><span class="line"><span class="xml">    error=&#123;() =&gt; (</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>Error fetching content<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    )&#125;</span></span><br><span class="line"><span class="xml">  /&gt;</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">render(<span class="xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>You can have <strong>multiple</strong> render props for the same component. With this pattern, you have endless possibilities of composing and reusing functionality.</p>
+<p>你可以为同一个组件提供<strong>多个</strong>可渲染的 props。有了这种模式，你可以无限制地编写和重用功能。</p>
+<p>What patterns do you use? Which of them would fit in this article? Drop me a message bellow or write your thoughts on <a target="_blank" rel="noopener" href="https://twitter.com/alexnmoldovan">Twitter</a>.</p>
+<p>你使用过什么样的模式？有哪一个适合这篇文章？给我发一封消息，或在 <a target="_blank" rel="noopener" href="https://twitter.com/alexnmoldovan">Twitter</a> 上写下你的想法。</p>
+<p>If you found this article useful, help me share it with the community!</p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

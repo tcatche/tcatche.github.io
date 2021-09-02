@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>React 内部原理，第三部分：基本更新 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,翻译" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-react-internals-part-three-basic-updating" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        React 内部原理，第三部分：基本更新
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-07-26
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 3.4k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 23mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="react" data-type="TAGS">react</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="翻译" data-type="TAGS">翻译</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <blockquote>
+<p>原文：<a target="_blank" rel="noopener" href="http://www.mattgreer.org/articles/react-internals-part-three-basic-updating/">React Internals, Part Three: basic updating</a></p>
+</blockquote>
+<p>In <a target="_blank" rel="noopener" href="http://www.mattgreer.org/articles/react-internals-part-one-basic-rendering">part one</a>, our small React clone, Feact, was implemented far enough to do basic rendering. But once the render happens, that was it. In this part, we’ll add the ability to make changes to the app with subsequent renders. This part will begin to show how the virtual DOM diffing works.</p>
+<p>在第一部分，我们的小型 React 克隆（Feact）被实现的足以进行基本的渲染。在这部分中，我们将添加后续渲染对应用进行更改的功能。这部分将开始展示虚拟 DOM diffing 过程的工作原理。</p>
+<h2 id="The-series"><a href="#The-series" class="headerlink" title="The series"></a>The series</h2><ul>
+<li>  <a href="/articles/react-internals-part-one-basic-rendering">part one: basic rendering</a></li>
+<li>  <a href="/articles/react-internals-part-two-componentWillMount-and-componentDidMount">part two: componentWillMount and componentDidMount</a></li>
+<li>  <strong>part three: basic updating</strong> &lt;- you are here</li>
+<li>  <a href="/articles/react-internals-part-four-setState">part four: setState</a></li>
+<li>  part five: transactions <em>coming soon!</em></li>
+</ul>
+<p>全部译文：</p>
+<ul>
+<li><a href="/2017/07/react-internals-part-one-basic-rendering/">第一部分：基础渲染</a></li>
+<li><a href="/2017/07/react-internals-part-two-componentWillMount-and-componentDidMount/">第二部分：componentWillMount and componentDidMount</a></li>
+<li><strong>第三部分：基本更新</strong> &lt;- 当前位置</li>
+<li><a href="/2017/07/react-internals-part-four-setState/">第四部分：setState</a></li>
+<li><a href="/2017/08/react-internals-part-five-transactions/">第五部分：事务</a></li>
+</ul>
+<h2 id="简单更新（Simple-updating）"><a href="#简单更新（Simple-updating）" class="headerlink" title="简单更新（Simple updating）"></a>简单更新（Simple updating）</h2><p>Calling <code>setState()</code> in a component is the primary way people cause their React apps to update. But React also supports updating through <code>React.render()</code>. Take this contrived example</p>
+<p>在组件中调用 <code>setState()</code> 是人们更新其 React 应用程序的主要方式。但是 React 还支持通过 <code>React.render()</code> 进行更新。看这个例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">React.render(<span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>, root);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  React.render(<span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>hello again<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>, root);</span><br><span class="line">&#125;, <span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
+
+<p>We’ll ignore <code>setState()</code> for now (that’s coming in <a target="_blank" rel="noopener" href="http://www.mattgreer.org/articles/react-internals-part-four-setState">part four</a>) and instead implement updates through <code>Feact.render()</code>. Truth be told, this is simply “props have changed so update”, which also happens if you render again and pass different props down to a child component. We just happen to be causing the props change through <code>Feact.render()</code>.</p>
+<p>我们现在将忽略 <code>setState()</code>（这是第四部分），而是通过 <code>Feact.render()</code> 实现更新。说实话，这只是简单的 “props 改变了，所以需要更新”，如果再次渲染并将不同的 props 传递给一个子组件，这也会发生。我们这里是通过 <code>Feact.render()</code> 导致 props 改变。</p>
+<h2 id="执行更新（Doing-the-update）"><a href="#执行更新（Doing-the-update）" class="headerlink" title="执行更新（Doing the update）"></a>执行更新（Doing the update）</h2><p>The concept is pretty simple, <code>Feact.render()</code> just needs to check if it has rendered before, and if so, update the page instead of starting fresh.</p>
+<p>这个概念很简单，<code>Feact.render()</code> 只需要检查它之前是否已经呈现，如果是这样，更新页面而不是开始创建。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Feact = &#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params">element, container</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> prevComponent = getTopLevelComponentInContainer(container);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (prevComponent) &#123;</span><br><span class="line">      <span class="keyword">return</span> updateRootComponent(</span><br><span class="line">        prevComponent,</span><br><span class="line">        element</span><br><span class="line">      );</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> renderNewRootComponent(element, container);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">renderNewRootComponent</span>(<span class="params">element, container</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> wrapperElement = Feact.createElement(TopLevelWrapper, element);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> componentInstance = <span class="keyword">new</span> FeactCompositeComponentWrapper(wrapperElement);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> FeactReconciler.mountComponent(</span><br><span class="line">    componentInstance,</span><br><span class="line">    container</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getTopLevelComponentInContainer</span>(<span class="params">container</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// need to figure this out</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateRootComponent</span>(<span class="params">prevComponent, nextElement</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// need to figure this out too</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This is looking pretty promising. If we rendered before, then take the state of the previous render, grab the new desired state, and pass that off to a function that will figure out what DOM updates need to happen to update the app. Otherwise if there’s no signs of a previous render, then render into the DOM exactly how we did in part one and two.</p>
+<p>We just need to figure out the two missing pieces.</p>
+<p>这看起来很有保障。如果我们以前渲染过，然后采取先前渲染的状态，抓住新的需要状态，并将其传递给一个函数，由其确定哪些 DOM 需要更新并进行更新。否则，如果没有之前已经渲染的迹象，那么将其渲染到 DOM 中，就像我们在第一部分和第二部分中所做的那样。 </p>
+<p>我们只需要弄清楚两个缺失的部分。</p>
+<h2 id="记住我们已经做过的（Remembering-what-we-did）"><a href="#记住我们已经做过的（Remembering-what-we-did）" class="headerlink" title="记住我们已经做过的（Remembering what we did）"></a>记住我们已经做过的（Remembering what we did）</h2><p>For each render, We need to store the components we created, so we can refer to them in a subsequent render. Where to store them? Why not on the DOM nodes they create?</p>
+<p>对于每次渲染，我们需要存储我们创建的组件，以便我们可以在之后的渲染中引用它们。那么，在哪里存储它们？为什么不在他们创建的DOM节点上？</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">renderNewRootComponent</span>(<span class="params">element, container</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> wrapperElement =</span><br><span class="line">    Feact.createElement(TopLevelWrapper, element);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> componentInstance =</span><br><span class="line">    <span class="keyword">new</span> FeactCompositeComponentWrapper(wrapperElement);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> markUp = FeactReconciler.mountComponent(</span><br><span class="line">    componentInstance,</span><br><span class="line">    container</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="comment">// new line here, store the component instance on the container</span></span><br><span class="line">  <span class="comment">// we want its _renderedComponent because componentInstance is just</span></span><br><span class="line">  <span class="comment">// the TopLevelWrapper, which we don&#x27;t need for updates</span></span><br><span class="line">  container.__feactComponentInstance = componentInstance._renderedComponent;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> markUp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Well, that was easy. Similarly retrieving the stashed component is easy too:</p>
+<p>这很容易，类似地，找到我们隐藏的组件也很容易：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getTopLevelComponentInContainer</span>(<span class="params">container</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> container.__feactComponentInstance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="更新到新的状态（Updating-to-the-new-state）"><a href="#更新到新的状态（Updating-to-the-new-state）" class="headerlink" title="更新到新的状态（Updating to the new state）"></a>更新到新的状态（Updating to the new state）</h2><p>This is the simple example we are working through</p>
+<p>这是我们使用的简单例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Feact.render(</span><br><span class="line">  Feact.createElement(<span class="string">&#x27;h1&#x27;</span>, <span class="literal">null</span>, <span class="string">&#x27;hello&#x27;</span>),</span><br><span class="line">  root</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  Feact.render(</span><br><span class="line">    Feact.createElement(<span class="string">&#x27;h1&#x27;</span>, <span class="literal">null</span>, <span class="string">&#x27;hello again&#x27;</span>),</span><br><span class="line">    root</span><br><span class="line">  );</span><br><span class="line">&#125;, <span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
+
+<p>2 seconds has elapsed, so we are now calling <code>Feact.render()</code> again, but this time with an element that looks like</p>
+<p>2秒过去了，我们现在再次调用 <code>Feact.render()</code>，但是这时候看起来像是一个元素</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&#x27;h1&#x27;</span>,</span><br><span class="line">  <span class="attr">props</span>: &#123;</span><br><span class="line">    <span class="attr">children</span>: <span class="string">&#x27;hello again&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Since Feact determined this is an update, we ended up in <code>updateRootComponent</code>, which is just going to delegate to the component</p>
+<p>由于 Feact 确定这是一个更新，我们最终在 <code>updateRootComponent</code> 中将元素委派给组件：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateRootComponent</span>(<span class="params">prevComponent, nextElement</span>) </span>&#123;</span><br><span class="line">  prevComponent.receiveComponent(nextElement)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Notice a new component is not getting created. <code>prevComponent</code> is the component that got created during the first render, and now it’s going to take a new element and update itself with it. Components get created once at mount, and live on until unmount (which, does make sense…)</p>
+<p>注意没有创建一个新组件。<code>prevComponent</code> 是在第一次渲染过程中创建的组件，现在它将使用一个新元素并更新它自身。组件在挂载时创建一次，直到卸载（这是有意义的）</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FeactDOMComponent</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="title">receiveComponent</span>(<span class="params">nextElement</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> prevElement = <span class="built_in">this</span>._currentElement;</span><br><span class="line">    <span class="built_in">this</span>.updateComponent(prevElement, nextElement);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">updateComponent</span>(<span class="params">prevElement, nextElement</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> lastProps = prevElement.props;</span><br><span class="line">    <span class="keyword">const</span> nextProps = nextElement.props;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>._updateDOMProperties(lastProps, nextProps);</span><br><span class="line">    <span class="built_in">this</span>._updateDOMChildren(lastProps, nextProps);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>._currentElement = nextElement;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">_updateDOMProperties</span>(<span class="params">lastProps, nextProps</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// nothing to do! I&#x27;ll explain why below</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">_updateDOMChildren</span>(<span class="params">lastProps, nextProps</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// finally, the component can update the DOM here</span></span><br><span class="line">    <span class="comment">// we&#x27;ll implement this next</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>receiveComponent</code> just sets up <code>updateComponent</code>, which ultimately calls <code>_updateDOMProperties</code> and <code>_updateDOMChildren</code> which are the meaty functions which will finally cause the actual DOM to get updated. <code>_updateDOMProperties</code> is mostly concerned with updating CSS styles. We’re not going to implement it in this blog post series, but just pointing it out as that is the method React uses to deal with style changes.</p>
+<p><code>receiveComponent</code> 只是设置 <code>updateComponent</code> ，它最终调用 <code>_updateDOMProperties</code> 和 <code>_updateDOMChildren</code>，它们是最终导致实际DOM更新的实体函数。<code>_updateDOMProperties</code> 主要关心更新 CSS 样式。我们不会在这个博客文章系列中实现它，只是指出它是 React 用于处理样式更改的方法。</p>
+<p><code>_updateDOMChildren</code> in React this method is pretty complex, handling a lot of different scenarios. But in <code>Feact</code> the children is just the text contents of the DOM element, in this case the children will go from <code>&quot;hello&quot;</code> to <code>&quot;hello again&quot;</code></p>
+<p>在 React中 <code>_updateDOMChildren</code> 这个方法很复杂，处理了很多不同的场景。但在 Feact 中，子元素只是 DOM 元素的文本内容，在这种情况下，子元素将从 <code>&quot;hello&quot;</code> 变成 <code>&quot;hello again&quot;</code>。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FeactDOMComponent</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="title">_updateDOMChildren</span>(<span class="params">lastProps, nextProps</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> lastContent = lastProps.children;</span><br><span class="line">    <span class="keyword">const</span> nextContent = nextProps.children;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!nextContent) &#123;</span><br><span class="line">      <span class="built_in">this</span>.updateTextContent(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (lastContent !== nextContent) &#123;</span><br><span class="line">      <span class="built_in">this</span>.updateTextContent(<span class="string">&#x27;&#x27;</span> + nextContent);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">updateTextContent</span>(<span class="params">text</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> node = <span class="built_in">this</span>._hostNode;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> firstChild = node.firstChild;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (firstChild &amp;&amp; firstChild === node.lastChild</span><br><span class="line">        &amp;&amp; firstChild.nodeType === <span class="number">3</span>) &#123;</span><br><span class="line">      firstChild.nodeValue = text;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    node.textContent = text;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>Feact</code>‘s version of <code>_updateDOMChildren</code> is hopelessly stupid, but this is all we need for our learning purposes. </p>
+<p>Feact 的版本的 <code>_updateDOMChildren</code> 是非常愚蠢的，但它对于我们的学习目标很有帮助。</p>
+<h2 id="更新复合组件（Updating-composite-components）"><a href="#更新复合组件（Updating-composite-components）" class="headerlink" title="更新复合组件（Updating composite components）"></a>更新复合组件（Updating composite components）</h2><p>The work we did above was fine and all, but we can only update <code>FeactDOMComponent</code>s. In other words, this won’t work</p>
+<p>我们上面所做的已经很好，但是只能更新 <code>FeactDOMComponent</code>，也就是说，还不能工作在如下场景：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Feact.render(</span><br><span class="line">  Feact.createElement(MyCoolComponent, &#123; <span class="attr">myProp</span>: <span class="string">&#x27;hello&#x27;</span> &#125;),</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  Feact.render(</span><br><span class="line">    Feact.createElement(MyCoolComponent, &#123; <span class="attr">myProp</span>: <span class="string">&#x27;hello again&#x27;</span> &#125;),</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">  );</span><br><span class="line">&#125;, <span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
+
+<p>Updating composite components is much more interesting and where a lot of the power in React lies. The good news is, a composite component will ultimately boil down to a <code>FeactDOMComponent</code>, so all the work we did above won’t go to waste.</p>
+<p>更新复合组件非常有趣，而这是 React 的大部分工作。好消息是，复合组件最终将归结为 <code>FeactDOMComponent</code>，所以我们上面所做的工作不会浪费。 </p>
+<p>Even more good news, <code>updateRootComponent</code> has no idea what kind of component it received. It just blindly calls <code>receiveComponent</code> on it. So all we need to do is add <code>receiveComponent</code> to <code>FeactCompositeComponentWrapper</code> and we’re good!</p>
+<p>更好的消息是，<code>updateRootComponent</code> 不知道接收到什么样的组件。它只是盲目地调用 <code>receiveComponent</code>。所以我们需要做的是将 <code>receiveComponent</code> 添加到 <code>FeactCompositeComponentWrapper</code>，这很容易！</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FeactCompositeComponentWrapper</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="title">receiveComponent</span>(<span class="params">nextElement</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> prevElement = <span class="built_in">this</span>._currentElement;</span><br><span class="line">    <span class="built_in">this</span>.updateComponent(prevElement, nextElement);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">updateComponent</span>(<span class="params">prevElement, nextElement</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> nextProps = nextElement.props;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>._performComponentUpdate(nextElement, nextProps);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">_performComponentUpdate</span>(<span class="params">nextElement, nextProps</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>._currentElement = nextElement;</span><br><span class="line">    <span class="keyword">const</span> inst = <span class="built_in">this</span>._instance;</span><br><span class="line"></span><br><span class="line">    inst.props = nextProps;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>._updateRenderedComponent();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">_updateRenderedComponent</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> prevComponentInstance = <span class="built_in">this</span>._renderedComponent;</span><br><span class="line">    <span class="keyword">const</span> inst = <span class="built_in">this</span>._instance;</span><br><span class="line">    <span class="keyword">const</span> nextRenderedElement = inst.render();</span><br><span class="line"></span><br><span class="line">    prevComponentInstance.receiveComponent(nextRenderedElement);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>It’s a little silly to spread such little logic across four methods, but it will make more sense as we progress. These four methods are also what is found in React’s <code>ReactCompositeComponentWrapper</code>.</p>
+<p>在这四种方法中传递这样的小逻辑看起来有点愚蠢，但将因为我们的进展变得很有意义。这四种方法也可以在 React 的 <code>ReactCompositeComponentWrapper</code> 中找到。 </p>
+<p>Ultimately the update boils down to calling <code>render</code> with the current set of props. Take the resulting element and passing it on to the <code>_renderedComponent</code>, and telling it to update. <code>_renderedComponent</code> could be another <code>FeactCompositeComponentWrapper</code>, or possibly a <code>FeactDOMComponent</code>. It was created during the first render.</p>
+<p>最终，调用 <code>render</code> 更新归结为使用当前的 props 来渲染，取得结果元素并将其传递给 <code>_renderedComponent</code> ，通知它进行更新。 <code>_renderedComponent</code> 可以是 <code>FeactCompositeComponentWrapper</code>，或者可能是 <code>FeactDOMComponent</code>。它是第一次渲染过程中创建的。</p>
+<h2 id="让我们再次使用-FeactReconciler（Let’s-use-FeactReconciler-again）"><a href="#让我们再次使用-FeactReconciler（Let’s-use-FeactReconciler-again）" class="headerlink" title="让我们再次使用 FeactReconciler（Let’s use FeactReconciler again）"></a>让我们再次使用 FeactReconciler（Let’s use FeactReconciler again）</h2><p>Mounting components always goes through <code>FeactReconciler</code>, so updating them should to. This isn’t that important for Feact, but it keeps us consistent with React.</p>
+<p>安装组件总是通过 <code>FeactReconciler</code>，因此也应该更新它们。这对于 Feact 并不重要，但可以与 React 保持一致。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> FeactReconciler = &#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="title">receiveComponent</span>(<span class="params">internalInstance, nextElement</span>)</span> &#123;</span><br><span class="line">    internalInstance.receiveComponent(nextElement);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateRootComponent</span>(<span class="params">prevComponent, nextElement</span>) </span>&#123;</span><br><span class="line">  FeactReconciler.receiveComponent(prevComponent, nextElement);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FeactCompositeComponentWrapper</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="title">_updateRenderedComponent</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> prevComponentInstance = <span class="built_in">this</span>._renderedComponent;</span><br><span class="line">    <span class="keyword">const</span> inst = <span class="built_in">this</span>._instance;</span><br><span class="line">    <span class="keyword">const</span> nextRenderedElement = inst.render();</span><br><span class="line"></span><br><span class="line">    FeactReconciler.receiveComponent(</span><br><span class="line">      prevComponentInstance, nextRenderedElement);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="shouldComponentUpdate和componentWillReceiveProps-shouldComponentUpdate-and-componentWillReceiveProps"><a href="#shouldComponentUpdate和componentWillReceiveProps-shouldComponentUpdate-and-componentWillReceiveProps" class="headerlink" title="shouldComponentUpdate和componentWillReceiveProps(shouldComponentUpdate and componentWillReceiveProps)"></a>shouldComponentUpdate和componentWillReceiveProps(shouldComponentUpdate and componentWillReceiveProps)</h2><p>We can now easily add these two lifecycle methods into Feact.</p>
+<p>我们现在可以轻松地将这两种生命周期方法添加到 Feact 中。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FeactCompositeComponentWrapper</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="title">updateComponent</span>(<span class="params">prevElement, nextElement</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> nextProps = nextElement.props;</span><br><span class="line">    <span class="keyword">const</span> inst = <span class="built_in">this</span>._instance;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (inst.componentWillReceiveProps) &#123;</span><br><span class="line">      inst.componentWillReceiveProps(nextProps);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> shouldUpdate = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (inst.shouldComponentUpdate) &#123;</span><br><span class="line">      shouldUpdate = inst.shouldComponentUpdate(nextProps);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (shouldUpdate) &#123;</span><br><span class="line">      <span class="built_in">this</span>._performComponentUpdate(nextElement, nextProps);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// if skipping the update,</span></span><br><span class="line">      <span class="comment">// still need to set the latest props</span></span><br><span class="line">      inst.props = nextProps;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="A-Major-Hole"><a href="#A-Major-Hole" class="headerlink" title="A Major Hole"></a>A Major Hole</h2><p>There’s a big problem with Feact’s updating that we won’t be addressing. It’s making the assumption that when the update happens, it can keep using the same type of component.</p>
+<p>In other words, Feact can handle this just fine</p>
+<p>Feact 的更新有一个很大的问题，我们没有指出。这些都是建立在，当更新发生时，它仍然继续使用相同类型的组件的假设上的。 </p>
+<p>换句话说，Feact 可以很好的处理这个问题：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Feact.render(</span><br><span class="line">  Feact.createElement(MyCoolComponent, &#123; <span class="attr">myProp</span>: <span class="string">&#x27;hi&#x27;</span> &#125;),</span><br><span class="line">  root</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// some time passes</span></span><br><span class="line"></span><br><span class="line">Feact.render(</span><br><span class="line">  Feact.createElement(MyCoolComponent, &#123; <span class="attr">myProp</span>: <span class="string">&#x27;hi again&#x27;</span> &#125;),</span><br><span class="line">  root</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>but it can’t handle this</p>
+<p>但是，它无法处理这样的问题：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Feact.render(</span><br><span class="line">  Feact.createElement(MyCoolComponent, &#123; <span class="attr">myProp</span>: <span class="string">&#x27;hi&#x27;</span> &#125;),</span><br><span class="line">  root</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// some time passes</span></span><br><span class="line"></span><br><span class="line">Feact.render(</span><br><span class="line">  Feact.createElement(SomeOtherComponent, &#123; <span class="attr">someOtherProp</span>: <span class="string">&#x27;hmmm&#x27;</span> &#125;),</span><br><span class="line">  root</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>In this case, the update swapped in a completely different component class. Feact will just naively grab the previous component, which would be a <code>MyCoolComponent</code>, and tell it to update with the new props <code>&#123; someOtherProp: &#39;hmmm&#39;&#125;</code>. What it should have done is notice the component type changed, and instead of updating, unmounted <code>MyCoolComponent</code> and mounted <code>SomeOtherComponent</code>.</p>
+<p>在这种情况下，更新被交给一个完全不同的组件类中。 Feact 只是简单地抓住以前的组件，比如这是 MyCoolComponent，使用新的 props <code>&#123; someOtherProp: &#39;hmmm&#39;&#125;</code> 告诉它去更新。它还应该做的是注意组件类型已更改，卸载旧的 <code>MyCoolComponent</code> 并挂载了 <code>SomeOtherComponent</code>，而不是更新 <code>MyCoolComponent</code> 组件。 </p>
+<p>In order to do this, Feact would need:</p>
+<ul>
+<li>some ability to unmount a component</li>
+<li>notice the type change and head over to <code>FeactReconciler.mountComponent</code> instead of <code>FeactComponent.receiveComponent</code></li>
+</ul>
+<p>为了做到这一点，Feact将需要：</p>
+<ul>
+<li>卸载组件的能力</li>
+<li>注意到组件类型更改，并跳转到 <code>FeactReconciler.mountComponent</code> 而不是 <code>FeactComponent.receiveComponent</code></li>
+</ul>
+<blockquote>
+<p>In React, if you render again with the same component type, it will get updated. You don’t actually need to specify a <code>key</code> for your element to update in most cases. Keys are only necessary when a component is dealing with a collection of children. In this case, React will warn you if you forget your keys. It’s best to heed the warning, because without the key React is not updating, but completely unmounting and mounting again!</p>
+</blockquote>
+<blockquote>
+<p>在React中，如果使用相同的组件类型再次渲染，则会被更新。在大多数情况下，您实际上不需要指定要更新的元素的 <code>key</code>。只有当组件处理子元素集合时才需要<code>key</code>。在这种情况下，如果您忘记了 <code>key</code>，React 会警告您。最好注意警告，因为没有 <code>key</code> 的 React 将不会更新，而是完全卸载和重新挂载！ </p>
+</blockquote>
+<h2 id="你发现了虚拟-DOM-吗？（Did-you-spot-the-virtual-DOM-）"><a href="#你发现了虚拟-DOM-吗？（Did-you-spot-the-virtual-DOM-）" class="headerlink" title="你发现了虚拟 DOM 吗？（Did you spot the virtual DOM?）"></a>你发现了虚拟 DOM 吗？（Did you spot the virtual DOM?）</h2><p>When React first came out, a lot of the hype was around the “virtual DOM”. But the virtual DOM isn’t really a concrete thing. It is more a concept that all of React (and Feact) accomplish together. There isn’t anything inside React called <code>VirtualDOM</code> or anything like that. Instead <code>prevElement</code> and <code>nextElement</code> together capture the diff from render to render, and <code>FeactDOMComponent</code> applies the diff into the actual DOM.</p>
+<p>当 React 第一次出现时，大量的炒作都围绕着“虚拟DOM”。但虚拟 DOM 并不是一个具体的内容，它更像所有的 React（和 Feact 等类似框架）完成其内容的一个概念。React 里面没有任何内容叫做 <code>VirtualDOM</code> 或类似这样的东西。相反，<code>prevElement</code> 和 <code>nextElement</code> 一起捕获两次渲染的差异，<code>FeactDOMComponent</code> 将差异应用于实际的DOM。 </p>
+<h2 id="总结（Conclusion）"><a href="#总结（Conclusion）" class="headerlink" title="总结（Conclusion）"></a>总结（Conclusion）</h2><p>And with that, Feact is able to update components, albeit only through <code>Feact.render()</code>. That’s not too practical, but we’ll improve things next time when we explore <code>setState()</code>.</p>
+<p>现在，Feact 可以更新组件，尽管只能通过 <code>Feact.render()</code> 更新。这并不太实用，但是下一次我们探索 <code>setState()</code> 时，会改进。 </p>
+<p>To wrap things up, here is a fiddle encompassing all that we’ve done so far</p>
+<p>这里是一个 fiddle 在线示例，包括我们迄今所实现的内容：</p>
+<p><a target="_blank" rel="noopener" href="https://jsfiddle.net/city41/s5d9prf6/2/">fiddle</a></p>
+<p>On to <a target="_blank" rel="noopener" href="http://www.mattgreer.org/articles/react-internals-part-four-setState">part four</a>!</p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

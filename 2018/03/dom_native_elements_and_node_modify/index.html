@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Javascript 原生创建和修改 DOM 节点的方法 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="DOM,node,element,HTML" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-dom_native_elements_and_node_modify" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        Javascript 原生创建和修改 DOM 节点的方法
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2018" data-type="ARCHIVES">
+        2018-03-13
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 5.1k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 32mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="DOM" data-type="TAGS">DOM</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="node" data-type="TAGS">node</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="element" data-type="TAGS">element</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="HTML" data-type="TAGS">HTML</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>本文总结了常用的 js 进行 DOM 修改的操作，主要总结节点的创建、修改和元素属性的管理的一些相关的操作。</p>
+<h2 id="节点创建"><a href="#节点创建" class="headerlink" title="节点创建"></a>节点创建</h2><p>常用的和节点创建有关的接口主要有：<code>document.createElement</code>、<code>document.createTextNode</code> 、<code>document.createDocumentFragment</code> 、 <code>document.createAttribute</code> 、<code>document.adoptNode</code> 、<code>document.importNode</code> 、<code>node.cloneNode</code>。 </p>
+<h3 id="document-createElement"><a href="#document-createElement" class="headerlink" title="document.createElement"></a>document.createElement</h3><p><code>document.createElement(tagName)</code> 这是我们最常用的一个方法了，创建由标签名称（<code>tagName</code>）指定的 HTML 元素，如果标签名称不是一个有效的 HTML 元素，不会报错，会创建一个 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLUnknownElement">HTMLUnknownElement对象</a>。</p>
+<p>HTML 对大小写不敏感，所以使用大写或者小写的标签名称都可以，但是注意，标签中不能包含尖括号 <code>&lt;&gt;</code> ，否则会报错。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> newDiv = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">var</span> newDiv = <span class="built_in">document</span>.createElement(<span class="string">&#x27;DIV&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.createElement(<span class="string">&#x27;&lt;div&gt;&#x27;</span>);</span><br><span class="line"><span class="comment">// Uncaught DOMException: Failed to execute &#x27;createElement&#x27; on &#x27;Document&#x27;: The tag name provided (&#x27;&lt;div&gt;&#x27;) is not a valid name.</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，通过 <code>createElement</code> 创建的元素，并未添加到 HTML 文档中，需要调用 <code>appendChild</code> 等节点修改方法将其添加到 HTML 文档树中。后几节创建的其他类型的节点也是如此，后文不再对此进行说明。</p>
+<h3 id="document-createTextNode"><a href="#document-createTextNode" class="headerlink" title="document.createTextNode"></a>document.createTextNode</h3><p><code>document.createTextNode(text)</code> 创建一个文本节点，参数（<code>text</code>）为文本节点的内容。</p>
+<p>这个方法返回的节点，被浏览器当作文本渲染，而不是当作 HTML 代码渲染，因此会对 HTML 代码进行转义，可以用来展示用户的输入，避免 <code>XSS</code> 攻击：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">escapeUserInput</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line">  div.appendChild(<span class="built_in">document</span>.createTextNode(str));</span><br><span class="line">  <span class="keyword">return</span> div.innerHTML;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> userInput = <span class="string">&#x27;&lt;p&gt;危险内容&lt;/p&gt;&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> template = <span class="string">&#x27;&lt;div&gt;&#x27;</span> + escapeUserInput(userInput) + <span class="string">&#x27;&lt;/div&gt;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 此时被转义，危险内容不再危险</span></span><br><span class="line">&lt;div&gt;&amp;lt;p&amp;gt;危险内容&amp;lt;<span class="regexp">/p&amp;gt;&lt;/</span>div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>但是，该方法不对单引号和双引号转义，因此用来为属性赋值的时候，仍然会被 <code>XSS</code> 攻击：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> userInput = <span class="string">&#x27;&quot; onmouseover=&quot;console.log(\&#x27;危险操作\&#x27;)&quot; &quot;&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> template = <span class="string">&#x27;&lt;div color=&quot;&#x27;</span> + escapeUserInput(userInput) + <span class="string">&#x27;&quot;&gt;user set color&lt;/div&gt;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 被注入一个 onmouseover 操作</span></span><br><span class="line">&lt;div color=<span class="string">&quot;&quot;</span> onmouseover=<span class="string">&quot;console.log(&#x27;危险操作&#x27;)&quot;</span> <span class="string">&quot;&quot;</span>&gt;user set color&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="document-createDocumentFragment"><a href="#document-createDocumentFragment" class="headerlink" title="document.createDocumentFragment"></a>document.createDocumentFragment</h3><p><code>document.createDocumentFragment()</code> 方法创建一个新的 <code>DocumentFragment</code> 对象。</p>
+<p><code>DocumentFragments</code> 存在于内存中，并不在 DOM 树存在，将元素插入到文档片段也不会引起回流。因此创建文档片段，并将复杂的 DOM 结构附加到文档片段中，然后将文档片段附加到 DOM 树，可以优化性能。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> ul = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;list&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> domfrag = <span class="built_in">document</span>.createDocumentFragment();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i ++) &#123;</span><br><span class="line">  <span class="keyword">var</span> li = <span class="built_in">document</span>.createElement(<span class="string">&#x27;li&#x27;</span>);</span><br><span class="line">  li.textContent = i;</span><br><span class="line">  domfrag.appendChild(li);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ul.appendChild(domfrag);</span><br></pre></td></tr></table></figure>
+
+<h3 id="document-createAttribute"><a href="#document-createAttribute" class="headerlink" title="document.createAttribute"></a>document.createAttribute</h3><p><code>document.createAttribute(attrName)</code> 方法创建并返回一个新的属性节点。这个方法不是很常用用，因为添加属性通常用 <code>node.setAttribute</code> 即可：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> node = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> attr = <span class="built_in">document</span>.createAttribute(<span class="string">&#x27;attr&#x27;</span>);</span><br><span class="line">attr.nodeValue = <span class="string">&#x27;value&#x27;</span>;</span><br><span class="line">node.setAttributeNode(attr);</span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line">node.setAttribute(<span class="string">&#x27;attr&#x27;</span>, <span class="string">&#x27;value&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="document-adoptNode"><a href="#document-adoptNode" class="headerlink" title="document.adoptNode"></a>document.adoptNode</h3><p><code>document.adoptNode(externalNode)</code> 从其他的 document 中获取一个节点（<code>externalNode</code>），并将该节点以及它的所有子节点从原文档删除, 并且它的 <code>ownerDocument</code> 属性会变成当前的 document。之后你可以把这个节点插入到当前文档中，不常用，了解即可。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 该函数用来从本文档的第一个 iframe 中获取第一个 element 元素，</span></span><br><span class="line"><span class="comment">// 并插入到当前文档树中</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getEle</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> iframe = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;iframe&quot;</span>)[<span class="number">0</span>],</span><br><span class="line">    ele = iframe.contentWindow.document.body.firstElementChild;</span><br><span class="line">  <span class="keyword">if</span>(ele)&#123;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(<span class="built_in">document</span>.adoptNode(ele))</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    alert(<span class="string">&quot;没有更多元素了&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">&quot;move&quot;</span>).onclick = getEle</span><br></pre></td></tr></table></figure>
+
+<p>注意，该方法在同一 document 下的不同两个元素中也可以使用，可以实现从左边栏列表中选取某些元素加载到右边栏的功能。</p>
+<p>注意，如果节点资源来自不同的源的时候，调用 adoptNode 可能会失败。</p>
+<p>有些情况下，将外部文档的节点插入当前文档之前,你需要使用 document.importNode() 从外部文档导入源节点，<a target="_blank" rel="noopener" href="https://www.w3.org/DOM/faq.html#ownerdoc">了解更多细节</a>。</p>
+<h3 id="document-importNode"><a href="#document-importNode" class="headerlink" title="document.importNode"></a>document.importNode</h3><p><code>document.importNode(externalNode, deep)</code> 这个接口也不常用，作用是拷贝外部文档的一个节点（<code>externalNode</code>）。<code>deep</code> 表明是否要导入节点的后代节点，默认为 false 不导入后代节点。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> iframe = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;iframe&quot;</span>)[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">var</span> oldNode = iframe.contentDocument.getElementById(<span class="string">&quot;myNode&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> newNode = <span class="built_in">document</span>.importNode(oldNode, <span class="literal">true</span>);</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">&quot;container&quot;</span>).appendChild(newNode);</span><br></pre></td></tr></table></figure>
+
+<p>注意，这个方法仅拷贝节点，此时，节点存在于内存中，还需要插入当前文档中才能显示。</p>
+<h3 id="node-cloneNode"><a href="#node-cloneNode" class="headerlink" title="node.cloneNode"></a>node.cloneNode</h3><p><code>node.cloneNode(deep)</code> 方法返回该节点的一个副本，<code>deep</code> 可选，表明是否采用深度克隆，如果为 true，则该节点的所有后代节点也都会被克隆，否则，只克隆该节点本身。</p>
+<p>注意，克隆节点会克隆节点的所有属性，但是绑定的事件呢？我们来看一下：</p>
+<p>首先看一下使用内联方式直接写在 HTML 标签上的 <code>onevent</code> 事件：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;div id=<span class="string">&quot;old&quot;</span>&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;clone&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;console.log(&#x27;click clone&#x27;)&quot;</span>&gt;</span>clone me.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line">&lt;/div&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;new&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// cloneNode</span></span><br><span class="line"><span class="keyword">var</span> p = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;clone&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> newDiv = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;new&#x27;</span>);</span><br><span class="line">newDiv.appendChild(p.cloneNode(<span class="literal">true</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// test</span></span><br><span class="line"><span class="comment">// 点击 #old &gt; #clone</span></span><br><span class="line"><span class="string">&#x27;click clone&#x27;</span></span><br><span class="line"><span class="comment">// 点击 #new &gt; #clone</span></span><br><span class="line"><span class="string">&#x27;click clone&#x27;</span></span><br><span class="line"><span class="comment">// on-event 属性绑定的事件保留</span></span><br></pre></td></tr></table></figure>
+
+<p>结果显示，使用内联方式写在 HTML 上的事件是可以的，接下来看一下绑定在节点对象上的 <code>on-event</code> 事件：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;div id=<span class="string">&quot;old&quot;</span>&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;clone&quot;</span>&gt;</span>clone me.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line">&lt;/div&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;new&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// cloneNode</span></span><br><span class="line"><span class="keyword">var</span> p = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;clone&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> newDiv = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;new&#x27;</span>);</span><br><span class="line">p.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;click clone&#x27;</span>)</span><br><span class="line">&#125;;</span><br><span class="line">newDiv.appendChild(p.cloneNode(<span class="literal">true</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// test</span></span><br><span class="line"><span class="comment">// 点击 #old &gt; #clone</span></span><br><span class="line"><span class="string">&#x27;click clone&#x27;</span></span><br><span class="line"><span class="comment">// 点击 #new &gt; #clone</span></span><br><span class="line"><span class="comment">// do nothing</span></span><br><span class="line"><span class="comment">// 绑定在对象上的 on-event 事件没有克隆</span></span><br></pre></td></tr></table></figure>
+
+<p>从测试结果来看，使用 js 绑定在节点对象上的 <code>on-event</code> 事件在克隆的副本并不包含事件处理程序。</p>
+<p>接下来再看一下使用 <code>addEventListener</code> 方法添加在这个节点上的事件监听函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;div id=<span class="string">&quot;old&quot;</span>&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;clone&quot;</span> <span class="attr">class</span>=<span class="string">&quot;clone&quot;</span>&gt;</span>clone me.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line">&lt;/div&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;new&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// cloneNode</span></span><br><span class="line"><span class="keyword">var</span> p = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;move&#x27;</span>);</span><br><span class="line">p.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;click clone&#x27;</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">var</span> newDiv = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;new&#x27;</span>);</span><br><span class="line">newDiv.appendChild(p.cloneNode(<span class="literal">true</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// test</span></span><br><span class="line"><span class="comment">// 点击 #old &gt; #clone</span></span><br><span class="line"><span class="string">&#x27;click clone&#x27;</span></span><br><span class="line"><span class="comment">// 点击 #new &gt; #clone</span></span><br><span class="line"><span class="comment">// do nothing</span></span><br><span class="line"><span class="comment">// addEventListener 绑定在对象上的事件没有克隆</span></span><br></pre></td></tr></table></figure>
+
+<p>也就是说，副本节点只能绑定使用内联方式绑定的事件处理函数。</p>
+<p>注意，这个拷贝的节点并不在文档中，需要自行添加到文档中。同时拷贝的节点有可能会导致节点的的 id 属性重复，最好修改新节点的 id，而 name 属性也可能重复，自行决定是否需要修改。</p>
+<h2 id="节点修改"><a href="#节点修改" class="headerlink" title="节点修改"></a>节点修改</h2><p>和节点内容修改有关的接口主要有 <code>node.appendChild</code>、 <code>node.insertBefore</code>、 <code>node.removeChild</code>、 <code>node.replaceChild</code> 这四个接口。</p>
+<h3 id="node-appendChild"><a href="#node-appendChild" class="headerlink" title="node.appendChild"></a>node.appendChild</h3><p><code>parentNode.appendChild(child)</code> 方法将一个节点（<code>child</code>）添加到指定父节点（<code>parentNode</code>）的子节点列表的末尾。本方法返回值为要插入的这个节点。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建一个新的段落p元素,然后添加到body的最尾部</span></span><br><span class="line"><span class="keyword">var</span> p = <span class="built_in">document</span>.createElement(<span class="string">&#x27;p&#x27;</span>);</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(p);</span><br><span class="line"></span><br><span class="line"><span class="comment">// p 节点为 body 元素的最后一个子节点</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，如果被插入的节点已经存在文档树中，则节点会被从原先的位置移除，并插入到新的位置，当然，被移动元素被绑定的事件也会被同步过去：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// html</span></span><br><span class="line">&lt;div id=<span class="string">&quot;old&quot;</span>&gt;<span class="xml"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;move&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>&lt;/div&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;new&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;move&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> newDiv = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;new&#x27;</span>);</span><br><span class="line">newDiv.appendChild(p);</span><br><span class="line"></span><br><span class="line"><span class="comment">// new html</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;old&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;new&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;move&quot;</span>&gt;</span>move me.<span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>如果要保留原来的这个子节点的位置，则可以用 <code>Node.cloneNode</code> 方法复制出一个节点的副本，然后再插入到新位置：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// html</span></span><br><span class="line">&lt;div id=<span class="string">&quot;old&quot;</span>&gt;<span class="xml"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;move&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>&lt;/div&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;new&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;move&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> newDiv = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;new&#x27;</span>);</span><br><span class="line">newDiv.appendChild(p.cloneNode(<span class="literal">true</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// new html</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;old&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;move&quot;</span>&gt;</span>move me.<span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;new&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;move&quot;</span>&gt;</span>move me.<span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>这个方法只能将某个子节点插入到同一个文档的其他位置，如果你想跨文档插入，需要先调用 <code>document.importNode</code> 方法。</p>
+<p>还有，如果 <code>appendChild</code> 方法的参数是 <code>DocumentFragment</code> 节点，那么插入的是 <code>DocumentFragment</code> 的所有子节点，而不是 <code>DocumentFragment</code> 节点本身。此时，返回值是一个空的 <code>DocumentFragment</code> 节点。</p>
+<h3 id="node-insertBefore"><a href="#node-insertBefore" class="headerlink" title="node.insertBefore"></a>node.insertBefore</h3><p><code>parentNode.insertBefore(child, referenceNode)</code> 方法将一个节点（<code>child</code>）插入作为父节点（<code>parentNode</code>）的一个子节点，并且位置在参考节点（<code>referenceNode</code>）之前。</p>
+<p>如果第二个参数 <code>referenceNode</code> 为 null，则插入位置为父节点的末尾：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">parentNode.insertBefore(node, <span class="literal">null</span>);</span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line">parentNode.appendChild(node);</span><br></pre></td></tr></table></figure>
+
+<p>注意，第二个参数为 null 时不能省略，否则会抛出异常：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Uncaught <span class="built_in">TypeError</span>: Failed to execute <span class="string">&#x27;insertBefore&#x27;</span> on <span class="string">&#x27;Node&#x27;</span>: <span class="number">2</span> <span class="built_in">arguments</span> required, but only <span class="number">1</span> present.</span><br></pre></td></tr></table></figure>
+
+<p>使用这个方法可以模拟 <code>prependChild</code>，产生类似于 <code>appendChild</code> ，但是将节点插入作为指定父节点的第一个子节点：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Node.prototype.prependChild = <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.insertBefore(node, <span class="built_in">this</span>.firstChild);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// html</span></span><br><span class="line">&lt;div id=<span class="string">&quot;div&quot;</span>&gt;<span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>原来的第一个子节点<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> p = <span class="built_in">document</span>.createElement(<span class="string">&#x27;p&#x27;</span>);</span><br><span class="line">p.innerText = <span class="string">&#x27;第一个子节点&#x27;</span>;</span><br><span class="line">div.prependChild(p);</span><br><span class="line"></span><br><span class="line"><span class="comment">// new html</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;div&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span>第一个子节点<span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span>原来的第一个子节点<span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>使用这个方法还可以模拟 <code>insertAfter</code>，将节点要插在父节点的某个子节点后面：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Node.prototype.insertAfter = <span class="function"><span class="keyword">function</span>(<span class="params">node, referenceNode</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.insertBefore(node, referenceNode.nextSibling);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>和 <code>appendChild</code> 类似，如果插入的节点是文档中已经存在的节点，则会移动该节点到指定位置，并且保留其绑定的事件。</p>
+<h3 id="node-removeChild"><a href="#node-removeChild" class="headerlink" title="node.removeChild"></a>node.removeChild</h3><p><code>parentNode.removeChild(child)</code> 删除指定父节点（<code>parentNode</code>）的一个子节点（<code>child</code>），并返回被删除的节点。</p>
+<p>注意，这个方法是要在被删除的节点的父节点上调用的，而不是在被删除节点上调用的，如果参数节点不是当前节点的子节点，<code>removeChild</code> 方法将报错：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 通过 parentNode 属性直接删除自身</span></span><br><span class="line"><span class="keyword">var</span> node = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;deleteDiv&#x27;</span>);</span><br><span class="line"><span class="keyword">if</span> (node.parentNode) &#123;</span><br><span class="line">  node.parentNode.removeChild(node);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以封装以下作为一个方法直接使用:</span></span><br><span class="line">Node.prototype.remove = <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (node.parentNode) &#123;</span><br><span class="line">    <span class="keyword">return</span> node.parentNode.removeChild(node);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;Can not delete.&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">node.remove();</span><br></pre></td></tr></table></figure>
+
+<p>使用这个方法也可以很简单的模拟 <code>removeAllChild</code> ：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Node.prototype.removeAllChild = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> deleteNode = []</span><br><span class="line">  <span class="keyword">while</span> (<span class="built_in">this</span>.firstChild) &#123;</span><br><span class="line">    deleteNode.push(<span class="built_in">this</span>.removeChild(<span class="built_in">this</span>.firstChild));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> deleteNode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>被移除的这个子节点仍然存在于内存中，只是不在当前文档的 DOM 中，仍然还可以被添加回文档中。但是如果不使用一个变量保存这个节点的引用，被删除的节点将不可达，会在某次垃圾回收被清除。</p>
+<h3 id="node-replaceChild"><a href="#node-replaceChild" class="headerlink" title="node.replaceChild"></a>node.replaceChild</h3><p><code>parentNode.replaceChild(newChild, oldChild)</code> 方法用指定的节点（<code>newChild</code>）替换当前节点（<code>parentNode</code>）的一个子节点（<code>oldChild</code>），并返回被替换的节点（<code>oldChild</code>）。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line"> <span class="xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;childSpan&quot;</span>&gt;</span>foo bar<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个空的span元素节点</span></span><br><span class="line"><span class="comment">// 没有id,没有任何属性和内容</span></span><br><span class="line"><span class="keyword">var</span> sp1 = <span class="built_in">document</span>.createElement(<span class="string">&quot;span&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加一个id属性,值为&#x27;newSpan&#x27;，并添加文本内容</span></span><br><span class="line">sp1.setAttribute(<span class="string">&quot;id&quot;</span>, <span class="string">&quot;newSpan&quot;</span>);</span><br><span class="line">sp1.innerText = <span class="string">&quot;新的span元素的内容.&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获得被替换节点和其父节点的引用.</span></span><br><span class="line"><span class="keyword">var</span> sp2 = <span class="built_in">document</span>.getElementById(<span class="string">&quot;childSpan&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> parentDiv = sp2.parentNode;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用新的span元素sp1来替换掉sp2</span></span><br><span class="line">parentDiv.replaceChild(sp1, sp2);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 结果:</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;newSpan&quot;</span>&gt;</span>新的span元素的内容.<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="元素修改"><a href="#元素修改" class="headerlink" title="元素修改"></a>元素修改</h3><p>元素是节点的一种，除了拥有上一节节点修改的一些方法外，元素还继承了 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/ParentNode">ParentNode</a> 和 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/ChildNode">ChildNode</a> 两个接口，因此拥有一些额外的修改方法：继承自 <code>ParentNode</code> 的 <code>ParentNode.append</code>、 <code>ParentNode.prepend</code> 和继承自 <code>ChildNode</code> 的 <code>ChildNode.before</code> 、 <code>ChildNode.after</code>、 <code>ChildNode.remove</code>、 <code>ChildNode.replaceWith</code> 这几个方法。</p>
+<p>但是要注意的是，<code>ParentNode</code> 和 <code>ChildNode</code> 这两个都是原始接口，只能在实现了它的对象上使用。如果当前节点是父节点，就会继承 <code>ParentNode</code> 接口。由于只有元素节点（<code>Element</code>）、文档节点（<code>Document</code>）和文档片段节点（<code>DocumentFragment</code>）拥有子节点，因此只有这三类节点会继承 <code>ParentNode</code> 接口。如果一个节点有父节点，那么该节点就继承了 <code>ChildNode</code> 接口。</p>
+<p>还要注意的是，这些方法目前都是实验性方法，浏览器的支持度还不太够，未来也可能发生变动，请谨慎使用。</p>
+<h3 id="append-和-ParentNode-prepend"><a href="#append-和-ParentNode-prepend" class="headerlink" title="append 和 ParentNode.prepend"></a>append 和 ParentNode.prepend</h3><p><code>parentNode.append((Node/String) ...nodes)</code> 方法为指定节点的最后一个子节点之后插入一组节点。</p>
+<p>和 <code>node.appendChild</code> 方法类似，不同点在于：</p>
+<ol>
+<li><code>append</code> 方法允许添加 string 做为参数，并将其包装为文本节点，而 <code>appendChild</code> 方法只能接受 Node 对象作为参数。</li>
+<li><code>append</code> 方法允许添加多个参数，而 <code>appendChild</code> 方法只能接受一个节点。</li>
+<li><code>append</code> 方法没有返回值，而 <code>appendChild</code> 方法返回被添加的节点。</li>
+</ol>
+<p><code>parentNode.prepend(...[Node/String])</code> 方法为指定节点的第一个子节点之后插入一组节点，其他内容和 <code>append</code> 方法类似，不再说明。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// old html</span></span><br><span class="line">&lt;div id=<span class="string">&quot;div&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> p = <span class="built_in">document</span>.createElement(<span class="string">&quot;p&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> span = <span class="built_in">document</span>.createElement(<span class="string">&quot;span&quot;</span>);</span><br><span class="line">div.append(p);</span><br><span class="line">div.append(<span class="string">&quot; End!&quot;</span>);</span><br><span class="line">div.prepend(<span class="string">&quot;Begin:&quot;</span>);</span><br><span class="line">div.prepend(span);</span><br><span class="line"></span><br><span class="line"><span class="comment">// new html</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;div&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>Begin:<span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span> End!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>appendChild</code> 和 <code>insertBefore</code> 可以很容易实现如下的 Polyfill：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getDocFrag</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> argArr = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>),</span><br><span class="line">    docFrag = <span class="built_in">document</span>.createDocumentFragment();</span><br><span class="line">  </span><br><span class="line">  argArr.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">argItem</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> isNode = argItem <span class="keyword">instanceof</span> Node;</span><br><span class="line">    docFrag.appendChild(isNode ? argItem : <span class="built_in">document</span>.createTextNode(<span class="built_in">String</span>(argItem)));</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> docFrag</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  arr.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</span><br><span class="line">    item.append = item.append || <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">this</span>.appendChild(getDocFrag(<span class="built_in">arguments</span>));</span><br><span class="line">    &#125;;</span><br><span class="line">    item.prepend = item.prepend || <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">this</span>.insertBefore(docFrag, <span class="built_in">this</span>.firstChild);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;)([Element.prototype, Document.prototype, DocumentFragment.prototype]);</span><br></pre></td></tr></table></figure>
+
+<h3 id="ChildNode-before-和-ChildNode-after"><a href="#ChildNode-before-和-ChildNode-after" class="headerlink" title="ChildNode.before 和 ChildNode.after"></a>ChildNode.before 和 ChildNode.after</h3><p><code>childNode.before(...[Node/String])</code> 方法在指定节点的前面插入一组节点，<code>childNode.after(...[Node/String])</code> 方法在指定节点的后面插入一组节点，其他内容和 <code>parentNode.append</code> 方法类似，不再说明。</p>
+<p><code>childNode.replaceWith((Node/String) ...nodes)</code> 用指定节点（<code>nodes</code>），替换当前节点（<code>childNode</code>）。</p>
+<p>使用 <code>insertBefore</code> 可以很容易实现如下的 Polyfill：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  arr.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</span><br><span class="line">    item.before || <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">this</span>.parentNode.insertBefore(getDocFrag(<span class="built_in">arguments</span>), <span class="built_in">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    item.after || <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">this</span>.parentNode.insertBefore(getDocFrag(<span class="built_in">arguments</span>), <span class="built_in">this</span>.nextSibling);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;)([Element.prototype, CharacterData.prototype, DocumentType.prototype]);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Element-insertAdjacentHTML、-Element-insertAdjacentText"><a href="#Element-insertAdjacentHTML、-Element-insertAdjacentText" class="headerlink" title="Element.insertAdjacentHTML、 Element.insertAdjacentText"></a>Element.insertAdjacentHTML、 Element.insertAdjacentText</h3><p>如果习惯了使用 <code>jQuery</code> ，就一定会对 jQuery 中的可以直接在参数中使用<code>Html</code> 的方式很是喜欢（比如 <code>$(ele).append(&#39;&lt;div&gt;content&lt;/div&gt;&#39;)</code>），而原生的 DOM 也有支持直参数为 <code>Html</code> 的方法。</p>
+<blockquote>
+<p>Element.insertAdjacentHTML(position, text)<br>Element.insertAdjacentText(position, text)</p>
+</blockquote>
+<ul>
+<li>position: 这个参数指定了元素的插入位置，取值为以下4种：<ul>
+<li>‘beforebegin’: 元素自身的前面，效果类似于 <code>childNode.before(ele)</code>。</li>
+<li>‘afterbegin’: 插入元素内部的第一个 <strong>子节点</strong> 之前，效果类似于 <code>ParentNode.prepend(ele)</code>。</li>
+<li>‘beforeend’: 插入元素内部的最后一个 <strong>子节点</strong> 之后，效果类似于 <code>ParentNode.append(ele)</code>。</li>
+<li>‘afterend’: 元素自身的后面，效果类似于 <code>childNode.after(ele)</code>。</li>
+</ul>
+</li>
+<li>text: 要插入的文本或者html字符串。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// origin html</span></span><br><span class="line">&lt;div id=<span class="string">&quot;outer&quot;</span>&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> outer = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;outer&#x27;</span>);</span><br><span class="line"></span><br><span class="line">outer.insertAdjacentText(<span class="string">&#x27;beforebegin&#x27;</span>, <span class="string">&#x27;beforebegin 被插入这里&#x27;</span>);</span><br><span class="line">outer.insertAdjacentText(<span class="string">&#x27;afterbegin&#x27;</span>, <span class="string">&#x27;afterbegin 被插入这里&#x27;</span>);</span><br><span class="line">outer.insertAdjacentText(<span class="string">&#x27;beforeend&#x27;</span>, <span class="string">&#x27;beforeend 被插入这里&#x27;</span>);</span><br><span class="line">outer.insertAdjacentText(<span class="string">&#x27;afterend&#x27;</span>, <span class="string">&#x27;afterend 被插入这里&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// after inserted.</span></span><br><span class="line">beforebegin 被插入这里</span><br><span class="line">&lt;div id=<span class="string">&quot;outer&quot;</span>&gt;</span><br><span class="line">  beforebegin 被插入这里</span><br><span class="line">  &lt;div&gt;&lt;/div&gt;</span><br><span class="line">  beforebegin 被插入这里</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">beforebegin 被插入这里</span><br></pre></td></tr></table></figure>
+
+<p>两个方法的区别在于 <code>insertAdjacentHTML</code> 方法会将字符串解析为 html，而 <code>insertAdjacentText</code> 不会做解析，因此在不需要解析的情况下（如添加纯文本）使用 <code>insertAdjacentText</code> 性能会更好。</p>
+<h3 id="ChildNode-remove"><a href="#ChildNode-remove" class="headerlink" title="ChildNode.remove"></a>ChildNode.remove</h3><p><code>childNode.remove()</code> 方法把它从它所属的 DOM 树中删除，没有返回值，所以在删除前，需要先保留引用：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// old html</span></span><br><span class="line">&lt;div&gt;<span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;div&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line">div.remove();</span><br><span class="line"></span><br><span class="line"><span class="comment">// new html</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>removeChild</code> 可以很容易实现如下的 Polyfill：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">arr</span>) </span>&#123;</span><br><span class="line">   arr.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</span><br><span class="line">    item.remove = item.remove || <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">this</span>.parentNode.removeChild(<span class="built_in">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;)([Element.prototype, CharacterData.prototype, DocumentType.prototype]);</span><br></pre></td></tr></table></figure>
+
+<h3 id="ChildNode-replaceWith"><a href="#ChildNode-replaceWith" class="headerlink" title="ChildNode.replaceWith"></a>ChildNode.replaceWith</h3><p><code>childNode.replaceWith((Node/String) ...nodes)</code> 用指定节点（<code>nodes</code>），替换当前节点（<code>childNode</code>）。</p>
+<p>使用 <code>replaceChild</code> 可以很容易实现如下的 Polyfill：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  arr.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</span><br><span class="line">    item.replaceWith = item.replaceWith || <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">this</span>.parentNode.replaceChild(getDocFrag(<span class="built_in">arguments</span>), <span class="built_in">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;)([Element.prototype, CharacterData.prototype, DocumentType.prototype]);</span><br></pre></td></tr></table></figure>
+
+<h2 id="元素属性操作"><a href="#元素属性操作" class="headerlink" title="元素属性操作"></a>元素属性操作</h2><p>这些操作仅针对节点类型为 <code>Element</code> 的节点，即元素。</p>
+<h3 id="读取属性"><a href="#读取属性" class="headerlink" title="读取属性"></a>读取属性</h3><p>读取属性可以使用 <code>element.getAttribute(attrName)</code>。如果指定的属性不存在，则返回 null 。（旧版本的浏览器可能会返回空字符串<code>&quot;&quot;</code>）</p>
+<h3 id="修改属性"><a href="#修改属性" class="headerlink" title="修改属性"></a>修改属性</h3><p>修改属性可以使用 <code>element.setAttribute(attrName, attrValue)</code>。 如果此属性已经存在，则更新该值， 否则，将添加一个新的属性用指定的名称和值。</p>
+<h3 id="删除属性"><a href="#删除属性" class="headerlink" title="删除属性"></a>删除属性</h3><p>删除属性可以使用 <code>element.removeAttribute(attrName)</code>。尝试删除不存在的属性并不会引发异常。</p>
+<p>注意，当不需要某个属性的时候，优先使用 <code>removeAttribute</code>，而非使用 <code>setAttribute</code> 将属性值设置为 null。</p>
+<h3 id="检查属性是否存在"><a href="#检查属性是否存在" class="headerlink" title="检查属性是否存在"></a>检查属性是否存在</h3><p>检查属性可以使用 <code>element.hasAttribute(attrName)</code>。</p>
+<h3 id="修改元素节点对象的属性值"><a href="#修改元素节点对象的属性值" class="headerlink" title="修改元素节点对象的属性值"></a>修改元素节点对象的属性值</h3><p>当然，可能你已经见过这种操作元素属性的方法：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 修改属性</span></span><br><span class="line"><span class="keyword">var</span> form = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;form&#x27;</span>);</span><br><span class="line">form.action = <span class="string">&#x27;/submit&#x27;</span>;</span><br><span class="line">form.method = <span class="string">&#x27;POST&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取属性</span></span><br><span class="line"><span class="built_in">console</span>.log(p.name)</span><br></pre></td></tr></table></figure>
+
+<p>这种方法通过修改元素节点对象的属性值来修改元素的属性，但是有一定的局限性：</p>
+<p>1.有些 HTML 的属性名是 Javascript 的保留字，比如 <code>for</code>、<code>class</code>，所以使用的时候必须更改：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">ele.htmlFor = <span class="string">&quot;someValue&quot;</span>; </span><br><span class="line">ele.className = <span class="string">&quot;someValue&quot;</span>;</span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line">ele.setAttribute(<span class="string">&#x27;for&#x27;</span>, <span class="string">&#x27;someValue&#x27;</span>)</span><br><span class="line">ele.setAttribute(<span class="string">&#x27;class&#x27;</span>, <span class="string">&#x27;someValue&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>2.<code>getAttribute</code> 获取的 HTML 属性值都是字符串，而这种方法有时会对某些属性的值进行类型转换，比如，将字符串的 <code>true/false</code> 转为布尔类型，将 <code>onClick</code> 的值转为函数类型。</p>
+<p>3.这种方法无法删除属性，即使用 <code>delete</code> 运算符不生效（自定义属性 <code>data-[attr-name]*</code> 是可以删除的）。</p>
+<p>4.这种方法对非 HTML 支持的标准属性不生效，尽管这种非标准属性是不建议使用的：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// html</span></span><br><span class="line">&lt;div id=<span class="string">&quot;test&quot;</span> test=<span class="string">&quot;true&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取非标准属性</span></span><br><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;test&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(div.test); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(div.getAttribute(<span class="string">&#x27;test&#x27;</span>)); <span class="comment">// &quot;true&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改非标准属性</span></span><br><span class="line">div.test = <span class="string">&quot;false&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(div.getAttribute(<span class="string">&#x27;test&#x27;</span>)); <span class="comment">// &quot;true&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>标准的自定义属性 <code>data-[attr-name]</code> 则使用 <code>ele.dataset.attrName</code>。</p>
+<p>5.元素的属性名大小写不敏感，而 JavaScript 对象的属性名大小写敏感的，并且当属性名包括多个单词，会对属性名进行驼峰拼写法转换：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;button onclick=<span class="string">&quot;doSthing&quot;</span>&gt;&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">button.onClick = doSthing;</span><br></pre></td></tr></table></figure>
+
+<p>优先使用上面提到的四个属性操作的方法进行属性的修改。</p>
+<h3 id="获取元素的全部属性"><a href="#获取元素的全部属性" class="headerlink" title="获取元素的全部属性"></a>获取元素的全部属性</h3><p><code>Element.attributes</code> 属性返回该元素所有属性节点的一个<strong>实时集合</strong>。</p>
+<p><strong>实时</strong> 指的是元素属性的任意变化都会反映在这个属性上：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// html</span></span><br><span class="line">&lt;div id=<span class="string">&quot;test&quot;</span> name=<span class="string">&quot;test1&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;test&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> attrs = div.attributes;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(attrs[<span class="number">1</span>].value); <span class="comment">// test1</span></span><br><span class="line">div.setAttribute(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;test2&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(attrs[<span class="number">1</span>].value); <span class="comment">// test2</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>集合</strong>是一个类数组结构，大概是这个样子的：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// html</span></span><br><span class="line">&lt;div id=<span class="string">&quot;test&quot;</span> name=<span class="string">&quot;test1&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line"><span class="built_in">console</span>.log(attrs);</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="number">0</span>: Attr(id),</span><br><span class="line">  <span class="number">1</span>: Attr(name),</span><br><span class="line">  <span class="attr">length</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="attr">id</span>: Attr(id),</span><br><span class="line">  <span class="attr">name</span>: Attr(name),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>集合</strong>的常用操作：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获取id属性的属性名：</span></span><br><span class="line">attrs.id.name</span><br><span class="line">attrs.id.nodeName</span><br><span class="line">attrs[<span class="number">0</span>].name</span><br><span class="line">attrs[<span class="number">0</span>].nodeName</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取id属性的属性值：</span></span><br><span class="line">attrs.id.value</span><br><span class="line">attrs[<span class="number">0</span>].value</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>applyMiddleware.js 源码阅读笔记 | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,redux" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-applyMiddleware" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        applyMiddleware.js 源码阅读笔记
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-02-28
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 2.6k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 16mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="js" data-type="CATEGORIES">js</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="react" data-type="TAGS">react</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="redux" data-type="TAGS">redux</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><code>applyMiddleware</code> 允许使用中间件middleware增强Redex的store的 <code>dispatch</code> 方法，这些中间件通过组合的方式构成一条中间件的链，通过这种方式，每个中间件无需关注其他中间件的操作。</p>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><blockquote>
+<p>applyMiddleware(…middlewares)</p>
+</blockquote>
+<p>每个中间件 <code>middleware</code>  的方法签名要求为 <code>(&#123; getState, dispatch &#125;) =&gt; next =&gt; action</code>。</p>
+<h2 id="applyMiddleware-的整体结构"><a href="#applyMiddleware-的整体结构" class="headerlink" title="applyMiddleware 的整体结构"></a>applyMiddleware 的整体结构</h2><p>函数的源代码非常简洁只有不到20行的代码，函数的整体结构如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">applyMiddleware</span>(<span class="params">...middlewares</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">createStore</span>) =&gt;</span> <span class="function">(<span class="params">reducer, preloadedState, enhancer</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> store = createStore(reducer, preloadedState, enhancer)</span><br><span class="line">    <span class="keyword">var</span> dispatch = store.dispatch</span><br><span class="line"></span><br><span class="line">    ...<span class="comment">// 修改dispatch</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      ...store,</span><br><span class="line">      dispatch</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码结构看起来很是复杂，实际上应用了函数式编程的柯里化技术，实际上柯里化是把一个接收多个参数的函数转换成接收一个参数的技巧，为了便于理解，对函数去柯里化如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">applyMiddleware</span>(<span class="params">...middlewares, createStore, reducer, preloadedState, enhancer</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> store = createStore(reducer, preloadedState, enhancer)</span><br><span class="line">  <span class="keyword">var</span> dispatch = store.dispatch</span><br><span class="line"></span><br><span class="line">  ...<span class="comment">// 修改dispatch</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    ...store,</span><br><span class="line">    dispatch</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这下很容易看出，<code>applyMiddleware</code> 实质是使用 <code>createStore</code> 创建 <code>store</code> ，然后修改增强 <code>store</code> 的 <code>dispatch</code> 函数，<code>store</code> 的其他内容保留。</p>
+<p>返回值这里使用了 <code>es6</code> 的新特性，可以翻译为：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="built_in">Object</span>.assign(&#123;&#125;, store, &#123;<span class="attr">dispatch</span>: dispatch&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>返回一个新对象，将 <code>store</code> 的所有属性复制进去，并使用新的 <code>dispatch</code> 函数替代 <code>store</code> 原有的 <code>dispatch</code> 函数。</p>
+<p>注意到 <code>applyMiddleware</code> 的返回值为 <code>(createStore) =&gt; (reducer, preloadedState, enhancer) =&gt; newStore</code>, 如果阅读过 createStore 的源代码就会发现有这么几行：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createStore</span>(<span class="params">reducer, preloadedState, enhancer</span>) </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> enhancer !== <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">   <span class="comment">//如果传入了store enhancer即在调用了函数的时候传入了 applyMiddleware</span></span><br><span class="line">   <span class="comment">//那么此时创建的 store 的 dispatch 函数即是加了中间件“特效”的</span></span><br><span class="line">    <span class="keyword">return</span> enhancer(createStore)(reducer, preloadedState)</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果传递了 enhancer参数，那么就会使用 enhancer 创建 store， 而 enhancer 实际上就和 applyMiddleware 的返回值几乎一样。正是因为 applyMiddleware 采用了柯里化，才保证了可以调用 <code>applyMiddle(middleware1, middleware2, ...middlewares)</code> 作为 createStore 的 enhancer 参数。</p>
+<p>综上，使用中间件函数创建 store 有两种方式：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1.使用 applyMiddle：</span></span><br><span class="line">applyMiddle(middleware1, middleware2, ...middlewares)(createStore)(reducer, preloadedState, enhancer);</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.使用 createStore：</span></span><br><span class="line">createStore(</span><br><span class="line">  reducer,</span><br><span class="line">  preloadedState,</span><br><span class="line">  applyMiddlware(middleware1, middleware2, ...middlewares)</span><br><span class="line">);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>唯一的区别在于，使用 applyMiddle 还可以再次应用其他的 <code>store enhancer</code> 中间件。</p>
+<h2 id="dispatch-的增强"><a href="#dispatch-的增强" class="headerlink" title="dispatch 的增强"></a>dispatch 的增强</h2><p>如果使用过其他的中间件结构比如nodejs的可以知道，中间件实际上是把 <code>action--&gt;reducer</code> 变成: <code>action -&gt; middleware1 -&gt; middleware2 -&gt; ... -&gt; reducer</code>，继续阅读代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> dispatch = store.dispatch</span><br><span class="line"><span class="keyword">var</span> chain = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> middlewareAPI = &#123;</span><br><span class="line">  <span class="attr">getState</span>: store.getState,</span><br><span class="line">  <span class="attr">dispatch</span>: <span class="function">(<span class="params">action</span>) =&gt;</span> dispatch(action)</span><br><span class="line">&#125;</span><br><span class="line">chain = middlewares.map(<span class="function"><span class="params">middleware</span> =&gt;</span> middleware(middlewareAPI))</span><br><span class="line">dispatch = compose(...chain)(store.dispatch)</span><br></pre></td></tr></table></figure>
+
+<p>首先定义了中间件的需要传递给中间件的接口 getState 和 dispatch， 这也定义了中间件的签名必定是 <code>(&#123; dispatch, getState &#125;) =&gt; next =&gt; action =&gt; &#123;//do sth&#125;</code>，这里有个细节，middlewareAPI 为什么不写成：<code>dispatch: dispatch</code> 而是写成： <code>dispatch: (action) =&gt; dispatch(action)</code> ，这个细节将在后面详细说明。</p>
+<p>然后继续看代码，可以把chain的存储的内容转换为：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">chain = middlewares.map(<span class="function"><span class="params">middleware</span> =&gt;</span> middleware(middlewareAPI))</span><br><span class="line"></span><br><span class="line"><span class="comment">//等于：</span></span><br><span class="line">chain = [</span><br><span class="line">  <span class="function"><span class="params">next</span> =&gt;</span> <span class="function"><span class="params">action</span> =&gt;</span> &#123;&#125;, <span class="comment">//包含getState、dispatch函数的闭包，假定此函数为f1</span></span><br><span class="line">  <span class="function"><span class="params">next</span> =&gt;</span> <span class="function"><span class="params">action</span> =&gt;</span> &#123;&#125;,  <span class="comment">//包含getState、dispatch函数的闭包，假定此函数为f2</span></span><br><span class="line">  ...</span><br><span class="line">  next =&gt; <span class="function"><span class="params">action</span> =&gt;</span> &#123;&#125;,  <span class="comment">//包含getState、dispatch函数的闭包，假定此函数为fn</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>为了后面描述的方便，这里为 chain 的成员分别命名 f1,f2, … fn 接着看 <code>compose</code>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">dispatch = compose(...chain)(store.dispatch)</span><br></pre></td></tr></table></figure>
+
+<p> <code>compose</code> 将函数从右向左组合：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">compose([f1, f2, ..., fn])</span><br><span class="line"><span class="comment">//等价于：</span></span><br><span class="line">(...args) =&gt; f1(f2(...(fn(...args))))</span><br></pre></td></tr></table></figure>
+
+<p>返回继续阅读 <code>applyMiddleware</code> 并把转换后的 compose 代入:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">dispatch = compose(...chain)(store.dispatch)</span><br><span class="line"><span class="comment">//等价于：</span></span><br><span class="line">dispatch = f1(f2(...(fn(store.dispatch))))</span><br></pre></td></tr></table></figure>
+
+<p>把这里的 <code>f1, f2, ..., fn</code> 分别替换回去:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">dispatch = f1(f2(<span class="function"><span class="params">action</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//middleware n pre do sth</span></span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">  store.dispatch(action);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//middleware n after do sth</span></span><br><span class="line">&#125;));</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">dispatch = <span class="function"><span class="params">action</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//middleware 1 pre do sth</span></span><br><span class="line">  <span class="comment">//middleware 2 pre do sth</span></span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="comment">//middleware n pre do sth</span></span><br><span class="line"></span><br><span class="line">  store.dispatch(action);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//middleware n after do sth</span></span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="comment">//middleware 2 after do sth</span></span><br><span class="line">  <span class="comment">//middleware 1 after do sth</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>&quot;pre do sth&quot;</code> 指的是中间件函数定义中的 <code>next(action)</code> 前面的代码，在 <code>action</code> 被处理前调用，而 <code>&quot;after do sth&quot;</code> 指的是中间件调用 <code>next(action)</code> 后的代码，在 <code>action</code> 被处理后调用，而 <code>next(action)</code> 实际上也是中间件将控制权移交下一个中间件，也即调用 <code>applyMiddleware(middleware1, middleware2, ... middlewaren)</code> 的执行过程为：<code>middleware1 pre -&gt; middleware2 pre -&gt; ... -&gt; middlewaren pre -&gt; store.dispatch -&gt; middlewaren -&gt;... -&gt; middleware2 -&gt; middleware1</code>函数。</p>
+<p><strong>注意：</strong> 中间件并不总是包含 <code>&quot;pre do sth&quot;</code> 和 <code>&quot;after do sth&quot;</code> 结构的，此外这里仅讨论只有同步操作的中间件，异步的情况后面讨论。</p>
+<h2 id="Middleware-中间件"><a href="#Middleware-中间件" class="headerlink" title="Middleware 中间件"></a>Middleware 中间件</h2><p>经过上面分析，可以知道中间件的基本结构如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Middleware = <span class="function">(<span class="params">&#123;dispatch, action&#125;</span>) =&gt;</span> <span class="function"><span class="params">next</span> =&gt;</span> <span class="function"><span class="params">action</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//do sth</span></span><br><span class="line">  next(action);</span><br><span class="line">  <span class="comment">//do sth</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>比如，可以编写日志中间件：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> logMiddleware = <span class="function">(<span class="params">&#123;dispatch, action&#125;</span>) =&gt;</span> <span class="function"><span class="params">next</span> =&gt;</span> <span class="function"><span class="params">action</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">new</span> <span class="built_in">Date</span>() + <span class="string">&#x27; action: &#x27;</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(action);</span><br><span class="line">  next(action);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>中间件的函数签名实际上是有 <code>dispatch</code> 的，这个 <code>dispatch</code> 和 <code>next</code> 都是接收 <code>action</code> 作为参数的，他们有什么区别呢？</p>
+<p>前面已经说过，<code>next</code> 将 <code>action</code> 控制权移交下一个组件，其实质是被下一个中间件增强过的 “store.dispatch”。而回过头来再看一下 applyMiddleware 的源代码，可以发现中间件函数拿到的 dispatch实际是 ：<code>dispatch: (action) =&gt; dispatch(action)</code> 传递给每个 middleware 的 dispatch 被一层匿名函数包裹，这样最终导致传递给每个中间件的 dispatch 实际上是组合了所有的中间件的dispatch，而不是 “store.dispatch” 这个初始的旧的 “dispatch”</p>
+<p>而在中间件可以调用 <code>next(action)</code> 和 <code>dispatch(action)</code> 的区别可以看下图：</p>
+<p><img src="/images/dispatch-and-next.png" alt="dispatch(action) 和 next(action) 的区别"></p>
+<p>使用 <code>next(action)</code> 效果如图左，从外层逐层处理action，并将处理过的action传递给下一层，处理完毕后再逐层返回，而使用 <code>dispatch(action)</code> 效果如图右，调用以后重新返回到外层，相当于再次从头开始应用中间件，这种情况通常用于场景是中断当前流程，将控制权移交其他部分，待其他内容处理完成再跳回正常流程，比如异步请求场景。</p>
+<p>下面以 redux-thunk 为例说一下这种情况，首先看一下源代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createThunkMiddleware</span>(<span class="params">extraArgument</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">&#123; dispatch, getState &#125;</span>) =&gt;</span> <span class="function"><span class="params">next</span> =&gt;</span> <span class="function"><span class="params">action</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> action === <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> action(dispatch, getState, extraArgument);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> next(action);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> thunk = createThunkMiddleware();</span><br><span class="line">thunk.withExtraArgument = createThunkMiddleware;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> thunk;</span><br></pre></td></tr></table></figure>
+
+<p><code>redux-thunk</code> 判断 <code>action</code> 是否为函数，如果是，将控制权移交给 <code>action</code> 处理，把 <code>dispatch</code>、 <code>getState</code>传递给 <code>action</code> ，待 <code>action</code> 处理完毕调用 <code>dispatch(action)</code> 此时 <code>action</code> 为正常的 <code>action对象</code>，回到正常中间件流程，然后<code>redux-thunk</code> 执行 <code>next(action)</code> 进入下一个中间件。</p>
+<p>而这个 action 基本结构如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//action 定义</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">success</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;SUCCESS&#x27;</span>,</span><br><span class="line">    data</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">error</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;ERROR&#x27;</span>,</span><br><span class="line">    err</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 异步action定义</span></span><br><span class="line"><span class="comment">// 和同步 action 不同 返回函数接收 dispatch 做为参数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">asyncFetch</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">dispatch, getState</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> fetch(params)</span><br><span class="line">      .then(<span class="function"><span class="params">data</span> =&gt;</span> dispatch(success(data)</span><br><span class="line">      .catch(<span class="function"><span class="params">err</span> =&gt;</span> dispatch(error(err))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用：</span></span><br><span class="line">dispatch(asyncFetch(&#123;...&#125; &#125;))</span><br></pre></td></tr></table></figure>
+
+<p>如上示例，<code>asyncFetch(&#123;&#125;)</code> 返回值不是对象而是函数，<code>thunk</code> 中间件拿到这个 “函数action” 后，把控制权移交给这个函数，这个函数执行 <code>fetch</code> 异步获取数据，获取数据成功后通过 <code>dispatch(successAction)</code> 再次返回 <code>thunk中间件</code> ，此时 <code>successAction</code> 是对象，因此执行 <code>next(action)</code> 进入下一个中间件处理，异常流程与之类似不再说明。</p>
+<p><strong>注意：</strong> 中间件是根据声明顺序从左到右调用的，所以如果使用到类似于 <code>thunk</code> 中间件的异步类中间件，一般要在<code>applyMiddleware</code> 参数的最前面声明，以免其他中间件被执行多次。</p>
+<h2 id="源码注释"><a href="#源码注释" class="headerlink" title="源码注释"></a>源码注释</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Creates a store enhancer that applies middleware to the dispatch method</span></span><br><span class="line"><span class="comment"> * of the Redux store. This is handy for a variety of tasks, such as expressing</span></span><br><span class="line"><span class="comment"> * asynchronous actions in a concise manner, or logging every action payload.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * See `redux-thunk` package as an example of the Redux middleware.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Because middleware is potentially asynchronous, this should be the first</span></span><br><span class="line"><span class="comment"> * store enhancer in the composition chain.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Note that each middleware will be given the `dispatch` and `getState` functions</span></span><br><span class="line"><span class="comment"> * as named arguments.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;...Function&#125;</span> </span>middlewares The middleware chain to be applied.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns <span class="type">&#123;Function&#125;</span> </span>A store enhancer applying the middleware.</span></span><br><span class="line"><span class="comment"> * 从返回值可以看出：</span></span><br><span class="line"><span class="comment"> * 除了通过Redux.createStore(reducer, preloadedState, applyMiddlware(...middlewares))创建store</span></span><br><span class="line"><span class="comment"> * 还可通过applyMiddlware(...middlewares)(createStore)(reducer, preloadedState, enhancer)创建store</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">applyMiddleware</span>(<span class="params">...middlewares</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">createStore</span>) =&gt;</span> <span class="function">(<span class="params">reducer, preloadedState, enhancer</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//内部使用原始的createStore创建store，以保证不影响store的其他接口</span></span><br><span class="line">    <span class="keyword">var</span> store = createStore(reducer, preloadedState, enhancer)</span><br><span class="line">    <span class="comment">//保留原始的没有被中间件修改过的dispatch</span></span><br><span class="line">    <span class="keyword">var</span> dispatch = store.dispatch</span><br><span class="line">    <span class="keyword">var</span> chain = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> middlewareAPI = &#123;</span><br><span class="line">      <span class="attr">getState</span>: store.getState,</span><br><span class="line">      <span class="comment">//使用匿名函数保证传递给每个 middleware 的 dispatch 函数都是</span></span><br><span class="line">      <span class="comment">//compose(...chain)(store.dispatch) 这个应用了全部中间件的增强过的最新的 dispatch</span></span><br><span class="line">      <span class="attr">dispatch</span>: <span class="function">(<span class="params">action</span>) =&gt;</span> dispatch(action)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//以redux为例：</span></span><br><span class="line">    <span class="comment">//const thunk = (&#123; dispatch, getState &#125;) =&gt; next =&gt; action =&gt; &#123;</span></span><br><span class="line">    <span class="comment">//  if (typeof action === &#x27;function&#x27;) &#123;</span></span><br><span class="line">    <span class="comment">//    return action(dispatch, getState, extraArgument);</span></span><br><span class="line">    <span class="comment">//  &#125;</span></span><br><span class="line">    <span class="comment">//  return next(action);</span></span><br><span class="line">    <span class="comment">//&#125;;</span></span><br><span class="line">    <span class="comment">//middleware =&gt; middleware(middlewareAPI)对应的实际上是</span></span><br><span class="line">    <span class="comment">//thunk =&gt; thunk(middlewareAPI)</span></span><br><span class="line">    <span class="comment">//即chain的每一个元素的结构类似于：</span></span><br><span class="line">    <span class="comment">//next =&gt; action =&gt; &#123;</span></span><br><span class="line">    <span class="comment">//  ...</span></span><br><span class="line">    <span class="comment">//  if (typeof action === &#x27;function&#x27;) &#123;</span></span><br><span class="line">    <span class="comment">//    return action(dispatch, getState, extraArgument);</span></span><br><span class="line">    <span class="comment">//  &#125;</span></span><br><span class="line">    <span class="comment">//  此时，next 实际上就是 store.dispatch,即被后一个middleware增强过的dispatch</span></span><br><span class="line">    <span class="comment">//  又或者说 next 将 action 的控制权移交下一个中间件处理更为恰当</span></span><br><span class="line">    <span class="comment">//  return next(action);</span></span><br><span class="line">    <span class="comment">//&#125;;</span></span><br><span class="line">    chain = middlewares.map(<span class="function"><span class="params">middleware</span> =&gt;</span> middleware(middlewareAPI))</span><br><span class="line"></span><br><span class="line">    <span class="comment">//compose的实现简单来说如下：</span></span><br><span class="line">    <span class="comment">//function compose(...funcs) &#123;</span></span><br><span class="line">    <span class="comment">//   if (funcs.length === 1) &#123;</span></span><br><span class="line">    <span class="comment">//     return funcs[0]</span></span><br><span class="line">    <span class="comment">//   &#125;</span></span><br><span class="line">    <span class="comment">//   const last = funcs[funcs.length - 1]</span></span><br><span class="line">    <span class="comment">//   const rest = funcs.slice(0, -1)</span></span><br><span class="line">    <span class="comment">//   return (...args) =&gt; rest.reduceRight((composed, f) =&gt; f(composed), last(...args))</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">//简单来说compose([chain1, chain2, chain3])(store.dispatch)</span></span><br><span class="line">    <span class="comment">//类似于：chain1(chain2(chain3(store.dispatch)))</span></span><br><span class="line">    <span class="comment">//即传递给每个chain的next从参数实际上是上一个chain包装过的增强的dispatch</span></span><br><span class="line">    dispatch = compose(...chain)(store.dispatch)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回一个新的对象，拥有store的所有接口</span></span><br><span class="line">    <span class="comment">//并且store的其他接口如getState、subscribe保持不变</span></span><br><span class="line">    <span class="comment">//仅仅使用增强后dispatch函数的覆盖了store的原始的dispatch函数</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      ...store,</span><br><span class="line">      dispatch</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h2><p><code>Redux</code> 源码阅读笔记：</p>
+<ul>
+<li><a href="/2017/03/createStore/">createStore.js 源码阅读笔记</a></li>
+<li><a href="/2017/03/combineReducers/">combineReducers.js 源码阅读笔记</a></li>
+<li><a href="/2017/03/bindActionCreators/">bindActionCreators.js 源码阅读笔记</a></li>
+<li><a href="/2017/02/applyMiddleware/">applyMiddleware.js 源码阅读笔记</a></li>
+<li><a href="/2017/03/compose/">compose.js 源码阅读笔记</a></li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>本文阅读代码版本 <code>3.5.2</code></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/reactjs/redux">redux源代码</a></li>
+<li><a target="_blank" rel="noopener" href="http://redux.js.org/docs/api/applyMiddleware.html">redux文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20597452">redux middleware 详解</a></li>
+</ul>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

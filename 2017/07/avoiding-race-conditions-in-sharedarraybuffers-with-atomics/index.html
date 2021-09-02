@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>使用 Atom 避免 ArrayBuffers 中的竞态条件 - Avoiding race conditions in SharedArrayBuffers with Atomics | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="内存管理,WebAssembly" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-avoiding-race-conditions-in-sharedarraybuffers-with-atomics" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        使用 Atom 避免 ArrayBuffers 中的竞态条件 - Avoiding race conditions in SharedArrayBuffers with Atomics
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-07-06
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 5.1k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 32mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="内存管理" data-type="TAGS">内存管理</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="WebAssembly" data-type="TAGS">WebAssembly</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><strong>原文：<a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2017/06/avoiding-race-conditions-in-sharedarraybuffers-with-atomics/">Avoiding race conditions in SharedArrayBuffers with Atomics</a></strong></p>
+<p>本文译自<a target="_blank" rel="noopener" href="https://twitter.com/linclark">Lin Clark</a> 内存管理的卡通介绍系列，渣翻译，因此附上英文原文。</p>
+<ol>
+<li><a href="/2017/06/a-crash-course-in-memory-management/">内存管理</a></li>
+<li><a href="/2017/06/a-cartoon-intro-to-arraybuffers-and-sharedarraybuffers/">ArrayBuffers 和 SharedArrayBuffers 的卡通介绍</a></li>
+<li><strong>使用 Atom 避免 ArrayBuffers 中的竞态条件</strong></li>
+</ol>
+<p>In the <a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2017/06/a-cartoon-intro-to-arraybuffers-and-sharedarraybuffers/">last article</a>, I talked about how using <code>SharedArrayBuffers</code> could result in race conditions. This makes working with <code>SharedArrayBuffer</code>s hard. We don’t expect application developers to use <code>SharedArrayBuffer</code>s directly.</p>
+<p>在<a href="/2017/06/a-cartoon-intro-to-arraybuffers-and-sharedarraybuffers/">上一篇文章</a>中，我谈到了使用 <code>SharedArrayBuffers</code> 可能导致竞态条件。 这使得使用 <code>SharedArrayBuffers</code> 很难。我们不希望应用程序开发人员直接使用<code>SharedArrayBuffers</code>。</p>
+<p>But library developers who have experience with multithreaded programming in other languages can use these new low-level APIs to create higher-level tools. Then application developers can use these tools without touching <code>SharedArrayBuffers</code> or <code>Atomics</code> directly.</p>
+<p>但是，具有其他语言的多线程编程经验的类库开发人员可以使用这些新的底层 API 来创建更高级别的工具。应用程序开发人员可以直接使用这些更高级别的工具而不用直接接触 <code>SharedArrayBuffers</code> 或 <code>Atomics</code>。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/02_15.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/02_15-500x335.png" alt="以 SharedArrayBuffer 和 Atomics 为基础，JS 库和 WebAssembly 线程构建在上层"></a></p>
+<p>Even though you probably shouldn’t work with <code>SharedArrayBuffers</code> and <code>Atomics</code> directly, I think it’s still interesting to understand how they work. So in this article, I’ll explain what kinds of race conditions concurrency can bring, and how <code>Atomics</code> help libraries avoid them.</p>
+<p>即使你可能不直接使用 <code>SharedArrayBuffers</code> 和 <code>Atomics</code>，我认为了解它们是如何工作的是有趣的。 所以在本文中，我将介绍并发可以带来什么样的竞态条件，以及 <code>Atomics</code> 如何帮助库避免它们。</p>
+<p>But first, what is a race condition?</p>
+<p>但首先，什么是竞态条件？</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/02_13.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/02_13-500x201.png" alt="图中描述了两个线程竞争内存"></a></p>
+<h2 id="竞态条件：你以前见过的一个例子"><a href="#竞态条件：你以前见过的一个例子" class="headerlink" title="竞态条件：你以前见过的一个例子"></a>竞态条件：你以前见过的一个例子</h2><p>A pretty straightforward example of a race condition can happen when you have a variable that is shared between two threads. Let’s say one thread wants to load a file and the other thread checks whether it exists. They share a variable, <code>fileExists</code>, to communicate.</p>
+<p>当一个变量在两个线程之间共享时，一个很直接的竞态示例就可能发生。假设一个线程想加载一个文件，另一个线程检查它是否存在 他们共享一个变量 <code>fileExists</code> 进行通信。</p>
+<p>Initially, <code>fileExists</code> is set to false.</p>
+<p>刚开始，<code>fileExists</code> 设置为 <code>false</code>。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_03.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_03-500x400.png" alt="两个线程工作的代码。如果 fileExists 为 true，线程1 加载文件，线程2 设置 fileExists 字段"></a></p>
+<p>As long as the code in thread 2 runs first, the file will be loaded.</p>
+<p>只要线程2的代码首先运行，文件就被加载。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_04.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_04-500x259.png" alt="图展示了线程2先执行，加载失败"></a></p>
+<p>But if the code in thread 1 runs first, then it will log an error to the user, saying that the file does not exist.</p>
+<p>但如果线程1中的代码首先运行，那么它将向用户记录一个错误，表示该文件不存在。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_05.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_05-500x259.png" alt="图展示了线程1先执行，加载失败"></a></p>
+<p>But that’s not the problem. It’s not that the file doesn’t exist. The real problem is the race condition.</p>
+<p>但这不是问题，这并不是文件不存在的问题，真正的问题是竞争状况。</p>
+<p>Many JavaScript developers have run into this kind of race condition, even in single-threaded code. You don’t have to understand anything about multithreading to see why this is a race.</p>
+<p>许多 JavaScript 开发人员遇到过这种竞争状况，即使是单线程编码。先看看为什么这会引起竞争，你不必先理解多线程的内容。</p>
+<p>However, there are some kinds of race conditions which aren’t possible in single-threaded code, but that can happen when you’re programming with multiple threads and those threads share memory.</p>
+<p>然而，有些类型的竞态条件在单线程代码中是不可能的发生的，但是当你使用多线程进行编程并且这些线程共享内存时，可能会发生这些情况。</p>
+<h2 id="不同类别的竞态条件和-Atomics-对象如何帮忙解决"><a href="#不同类别的竞态条件和-Atomics-对象如何帮忙解决" class="headerlink" title="不同类别的竞态条件和 Atomics 对象如何帮忙解决"></a>不同类别的竞态条件和 Atomics 对象如何帮忙解决</h2><p>Let’s explore some of the different kinds of race conditions you can have in multithreaded code and how Atomics help prevent them. This doesn’t cover all possible race conditions, but should give you some idea why the API provides the methods that it does.</p>
+<p>我们来讨论一些你可能在多线程代码中碰到的不同类型的竞态条件，以及 Atomics 如何防止它们。这并不包括所有可能的竞态条件，但应该给你一些了解，了解为什么 API 提供处理它们方法。</p>
+<p>Before we start, I want to say again: you shouldn’t use Atomics directly. Writing multithreaded code is a known hard problem. Instead, you should use reliable libraries to work with shared memory in your multithreaded code.</p>
+<p>在我们开始之前，我想再说一遍：你不应该直接使用 Atomics。编写多线程代码是一个已知的难题。相反，你应该使用可靠的库在多线程代码中共享内存。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_06.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_06-500x309.png" alt="警告标志"></a></p>
+<p>With that out of the way…</p>
+<h3 id="单一操作的竞赛条件"><a href="#单一操作的竞赛条件" class="headerlink" title="单一操作的竞赛条件"></a>单一操作的竞赛条件</h3><p>Let’s say you had two threads that were incrementing the same variable. You might think that the end result would be the same regardless of which thread goes first.</p>
+<p>假设你有两个线程递增同一变量。你可能认为无论哪个线程先操作，最终的结果将是一样的。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_07.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_07-500x540.png" alt="图展示了两个线程轮流递增一个变量"></a></p>
+<p>But even though, in the source code, incrementing a variable looks like a single operation, when you look at the compiled code, it is not a single operation.</p>
+<p>即使在源代码中，增加一个变量看起来像一个操作，但当你查看编译后的代码时，它并不是一个单一的操作。</p>
+<p>At the CPU level, incrementing a value takes three instructions. That’s because the computer has both long-term memory and short-term memory. (I talk more about how this all works in <a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/">another article</a>).</p>
+<p>在 CPU 级别，增加一个值需要三条指令。这是因为计算机有长期存储和短期存储。（我在另一篇文章中更多地谈论这一切如何工作）。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_08.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_08-500x339.png" alt="CPU和RAM的描绘"></a></p>
+<p>All of the threads share the long-term memory. But the short-term memory—the registers—are not shared between threads.</p>
+<p>所有线程共享长期存储。 但短期存储-寄存器不会在线程之间共享。</p>
+<p>Each thread needs to pull the value from memory into its short-term memory. After that, it can run the calculation on that value in short-term memory. Then it writes that value back from its short-term memory to the long-term memory.</p>
+<p>每个线程都需要将内存中的值从其内存中取出。之后，在短期存储中对该值进行计算。然后它将这个价值从短期存储中写回到长期存储。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_09.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_09-500x283.png" alt="图显示一个变量从存储器加载到寄存器，然后被操作，然后被存储回存储器"></a></p>
+<p>If all of the operations in thread 1 happen first, and then all the operations in thread 2 happen, we will end up with the result that we want.</p>
+<p>如果线程1中的所有操作先执行，然后线程2中的所有操作都执行，我们最终得到我们想要的结果。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_10.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_10-500x1066.png" alt="流程图显示了在一个线程上顺序执行指令，然后执行其他线程"></a></p>
+<p>But if they are interleaved in time, the value that thread 2 has pulled into its register gets out of sync with the value in memory. This means that thread 2 doesn’t take thread 1’s calculation into consideration. Instead, it just clobbers the value that thread 1 wrote to memory with its own value.</p>
+<p>但是如果它们时间上交错执行，则线程 2 被拉入其寄存器的值与内存中实际的值不同步。这意味着线程2会忽略线程1的计算结果。相反，它用自己的值写入内存消除了线程1写的值。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_11.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_11-500x1066.png" alt="流程图显示了线程之间的交错指令"></a></p>
+<p>One thing atomic operations do is take these operations that humans think of as being single operations, but which the computer sees as multiple operations, and makes the computer see them as single operations, too.</p>
+<p>原子操作所做的一件事是转换那些人们认为是单一操作，而计算机视为多个操作的操作，转换它们，使计算机也将它们视为单个操作。</p>
+<p>This is why they’re called atomic operations. It’s because they take an operation that would normally have multiple instructions—where the instructions could be paused and resumed—and it makes it so that they all happen seemingly instantaneously, as if it were one instruction. It’s like an indivisible atom.</p>
+<p>这就是为什么它们被称为原子操作。这是因为它们将有多个指令——指令可以暂停和恢复——的操作，使这些操作全部发生在瞬间，就像是一个单独指令，这就像一个不可分割的原子。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_12.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_12-500x183.png" alt="指令封装为原子"></a></p>
+<p>Using atomic operations, the code for incrementing would look a little different.</p>
+<p>使用原子操作，递增变量的代码看起来稍有不同。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_13.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_13-500x157.png" alt="Atomics.add(sabView, index, 1)"></a></p>
+<p>Now that we’re using <code>Atomics.add</code>, the different steps involved in incrementing the variable won’t be mixed up between threads. Instead, one thread will finish its atomic operation and prevent the other one from starting. Then the other will start its own atomic operation.</p>
+<p>现在我们使用的是 <code>Atomics.add</code>，递增变量所涉及的不同步骤不会在线程之间混合。相反，一个线程将完成其原子操作，并阻止另一个线程启动。然后另一个线程开始自己的原子操作。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_14.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_14-500x1066.png" alt="Flow chart showing atomic execution of the instructions"></a></p>
+<p>The Atomics methods that help avoid this kind of race are:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/add"><code>Atomics.add</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/sub"><code>Atomics.sub</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/and"><code>Atomics.and</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/or"><code>Atomics.or</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/xor"><code>Atomics.xor</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/exchange"><code>Atomics.exchange</code></a></li>
+</ul>
+<p>有助于避免这种竞争的 Atomics 方法有：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/add"><code>Atomics.add</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/sub"><code>Atomics.sub</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/and"><code>Atomics.and</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/or"><code>Atomics.or</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/xor"><code>Atomics.xor</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/exchange"><code>Atomics.exchange</code></a></li>
+</ul>
+<p>You’ll notice that this list is fairly limited. It doesn’t even include things like division and multiplication. A library developer could create atomic-like operations for other things, though.</p>
+<p>你会注意到这个列表是相当有限的。它甚至不包括除法和乘法等。不过，库开发人员可以为其他操作创建类似的原子操作。</p>
+<p>To do that, the developer would use <code>[Atomics.compareExchange](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/compareExchange)</code>. With this, you get a value from the <code>SharedArrayBuffer</code>, perform an operation on it, and only write it back to the <code>SharedArrayBuffer</code> if no other thread has updated it since you first checked. If another thread has updated it, then you can get that new value and try again.</p>
+<p>为此，开发人员可以使用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/compareExchange"><code>Atomics.compareExchange</code></a>。使用它，你可以从 <code>SharedArrayBuffer</code> 获取值，对其执行操作，并且只有在你首次检查后没有其他线程更新该值的情况下才将其写回 <code>SharedArrayBuffer</code>。 如果另一个线程已更新，那么你可以获得该新值，然后重试。</p>
+<h3 id="多个操作间的竞态条件"><a href="#多个操作间的竞态条件" class="headerlink" title="多个操作间的竞态条件"></a>多个操作间的竞态条件</h3><p>So those Atomic operations help avoid race conditions during “single operations”. But sometimes you want to change multiple values on an object (using multiple operations) and make sure no one else is making changes to that object at the same time. Basically, this means that during every pass of changes to an object, that object is on lockdown and inaccessible to other threads.</p>
+<p>这些原子操作有助于在“单次操作”期间避免竞态条件。但有时你想要更改对象上的多个值（使用多个操作），并确保没有其他人同时对该对象进行更改。这意味着在一个线程对对象的更改期间，该对象处于锁定状态，其他线程无法访问。</p>
+<p>The Atomics object doesn’t provide any tools to handle this directly. But it does provide tools that library authors can use to handle this. What library authors can create is a lock.</p>
+<p>Atomics对象不提供任何工具来直接处理这个问题。但它提供了库作者可以用来处理这个问题的工具，库作者可以用这些工具创建锁。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_15.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_15-500x400.png" alt="图展示了两个线程和一个锁"></a></p>
+<p>If code wants to use locked data, it has to acquire the lock for the data. Then it can use the lock to lock out the other threads. Only it will be able to access or update the data while the lock is active.</p>
+<p>如果代码想要使用锁定的数据，它必须获取数据的锁。然后它可以使用锁来锁定数据阻止其他线程使用。只有当数据锁是活动的时候，才能访问或更新数据。</p>
+<p>To build a lock, library authors would use <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/wait"><code>Atomics.wait</code></a> and <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/wake"><code>Atomics.wake</code></a>, plus other ones such as <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/compareExchange"><code>Atomics.compareExchange</code></a> and <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/store"><code>Atomics.store</code></a>. If you want to see how these would work, take a look at this <a target="_blank" rel="noopener" href="https://github.com/lars-t-hansen/js-lock-and-condition">basic lock implementation</a>.</p>
+<p>要构建一个锁，库作者可以使用 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/wait"><code>Atomics.wait</code></a> 和 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/wake"><code>Atomics.wake</code></a>，以及其他诸如 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/compareExchange">Atomics.compareExchange</a> 和<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/store"><code>Atomics.store</code></a>。 如果你想看看它们是如何工作的，看看这个<a target="_blank" rel="noopener" href="https://github.com/lars-t-hansen/js-lock-and-condition">基本锁实现</a>。</p>
+<p>In this case, thread 2 would acquire the lock for the data and set the value of <code>locked</code> to true. This means thread 1 can’t access the data until thread 2 unlocks.</p>
+<p>在这种情况下，线程2将获取数据锁，将数据的 <code>locked</code> 值设置为 <code>true</code>。这意味着线程1无法访问这些数据，直到线程2解锁这些数据。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_16.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_16-500x400.png" alt="线程2获得数据锁，并锁定共享数据"></a></p>
+<p>If thread 1 needs to access the data, it will try to acquire the lock. But since the lock is already in use, it can’t. The thread would then wait—so it would be blocked—until the lock is available.</p>
+<p>如果线程1需要访问数据，它将尝试获取锁。但是由于锁已经在使用，所以不能获得锁。线程1被阻止，然后等待直到锁可用。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_17.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_17-500x400.png" alt="线程1等待，直到锁被解开"></a></p>
+<p>Once thread 2 is done, it would call unlock. The lock would notify one or more of the waiting threads that it’s now available.</p>
+<p>一旦线程2完成，它将调用解锁（<code>unlock</code>）。该锁将通知一个或多个在等待线程现在可用。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_18.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_18-500x400.png" alt="锁可用的时候，线程1被通知"></a></p>
+<p>That thread could then scoop up the lock and lock up the data for its own use.</p>
+<p>线程1可以使用锁锁定自己使用的数据。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_19.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_19-500x400.png" alt="线程1使用锁"></a></p>
+<p>A lock library would use many of the different methods on the Atomics object, but the methods that are most important for this use case are:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/wait"><code>Atomics.wait</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/wake"><code>Atomics.wake</code></a></li>
+</ul>
+<p>一个锁的库可以使用 Atomics 对象上的许多不同方法，但对于这类用例最重要的方法是：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/wait"><code>Atomics.wait</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/wake"><code>Atomics.wake</code></a></li>
+</ul>
+<h3 id="指令重新排序引起的竞态条件"><a href="#指令重新排序引起的竞态条件" class="headerlink" title="指令重新排序引起的竞态条件"></a>指令重新排序引起的竞态条件</h3><p>There’s a third synchronization problem that Atomics take care of. This one can be surprising.</p>
+<p>这是 Atomics 需要处理的第三个同步问题，这个问题令人惊奇。</p>
+<p>You probably don’t realize it, but there’s a very good chance that the code you’re writing isn’t running in the order you expect it to. Both compilers and CPUs reorder code to make it run faster.</p>
+<p>也许你没有意识到，但是你写的代码并不总是按照你期望的顺序运行。编译器和 CPU 为了运行速度更快，都会重新排序代码。</p>
+<p>For example, let’s say you’ve written some code to calculate a total. You want to set a flag when the calculation is finished.</p>
+<p>例如，假设你写了一些代码来计算总和，你想在计算结束时设置一个标志。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_20.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_20-500x106.png" alt="subTotal = price + fee; total += subTotal; isDone = true"></a></p>
+<p>To compile this, we need to decide which register to use for each variable. Then we can translate the source code into instructions for the machine.</p>
+<p>为了编译这个，我们需要判断每个变量使用哪个寄存器，然后可以将源代码转换为机器指令。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_21.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_21-500x260.png" alt="图中显示了在模拟遍历中等价的内容"></a></p>
+<p>So far, everything is as expected.</p>
+<p>What’s not obvious if you don’t understand how computers work at the chip level (and how the pipelines that they use for executing code work) is that line 2 in our code needs to wait a little bit before it can execute.</p>
+<p>到目前为止，一切都如预期。</p>
+<p>我们的代码中的第2行需要稍等一下才能执行，如果你不了解计算机在芯片级别的工作原理（以及它们执行代码工作的流水线），你可能并不知道这一点。</p>
+<p>Most computers break down the process of running an instruction into multiple steps. This makes sure all of the different parts of the CPU are busy at all times, so it makes the best use of the CPU.</p>
+<p>大多数计算机将运行的指令分解成多个步骤。这样可以确保 CPU 的所有不同部分始终处于忙碌状态，这样充分利用 CPU。</p>
+<p>Here’s one example of the steps an instruction goes through:</p>
+<ol>
+<li>Fetch the next instruction from memory</li>
+<li>Figure out what the instruction is telling us to do (aka decode the instruction), and get the values from the registers</li>
+<li>Execute the instruction</li>
+<li>Write the result back to the register</li>
+</ol>
+<p>以下是一个指令执行步骤的例子：</p>
+<ol>
+<li>从内存中读取下一条指令</li>
+<li>找出指令告诉我们做什么（也就是解码指令），并从寄存器获取值</li>
+<li>执行指令</li>
+<li>将结果写回寄存器</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_22.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_22-500x244.png" alt="流水线阶段 1: 获取指令"></a><br><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_23.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_23-500x244.png" alt="流水线阶段 2: 解码指令并从寄存器获取值"></a><br><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_24.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_24-500x242.png" alt="流水线阶段 3: 执行指令"></a><br><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_25.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_25-500x243.png" alt="流水线阶段 4: 写回结果"></a></p>
+<p>So that’s how one instruction goes through the pipeline. Ideally, we want to have the second instruction following directly after it. As soon as it has moved into stage 2, we want to fetch the next instruction.</p>
+<p>这就是指令如何通过流水线。理想情况下，我们希望在这条指令结束后直接执行第二条指令。然而实际上，一旦进入流水线阶段 2，就会获取下一条指令。</p>
+<p>The problem is that there is a dependency between instruction #1 and instruction #2.</p>
+<p>问题是指令1和指令2之间存在依赖关系。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_26.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_26-500x207.png" alt="Diagram of a data hazard in the pipeline"></a></p>
+<p>We could just pause the CPU until instruction #1 has updated <code>subTotal</code> in the register. But that would slow things down.</p>
+<p>我们可以先暂停 <code>CPU</code> ，直到指令1更新了寄存器中的 <code>subTotal</code>，但这样会减慢执行速度。</p>
+<p>To make things more efficient, what a lot of compilers and CPUs will do is reorder the code. They will look for other instructions which don’t use <code>subTotal</code> or <code>total</code> and move those in between those two lines.</p>
+<p>为了使执行更有效率，很多编译器和 CPU 都会重新排序代码。它们寻找不使用 <code>subTotal</code> 或 <code>total</code> 的其他指令，并将它们移动到两行之间。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_27.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_27-500x72.png" alt="图中描绘了第三行汇编代码被移动到第一二行中间"></a></p>
+<p>This keeps a steady stream of instructions moving through the pipe.</p>
+<p>这保证了稳定的指令流通过管道。</p>
+<p>Because line 3 didn’t depend on any values in line 1 or 2, the compiler or CPU figures it’s safe to reorder like this. When you’re running in a single thread, no other code will even see these values until the whole function is done, anyway.</p>
+<p>因为第3行不依赖于第1行或第2行中的任何值，所以编译器或 CPU 可以像这样重新排序。当你运行在单个线程中时，在整个功能完成之前，其他代码无论怎样都不会看到这些值。</p>
+<p>But when you have another thread running at the same time on another processor, that’s not the case. The other thread doesn’t have to wait until the function is done to see these changes. It can see them almost as soon as they are written back to memory. So it can tell that <code>isDone</code> was set before total.</p>
+<p>但是当另一个线程在同时运行另一个处理器上时，情况并非如此。另一个线程不需要等到功能全部完成才能看到这些更改。一旦它们被写回内存，另一个线程就能看到他们。所以可以说 <code>isDone</code> 实际是在<code>total</code> 之前设置的。</p>
+<p>If you were using <code>isDone</code> as a flag that the <code>total</code> had been calculated and was ready to use in the other thread, then this kind of reordering would create race conditions.</p>
+<p>如果你使用 <code>isDone</code> 作为一个标志，<code>total</code>已经被计算出来并准备在另一个线程中使用，那么这种重新排序就会创造竞态条件。</p>
+<p>Atomics attempt to solve some of these bugs. When you use an Atomic write, it’s like putting a fence between two parts of your code.</p>
+<p><code>Atomics</code> 试着解决一些这样的错误。当你使用 Atomic 写入时，就像在两个部分之间放一个围栏。</p>
+<p>Atomic operations aren’t reordered relative to each other, and other operations aren’t moved around them. In particular, two operations that are often used to enforce ordering are:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/load"><code>Atomics.load</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/store"><code>Atomics.store</code></a></li>
+</ul>
+<p>原子操作相对于彼此不重新排序，其他操作也不会移动到其中间。特别地，经常用于强制顺序的两个操作是：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/load"><code>Atomics.load</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/store"><code>Atomics.store</code></a></li>
+</ul>
+<p>All variable updates above <code>Atomics.store</code> in the function’s source code are guaranteed to be done before <code>Atomics.store</code> is done writing its value back to memory. Even if the non-Atomic instructions are reordered relative to each other, none of them will be moved below a call to <code>Atomics.store</code> which comes below in the source code.</p>
+<p>函数源代码中所有的变量更改在 <code>Atomics.store</code> 将其值重写回内存之前都将保证完成更改。即使非原子指令相对于彼此被重新排序，它们也不会被移动到 <code>Atomics.store</code> 的调用之后。</p>
+<p>And all variable loads after <code>Atomics.load</code> in a function are guaranteed to be done after <code>Atomics.load</code> fetches its value. Again, even if the non-atomic instructions are reordered, none of them will be moved above an <code>Atomics.load</code> that comes above them in the source code.</p>
+<p>并且函数中所有变量加载保证在 <code>Atomics.load</code> 获取其值完成之后加载给变量。同样的，即使非原子指令被重新排序，它们也不会被移动到源代码 <code>Atomics.load</code> 之前获取值。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_28.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_28-500x500.png" alt="图显示 Atomics.store 和 Atomics.load 的维护顺序"></a></p>
+<p>Note: The <code>while</code> loop I show here is called a spinlock and it’s very inefficient. And if it’s on the main thread, it can bring your application to a halt. You almost certainly don’t want to use that in real code.</p>
+<p>注意：这里显示的 <code>while</code> 循环称为自旋锁，非常低效。如果它在主线程上，它可以使你的应用程序停止。 不要在真实的代码中使用它。</p>
+<p>Once again, these methods aren’t really meant for direct use in application code. Instead, libraries would use them to create locks.</p>
+<p>再次，这些方法并不意味着需要直接用在应用程序代码中。相反，库将使用它们来创建锁（而你直接调用库的结果即可）。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Programming multiple threads that share memory is hard. There are many different kinds of race conditions just waiting to trip you up.</p>
+<p>共享内存的多线程编程很难，有很多不同种类的竞态条件陷阱。</p>
+<p><a target="_blank" rel="noopener" href="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_29.png"><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/06/03_29-500x179.png" alt="Drawing of shared memory with a dragon and &quot;Here be dragons&quot; above"></a></p>
+<p>This is why you don’t want to use <code>SharedArrayBuffer</code>s and Atomics in your application code directly. Instead, you should depend on proven libraries by developers who are experienced with multithreading, and who have spent time studying the memory model.</p>
+<p>这就是为什么你会不想直接在应用程序代码中使用 <code>SharedArrayBuffer</code>s 和 Atomics。 相反，你应该依赖具有多线程经验的开发人员开发的经过验证的库，以及他们花时间研究的内存模型。</p>
+<p>It is still early days for <code>SharedArrayBuffer</code> and Atomics. Those libraries haven’t been created yet. But these new APIs provide the basic foundation to build on top of.</p>
+<p><code>SharedArrayBuffer</code> 和 Atomics 还处于早期阶段。 这些库尚未创建，但是这些新的API提供了基础。</p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

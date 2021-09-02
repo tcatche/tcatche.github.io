@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>碰撞课程：内存管理 - A crash course in memory management | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="内存管理,WebAssembly" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-a-crash-course-in-memory-management" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        碰撞课程：内存管理 - A crash course in memory management
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-06-28
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 2.1k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 13mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="内存管理" data-type="TAGS">内存管理</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="WebAssembly" data-type="TAGS">WebAssembly</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><strong>原文：<a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2017/06/a-crash-course-in-memory-management/">A crash course in memory management</a></strong></p>
+<p>本文译自<a target="_blank" rel="noopener" href="https://twitter.com/linclark">Lin Clark</a> 内存管理的卡通介绍系列，渣翻译，因此附上英文原文。</p>
+<ol>
+<li><strong>内存管理</strong></li>
+<li><a href="/2017/06/a-cartoon-intro-to-arraybuffers-and-sharedarraybuffers/">ArrayBuffers 和 SharedArrayBuffers 的卡通介绍</a></li>
+<li><a href="/2017/07/avoiding-race-conditions-in-sharedarraybuffers-with-atomics/">使用 Atom 避免 ArrayBuffers 中的竞态条件</a> </li>
+</ol>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>To understand why ArrayBuffer and SharedArrayBuffer were added to JavaScript, you need to understand a bit about memory management.</p>
+<p>想要了解为什么将 <code>ArrayBuffer</code> 和 <code>SharedArrayBuffer</code> 添加到 <code>JavaScript</code> 中，你需要了解一些内存管理。</p>
+<p>You can think of memory in a machine as a bunch of boxes. I think of these like the mailboxes that you have in offices, or the cubbies that pre-schoolers have to store their things.</p>
+<p>If you need to leave something for one of the other kids, you can put it inside a box.</p>
+<p>你可以将计算机的内存看做一堆盒子。就像你办公室的邮箱，或者是学龄前儿童的储物柜。</p>
+<p>如果你想为其他孩子留下一些东西，你可以把它放在一个盒子里。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/01_01-500x353.png"></p>
+<p>Next to each one of these boxes, you have a number, which is the memory address. That’s how you tell someone where to find the thing you’ve left for them.</p>
+<p>Each one of these boxes is the same size and can hold a certain amount of info. The size of the box is specific to the machine. That size is called word size. It’s usually something like 32-bits or 64-bits. But to make it easier to show, I’m going to use a word size of 8 bits.</p>
+<p>在每个盒子的旁边都有一个数字，他就是内存地址，它用来告诉别人你放东西的位置。</p>
+<p>这些盒子都有相同的尺寸，可以容纳一定量的信息。每个盒子的尺寸取决于物理机器，这个尺寸叫做字长。它通常是 <code>32</code> 位或 <code>64</code>位，但是为了更容易演示，我们使用8位的字长。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/01_02-500x121.png"></p>
+<p>If we wanted to put the number 2 in one of these boxes, we could do it easily. Numbers are <a target="_blank" rel="noopener" href="https://www.khanacademy.org/math/algebra-home/alg-intro-to-algebra/algebra-alternate-number-bases/v/decimal-to-binary">easy to represent in binary</a>.</p>
+<p>如果我们想把数字2放进其中一个盒子，这很容易做到，数字很​​容易用<a href="(https://www.khanacademy.org/math/algebra-home/alg-intro-to-algebra/algebra-alternate-number-bases/v/decimal-to-binary)">二进制表示</a>。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/01_03-500x229.png"></p>
+<p>What if we want something that’s not a number though? Like the letter H?</p>
+<p>We’d need to have a way to represent it as a number. To do that, we need an encoding, something like UTF-8. And we’d need something to turn it into that number… like an encoder ring. And then we can store it.</p>
+<p>如果我们想要的东西不是数字呢，比如字母 <code>H</code> ？</p>
+<p>我们需要用一种方式把它表示为数字，为了做到这一步，我们需要对它编码，比如 <code>UTF-8</code>。我们需要一些东西把它转变成数字，比如编码器环，然后就可以存储它。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/01_04-500x277.png"></p>
+<p>When we want to get it back out of the box, we’d have to put it through a decoder to translate it back to H.</p>
+<p>当我们想要获得它的时候，把数字从盒子中取出来，放进解码器进行翻译，又变成了字母 <code>H</code>。</p>
+<h2 id="自动内存管理"><a href="#自动内存管理" class="headerlink" title="自动内存管理"></a>自动内存管理</h2><p>When you’re working in JavaScript you don’t actually need to think about this memory. It’s abstracted away from you. This means you don’t touch the memory directly.</p>
+<p>Instead, the JS engine acts as an intermediary. It manages the memory for you.</p>
+<p>当你使用 <code>JavaScript</code> 时，实际上并不需要考虑内存。它是一个离你很远的抽象的概念，这意味着你不必直接操作内存。</p>
+<p>相反的，<code>JS</code> 引擎充当中介，它替你管理内存。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/01_05-500x371.png"></p>
+<p>So let’s say some JS code, like React, wants to create a variable.</p>
+<p>让我们看一些 <code>JS</code> 代码，比如 <code>React</code>，想要创建一个变量。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/01_06-500x373.png"></p>
+<p>What the JS engine does is run that value through an encoder to get the binary representation of the value.</p>
+<p>JS 引擎做事是运行编码器获得值的二进制表示。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/01_07-500x370.png"></p>
+<p>And it will find space in the memory that it can put that binary representation into. This process is called allocating memory.</p>
+<p>并且它在内存中找到可以存放这个二进制表示的值的空间，这个过程称为分配内存。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/01_08-500x367.png"></p>
+<p>Then, the engine will keep track of whether or not this variable is still accessible from anywhere in the program. If the variable can no longer be reached, the memory is going to be reclaimed so that the JS engine can put new values there.</p>
+<p>然后，引擎将跟踪该变量是否仍然可以从程序的任何地方访问。如果变量不能被访问，存放的内存将被回收，以便 <code>JS</code> 引擎可以存放新值。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/01_09-500x379.png"></p>
+<p>This process of watching the variables—strings, objects, and other kinds of values that go in memory—and clearing them out when they can’t be reached anymore is called garbage collection.</p>
+<p>这个观察变量（字符串，对象和内存中其他类型的值），并且当它们不能被访问的时候清除的过程被称为垃圾收集。</p>
+<p>Languages like JavaScript, where the code doesn’t deal with memory directly, are called memory-managed languages.</p>
+<p>This automatic memory management can make things easier for developers. But it also adds some overhead. And that overhead can sometimes make performance unpredictable.</p>
+<p>像 <code>JavaScript</code> 这类的代码不在代码中直接处理内存的语言，被称为内存管理语言。这种自动的内存管理可以使开发人员更轻松。但它增加了一些开销，而这种开销有时会使性能变得不可预测。</p>
+<h2 id="手动内存管理"><a href="#手动内存管理" class="headerlink" title="手动内存管理"></a>手动内存管理</h2><p>Languages with manually managed memory are different. For example, let’s look at how React would work with memory if it were written in C (which would be possible now with WebAssembly).</p>
+<p>手动管理内存的语言则不同。比如，我们来看看如果使用 <code>C</code> 语言来写， <code>React</code> 怎样操作内存（现在可以通过 <code>WebAssembly</code> 来实现）。</p>
+<p>C doesn’t have that layer of abstraction that JavaScript does on the memory. Instead, you’re operating directly on memory. You can load things from memory, and you can store things to memory.</p>
+<p>C 语言没有类似于 JavaScript 的在内存上的抽象层，而是直接在内存上操作。你可以从直接内存中加载内容，也可以直接将内容存储到内存中。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/01_10-500x360.png"></p>
+<p>When you’re compiling C or other languages down to WebAssembly, the tool that you use will add in some helper code to your WebAssembly. For example, it would add code that does the encoding and decoding bytes. This code is called a runtime environment. The runtime environment will help handle some of the stuff that the JS engine does for JS.</p>
+<p>当你将 C 语言或其他语言编译到 <code>WebAssembly</code> 时，你使用的工具将在 <code>WebAssembly</code> 中添加一些帮助代码。例如，添加编码和解码二进制字节的代码，这个代码被成为运行时环境，运行时环境将帮助处理一些之前 <code>JS</code> 引擎为 <code>JS</code> 做的事情。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/01_11-500x361.png"></p>
+<p>But for a manually managed language, that runtime won’t include garbage collection.</p>
+<p>This doesn’t mean that you’re totally on your own. Even in languages with manual memory management, you’ll usually get some help from the language runtime. For example, in C, the runtime will keep track of which memory addresses are open in something called a free list.</p>
+<p>但是对于一个手动管理内存的语言而言，该运行时环境将不包括垃圾回收。</p>
+<p>这不意味着你需要自己做全部的事情，即使是手动内存管理的语言，也通常会在语言运行期获得帮助。比如，在 <code>C</code> 语言中，运行期会追踪哪些地址是可用的，并放在空闲列表中。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/06/01_12-500x360.png"></p>
+<p>You can use the function malloc (short for memory allocate) to ask the runtime to find some memory addresses that can fit your data. This will take those addresses off of the free list. When you’re done with that data, you have to call free to deallocate the memory. Then those addresses will be added back to the free list.</p>
+<p>You have to figure out when to call those functions. That’s why it’s called manual memory management—you manage the memory yourself.</p>
+<p>你可以使用 <code>malloc</code> （内存分配的简写）函数来要求在运行时找到一些可以存储你的数据的内存地址。这将把这些地址从空闲列表中删除。当你使用完这些数据后，您必须使用 <code>free</code> 函数释放内存。那么这些地址将重新被添加到空闲列表。</p>
+<p>你必须弄清楚什么时候调用这些功能，这就是为什么它被称为手动内存管理：你需要自己管理内存。</p>
+<p>As a developer, figuring out when to clear out different parts of memory can be hard. If you do it at the wrong time, it can cause bugs and even lead to security holes. If you don’t do it, you run out of memory.</p>
+<p>This is why many modern languages use automatic memory management—to avoid human error. But that comes at the cost of performance. I’ll explain more about this in the <a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2017/06/a-cartoon-intro-to-arraybuffers-and-sharedarraybuffers/">next article</a>.</p>
+<p>作为开发者，搞清楚什么时候清除不同部分的内存可能很难。如果在错误的时间进行操作，可能会导致错误，甚至导致安全漏洞，但是如果你不清除内存，你的内存就会耗尽。</p>
+<p>这就是为什么许多现代语言使用自动内存管理的原因：为了避免人为的错误。但这是以牺牲性能为代价的，我将在<a href="/2017/06/a_cartoon_intro_to_arraybuffers_and_sharedarraybuffers/">下一篇文章</a>中更详细地解释这一点。</p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

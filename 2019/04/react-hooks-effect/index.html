@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>React Hooks 文档翻译 - 4 - Using the Effect Hook（使用 Effect Hook） | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,翻译,hooks" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-react-hooks-effect" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        React Hooks 文档翻译 - 4 - Using the Effect Hook（使用 Effect Hook）
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2019" data-type="ARCHIVES">
+        2019-04-04
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 4.6k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 26mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="react" data-type="TAGS">react</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="翻译" data-type="TAGS">翻译</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="hooks" data-type="TAGS">hooks</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><strong>翻译自：<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-effects.html">https://reactjs.org/docs/hooks-effects.html</a></strong></p>
+<p>Hooks 是 React 16.8 新增的功能。它允许你在不编写类的情况下使用状态和其他 React 特性。</p>
+<p>The <em>Effect Hook</em> lets you perform side effects in function components:</p>
+<p><em>Effect Hook</em> 用来在函数组件中处理副作用：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState, useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Similar to componentDidMount and componentDidUpdate:</span></span><br><span class="line">  useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// Update the document title using the browser API</span></span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;count&#125;</span> times`</span>;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>You clicked &#123;count&#125; times<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setCount(count + 1)&#125;&gt;</span></span><br><span class="line"><span class="xml">        Click me</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>此代码段基于<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-state.html">上一节的计数器示例</a> ，但添加了一项新功能：将文档标题设置为包含点击次数的自定义信息。</p>
+<p>在 React 组件中执行数据获取，设置订阅以及手动更改 DOM 都是常见的副作用。不管你是否习惯于将这些操作称为“副作用”（或“effects”），你之前可能已经在组件中执行过这类操作。</p>
+<blockquote>
+<p>Tip</p>
+<p>如果你很熟悉 React 的类生命周期方法，则可以将 <code>useEffect</code> Hook 看做 <code>componentDidMount</code>， <code>componentDidUpdate</code> 和  <code>componentWillUnmount</code> 的组合。</p>
+</blockquote>
+<p>React 组件中有两种常见的副作用：不需要清理的副作用，以及需要清理的副作用。我们来详细地看一下它们的区别。</p>
+<h2 id="Effects-Without-Cleanup"><a href="#Effects-Without-Cleanup" class="headerlink" title="Effects Without Cleanup"></a>Effects Without Cleanup</h2><p>不需要清理的副作用</p>
+<p>有时，我们希望<strong>在 React 更新 DOM 之后执行一些额外的操作</strong>。常见的不需要清理的副作用有网络请求，手动修改 DOM 和记录日志等。之所以这样说是因为可以直接运行它们并忘记它们。我们来比较下类组件和 Hooks 是如何处理这样的副作用。</p>
+<h3 id="Example-Using-Classes"><a href="#Example-Using-Classes" class="headerlink" title="Example Using Classes"></a>Example Using Classes</h3><p>使用类的示例</p>
+<p>在 React 类组件中，<code>render</code> 方法本身不应该执行副作用。这里太早了 – 我们通常希望在 React 更新 DOM 之后执行我们的 effect 。</p>
+<p>这就是为什么在 React 类中，把副作用放入 <code>componentDidMount</code> 和 <code>componentDidUpdate</code> 中。回到示例来看，下面是一个 React 计数器类组件，它在 React 对 DOM 进行更改后立即更新文档标题：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line">    <span class="built_in">this</span>.state = &#123;</span><br><span class="line">      <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;<span class="built_in">this</span>.state.count&#125;</span> times`</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentDidUpdate</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;<span class="built_in">this</span>.state.count&#125;</span> times`</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>You clicked &#123;this.state.count&#125; times<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> this.setState(&#123; count: this.state.count + 1 &#125;)&#125;&gt;</span></span><br><span class="line"><span class="xml">          Click me</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意看，<strong>我们不得不在类的两个生命周期方法里重复类似的代码</strong>。</p>
+<p>这是因为在许多情况下，我们想要执行同一个副作用，无论组件是在刚挂载还是已更新。从概念上讲，我们希望它在每次渲染后都被执行，但是 React 类组件没有这样的方法。虽然可以提取副作用到一个方法里，但是仍然需要在两个不同的地方调用它。</p>
+<p>现在让我们看看如何使用 <code>useEffect</code> Hook 做同样的事情。</p>
+<h3 id="Example-Using-Hooks"><a href="#Example-Using-Hooks" class="headerlink" title="Example Using Hooks"></a>Example Using Hooks</h3><p>使用 Hooks 的示例</p>
+<p>我们已经在本文开始看到过这个例子，再来看一下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState, useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;count&#125;</span> times`</span>;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>You clicked &#123;count&#125; times<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setCount(count + 1)&#125;&gt;</span></span><br><span class="line"><span class="xml">        Click me</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong><code>useEffect</code> 做了什么？</strong>通过它，你告诉 React 你的组件需要在渲染后执行某些操作。React 将记住你传递的函数（我们将其称为“effect”），并在 DOM 更新后调用它。在这个 effect 中，我们设置了文档标题，还可以执行数据获取或调用其他的命令式 API。</p>
+<p><strong>为什么在组件内调用 useEffect？</strong>在组件内放置 <code>useEffect</code> 可以从 effect 中直接访问 <code>count</code> 状态变量（或其它 props）。这样就不需要新的特殊的 API 来读取它们，因为它们已经在函数范围内了。Hooks 拥抱 JavaScript 闭包，并避免在 JavaScript 已经提供解决方案的情况下引入新的 API。</p>
+<p><strong>每次渲染后 <code>useEffect</code> 都会运行吗？</strong>默认情况下答案是“是的”!它在第一次渲染后<em>以及</em>每次更新后都运行。（我们稍后将讨论<a href="#tip-optimizing-performance-by-skipping-effects">如何自定义它</a>。）可能你会发现 effect 发生在“渲染后”，与“挂载”和“更新”后相比更有助于理解。React 保证 DOM 在执行 effects 时已更新 DOM。</p>
+<h3 id="Detailed-Explanation"><a href="#Detailed-Explanation" class="headerlink" title="Detailed Explanation"></a>Detailed Explanation</h3><p>详细解释</p>
+<p>现在我们已经更了解 effect ，下面的代码应该很容易理解：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;count&#125;</span> times`</span>;</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+
+<p>我们声明了 <code>count</code> 的状态变量，然后告诉 React 我们需要使用一个 effect 。并将一个函数传递给 <code>useEffect</code> Hook。所传递的这个函数就是 effect。在 effect 中，使用了浏览器的 <code>document.title</code> API 设置文档标题。我们可以在 effect 中读取最新的 <code>count</code> 值，因为它在组件的函数作用域内。当 React 渲染我们的组件时，它会记住使用的 effect，然后在更新 DOM 后运行 effect 。这种情况在每次渲染后都会发生，包括第一次渲染。</p>
+<p>有经验的 JavaScript 开发人员可能会注意到，传递给 <code>useEffect</code> 的函数在每次渲染时都是不同的。这是故意这样做的。事实上，这是从 effect 中读取 <code>count</code> 值而不用担心它失效的原因。每次重新渲染时，都会使用一个<em>不同</em>的 effect ，取代之前的。这样，effect 看起来更像是渲染结果的一部分 – 每个 effect “属于”特定的某次渲染。我们将在<a href="#explanation-why-effects-run-on-each-update">本页后面</a>看到为什么这很有用。</p>
+<blockquote>
+<p>Tip</p>
+<p>与 <code>componentDidMount</code> 或 <code>componentDidUpdate</code> 不同，使用 <code>useEffect</code> 调度的 effects 不会阻止浏览器更新屏，这使你的应用更具响应性。大多数 effect 并不需要被同步执行。当然，对于不常见的需要同步执行的情况（例如测量布局），有一个单独的 <a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-reference.html#uselayouteffect"><code>useLayoutEffect</code></a> Hook，它的 API 与 <code>useEffect</code> 相同。</p>
+</blockquote>
+<h2 id="Effects-with-Cleanup"><a href="#Effects-with-Cleanup" class="headerlink" title="Effects with Cleanup"></a>Effects with Cleanup</h2><p>带清理的 Effects</p>
+<p>之前，我们看了如何编写不需要任何清理的副作用的代码。但是，有些 effect 会需要执行清理操作。例如，我们可能想<strong>设置对某些外部数据源的订阅。</strong> 在这种情况下，清理是非常重要的，这样就可以确保不会引入内存泄漏！接下来比较下如何在类和 Hooks 中实现这类副作用。</p>
+<h3 id="Example-Using-Classes-1"><a href="#Example-Using-Classes-1" class="headerlink" title="Example Using Classes"></a>Example Using Classes</h3><p>使用类的示例</p>
+<p>在 React 类中，通常在 <code>componentDidMount</code> 中设置订阅，并在 <code>componentWillUnmount</code> 中取消订阅。例如，假设我们有一个 <code>ChatAPI</code> 模块，可以订阅朋友的在线状态。下面是在类中使用订阅和显示此状态的示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FriendStatus</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line">    <span class="built_in">this</span>.state = &#123; <span class="attr">isOnline</span>: <span class="literal">null</span> &#125;;</span><br><span class="line">    <span class="built_in">this</span>.handleStatusChange = <span class="built_in">this</span>.handleStatusChange.bind(<span class="built_in">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    ChatAPI.subscribeToFriendStatus(</span><br><span class="line">      <span class="built_in">this</span>.props.friend.id,</span><br><span class="line">      <span class="built_in">this</span>.handleStatusChange</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentWillUnmount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    ChatAPI.unsubscribeFromFriendStatus(</span><br><span class="line">      <span class="built_in">this</span>.props.friend.id,</span><br><span class="line">      <span class="built_in">this</span>.handleStatusChange</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">handleStatusChange</span>(<span class="params">status</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">      <span class="attr">isOnline</span>: status.isOnline</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.state.isOnline === <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&#x27;Loading...&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.state.isOnline ? <span class="string">&#x27;Online&#x27;</span> : <span class="string">&#x27;Offline&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Notice how <code>componentDidMount</code> and <code>componentWillUnmount</code> need to mirror each other. Lifecycle methods force us to split this logic even though conceptually code in both of them is related to the same effect.</p>
+<p>请注意 <code>componentDidMount</code> 和 <code>componentWillUnmount</code> 如何成对地使用。生命周期方法迫使我们不得不拆分这个订阅逻辑，即使它们内部的代码都与同一副作用有关。</p>
+<blockquote>
+<p>Note</p>
+<p>眼尖的读者可能会注意到这个例子还需要一个 <code>componentDidUpdate</code> 方法才完全正确。我们暂时忽略这一点，在本文的<a href="#explanation-why-effects-run-on-each-update">后面部分</a>再来讨论它。</p>
+</blockquote>
+<h3 id="Example-Using-Hooks-1"><a href="#Example-Using-Hooks-1" class="headerlink" title="Example Using Hooks"></a>Example Using Hooks</h3><p>使用 Hooks 的示例</p>
+<p>来看看使用 Hooks 如何编写这个组件。</p>
+<p>你可能认为需要单独的 effect 来执行清理。但是添加订阅和删除订阅的代码是紧密联系的，因此 <code>useEffect</code> 设计为将相关内容保持在同一地方。如果你的 effect 返回一个函数，React 将在清理时运行它：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState, useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">FriendStatus</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [isOnline, setIsOnline] = useState(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">handleStatusChange</span>(<span class="params">status</span>) </span>&#123;</span><br><span class="line">    setIsOnline(status.isOnline);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);</span><br><span class="line">    <span class="comment">// Specify how to clean up after this effect:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">cleanup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isOnline === <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Loading...&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> isOnline ? <span class="string">&#x27;Online&#x27;</span> : <span class="string">&#x27;Offline&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>为什么从 effect 中返回一个函数？</strong> 这是 effect 的可选的清理机制。每个 effect 都可以返回一个在它之后执行清理的函数。这让我们可以将相似的添加订阅和删除订阅的逻辑放在一起。它们是同一个 effect 的一部分！</p>
+<p><strong>React 什么时候清理 effect ？</strong>当组件卸载时，React 会执行清理。然而，如之前所了解的， effect 会在每个渲染后运行，而非仅运行一次。这就是为什么 React <em>还会</em>在下次运行 effect 之前清除前一次渲染的 effect 的原因。稍后我们将讨论<a href="#explanation-why-effects-run-on-each-update">为什么这有助于避免错误</a> 以及<a href="#tip-optimizing-performance-by-skipping-effects">如何在发生性能问题时停止此类行为</a>。</p>
+<blockquote>
+<p>Note</p>
+<p>不必从 effect 中返回命名函数。在这里称之为 <code>cleanup</code> 是为了解释其目的，你可以返回箭头函数或名字为其它的函数。</p>
+</blockquote>
+<h2 id="Recap"><a href="#Recap" class="headerlink" title="Recap"></a>Recap</h2><p>我们已经了解 <code>useEffect</code> 可以在组件渲染后执行不同类型的副作用。有些 effects 可能需要清理，则它们需要返回一个清理函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);</span><br><span class="line">  <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>其它 effects 不需要清理阶段，因此不必返回任何内容。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;count&#125;</span> times`</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>Effect Hook 将两种用例统一到一个 API 中。</p>
+<p><strong>如果你对 Effect Hook 的工作方式已经有了很好的把握，又或者你感到不知所措，那么现在就可以跳转到<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-rules.html">下一页的 Hooks 规则</a></strong></p>
+<h2 id="Tips-for-Using-Effects"><a href="#Tips-for-Using-Effects" class="headerlink" title="Tips for Using Effects"></a>Tips for Using Effects</h2><p>使用 effect 的几点提示</p>
+<p>我们继续深入了解 React 用户可能会对 <code>useEffect</code> 产生好奇心的其他内容。当然，你不必现在就深入了解它们。你可以随时返回此页面来了解有关 effect hook 的更多详细信息。</p>
+<h3 id="Tip-Use-Multiple-Effects-to-Separate-Concerns"><a href="#Tip-Use-Multiple-Effects-to-Separate-Concerns" class="headerlink" title="Tip: Use Multiple Effects to Separate Concerns"></a>Tip: Use Multiple Effects to Separate Concerns</h3><p>提示：使用多个 effect 来分离问题</p>
+<p>我们在 Hooks 的 <a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-intro.html#complex-components-become-hard-to-understand">Motivation</a> 中列出的一个问题是类生命周期方法通常包含不相关的逻辑，而相关的逻辑被分离到几个生命周期方法中。下面组件混合了前面示例中的计数器和朋友状态指示器的逻辑：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FriendStatusWithCounter</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line">    <span class="built_in">this</span>.state = &#123; <span class="attr">count</span>: <span class="number">0</span>, <span class="attr">isOnline</span>: <span class="literal">null</span> &#125;;</span><br><span class="line">    <span class="built_in">this</span>.handleStatusChange = <span class="built_in">this</span>.handleStatusChange.bind(<span class="built_in">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;<span class="built_in">this</span>.state.count&#125;</span> times`</span>;</span><br><span class="line">    ChatAPI.subscribeToFriendStatus(</span><br><span class="line">      <span class="built_in">this</span>.props.friend.id,</span><br><span class="line">      <span class="built_in">this</span>.handleStatusChange</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentDidUpdate</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;<span class="built_in">this</span>.state.count&#125;</span> times`</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentWillUnmount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    ChatAPI.unsubscribeFromFriendStatus(</span><br><span class="line">      <span class="built_in">this</span>.props.friend.id,</span><br><span class="line">      <span class="built_in">this</span>.handleStatusChange</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">handleStatusChange</span>(<span class="params">status</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">      <span class="attr">isOnline</span>: status.isOnline</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+
+
+<p>请注意设置 <code>document.title</code> 的逻辑是怎么拆分到 <code>componentDidMount</code> 和 <code>componentDidUpdate</code> 两个方法中。而订阅逻辑也分布在 <code>componentDidMount</code> 和 <code>componentWillUnmount</code> 中。<code>componentDidMount</code> 包含了两个任务的代码。</p>
+<p>那么，Hooks 如何解决这个问题呢？像<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-state.html#tip-using-multiple-state-variables">你可以多次使用<em>State</em> Hook</a>所说，你可以使用多个 effects，将不相关的逻辑拆分到不同的 effects 中 ：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">FriendStatusWithCounter</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line">  useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;count&#125;</span> times`</span>;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [isOnline, setIsOnline] = useState(<span class="literal">null</span>);</span><br><span class="line">  useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);</span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">handleStatusChange</span>(<span class="params">status</span>) </span>&#123;</span><br><span class="line">    setIsOnline(status.isOnline);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Hooks 允许我们根据它执行的操作来拆分代码</strong>而不是根据生命周期方法进行拆分。React 将按照 effects 声明的顺序调用组件的<em>每个</em> effect 。</p>
+<h3 id="Explanation-Why-Effects-Run-on-Each-Update"><a href="#Explanation-Why-Effects-Run-on-Each-Update" class="headerlink" title="Explanation: Why Effects Run on Each Update"></a>Explanation: Why Effects Run on Each Update</h3><p>解释：为什么每次更新都运行 Effects </p>
+<p>如果经常使用类，你可能想知道为什么 effect 的清理工作在每次重新渲染后都会发生，而不是在组件卸载中只执行一次。来看一个实际的例子，解释为什么这个设计有助于减少 bug。</p>
+<p><a href="#example-using-classes-1">在本页前面</a>，介绍了一个 <code>FriendStatus</code> 组件的例子，该组件显示朋友是否在线。我们的类从 <code>this.props</code> 读取 <code>friend.id</code> ，在组件挂载后订阅朋友状态，并在组件卸载时取消订阅：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  ChatAPI.subscribeToFriendStatus(</span><br><span class="line">    <span class="built_in">this</span>.props.friend.id,</span><br><span class="line">    <span class="built_in">this</span>.handleStatusChange</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">componentWillUnmount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  ChatAPI.unsubscribeFromFriendStatus(</span><br><span class="line">    <span class="built_in">this</span>.props.friend.id,</span><br><span class="line">    <span class="built_in">this</span>.handleStatusChange</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>但是如果 <code>friend</code> 这个 prop 在组件已经渲染到屏幕上时发生了变化</strong>，会发生什么？我们的组件将显示其它朋友的在线状态，这种显示是错误的。而且，卸载时还会导致内存泄漏或崩溃，因为取消订阅会使用错误的朋友 ID。</p>
+<p>在类组件中，需要添加 <code>componentDidUpdate</code> 来处理这种情况：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  ChatAPI.subscribeToFriendStatus(</span><br><span class="line">    <span class="built_in">this</span>.props.friend.id,</span><br><span class="line">    <span class="built_in">this</span>.handleStatusChange</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">componentDidUpdate</span>(<span class="params">prevProps</span>)</span> &#123;</span><br><span class="line">  <span class="comment">// Unsubscribe from the previous friend.id</span></span><br><span class="line">  <span class="comment">// 取消订阅前一个 friend.id 的在线状态</span></span><br><span class="line">  ChatAPI.unsubscribeFromFriendStatus(</span><br><span class="line">    prevProps.friend.id,</span><br><span class="line">    <span class="built_in">this</span>.handleStatusChange</span><br><span class="line">  );</span><br><span class="line">  <span class="comment">// Subscribe to the next friend.id</span></span><br><span class="line">  <span class="comment">// 订阅新的 friend.id 的在线状态</span></span><br><span class="line">  ChatAPI.subscribeToFriendStatus(</span><br><span class="line">    <span class="built_in">this</span>.props.friend.id,</span><br><span class="line">    <span class="built_in">this</span>.handleStatusChange</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">componentWillUnmount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  ChatAPI.unsubscribeFromFriendStatus(</span><br><span class="line">    <span class="built_in">this</span>.props.friend.id,</span><br><span class="line">    <span class="built_in">this</span>.handleStatusChange</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>忘了处理 <code>componentDidUpdate</code> 也是 React 应用程序常见的错误。</p>
+<p>现在来看这个组件的 Hooks 版本：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">FriendStatus</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);</span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>它不会受到这个 bug 的影响。（而且我们也没有对它做任何改动。）</p>
+<p>没有处理更新的特殊代码，因为在<em>默认的情况</em>下 <code>useEffect</code> 会自动去处理它们。它会在应用新的 effects 前清除之前的 effects 。为了说明这一点，这里展示了一个组件随着时间的推移产生的订阅和取消订阅的调用序列：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Mount with &#123; friend: &#123; id: 100 &#125; &#125; props</span></span><br><span class="line">ChatAPI.subscribeToFriendStatus(<span class="number">100</span>, handleStatusChange);     <span class="comment">// Run first effect</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Update with &#123; friend: &#123; id: 200 &#125; &#125; props</span></span><br><span class="line">ChatAPI.unsubscribeFromFriendStatus(<span class="number">100</span>, handleStatusChange); <span class="comment">// Clean up previous effect</span></span><br><span class="line">ChatAPI.subscribeToFriendStatus(<span class="number">200</span>, handleStatusChange);     <span class="comment">// Run next effect</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Update with &#123; friend: &#123; id: 300 &#125; &#125; props</span></span><br><span class="line">ChatAPI.unsubscribeFromFriendStatus(<span class="number">200</span>, handleStatusChange); <span class="comment">// Clean up previous effect</span></span><br><span class="line">ChatAPI.subscribeToFriendStatus(<span class="number">300</span>, handleStatusChange);     <span class="comment">// Run next effect</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Unmount</span></span><br><span class="line">ChatAPI.unsubscribeFromFriendStatus(<span class="number">300</span>, handleStatusChange); <span class="comment">// Clean up last effect</span></span><br></pre></td></tr></table></figure>
+
+
+<p>这种默认的行为确保了组件的一致性，并可以防止类组件中常见的由于缺少更新后逻辑而发生的错误。</p>
+<h3 id="Tip-Optimizing-Performance-by-Skipping-Effects"><a href="#Tip-Optimizing-Performance-by-Skipping-Effects" class="headerlink" title="Tip: Optimizing Performance by Skipping Effects"></a>Tip: Optimizing Performance by Skipping Effects</h3><p>提示：跳过 effects 来优化性能</p>
+<p>对于有些场景，每次渲染后清理或执行 effects 可能会产生性能问题。在类组件中，可以在 <code>componentDidUpdate</code> 中通过与 <code>prevProps</code> 或 <code>prevState</code> 比较来解决这个问题：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">componentDidUpdate</span>(<span class="params">prevProps, prevState</span>)</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (prevState.count !== <span class="built_in">this</span>.state.count) &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;<span class="built_in">this</span>.state.count&#125;</span> times`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>这个需求很常见，它被内置到 <code>useEffect</code> Hook 的 API 中。如果在重新渲染中没有更改某些值，则可以告诉 React <em>跳过</em>执行 effect 。如果想要跳过，为 <code>useEffect</code> 可选的第二个参数传入数组：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;count&#125;</span> times`</span>;</span><br><span class="line">&#125;, [count]); <span class="comment">// Only re-run the effect if count changes</span></span><br></pre></td></tr></table></figure>
+
+
+<p>在上面的例子中，将 <code>[count]</code> 作为第二个参数传递给 effect。这有什么用呢？如果 <code>count</code> 值之前为 <code>5</code>，然后在组件重新渲染时 <code>count</code> 仍然等于 5，则 React 将比较前一个渲染的 <code>[5]</code> 和这次渲染的 <code>[5]</code>。因为数组中的所有项都是相同的（<code>5 === 5</code>），所以 React 会跳过执行这个 effect 。这就是我们说的优化。</p>
+<p>当我们渲染时 <code>count</code> 值更新为 <code>6</code> ，React 会将前一渲染中数组中的项目 <code>[5]</code> 与下一渲染中数组中的项目 <code>[6]</code> 进行比较。这次，React 将重新应用 effect ，因为 <code>5 !== 6</code> 。如果数组中有多个元素，即使其中只有一个是不同的，React 也将继续运行 effect 。</p>
+<p>这也适用于具有清理阶段的 effect：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);</span><br><span class="line">  <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;, [props.friend.id]); <span class="comment">// Only re-subscribe if props.friend.id changes</span></span><br></pre></td></tr></table></figure>
+
+
+<p>将来，第二个参数可能会通过构建时变成自动添加。</p>
+<blockquote>
+<p>Note</p>
+<p>如果使用此优化，请确保该数组<strong>包含任意在外部作用域中 effect 使用了且随时间变化的值</strong>。否则，你的代码将引用之前渲染中的陈旧值。我们还将在<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-reference.html">Hooks API参考</a>中讨论其他优化选项。</p>
+<p>如果要运行 effect 并清理仅一次（在装载和卸载时），则可以将空数组（<code>[]</code>）作为第二个参数传入。这将告诉 React 你的 effect 不依赖于来自 props 或 state 的<em>任何</em>值，它永远不需要重新运行。这不作为特殊情况处理 - 它直接遵循输入数组的工作方式。虽然传递 <code>[]</code> 更接近熟悉的 <code>componentDidMount</code> 和 <code>componentWillUnmount</code> 心理模型，但我们建议不要经常这样做，因为它经常会导致<a href="#explanation-why-effects-run-on-each-update">上面所述：为什么 Effects 每次更新都运行</a> 的错误。不要忘记了 React 会推迟到浏览器绘制完成后才执行 <code>useEffect</code> ，所以进行额外的工作不是什么太大的问题。</p>
+</blockquote>
+<h2 id="Next-Steps"><a href="#Next-Steps" class="headerlink" title="Next Steps"></a>Next Steps</h2><p>恭喜！这是一个很长的页面，希望现在你的大部分 effect 的问题都得到了回答。你已经学习了 State Hook 和 Effect Hook，你可以将两者结合起来做<em>很多</em>事情。它们涵盖了大多数类的用例 – 如果有没覆盖到的地方，你会发现有额外的 Hook 会很有帮助。</p>
+<p>我们也开始看到 Hooks 如何解决 <a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-intro.html#motivation">Motivation</a> 中列出的问题。也看到了清理 effect 的代码如何避免在 <code>componentDidUpdate</code> 和 <code>componentWillUnmount</code> 中重复，使相关代码更加紧密，并帮助避免错误。还看到了如何根据目的分离 effect ，这是我们根本无法在类上做到的事情。</p>
+<p>此时你可能会疑问 Hooks 是如何工作的。React 是如何知道哪个 <code>useState</code> 调用对应于重新渲染中的哪个状态变量？React如何“匹配”每次更新的上一个和下一个 effect ？<strong>在下一页，我们将了解<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-rules.html">Hooks 规则</a> – 它们对使 Hooks 工作非常重要。</strong></p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

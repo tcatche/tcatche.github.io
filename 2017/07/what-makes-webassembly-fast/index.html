@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>是什么使 WebAssembly 很快？ - What makes WebAssembly fast? | TryCatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="WebAssembly,翻译" />
+    
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2757668_18zkz01yag7.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-92905809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?409648b1638886ada0891d05cc80dc19";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    
+    
+
+    <div class="super-board">
+  <div class="super-board-mask"></div>
+  <div class="super-board-container">
+    <div class="super-board-top">
+      <div class="sider-header">
+        <span class="iconfont icon-super"></span>
+        <span class="title">超级面板</span>
+      </div>
+    </div>
+    <div class="super-board-middle">
+      <div class="super-board-sider">
+        <div class="sider-item" data-target="TOC">
+          <span class="iconfont icon-toc"></span>
+          <span class="title">文章目录</span>
+        </div>
+        <div class="sider-item" data-target="NEW">
+          <span class="iconfont icon-history"></span>
+          <span class="title">最新文章</span>
+        </div>
+        <div class="sider-item" data-target="UPDATED">
+          <span class="iconfont icon-new"></span>
+          <span class="title">最近更新</span>
+        </div>
+        <div class="sider-item" data-target="CATEGORIES">
+          <span class="iconfont icon-category"></span>
+          <span class="title">文章分类</span>
+        </div>
+        <div class="sider-item" data-target="TAGS">
+          <span class="iconfont icon-tag"></span>
+          <span class="title">标签列表</span>
+        </div>
+        <div class="sider-item" data-target="ARCHIVES">
+          <span class="iconfont icon-archives"></span>
+          <span class="title">文章归档</span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+        <div class="sider-item" data-target="">
+          <span class="iconfont"></span>
+          <span class="title"></span>
+        </div>
+      </div>
+      <div class="super-board-detail-wrapper">
+        <div class="super-board-detail-container"></div>
+      </div>
+      <div class="super-board-posts-wrapper hide">
+        <div class="super-board-posts-container"></div>
+      </div>
+    </div>
+    <div class="super-board-input-wrapper" style="display: none">
+        <input type="text" class="super-board-search-input" placeholder="想要查找什么..." />
+    </div>
+    <div class="super-board-search-close">
+      <span class="iconfont icon-close"></span>
+    </div>
+  </div>
+</div>
+<script>
+(function (window) {
+  var INSIGHT_CONFIG = {
+    TRANSLATION: {
+        POSTS: '最新文章',
+        PAGES: '页面',
+        CATEGORIES: '文章分类',
+        TAGS: '文章标签',
+        UNTITLED: '(未命名)',
+    },
+    ROOT_URL: '/',
+    CONTENT_URL: '/content.json',
+  };
+  window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/super-board.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="page-percent"><div></div></div>
+  <header id="header">
+  <div class="logo-container">
+    <img src="/images/avatar.png" alt="Author's avatar">
+    <span class="header-author">
+      tcatche
+    </span>
+  </div>
+  <div id="header-nav" class="nav-container">
+    <ul>
+      
+          <li class="main-nav-list-item" >
+            <a class="main-nav-list-link" href="/">主页</a>
+          </li>
+      
+          
+              <li class="main-nav-list-item show-super-board" data-target="js" data-type="CATEGORIES">js</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="翻译" data-type="CATEGORIES">翻译</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="css" data-type="CATEGORIES">css</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="其它" data-type="CATEGORIES">其它</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="html" data-type="CATEGORIES">html</li>
+          
+              <li class="main-nav-list-item show-super-board" data-target="转载" data-type="CATEGORIES">转载</li>
+          
+        
+    </ul>
+  </div>
+</header>
+  <div class="main-body container-inner">
+    <div class="main-body-inner">
+      <section id="main">
+        <div class="main-body-content">
+          <article id="post-what-makes-webassembly-fast" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <header class="article-header" >
+        
+    
+        <h1 class="article-title" itemprop="name">
+        是什么使 WebAssembly 很快？ - What makes WebAssembly fast?
+        </h1>
+    
+
+        <div class="article-subtitle">
+            <div class="article-meta">
+                <div class="article-category meta-item">
+    <i class="iconfont icon-calendar"></i>
+    <span class="post-category show-super-board clickable" data-target="2017" data-type="ARCHIVES">
+        2017-07-03
+    </span>
+</div>
+                
+    <span class="word-count meta-item">
+      <i class="iconfont icon-shuliang"></i>
+      字数: 3.9k
+    </span>
+    <span class="word-count meta-item">
+      <i class="iconfont icon-countdown"></i>
+      阅读时长: 25mins
+    </span>
+
+                <span class="article-reads">
+                    <i class="iconfont icon-eye"></i>
+                    <span id="busuanzi_container_page_pv">
+                        <span>
+                            阅读次数: <span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                </span>
+                
+    <div class="article-category meta-item">
+        <i class="iconfont icon-category"></i>分类：
+        
+        
+            <span class="post-category show-super-board clickable" data-target="翻译" data-type="CATEGORIES">翻译</span>
+        
+    </div>
+
+                
+    
+    <div class="article-tag meta-item">
+        <i class="iconfont icon-tag"></i>标签：
+        
+            <span class="post-tag show-super-board clickable" data-target="WebAssembly" data-type="TAGS">WebAssembly</span>
+        
+            <span class="post-tag show-super-board clickable" data-target="翻译" data-type="TAGS">翻译</span>
+        
+    </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="article-inner">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>原文：<a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2017/02/what-makes-webassembly-fast/">What makes WebAssembly fast?</a></p>
+<p>本文译自<a target="_blank" rel="noopener" href="https://twitter.com/linclark">Lin Clark</a> 关于 WebAssembly 的卡通介绍系列，渣翻译，因此附上英文原文</p>
+<ul>
+<li>概述：<ul>
+<li><a href="/2017/06/a-cartoon-intro-to-webassembly/">WebAssembly 的漫画介绍</a></li>
+</ul>
+</li>
+<li>背景：<ul>
+<li><a href="/2017/06/a-crash-course-in-just-in-time-jit-compilers/">碰撞课程：即时（JIT）编译器 </a></li>
+<li><a href="/2017/06/a-crash-course-in-assembly/">碰撞课程：汇编</a></li>
+</ul>
+</li>
+<li>现在的 WebAssembly：<ul>
+<li><a href="/2017/06/creating-and-working-with-webassembly-modules/">创建和使用 WebAssembly 模块</a></li>
+<li><strong>是什么使 WebAssembly 很快？</strong></li>
+</ul>
+</li>
+<li>未来的 WebAssembly：<ul>
+<li><a href="/2017/07/where-is-webassembly-now-and-whats-next/">WebAssembly 的现状和未来？</a></li>
+</ul>
+</li>
+</ul>
+<p>In the <a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2017/02/creating-and-working-with-webassembly-modules/">last article</a>, I explained that programming with WebAssembly or JavaScript is not an either/or choice. We don’t expect that too many developers will be writing full WebAssembly code bases.</p>
+<p>在<a href="/2017/06/creating-and-working-with-webassembly-modules/">上一篇文章</a>中，我说过使用 WebAssembly 或 JavaScript 进行编程不是二选一的选择。我们不希望太多的开发人员直接编写完整的 WebAssembly 代码库。</p>
+<p>So developers don’t need to choose between WebAssembly and JavaScript for their applications. However, we do expect that developers will swap out parts of their JavaScript code for WebAssembly.</p>
+<p>所以开发人员不需要为 Web 应用程序选择 WebAssembly 和 JavaScript。 但是，我们期望开发人员将部分 JavaScript 代码改为使用 WebAssembly 的。</p>
+<p>For example, the team working on React could replace their reconciler code (aka the virtual DOM) with a WebAssembly version. People who use React wouldn’t have to do anything… their apps would work exactly as before, except they’d get the benefits of WebAssembly.</p>
+<p>例如，在 <code>React</code> 上工作的团队可以使用 WebAssembly 版本替换他们的调节器代码（也称为<code>虚拟DOM</code>）。 使用 <code>React</code> 的人不需要做任何事情，他们的应用程序将会像以前那样正常工作，除了他们可以从 WebAssembly 获益。</p>
+<p>The reason developers like those on the React team would make this swap is because WebAssembly is faster. But what makes it faster?</p>
+<p>开发人员像 <code>React</code> 团队会切换到 WebAssembly 是因为其速度更快。但是什么使它更快？</p>
+<h2 id="现在，JavaScript-性能如何？"><a href="#现在，JavaScript-性能如何？" class="headerlink" title="现在，JavaScript 性能如何？"></a>现在，JavaScript 性能如何？</h2><p>Before we can understand the differences in performance between JavaScript and WebAssembly, we need to understand the work that the JS engine does.</p>
+<p>在了解 JavaScript 和 WebAssembly 之间的性能差异前，我们需要先了解 JS 引擎的工作。</p>
+<p>This diagram gives a rough picture of what the start-up performance of an application might look like today.</p>
+<p>这张图粗略展示了现在的应用程序的启动性能的大概样子。</p>
+<p>The time that the JS engine spends doing any one of these tasks depends on the JavaScript the page uses. This diagram isn’t meant to represent precise performance numbers. Instead, it’s meant to provide a high-level model of how performance for the same functionality would be different in JS vs WebAssembly.</p>
+<p>JS 引擎处理这些任务中的时间取决于页面使用的 JavaScript。该图并不为了表示精确的性能数字。相反，提供一个 JS 和 WebAssembly 中相同功能的性能不同的高级模型。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/05-01-diagram_now01-500x129.png"></p>
+<p>Each bar shows the time spent doing a particular task.</p>
+<ul>
+<li>Parsing — the time it takes to process the source code into something that the interpreter can run.</li>
+<li>Compiling + optimizing — the time that is spent in the baseline compiler and optimizing compiler. Some of the optimizing compiler’s work is not on the main thread, so it is not included here.</li>
+<li>Re-optimizing — the time the JIT spends readjusting when its assumptions have failed, both re-optimizing code and bailing out of optimized code back to the baseline code.</li>
+<li>Execution — the time it takes to run the code.</li>
+<li>Garbage collection — the time spent cleaning up memory.</li>
+</ul>
+<p>每个横条显示在特定任务上花费的时间：</p>
+<ul>
+<li><code>解析（Parsing）</code>：将源代码处理为解释器可以运行的内容所需的时间。</li>
+<li><code>编译+优化（Compiling + optimizing）</code>：在基线编译器和优化编译器中花费的时间。一些优化编译器的工作不在主线程，所以它不包括在这里。</li>
+<li><code>重新优化（Re-optimizing）</code>：JIT 在其假设失败时重新调整花费的时间，包括将优化代码重新优化和回滚优化代码到基准代码。</li>
+<li><code>执行（Execution）</code>：运行代码所需的时间。</li>
+<li><code>垃圾回收（Garbage collection）</code>：清理内存的时间。</li>
+</ul>
+<p>One important thing to note: these tasks don’t happen in discrete chunks or in a particular sequence. Instead, they will be interleaved. A little bit of parsing will happen, then some execution, then some compiling, then some more parsing, then some more execution, etc.</p>
+<p>一个要注意的重要内容：这些任务不是肚子执行或者以特定的顺序执行。相反，它们将被交错执行：一些解析发生，然后执行，然后编译，然后更多的解析，再然后更多的执行等。</p>
+<p>The performance this breakdown brings is a big improvement from the early days of JavaScript, which would have looked more like this:</p>
+<p>这是对早期的 JavaScript 的性能一个重大的改进，早期的 JavaScript 更像这样：</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/05-02-diagram_past01-500x147.png"></p>
+<p>In the beginning, when it was just an interpreter running the JavaScript, execution was pretty slow. When JITs were introduced, it drastically sped up execution time.</p>
+<p>一开始，当它只是一个运行 JavaScript 的解释器时，执行速度相当缓慢。当 JIT 引入时，它大大加快了执行时间。</p>
+<p>The tradeoff is the overhead of monitoring and compiling the code. If JavaScript developers kept writing JavaScript in the same way that they did then, the parse and compile times would be tiny. But the improved performance led developers to create larger JavaScript applications.</p>
+<p>通过权衡监视和编译代码的开销。如果 JavaScript 开发人员按照他们所做的相同的方式编写 JavaScript，那么解析和编译时间将会很小。但改进的性能使开发人员能够创建更大的JavaScript 应用程序。</p>
+<p>This means there’s still room for improvement.</p>
+<p>这意味着还有改进的余地。</p>
+<h2 id="WebAssembly-比较起来如何？"><a href="#WebAssembly-比较起来如何？" class="headerlink" title="WebAssembly 比较起来如何？"></a>WebAssembly 比较起来如何？</h2><p>Here’s an approximation of how WebAssembly would compare for a typical web application.</p>
+<p>这是 WebAssembly 和典型的 <code>Web</code> 应用程序的近似比较结果。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/05-03-diagram_future01-500x214.png"></p>
+<p>There are slight variations between browsers in how they handle all of these phases. I’m using SpiderMonkey as my model here.</p>
+<p>浏览器在处理所有这些阶段的过程中有轻微的变化。我在这里使用 <code>SpiderMonkey</code> （SpiderMonkey 是 <code>Mozilla</code> 项目的一部分，是一个用 C 语言实现的 JavaScript 脚本引擎）作为我的模型。</p>
+<h3 id="获取文件（Fetching）"><a href="#获取文件（Fetching）" class="headerlink" title="获取文件（Fetching）"></a>获取文件（Fetching）</h3><p>This isn’t shown in the diagram, but one thing that takes up time is simply fetching the file from the server.</p>
+<p>这一条并未在图中显示，但是从服务器获取文件需要花费一些时间。</p>
+<p>Because WebAssembly is more compact than JavaScript, fetching it is faster. Even though compaction algorithms can significantly reduce the size of a JavaScript bundle, the compressed binary representation of WebAssembly is still smaller.</p>
+<p>因为 WebAssembly 比 JavaScript 更紧凑，所以获取它更快。即使压缩算法可以显着减小 JavaScript 包的大小，WebAssembly 的二进制压缩表示仍然较小。</p>
+<p>This means it takes less time to transfer it between the server and the client. This is especially true over slow networks.</p>
+<p>这意味着在服务器和客户端之间传输它所需的时间更少，特别是在慢速网络中更加明显。</p>
+<h3 id="解析（Parsing）"><a href="#解析（Parsing）" class="headerlink" title="解析（Parsing）"></a>解析（Parsing）</h3><p>Once it reaches the browser, JavaScript source gets parsed into an Abstract Syntax Tree.</p>
+<p>一旦文件下载到浏览器，JavaScript 源码将被解析为<code>抽象语法树（AST）</code>。</p>
+<p>Browsers often do this lazily, only parsing what they really need to at first and just creating stubs for functions which haven’t been called yet.</p>
+<p>浏览器经常这样做，只是解析它们期初真正需要的内容，为尚未被调用的功能只是创建<code>存根（stubs）</code>。</p>
+<p>From there, the AST is converted to an intermediate representation (called bytecode) that is specific to that JS engine.</p>
+<p>然后，<code>AST</code> 被转换为特定于该 JS 引擎的中间表示（称为字节码）。</p>
+<p>In contrast, WebAssembly doesn’t need to go through this transformation because it is already an intermediate representation. It just needs to be decoded and validated to make sure there aren’t any errors in it.</p>
+<p>与此相比，WebAssembly 不需要经历这种转换，因为它已经是一个中间表示，它只需要被解码和验证，以确保没有任何错误。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/05-04-diagram_compare02-500x169.png"></p>
+<h3 id="编译-优化（Compiling-optimizing）"><a href="#编译-优化（Compiling-optimizing）" class="headerlink" title="编译+优化（Compiling + optimizing）"></a>编译+优化（Compiling + optimizing）</h3><p>As I explained in the article about the JIT, JavaScript is compiled during the execution of the code. Depending on what types are used at runtime, multiple versions of the same code may need to be compiled.</p>
+<p>正如我在关于 JIT 的文章中所解释的，JavaScript 是在执行代码期间编译的。根据运行时使用的类型，可能需要编译相同代码的多个版本。</p>
+<p>Different browsers handle compiling WebAssembly differently. Some browsers do a baseline compilation of WebAssembly before starting to execute it, and others use a JIT.</p>
+<p>不同的浏览器处理编译 WebAssembly 的方式不同。一些浏览器在开始执行 WebAssembly 之前进行基线编译，其他浏览器使用 JIT。</p>
+<p>Either way, the WebAssembly starts off much closer to machine code. For example, the types are part of the program. This is faster for a few reasons:</p>
+<ol>
+<li>The compiler doesn’t have to spend time running the code to observe what types are being used before it starts compiling optimized code.</li>
+<li>The compiler doesn’t have to compile different versions of the same code based on those different types it observes.</li>
+<li>More optimizations have already been done ahead of time in LLVM. So less work is needed to compile and optimize it.</li>
+</ol>
+<p>无论使用哪种方式，WebAssembly 都是从更接近机器代码的方式开始的。例如，这些类型是程序的一部分。这是因为以下几个原因：</p>
+<ol>
+<li>在开始编译优化的代码之前，编译器不必花时间运行代码来观察正在使用的类型。</li>
+<li>编译器不必根据它观察到的不同类型编译同一代码的不同版本。</li>
+<li>更多的优化已经在 LLVM 中提前完成。所以只需要很少的工作来编译和优化它。</li>
+</ol>
+<p><img src="https://hacks.mozilla.org/files/2017/02/05-05-diagram_compare03-500x175.png"></p>
+<h3 id="重新优化（Reoptimizing）"><a href="#重新优化（Reoptimizing）" class="headerlink" title="重新优化（Reoptimizing）"></a>重新优化（Reoptimizing）</h3><p>Sometimes the JIT has to throw out an optimized version of the code and retry it.</p>
+<p>有时 JIT 必须抛出一个优化版本的代码并重试。</p>
+<p>This happens when assumptions that the JIT makes based on running code turn out to be incorrect. For example, deoptimization happens when the variables coming into a loop are different than they were in previous iterations, or when a new function is inserted in the prototype chain.</p>
+<p>特别是当基于运行代码的 JIT 的假设运行的结果不正确时，会发生这种情况。 例如，当进入循环的变量与前一个迭代不同时，或者在原型链中插入新函数时，会发生 <code>去优化（deoptimization）</code>。</p>
+<p>There are two costs to deoptimization. First, it takes some time to bail out of the optimized code and go back to the baseline version. Second, if that function is still being called a lot, the JIT may decide to send it through the optimizing compiler again, so there’s the cost of compiling it a second time.</p>
+<p>去优化有两个代价。 首先，需要一些时间才能取消优化代码，返回到基准版本。 第二，如果这个功能还是被调用很多，JIT 可能会决定再次使优化编译器处理它，所以第二次有编译成本。</p>
+<p>In WebAssembly, things like types are explicit, so the JIT doesn’t need to make assumptions about types based on data it gathers during runtime. This means it doesn’t have to go through reoptimization cycles.</p>
+<p>在 WebAssembly 中，诸如类型之类的东西是显式的，所以 JIT 不需要根据运行时收集的数据对类型进行假设。这意味着它不必经过优化周期。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/05-06-diagram_compare04-500x201.png"></p>
+<h3 id="执行（Executing）"><a href="#执行（Executing）" class="headerlink" title="执行（Executing）"></a>执行（Executing）</h3><p>It is possible to write JavaScript that executes performantly. To do it, you need to know about the optimizations that the JIT makes. For example, you need to know how to write code so that the compiler can type specialize it, as explained in the article on the JIT.</p>
+<p>编写执行性能好的 JavaScript 是可能的。要做到这一点，你需要了解 JIT 所做的优化。比如，你需要知道如何编写代码，以便编译器可以将其特化，正如 JIT 的文章所提到的那样。</p>
+<p>However, most developers don’t know about JIT internals. Even for those developers who do know about JIT internals, it can be hard to hit the sweet spot. Many coding patterns that people use to make their code more readable (such as abstracting common tasks into functions that work across types) get in the way of the compiler when it’s trying to optimize the code.</p>
+<p>然而，大多数开发人员不了解 JIT 内部。即使对于了解 JIT 内部部分的开发人员，也很难做到最佳。许多编码模式，人们用来使他们的代码更易于阅读（例如将常见任务抽象为跨类型工作的函数），在编译器试图优化代码时，会阻碍编译器的优化。</p>
+<p>Plus, the optimizations a JIT uses are different between browsers, so coding to the internals of one browser can make your code less performant in another.</p>
+<p>此外，JIT 的优化在不同浏览器是不同的，因此对一个浏览器的优化的代码可能在另一个浏览器中性能更低。</p>
+<p>Because of this, executing code in WebAssembly is generally faster. Many of the optimizations that JITs make to JavaScript (such as type specialization) just aren’t necessary with WebAssembly.</p>
+<p>因此，在 WebAssembly 中执行代码通常更快。 JIT 对 JavaScript 的许多优化（如类型专业化）在 WebAssembly 中不需要。</p>
+<p>In addition, WebAssembly was designed as a compiler target. This means it was designed for compilers to generate, and not for human programmers to write.</p>
+<p>此外，WebAssembly 被设计为编译器目标。 这意味着它是为编译器而设计的，而不是为了编程人员编写。</p>
+<p>Since human programmers don’t need to program it directly, WebAssembly can provide a set of instructions that are more ideal for machines. Depending on what kind of work your code is doing, these instructions run anywhere from 10% to 800% faster.</p>
+<p>由于人类程序员不需要直接编程，WebAssembly 可以提供一组更适合机器的指令。 根据你的代码正在做什么样的工作，这些指令的运行速度可以快 10% 到 800%。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/05-07-diagram_compare05-500x171.png"></p>
+<h3 id="垃圾回收（Garbage-collection）"><a href="#垃圾回收（Garbage-collection）" class="headerlink" title="垃圾回收（Garbage collection）"></a>垃圾回收（Garbage collection）</h3><p>In JavaScript, the developer doesn’t have to worry about clearing out old variables from memory when they aren’t needed anymore. Instead, the JS engine does that automatically using something called a garbage collector.</p>
+<p>在 JavaScript，开发人员不必考虑在不再需要时从内存中清除旧的变量。相反，JS 引擎会自动执行垃圾收集器。</p>
+<p>This can be a problem if you want predictable performance, though. You don’t control when the garbage collector does its work, so it may come at an inconvenient time. Most browsers have gotten pretty good at scheduling it, but it’s still overhead that can get in the way of your code’s execution.</p>
+<p>这可能是一个问题，如果你想要可预测的性能，但是。你不能控制垃圾收集器的工作，所以垃圾回收可能会在不方便的时候进行。大多数浏览器已经很好的安排了它，但它仍然是开销，可能阻碍你的代码的执行。</p>
+<p>At least for now, WebAssembly does not support garbage collection at all. Memory is managed manually (as it is in languages like C and C++). While this can make programming more difficult for the developer, it does also make performance more consistent.</p>
+<p>至少现在，WebAssembly 根本不支持垃圾自动回收。 内存被手动管理（如 C 和 C++语言）。 虽然这可以使开发人员的编程变得更加困难，但它也使性能更加一致。</p>
+<p><img src="https://hacks.mozilla.org/files/2017/02/05-08-diagram_compare06-500x204.png"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>WebAssembly is faster than JavaScript in many cases because:</p>
+<ul>
+<li>fetching WebAssembly takes less time because it is more compact than JavaScript, even when compressed.</li>
+<li>decoding WebAssembly takes less time than parsing JavaScript.</li>
+<li>compiling and optimizing takes less time because WebAssembly is closer to machine code than JavaScript and already has gone through optimization on the server side.</li>
+<li>reoptimizing doesn’t need to happen because WebAssembly has types and other information built in, so the JS engine doesn’t need to speculate when it optimizes the way it does with JavaScript.</li>
+<li>executing often takes less time because there are fewer compiler tricks and gotchas that the developer needs to know to write consistently performant code, plus WebAssembly’s set of instructions are more ideal for machines.</li>
+<li>garbage collection is not required since the memory is managed manually.</li>
+</ul>
+<p>WebAssembly在许多情况下比JavaScript更快，因为：</p>
+<ul>
+<li>获取 WebAssembly 需要较少的时间，因为它比 JavaScript 更紧凑，即使在 JavaScript 压缩时也是如此。</li>
+<li>解码 WebAssembly 比解析 JavaScript 要花费更少的时间。</li>
+<li>编译和优化需要更少的时间，因为 WebAssembly 比 JavaScript 更接近机器代码，并且已经在服务器端进行了优化。</li>
+<li>重新优化不会发生，因为 WebAssembly 具有内置的类型和其他信息，所以 JS 引擎不需要像使用 JavaScript 的方式推测何时对其优化。</li>
+<li>执行通常需要更少的时间，因为开发人员需要知道编写一贯性能代码的编译器技巧和问题较少，而 WebAssembly 的一组指令对于机器更为理想。</li>
+<li>不需要垃圾收集，因为手动管理内存。</li>
+</ul>
+<p>This is why, in many cases, WebAssembly will outperform JavaScript when doing the same task.</p>
+<p>这就是为什么在许多情况下，在执行相同任务时，WebAssembly 将胜过 JavaScript。</p>
+<p>There are some cases where WebAssembly doesn’t perform as well as expected, and there are also some changes on the horizon that will make it faster. I’ll cover those in the <a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2017/02/where-is-webassembly-now-and-whats-next/">next article</a>.</p>
+<p>在某些情况下，WebAssembly 不像预期的那样执行，而且未来，还有一些改变将使其更快。我将在下一篇文章中介绍。</p>
+
+        </div>
+        
+<footer class="article-footer">
+  <div class="cc">
+    <a class="cc-images" rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_cc.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_by.png" />
+      <img alt="知识共享许可协议" style="border-width:0" src="/images/chooser_nc.png" />
+    </a>
+    <span class="cc-text"> 本网站<strong>原创内容（非转载文章）</strong>采用
+      <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">
+        知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      进行许可。
+    </span>
+  </div>
+</footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<div id="comment-container"></div>
+<script>
+  $(function() {
+    setTimeout(function() {
+      var gitalk = new Gitalk({
+        clientID: '010a558ff67c828f318a',
+        clientSecret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+        repo: 'tcatche.github.io.comments',
+        owner: 'tcatche',
+        admin: ['tcatche'],
+        id: location.pathname.substr(0, 50),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true,
+        perPage: 30
+      });
+      gitalk.render('comment-container');
+  
+      // var gitment = new Gitment({
+      //   id: location.pathname, // 可选。默认为 location.href
+      //   owner: 'tcatche',
+      //   repo: 'tcatche.github.io.comments',
+      //   oauth: {
+      //     client_id: '010a558ff67c828f318a',
+      //     client_secret: '08a6f4955996cb3d6ecb5fdfb4d564a9297a264b',
+      //   },
+      // })
+      // gitment.render('comment-container');
+    }, 100)
+  })
+</script>
+    
+    </section>
+
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+  <footer id="footer">
+    <div class="container-inner">
+        <div class="logo-wrap">
+            <a href="/" class="logo"></a>
+        </div>
+        <div class="credit">
+            <p>&copy; 2016 - 2021 tcatche</p>
+            <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Hosted by <a  target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a>. </p>
+            <p>Theme based <a href="//github.com/ppoffice" target="_blank">PPOffice</a> and modify by Tcatche. </p>
+            <p>
+                <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                <!-- <span id="busuanzi_container_site_uv" style="display: none">总访客<span id="busuanzi_value_site_uv"></span>人</span> -->
+            </p>
+        </div>
+    </div>
+</footer>
+  <div id="fixed">
+  <i class="fa-search ins-search-icon hide" name="search"></i>
+  <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-image-wrapper"></div>
+        <div class="ins-bookmark-wrapper">
+            <div class="ins-bookmark-container"></div>
+        </div>
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+        <div class="ins-search-close">&times;</div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '最新文章',
+            PAGES: '页面',
+            CATEGORIES: '文章分类',
+            TAGS: '文章标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+  <i id="back-to-top" class="iconfont show-super-board-icon icon-super" name="goto top"></i>
+  <i id="back-to-top" class="iconfont icon-icon_message" name="goto top"></i>
+</div>
+  
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>
