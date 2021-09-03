@@ -391,10 +391,7 @@
         });
       });
       $postsContainer
-        .append(
-          $("<div>").addClass('close-posts-board iconfont icon-back-line')
-        ).
-        append($results);
+        .append($results);
     }
 
     function renderBookmark() {
