@@ -13,10 +13,10 @@
   $main.parent().remove(".super-board-search");
   $("body").append($main);
 
-  function renderCategoryHeader(type) {
+  function renderCategoryHeader(type, title) {
     return $("<section>")
       .addClass("super-board-section")
-      .addClass("super-board-section-" + type);
+      .addClass("super-board-section-" + type)
   }
 
   function renderCategoryItem(item) {
@@ -101,7 +101,7 @@
         return null;
     }
     $secondContainer.empty();
-    return $secondContainer.append(renderCategoryHeader(type).append($searchItems));
+    return $secondContainer.append(renderCategoryHeader(type, sectionTitle).append($searchItems));
   }
 
   function extractToSet(json, key) {
@@ -285,17 +285,18 @@
 
   function superBoard() {
     let superBoardData;
+    let scrollTop = 0;;
     function showSuperBoard() {
       // $main.fadeIn();
       $main.show();
+      scrollTop = document.documentElement.scrollTop;
+      document.body.style.overflow = 'hidden';
     }
     function hideSuperBoard() {
       // $main.fadeOut();
       $main.hide();
-    }
-
-    function toggleSuperBoard() {
-      $main.fadeToggle();
+      document.body.style.overflow = null;
+      document.documentElement.scrollTop = scrollTop;
     }
 
     function renderArchives() {
@@ -389,7 +390,11 @@
           preview: item.text.slice(0, 150),
         });
       });
-      $postsContainer.append($results);
+      $postsContainer
+        .append(
+          $("<div>").addClass('close-posts-board iconfont icon-back-line')
+        ).
+        append($results);
     }
 
     function renderBookmark() {
@@ -492,6 +497,9 @@
         })
         .on("click", ".super-board-search-close", function() {
           hideSuperBoard();
+        })
+        .on("click", ".close-posts-board", function() {
+          $postsWrapper.addClass('hide');
         })
         .on("click", ".mark-container a", function(ele) {
           var id = $(ele.target).data('target');
