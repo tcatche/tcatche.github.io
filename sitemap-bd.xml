@@ -145,11 +145,11 @@
     <lastmod>2020-07-22</lastmod>
   </url>
   <url>
-    <loc>http://tcatche.site/2019/04/react-hooks-custom/</loc>
+    <loc>http://tcatche.site/2019/04/react-hooks-overview/</loc>
     <lastmod>2020-07-22</lastmod>
   </url>
   <url>
-    <loc>http://tcatche.site/2019/04/react-hooks-overview/</loc>
+    <loc>http://tcatche.site/2019/04/react-hooks-custom/</loc>
     <lastmod>2020-07-22</lastmod>
   </url>
   <url>
@@ -249,7 +249,99 @@
     <lastmod>2018-08-02</lastmod>
   </url>
   <url>
-    <loc>http://tcatche.site/2018/01/a-blank-must-set-rel-noopener/</loc>
+    <loc>http://tcatche.site/2016/03/css-media-query/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2016/03/css3-transition-transform-animation/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2016/05/react-components-life-cicle/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2016/09/promise-object/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/03/bindActionCreators/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/03/compose/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/03/combineReducers/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/03/createStore/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/03/reflect-object/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/03/debounce-throttle/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/04/generator-and-async-function/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/04/function-program-pure-function/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/04/function-program-curry-function/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/04/symbol-base-type/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/05/decorator/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/05/iteritor-and-for-of/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/06/react-reactdom/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/06/react-children/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/06/request-frame-animate/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/06/react-components-elements-and-instances/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/06/object-freeze/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/06/object-define-property/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/06/web-browser-console/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/06/a-crash-course-in-memory-management/</loc>
     <lastmod>2018-08-01</lastmod>
   </url>
   <url>
@@ -261,163 +353,11 @@
     <lastmod>2018-08-01</lastmod>
   </url>
   <url>
-    <loc>http://tcatche.site/2017/06/a-crash-course-in-assembly/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/06/a-crash-course-in-memory-management/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/03/bindActionCreators/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2018/01/broswer_common_form_event/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/03/combineReducers/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/03/compose/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/03/createStore/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2016/03/css-media-query/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/08/css-selector-cascade-order/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2016/03/css3-transition-transform-animation/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/03/debounce-throttle/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/05/decorator/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/07/dom_load_status_events/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2018/02/dom_native_elements_and_node_query/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/07/form-validator-design/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/04/function-program-curry-function/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/04/function-program-pure-function/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/04/generator-and-async-function/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/08/how-javascript-work-part-1-overview/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/05/iteritor-and-for-of/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/06/object-define-property/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/06/object-freeze/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2016/09/promise-object/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/06/react-children/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/06/react-components-elements-and-instances/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2016/05/react-components-life-cicle/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2018/01/react-fragments/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/08/react-internals-part-five-transactions/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/07/react-internals-part-two-componentWillMount-and-componentDidMount/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/12/react-portals/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/06/react-reactdom/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/03/reflect-object/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/08/repaint-and-reflow/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/06/request-frame-animate/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/04/symbol-base-type/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/07/the-inner-workings-of-virtual-dom-rajaraodv-medium/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/06/web-browser-console/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/07/where-is-webassembly-now-and-whats-next/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
     <loc>http://tcatche.site/2017/06/a-crash-course-in-just-in-time-jit-compilers/</loc>
     <lastmod>2018-08-01</lastmod>
   </url>
   <url>
-    <loc>http://tcatche.site/2017/09/broswer_common_used_event_intro/</loc>
+    <loc>http://tcatche.site/2017/06/a-crash-course-in-assembly/</loc>
     <lastmod>2018-08-01</lastmod>
   </url>
   <url>
@@ -425,19 +365,15 @@
     <lastmod>2018-08-01</lastmod>
   </url>
   <url>
-    <loc>http://tcatche.site/2018/03/evolving-patterns-in-react/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/07/react-internals-part-four-setState/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
-    <loc>http://tcatche.site/2017/07/react-internals-part-one-basic-rendering/</loc>
-    <lastmod>2018-08-01</lastmod>
-  </url>
-  <url>
     <loc>http://tcatche.site/2017/07/what-makes-webassembly-fast/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/07/where-is-webassembly-now-and-whats-next/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/07/the-inner-workings-of-virtual-dom-rajaraodv-medium/</loc>
     <lastmod>2018-08-01</lastmod>
   </url>
   <url>
@@ -445,11 +381,75 @@
     <lastmod>2018-08-01</lastmod>
   </url>
   <url>
-    <loc>http://tcatche.site/2017/08/how-javascript-work-part-2-v8-engine-and-5-tips-optimized/</loc>
+    <loc>http://tcatche.site/2017/07/form-validator-design/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/07/dom_load_status_events/</loc>
     <lastmod>2018-08-01</lastmod>
   </url>
   <url>
     <loc>http://tcatche.site/2017/07/react-mixins-considered-harmful/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/07/react-internals-part-one-basic-rendering/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/07/react-internals-part-two-componentWillMount-and-componentDidMount/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/07/react-internals-part-four-setState/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/08/react-internals-part-five-transactions/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/08/repaint-and-reflow/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/08/how-javascript-work-part-1-overview/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/08/how-javascript-work-part-2-v8-engine-and-5-tips-optimized/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/08/css-selector-cascade-order/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/09/broswer_common_used_event_intro/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2017/12/react-portals/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2018/01/react-fragments/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2018/01/a-blank-must-set-rel-noopener/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2018/01/broswer_common_form_event/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2018/02/dom_native_elements_and_node_query/</loc>
+    <lastmod>2018-08-01</lastmod>
+  </url>
+  <url>
+    <loc>http://tcatche.site/2018/03/evolving-patterns-in-react/</loc>
     <lastmod>2018-08-01</lastmod>
   </url>
 </urlset> 
